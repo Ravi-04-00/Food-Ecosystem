@@ -87,39 +87,39 @@ flowchart TD
 
 ```
 FD-Foods/
-├── .github/                                # GitHub Actions CI & Issue Templates
-│   ├── workflows/ci.yml                    # Automated tests & multi-app build pipeline
-│   ├── ISSUE_TEMPLATE/                     # Bug & Feature issue templates
-│   └── PULL_REQUEST_TEMPLATE.md            # PR checklist and guidelines
 ├── frontend/                               # Independent React 19 / Vite Applications
 │   ├── customer-app/                       # Port 3000: Consumer ordering & tracking portal
 │   ├── restaurant-app/                     # Port 3001: Kitchen operations & SVG analytics
 │   ├── delivery-partner-app/               # Port 3002: Courier dispatch & GPS telemetry
-│   └── admin-app/                          # Port 3003: Mission control & ecosystem radar
-├── backend/                                # Port 8000: Django 5.x REST API & Channels
-│   ├── apps/                               # 20 modular domain apps (accounts, orders, etc.)
-│   │   └── core_tests/                     # Automated Django test suites
-│   ├── config/                             # settings.py, asgi.py, wsgi.py, urls.py
-│   ├── media/                              # Mock catalog logos and food images
+│   ├── admin-app/                          # Port 3003: Mission control & ecosystem radar
+│   └── tests/                              # 75 automated frontend unit & QA test suites
+├── backend/                                # Django 5.x REST API & Channels
+│   ├── manage.py                           # Django CLI & server entry point
 │   ├── requirements.txt                    # Pinned Python dependencies
-│   ├── scripts/                            # Database backup and restore utilities
+│   ├── config/                             # settings.py, asgi.py, wsgi.py, urls.py
+│   ├── apps/                               # 20 modular domain apps (accounts, orders, etc.)
+│   ├── tests/                              # Automated Django backend test suite
+│   ├── scripts/                            # Database backup and restore utilities (.py, .bat, .sh)
+│   ├── deploy/ & nginx/                    # Production Daphne ASGI systemd & Nginx configs
+│   ├── docs/                               # System design & architecture specifications
+│   ├── media/                              # Mock catalog logos and food images
 │   └── simulate_e2e_order_journey.py       # Multi-actor order simulation utility
-├── docs/                                   # In-depth architectural & API specifications
-│   ├── architecture.md                     # Deep technical architecture
-│   └── reports/                            # Historical QA & audit reports
-├── tests/                                  # 75 automated frontend unit & QA tests
-├── scripts/                                # Database backup and restore shell/batch scripts
-├── deploy/ & nginx/                        # Production Nginx reverse proxy & Systemd services
-├── package.json                            # Root workspace orchestration
-├── package-lock.json                       # Verified package lockfile
 ├── .env.example                            # Clean, sanitized environment template
 ├── .gitignore                              # Comprehensive protection (secrets, SQL, media)
+├── package.json                            # Root workspace orchestrator (dev:all, build:all, test)
+├── package-lock.json                       # Verified package lockfile
+├── README.md                               # Project documentation (this file)
+├── start.bat                               # Windows 1-click batch launcher
+├── start_all.ps1                           # Port-conflict-safe ecosystem launcher
+├── docker-compose.yml                      # Production Docker orchestration
+├── Dockerfile.frontend                     # Multi-stage frontend Dockerfile
 ├── CONTRIBUTING.md                         # Contribution and development guidelines
 ├── LICENSE                                 # Proprietary & Confidential license notice
-├── README.md                               # Project documentation (this file)
 ├── SECURITY.md                             # Vulnerability disclosure & secrets policy
-├── start.bat                               # Windows 1-click batch launcher
-└── start_all.ps1                           # Port-conflict-safe ecosystem launcher
+└── .github/                                # GitHub Actions CI & Issue Templates
+    ├── workflows/ci.yml                    # Automated tests & multi-app build pipeline
+    ├── ISSUE_TEMPLATE/                     # Bug & Feature issue templates
+    └── PULL_REQUEST_TEMPLATE.md            # PR checklist and guidelines
 ```
 
 ---
