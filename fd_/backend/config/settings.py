@@ -260,7 +260,7 @@ RAZORPAY_KEY_SECRET = os.environ.get('RAZORPAY_KEY_SECRET', os.environ.get('PAYM
 RAZORPAY_WEBHOOK_SECRET = os.environ.get('RAZORPAY_WEBHOOK_SECRET', os.environ.get('WEBHOOK_SECRET', 'whsec_wsfood_webhook_secret_key'))
 
 # Google Maps API Configuration (Phase 15: Live GPS & Routing)
-GOOGLE_MAPS_API_KEY = os.environ.get('GOOGLE_MAPS_API_KEY', os.environ.get('VITE_GOOGLE_MAPS_API_KEY', 'AIzaSyBQyjCDujx-ZIwzO0NWICVgG8oXfQVTxc8'))
+GOOGLE_MAPS_API_KEY = os.environ.get('GOOGLE_MAPS_API_KEY', os.environ.get('VITE_GOOGLE_MAPS_API_KEY', ''))
 
 # Phase 30: Structured Logging for Production & DevOps
 LOGGING = {

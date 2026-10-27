@@ -6,6 +6,7 @@ node_modules/
 # Production build outputs
 dist/
 */dist/
+*/*/dist/
 build/
 */build/
 
@@ -18,24 +19,69 @@ __pycache__/
 *$py.class
 *.sqlite3
 staticfiles/
-media/restaurants/logos/temp*
-webpurches/backend/media/delivery/delivery_photos/**
-webpurches/backend/media/handover/pickup_photos/**
-webpurches/backend/media/restaurants/logos/temp*
-fd_/backend/media/delivery/delivery_photos/**
-fd_/backend/media/handover/pickup_photos/**
-fd_/backend/media/restaurants/logos/temp*
+*/staticfiles/
+*/*/staticfiles/
+
+# Test Uploads & Private User Media (Preserve mock catalog logos & foods)
+media/kyc_docs/
+media/delivery/delivery_photos/
+media/handover/pickup_photos/
+media/profiles/
+media/delivery/profiles/
+media/support_attachments/
+*/media/kyc_docs/
+*/media/delivery/delivery_photos/
+*/media/handover/pickup_photos/
+*/media/profiles/
+*/media/delivery/profiles/
+*/media/support_attachments/
+*/*/media/kyc_docs/
+*/*/media/delivery/delivery_photos/
+*/*/media/handover/pickup_photos/
+*/*/media/profiles/
+*/*/media/delivery/profiles/
+*/*/media/support_attachments/
+*/*/media/restaurants/logos/temp*
+
+# Database Backups & Dumps
+*.sql
+*.dump
+backups/
+*/backups/
+*/*/backups/
 
 # Environment and secrets
 .env
 *.env
 .env.*
-!.env.example
-!.env.production.example
 */*.env
 */*.env.*
-!*/*.env.example
-!*/*.env.production.example
+*/*/*.env
+*/*/*.env.*
+!.env.example
+!.env.production.example
+!*/.env.example
+!*/.env.production.example
+!*/*/.env.example
+!*/*/.env.production.example
+
+# Temporary, Backup & Editor files
+*.bak
+*.tmp
+*.old
+*.swp
+*~
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Testing & Coverage
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
 
 # Logs
 logs/
@@ -43,9 +89,3 @@ logs/
 npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
-
-# OS & Editor
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
