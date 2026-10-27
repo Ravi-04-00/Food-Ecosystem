@@ -1,447 +1,331 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { FDOrganicLogo } from './FDOrganicLogo.jsx';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 
 /**
- * FDCommonBrandIntro — Premium 3D Animated Intro Screen
+ * FDCommonBrandIntro — Pure Logo-Only Premium Opening Experience
  * 
- * Animation Sequence:
- * 1. Clean, premium background using the FD green/mint palette (#F7FBF7, #D8F3DC, #B7E4C7)
- * 2. Reveals the FD emblem with a smooth fade-in and subtle scale-up
- * 3. Animates the logo with a tasteful 3D rotation and tilt in perspective space
- * 4. Adds soft lighting, subtle depth shadow, and restrained mint-colored glow
- * 5. Introduces the "FD Foods" wordmark with smooth opacity and upward movement
- * 6. Finishes with a short, elegant transition into the target application
- * 
- * Accessibility & Usability:
- * - Respects prefers-reduced-motion: bypasses immediately
- * - Skip button and Escape key support for instant bypass
- * - Smooth hardware-accelerated CSS 3D transforms (perspective, translateZ, rotateX, rotateY)
+ * Strict Phase 2 Specifications:
+ * - Shows ONLY the iconic FD Foods leaf-inspired logo mark.
+ * - ZERO words, ZERO taglines, ZERO buttons, ZERO loading messages.
+ * - Warm royal-white / cosmic-latte background (#FFFFFF -> #FAF7F2 -> #F3EAE0)
+ *   with subtle deep-burgundy depth tones (#4A1222) and restrained milk-green highlights (#52B788, #B7E4C7).
+ * - Smooth reveal, elegant light sweep sheen, gentle scale motion with cubic-bezier easing.
+ * - Runtime duration: ~2.0 seconds, dissolves seamlessly into the app.
+ * - Respects prefers-reduced-motion (instant bypass).
+ * - Session awareness: skips repeated blocking for returning users.
+ * - Universal across Customer, Restaurant, Delivery Partner, and Admin apps.
  */
 export const FDCommonBrandIntro = ({
-  app = 'delivery', // 'customer' | 'restaurant' | 'delivery' | 'delivery_partner' | 'admin'
+  app = 'delivery',
   duration = 2.0,
   onComplete,
   className = ''
 }) => {
-  const [progress, setProgress] = useState(0);
   const [exiting, setExiting] = useState(false);
-
-  const appMeta = {
-    customer: {
-      badge: 'Customer Portal',
-      subtitle: 'Fresh Choices. Royal Experiences.',
-      statusText: 'Connecting to Fresh Kitchens...'
-    },
-    restaurant: {
-      badge: 'Restaurant Hub',
-      subtitle: 'Kitchen Operations & Menu Management',
-      statusText: 'Synchronizing Orders & Menus...'
-    },
-    delivery: {
-      badge: 'Delivery Partner',
-      subtitle: 'Smart Fleet & Dispatch Operations',
-      statusText: 'Connecting to Fleet Dispatch...'
-    },
-    delivery_partner: {
-      badge: 'Delivery Partner',
-      subtitle: 'Smart Fleet & Dispatch Operations',
-      statusText: 'Connecting to Fleet Dispatch...'
-    },
-    admin: {
-      badge: 'Mission Control',
-      subtitle: 'Platform Telemetry & Enterprise Governance',
-      statusText: 'Loading System Telemetry...'
-    }
-  }[app] || {
-    badge: 'Delivery Partner',
-    subtitle: 'Smart Fleet & Dispatch Operations',
-    statusText: 'Connecting to Fleet Dispatch...'
-  };
+  const completedRef = useRef(false);
 
   const handleFinish = useCallback(() => {
+    if (completedRef.current) return;
+    completedRef.current = true;
     setExiting(true);
-    const timeout = setTimeout(() => {
+    try {
+      sessionStorage.setItem('fd_intro_seen', 'true');
+    } catch (_) {}
+    const timer = setTimeout(() => {
       if (onComplete) onComplete();
     }, 280);
-    return () => clearTimeout(timeout);
+    return () => clearTimeout(timer);
   }, [onComplete]);
 
   useEffect(() => {
-    // Reduced motion check
-    const prefersReducedMotion = typeof window !== 'undefined' && 
-      window.matchMedia && 
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (prefersReducedMotion) {
-      if (onComplete) onComplete();
-      return;
+    // 1. Accessibility: Respect prefers-reduced-motion
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        if (onComplete) onComplete();
+        return;
+      }
     }
 
-    // Escape or Enter key listener to skip intro
+    // 2. Keyboard & Touch bypass (silent, no visible buttons)
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape' || e.key === 'Enter') {
+      if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
         handleFinish();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
 
-    const intervalTime = 30;
-    const totalSteps = (duration * 1000) / intervalTime;
-    let currentStep = 0;
-
-    const timer = setInterval(() => {
-      currentStep += 1;
-      const currentPct = Math.min(100, Math.round((currentStep / totalSteps) * 100));
-      setProgress(currentPct);
-
-      if (currentStep >= totalSteps) {
-        clearInterval(timer);
-        handleFinish();
-      }
-    }, intervalTime);
+    // 3. Timed animation progression (~1.9s before smooth exit transition)
+    const timer = setTimeout(() => {
+      handleFinish();
+    }, Math.max(1500, Math.min(2500, duration * 1000 - 280)));
 
     return () => {
-      clearInterval(timer);
       window.removeEventListener('keydown', handleKeyDown);
+      clearTimeout(timer);
     };
   }, [duration, handleFinish, onComplete]);
 
   return (
-    <div 
-      className={`fd-brand-intro fixed inset-0 z-[9999] flex flex-col items-center justify-between select-none ${className}`}
+    <aside
+      aria-label="FD Foods Intro"
+      role="status"
+      onClick={handleFinish}
+      className={`fixed inset-0 z-[9999] flex items-center justify-center select-none cursor-pointer ${className}`}
       style={{
-        backgroundColor: '#F7FBF7',
-        backgroundImage: 'radial-gradient(circle at 50% 38%, rgba(216, 243, 220, 0.65) 0%, rgba(183, 228, 199, 0.28) 45%, #F7FBF7 80%)',
+        background: 'radial-gradient(circle at 50% 50%, #FFFFFF 0%, #FAF7F2 50%, #F3EAE0 100%)',
         opacity: exiting ? 0 : 1,
-        transform: exiting ? 'scale(1.02)' : 'scale(1)',
-        transition: 'opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)',
+        transition: 'opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1)',
+        pointerEvents: exiting ? 'none' : 'auto',
         overflow: 'hidden'
       }}
-      role="dialog"
-      aria-label="FD Foods Welcome Intro"
     >
-      {/* Soft Ambient Radial Background Rings */}
-      <div 
+      {/* Subtle deep-burgundy and warm milk-green ambient depth auras */}
+      <div
+        aria-hidden="true"
         style={{
           position: 'absolute',
-          top: '38%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 'min(90vw, 560px)',
-          height: 'min(90vw, 560px)',
+          width: 'min(90vw, 420px)',
+          height: 'min(90vw, 420px)',
           borderRadius: '50%',
-          border: '1.5px solid rgba(82, 183, 136, 0.18)',
-          pointerEvents: 'none',
-          animation: 'fdAmbientRing 4s ease-in-out infinite'
-        }}
-      />
-      <div 
-        style={{
-          position: 'absolute',
-          top: '38%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 'min(70vw, 420px)',
-          height: 'min(70vw, 420px)',
-          borderRadius: '50%',
-          border: '1px solid rgba(183, 228, 199, 0.35)',
+          background: 'radial-gradient(circle, rgba(74, 18, 34, 0.06) 0%, rgba(82, 183, 136, 0.12) 45%, transparent 70%)',
+          animation: 'fdAmbientBreathe 2.4s ease-in-out infinite alternate',
           pointerEvents: 'none'
         }}
       />
 
-      {/* Top Header Bar with Brand Tag & Skip Action */}
-      <div className="w-full max-w-5xl px-6 py-6 flex items-center justify-between z-10">
-        <div className="flex items-center gap-2">
-          <div 
-            style={{
-              width: '8px',
-              height: '8px',
-              borderRadius: '50%',
-              backgroundColor: '#52B788',
-              boxShadow: '0 0 10px #52B788'
-            }}
-          />
-          <span 
-            style={{
-              fontSize: '0.72rem',
-              fontWeight: 800,
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: '#163D2B',
-              fontFamily: "'Manrope', sans-serif"
-            }}
-          >
-            FD Foods Ecosystem
-          </span>
-        </div>
-
-        <button
-          onClick={handleFinish}
-          type="button"
-          style={{
-            background: 'rgba(22, 61, 43, 0.06)',
-            border: '1px solid rgba(22, 61, 43, 0.16)',
-            color: '#163D2B',
-            borderRadius: '9999px',
-            padding: '7px 18px',
-            fontSize: '0.82rem',
-            fontWeight: 700,
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '6px'
-          }}
-          className="hover:bg-emerald-100 hover:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-          aria-label="Skip intro animation"
-        >
-          <span>Skip</span>
-          <span style={{ fontSize: '0.7rem', opacity: 0.6, fontWeight: 500 }}>[Esc]</span>
-        </button>
-      </div>
-
-      {/* Center 3D Stage */}
-      <div 
-        className="flex flex-col items-center justify-center text-center px-4 -mt-6 z-10"
+      {/* Decorative Outer Burgundy Accent Ring */}
+      <div
+        aria-hidden="true"
         style={{
-          perspective: '1200px',
-          perspectiveOrigin: '50% 50%'
+          position: 'absolute',
+          width: 'min(75vw, 240px)',
+          height: 'min(75vw, 240px)',
+          borderRadius: '50%',
+          border: '1px solid rgba(92, 29, 46, 0.12)',
+          boxShadow: '0 0 35px rgba(82, 183, 136, 0.14)',
+          animation: 'fdRingPulse 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+          pointerEvents: 'none'
+        }}
+      />
+
+      {/* Centered Logo Stage with 3D Depth & Light Sheen */}
+      <div
+        className="fd-logo-stage"
+        style={{
+          position: 'relative',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 'clamp(120px, 28vw, 156px)',
+          height: 'clamp(120px, 28vw, 156px)',
+          borderRadius: 'clamp(32px, 7vw, 42px)',
+          background: 'linear-gradient(145deg, #FFFFFF 0%, #FAF6F0 60%, #E8F5E9 100%)',
+          border: '1.5px solid rgba(82, 183, 136, 0.32)',
+          boxShadow: '0 20px 48px -12px rgba(74, 18, 34, 0.14), 0 0 45px rgba(82, 183, 136, 0.22), inset 0 2px 4px rgba(255, 255, 255, 0.95)',
+          animation: 'fdLogoReveal 2.0s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+          willChange: 'transform, opacity'
         }}
       >
-        {/* 3D Emblem Container with Rotation, Tilt, Mint Glow & Light Reflection */}
-        <div 
-          className="fd-intro-3d-stage"
+        {/* Gleaming Specular Light Sheen */}
+        <div
+          aria-hidden="true"
           style={{
-            position: 'relative',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '140px',
-            height: '140px',
-            borderRadius: '36px',
-            background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(216, 243, 220, 0.6) 100%)',
-            border: '1.5px solid rgba(82, 183, 136, 0.35)',
-            boxShadow: '0 20px 40px -10px rgba(22, 61, 43, 0.15), 0 0 50px rgba(82, 183, 136, 0.28), inset 0 2px 6px rgba(255, 255, 255, 0.9)',
-            animation: 'fdCinematic3DRotation 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards',
-            transformStyle: 'preserve-3d',
-            willChange: 'transform'
+            position: 'absolute',
+            inset: 0,
+            borderRadius: 'inherit',
+            overflow: 'hidden',
+            pointerEvents: 'none'
           }}
         >
-          {/* Gleaming Specular Light Sheen */}
-          <div 
+          <div
             style={{
               position: 'absolute',
-              inset: 0,
-              borderRadius: '36px',
-              overflow: 'hidden',
-              pointerEvents: 'none'
-            }}
-          >
-            <div 
-              style={{
-                position: 'absolute',
-                top: '-50%',
-                left: '-50%',
-                width: '200%',
-                height: '200%',
-                background: 'linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.75) 48%, rgba(183, 228, 199, 0.5) 52%, transparent 65%)',
-                animation: 'fdGlossSweep 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards'
-              }}
-            />
-          </div>
-
-          {/* Original Vector FD Foods Emblem */}
-          <div 
-            style={{ 
-              transform: 'translateZ(26px)',
-              filter: 'drop-shadow(0 8px 16px rgba(22, 61, 43, 0.22))'
-            }}
-          >
-            <FDOrganicLogo 
-              size="hero" 
-              layout="symbol-only"
-              showWordmark={false} 
-            />
-          </div>
-        </div>
-
-        {/* Wordmark & Typography Reveal: Staged upward glide & opacity */}
-        <div 
-          className="fd-intro-wordmark-reveal flex flex-col items-center mt-6"
-          style={{
-            animation: 'fdWordmarkReveal 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards'
-          }}
-        >
-          <div className="flex items-center gap-3 justify-center">
-            <h1 
-              style={{
-                fontFamily: "'Manrope', sans-serif",
-                fontSize: 'clamp(2rem, 5vw, 2.75rem)',
-                fontWeight: 800,
-                color: '#163D2B',
-                letterSpacing: '-0.03em',
-                margin: 0,
-                lineHeight: 1
-              }}
-            >
-              FD Foods
-            </h1>
-            <span 
-              style={{
-                fontSize: '0.72rem',
-                fontFamily: "'Inter', sans-serif",
-                fontWeight: 700,
-                textTransform: 'uppercase',
-                letterSpacing: '0.08em',
-                backgroundColor: '#D8F3DC',
-                color: '#163D2B',
-                border: '1px solid rgba(82, 183, 136, 0.35)',
-                padding: '3px 10px',
-                borderRadius: '8px'
-              }}
-            >
-              {appMeta.badge}
-            </span>
-          </div>
-
-          <p 
-            className="mt-2 text-xs sm:text-sm font-semibold tracking-wide"
-            style={{ 
-              color: '#65776B',
-              fontFamily: "'Inter', sans-serif",
-              maxWidth: '380px'
-            }}
-          >
-            {appMeta.subtitle}
-          </p>
-
-          {/* Luxury Leaf Divider */}
-          <div className="mt-3 flex items-center justify-center gap-3">
-            <div style={{ height: '1px', width: '36px', backgroundColor: '#B7E4C7' }} />
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="#52B788">
-              <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z"/>
-            </svg>
-            <div style={{ height: '1px', width: '36px', backgroundColor: '#B7E4C7' }} />
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Progress & Initialization Telemetry */}
-      <div className="w-full max-w-sm px-6 pb-10 flex flex-col items-center gap-2.5 z-10">
-        <div 
-          style={{
-            width: '100%',
-            height: '4px',
-            backgroundColor: '#E1EBE3',
-            borderRadius: '9999px',
-            overflow: 'hidden',
-            boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.05)'
-          }}
-        >
-          <div 
-            style={{
-              height: '100%',
-              width: `${progress}%`,
-              background: 'linear-gradient(90deg, #52B788 0%, #1B4332 100%)',
-              borderRadius: '9999px',
-              transition: 'width 0.05s linear'
+              top: '-50%',
+              left: '-50%',
+              width: '200%',
+              height: '200%',
+              background: 'linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, 0.85) 48%, rgba(183, 228, 199, 0.45) 53%, transparent 64%)',
+              animation: 'fdSheenSweep 2.0s cubic-bezier(0.2, 0.8, 0.2, 1) forwards'
             }}
           />
         </div>
-        <div className="flex items-center justify-between w-full px-1">
-          <span 
-            style={{ 
-              fontSize: '0.72rem', 
-              fontWeight: 700, 
-              letterSpacing: '0.06em',
-              color: '#65776B',
-              textTransform: 'uppercase',
-              fontFamily: "'Inter', sans-serif"
-            }}
-          >
-            {appMeta.statusText}
-          </span>
-          <span 
-            style={{ 
-              fontSize: '0.72rem', 
-              fontWeight: 800, 
-              color: '#163D2B',
-              fontFamily: "'Manrope', sans-serif"
-            }}
-          >
-            {progress}%
-          </span>
-        </div>
+
+        {/* Pure Vector FD Foods Leaf Monogram (Zero Words / Text) */}
+        <svg
+          width="74%"
+          height="74%"
+          viewBox="0 0 100 100"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style={{
+            position: 'relative',
+            zIndex: 2,
+            filter: 'drop-shadow(0 6px 14px rgba(74, 18, 34, 0.18))'
+          }}
+        >
+          <defs>
+            {/* Deep Royal Green Gradient with Burgundy Undertone */}
+            <linearGradient id="fdIntroMonogramGrad" x1="12" y1="10" x2="88" y2="90" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#1B4332" />
+              <stop offset="50%" stopColor="#163D2B" />
+              <stop offset="100%" stopColor="#0B2016" />
+            </linearGradient>
+
+            {/* Top Curvature 3D Highlight */}
+            <linearGradient id="fdIntroHighlightGrad" x1="15" y1="15" x2="65" y2="45" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#52B788" />
+              <stop offset="60%" stopColor="#2D6A4F" />
+              <stop offset="100%" stopColor="#163D2B" />
+            </linearGradient>
+
+            {/* Dual Fresh Leaves Gradients */}
+            <linearGradient id="fdIntroLeafGrad1" x1="40" y1="30" x2="70" y2="65" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#95D5B2" />
+              <stop offset="45%" stopColor="#52B788" />
+              <stop offset="100%" stopColor="#2D6A4F" />
+            </linearGradient>
+
+            <linearGradient id="fdIntroLeafGrad2" x1="48" y1="42" x2="68" y2="75" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#B7E4C7" />
+              <stop offset="50%" stopColor="#74C69D" />
+              <stop offset="100%" stopColor="#40916C" />
+            </linearGradient>
+          </defs>
+
+          {/* Main Stylized 3D Monogram Ribbon (Forms F & Outer D Loop) */}
+          <path
+            d="M 22 18 
+               C 22 14, 26 12, 32 12 
+               L 58 12 
+               C 78 12, 90 26, 90 50 
+               C 90 74, 76 88, 54 88 
+               L 32 88 
+               C 26 88, 22 84, 22 78 
+               Z"
+            fill="url(#fdIntroMonogramGrad)"
+          />
+
+          {/* Top Crossbar Highlight for 3D Sculpted Bevel */}
+          <path
+            d="M 24 16 
+               C 24 13, 27 13, 32 13 
+               L 58 13 
+               C 74 13, 85 24, 86 44 
+               C 78 26, 64 19, 48 19 
+               L 24 19 
+               Z"
+            fill="url(#fdIntroHighlightGrad)"
+            opacity="0.95"
+          />
+
+          {/* Inner Counter Hole */}
+          <path
+            d="M 38 32 
+               L 52 32 
+               C 64 32, 72 40, 72 50 
+               C 72 60, 64 68, 52 68 
+               L 38 68 
+               Z"
+            fill="#FAF6F0"
+          />
+
+          {/* Leaf 1: Ascending Fresh Green Leaf */}
+          <path
+            d="M 40 64 
+               C 40 64, 42 42, 58 36 
+               C 68 32, 70 38, 68 44 
+               C 64 54, 52 62, 40 64 
+               Z"
+            fill="url(#fdIntroLeafGrad1)"
+          />
+
+          {/* Leaf 2: Overlapping Mint Sprout Leaf */}
+          <path
+            d="M 44 60 
+               C 44 60, 48 46, 62 44 
+               C 69 43, 71 47, 68 51 
+               C 63 58, 54 61, 44 60 
+               Z"
+            fill="url(#fdIntroLeafGrad2)"
+            opacity="0.9"
+          />
+
+          {/* Central Leaf Vein Accent */}
+          <path
+            d="M 43 62 C 49 52, 56 46, 64 41"
+            stroke="#FFFFFF"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            opacity="0.75"
+          />
+        </svg>
       </div>
 
-      {/* Keyframe Animations */}
       <style>{`
-        @keyframes fdCinematic3DRotation {
+        @keyframes fdLogoReveal {
           0% {
             opacity: 0;
-            transform: perspective(1200px) rotateX(18deg) rotateY(-24deg) translateZ(50px) scale(0.85);
+            transform: scale(0.92);
           }
-          35% {
+          30% {
             opacity: 1;
-            transform: perspective(1200px) rotateX(-8deg) rotateY(16deg) translateZ(35px) scale(1.04);
+            transform: scale(1.02);
           }
-          65% {
-            transform: perspective(1200px) rotateX(4deg) rotateY(-8deg) translateZ(15px) scale(1.0);
+          70% {
+            transform: scale(1.0);
           }
-          85%, 100% {
+          100% {
             opacity: 1;
-            transform: perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1.0);
+            transform: scale(1.0);
           }
         }
 
-        @keyframes fdGlossSweep {
+        @keyframes fdSheenSweep {
           0% {
             transform: rotate(25deg) translateY(-140%);
           }
-          40% {
-            transform: rotate(25deg) translateY(-20%);
+          30% {
+            transform: rotate(25deg) translateY(-40%);
           }
-          80%, 100% {
+          75%, 100% {
             transform: rotate(25deg) translateY(140%);
           }
         }
 
-        @keyframes fdWordmarkReveal {
-          0%, 30% {
-            opacity: 0;
-            transform: translateY(18px);
-          }
-          65% {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes fdAmbientBreathe {
+          0% {
+            transform: scale(0.96);
+            opacity: 0.6;
           }
           100% {
+            transform: scale(1.06);
             opacity: 1;
-            transform: translateY(0);
           }
         }
 
-        @keyframes fdAmbientRing {
-          0%, 100% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 0.5;
+        @keyframes fdRingPulse {
+          0% {
+            transform: scale(0.88);
+            opacity: 0;
           }
-          50% {
-            transform: translate(-50%, -50%) scale(1.04);
+          40% {
             opacity: 0.9;
+          }
+          100% {
+            transform: scale(1.04);
+            opacity: 0.5;
           }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .fd-intro-3d-stage,
-          .fd-intro-wordmark-reveal {
+          .fd-logo-stage,
+          [style*="animation"] {
             animation: none !important;
             transform: none !important;
             opacity: 1 !important;
           }
         }
       `}</style>
-    </div>
+    </aside>
   );
 };
 
