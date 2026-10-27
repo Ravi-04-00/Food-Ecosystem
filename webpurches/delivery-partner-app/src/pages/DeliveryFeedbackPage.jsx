@@ -53,7 +53,8 @@ export const DeliveryFeedbackPage = () => {
         setReportExplanation('');
       }, 2500);
     } catch (err) {
-      alert(err.message || 'Failed to submit dispute');
+      setReportFeedback(err.message || 'Failed to submit dispute');
+      setTimeout(() => setReportFeedback(null), 4000);
     } finally {
       setReportSubmitting(false);
     }

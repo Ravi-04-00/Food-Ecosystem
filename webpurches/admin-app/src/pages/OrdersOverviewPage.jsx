@@ -133,7 +133,8 @@ export const OrdersOverviewPage = () => {
       const detail = await fetchAdminOrderDetail(id);
       setActiveOrderDetail(detail);
     } catch (err) {
-      alert(err.message || 'Failed to load order details');
+      setErrorMessage(err.message || 'Failed to load order details');
+      setTimeout(() => setErrorMessage(''), 4000);
     }
   }, []);
 

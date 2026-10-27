@@ -84,7 +84,7 @@ export const SupportPage = () => {
       const detail = await fetchDeliveryTicketDetail(ticketNumber);
       setSelectedTicket(detail);
     } catch (err) {
-      alert('Failed to load complaint details.');
+      setReplyError(err?.message || 'Failed to load complaint details.');
     } finally {
       setLoadingDetail(false);
     }

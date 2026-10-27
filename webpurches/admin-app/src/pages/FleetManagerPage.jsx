@@ -75,7 +75,8 @@ export const FleetManagerPage = () => {
       const detail = await fetchAdminPartnerDetail(id);
       setSelectedPartner(detail);
     } catch (err) {
-      alert(err.message || 'Failed to load partner details');
+      setErrorMessage(err.message || 'Failed to load partner details');
+      setTimeout(() => setErrorMessage(''), 4000);
     }
   };
 

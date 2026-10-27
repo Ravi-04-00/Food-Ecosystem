@@ -66,7 +66,7 @@ export const RestaurantDisputesPage = () => {
       const detail = await fetchRestaurantTicketDetail(ticketNumber);
       setSelectedTicket(detail);
     } catch (err) {
-      alert('Failed to load dispute details.');
+      setReplyError(err?.message || 'Failed to load dispute details.');
     } finally {
       setLoadingDetail(false);
     }

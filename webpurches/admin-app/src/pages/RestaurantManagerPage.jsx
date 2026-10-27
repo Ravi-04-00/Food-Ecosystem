@@ -75,7 +75,8 @@ export const RestaurantManagerPage = () => {
       const detail = await fetchAdminRestaurantDetail(id);
       setSelectedRestaurant(detail);
     } catch (err) {
-      alert(err.message || 'Failed to load restaurant details');
+      setErrorMessage(err.message || 'Failed to load restaurant details');
+      setTimeout(() => setErrorMessage(''), 4000);
     }
   };
 

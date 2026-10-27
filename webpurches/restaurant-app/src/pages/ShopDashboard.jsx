@@ -121,7 +121,8 @@ export const ShopDashboard = ({ onNavigate, onOpenAddFood }) => {
       });
     } catch (err) {
       console.error('Export CSV error:', err);
-      alert('Failed to export orders CSV: ' + (err.message || 'Error'));
+      setOrderFeedback({ type: 'error', message: 'Failed to export orders CSV: ' + (err.message || 'Error') });
+      setTimeout(() => setOrderFeedback(null), 4000);
     } finally {
       setIsExportingCSV(false);
     }
@@ -139,7 +140,8 @@ export const ShopDashboard = ({ onNavigate, onOpenAddFood }) => {
       }
     } catch (err) {
       console.error('Pause toggle error:', err);
-      alert('Failed to update orders pause state: ' + (err.message || 'Error'));
+      setOrderFeedback({ type: 'error', message: 'Failed to update orders pause state: ' + (err.message || 'Error') });
+      setTimeout(() => setOrderFeedback(null), 4000);
     } finally {
       setIsPausing(false);
     }

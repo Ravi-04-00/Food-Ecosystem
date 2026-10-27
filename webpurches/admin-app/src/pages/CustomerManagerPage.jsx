@@ -65,7 +65,7 @@ export const CustomerManagerPage = () => {
       const detail = await fetchAdminCustomerDetail(customerId);
       setSelectedCustomer(detail);
     } catch (err) {
-      alert(err.message || 'Failed to load customer details');
+      setErrorMessage(err.message || 'Failed to load customer details');
     } finally {
       setIsDetailLoading(false);
     }
@@ -74,7 +74,7 @@ export const CustomerManagerPage = () => {
   const handleOpenActionModal = (customer, targetActive) => {
     // Check self-lockout
     if (currentUser && customer.id === currentUser.id) {
-      alert('Action forbidden: Administrators cannot modify their own administrative status through customer controls.');
+      setErrorMessage('Action forbidden: Administrators cannot modify their own administrative status through customer controls.');
       return;
     }
     setActionModal({

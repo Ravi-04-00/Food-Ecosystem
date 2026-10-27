@@ -80,7 +80,8 @@ export const RestaurantSettlementsPage = () => {
       const detail = await fetchRestaurantSettlementDetail(ref);
       setSelectedSettlement(detail);
     } catch (err) {
-      alert(err.message || 'Failed to fetch settlement detail');
+      setErrorMessage(err.message || 'Failed to fetch settlement detail');
+      setTimeout(() => setErrorMessage(''), 4000);
     }
   };
 
@@ -93,7 +94,8 @@ export const RestaurantSettlementsPage = () => {
       setDownloadSuccess('Settlement statement CSV downloaded successfully.');
       setTimeout(() => setDownloadSuccess(''), 5000);
     } catch (err) {
-      alert(err.message || 'Failed to export CSV statement');
+      setErrorMessage(err.message || 'Failed to export CSV statement');
+      setTimeout(() => setErrorMessage(''), 4000);
     } finally {
       setIsExporting(false);
     }

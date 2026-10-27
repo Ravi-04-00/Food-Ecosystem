@@ -390,10 +390,12 @@ export const SettingsPage = ({ onReplayIntro, onLogout }) => {
 
   const handleConfirmDelete = () => {
     setDeleteModalOpen(false);
-    sessionStorage.clear();
-    localStorage.clear();
-    alert('Partner account deletion request recorded. Our compliance team will finalize removal within 48 hours.');
-    window.location.reload();
+    showFeedback('Partner account deletion request recorded. Our compliance team will finalize removal within 48 hours.');
+    setTimeout(() => {
+      sessionStorage.clear();
+      localStorage.clear();
+      window.location.reload();
+    }, 2000);
   };
 
   const tabs = [

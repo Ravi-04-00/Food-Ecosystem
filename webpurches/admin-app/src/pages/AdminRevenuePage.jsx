@@ -51,7 +51,8 @@ export const AdminRevenuePage = () => {
       const detail = await fetchAdminPaymentDetail(id);
       setSelectedPayment(detail);
     } catch (err) {
-      alert(err.message || 'Failed to load payment details');
+      setErrorMessage(err.message || 'Failed to load payment details');
+      setTimeout(() => setErrorMessage(''), 4000);
     }
   };
 

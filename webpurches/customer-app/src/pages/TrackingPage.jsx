@@ -18,6 +18,7 @@ export const TrackingPage = ({ onBackHome }) => {
   const pollIntervalRef = useRef(null);
   const [lastLocationReceivedAt, setLastLocationReceivedAt] = useState(Date.now());
   const [nowTimestamp, setNowTimestamp] = useState(Date.now());
+  const [supportNotice, setSupportNotice] = useState(null);
 
   // Timer to keep location age indicator ticking accurately
   useEffect(() => {
@@ -284,7 +285,10 @@ export const TrackingPage = ({ onBackHome }) => {
 
           <div style={{ display: 'flex', gap: '10px' }}>
             <button
-              onClick={() => alert(`Calling partner at ${trackingData?.delivery_partner?.phone || activeOrder?.rider?.phone || '+91 98765 00003'}...`)}
+              onClick={() => {
+                const phone = trackingData?.delivery_partner?.phone || activeOrder?.rider?.phone || '+919876500003';
+                window.location.href = `tel:${phone}`;
+              }}
               style={{
                 background: 'var(--ws-surface-subtle)',
                 border: '1px solid var(--ws-border)',
@@ -398,7 +402,10 @@ export const TrackingPage = ({ onBackHome }) => {
             )}
 
             <button
-              onClick={() => alert('Support Ticket #SUP1022 is connected to Admin Mission Control. Support agents respond in <2 mins.')}
+              onClick={() => {
+                setSupportNotice('Support Ticket #SUP1022 is connected to Admin Mission Control. Support agents respond in <2 mins.');
+                setTimeout(() => setSupportNotice(null), 5000);
+              }}
               style={{
                 background: 'var(--ws-surface)',
                 border: '1px solid var(--ws-border)',
@@ -417,6 +424,23 @@ export const TrackingPage = ({ onBackHome }) => {
             </button>
           </div>
         </div>
+
+        {supportNotice && (
+          <div style={{
+            backgroundColor: '#F0F9FF',
+            border: '1px solid #BAE6FD',
+            borderRadius: '12px',
+            padding: '10px 16px',
+            fontSize: '0.82rem',
+            color: '#0369A1',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}>
+            <HelpCircle size={15} color="#0284C7" style={{ flexShrink: 0 }} />
+            <span>{supportNotice}</span>
+          </div>
+        )}
 
         {/* Live Delivery Map HUD with Location Freshness Bar */}
         <div style={{

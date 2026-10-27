@@ -147,7 +147,8 @@ export const AdminSettlementsPage = () => {
       const detail = await fetchAdminSettlementDetail(ref);
       setSelectedSettlement(detail);
     } catch (err) {
-      alert(err.message || 'Failed to fetch settlement detail');
+      setErrorMessage(err.message || 'Failed to fetch settlement detail');
+      setTimeout(() => setErrorMessage(''), 4000);
     } finally {
       setIsDetailLoading(false);
     }
@@ -157,7 +158,8 @@ export const AdminSettlementsPage = () => {
   const handleCreateBatch = async (e) => {
     e.preventDefault();
     if (!newBatchData.restaurant_id) {
-      alert('Please select a restaurant');
+      setErrorMessage('Please select a restaurant');
+      setTimeout(() => setErrorMessage(''), 4000);
       return;
     }
     setIsSubmittingBatch(true);
@@ -169,7 +171,8 @@ export const AdminSettlementsPage = () => {
       loadReconciliation();
       setTimeout(() => setActionSuccess(''), 6000);
     } catch (err) {
-      alert(err.error || 'Failed to create settlement batch.');
+      setErrorMessage(err.error || err.message || 'Failed to create settlement batch.');
+      setTimeout(() => setErrorMessage(''), 4000);
     } finally {
       setIsSubmittingBatch(false);
     }
@@ -179,7 +182,8 @@ export const AdminSettlementsPage = () => {
   const handleStatusTransition = async (e) => {
     e.preventDefault();
     if (targetStatus === 'PAID' && !statusForm.provider_utr.trim()) {
-      alert('A verified provider UTR or settlement transaction reference is strictly mandatory.');
+      setErrorMessage('A verified provider UTR or settlement transaction reference is strictly mandatory.');
+      setTimeout(() => setErrorMessage(''), 4000);
       return;
     }
     setIsSubmittingStatus(true);
@@ -197,7 +201,8 @@ export const AdminSettlementsPage = () => {
       loadReconciliation();
       setTimeout(() => setActionSuccess(''), 6000);
     } catch (err) {
-      alert(err.error || 'Failed to update status.');
+      setErrorMessage(err.error || err.message || 'Failed to update status.');
+      setTimeout(() => setErrorMessage(''), 4000);
     } finally {
       setIsSubmittingStatus(false);
     }
@@ -207,7 +212,8 @@ export const AdminSettlementsPage = () => {
   const handleAddAdjustment = async (e) => {
     e.preventDefault();
     if (!adjustmentForm.reason.trim() || !adjustmentForm.amount) {
-      alert('Amount and reason are mandatory.');
+      setErrorMessage('Amount and reason are mandatory.');
+      setTimeout(() => setErrorMessage(''), 4000);
       return;
     }
     setIsSubmittingAdjustment(true);
@@ -223,7 +229,8 @@ export const AdminSettlementsPage = () => {
       loadSettlements();
       setTimeout(() => setActionSuccess(''), 6000);
     } catch (err) {
-      alert(err.error || 'Failed to apply adjustment.');
+      setErrorMessage(err.error || err.message || 'Failed to apply adjustment.');
+      setTimeout(() => setErrorMessage(''), 4000);
     } finally {
       setIsSubmittingAdjustment(false);
     }
@@ -233,7 +240,8 @@ export const AdminSettlementsPage = () => {
   const handleUpdateRules = async (e) => {
     e.preventDefault();
     if (!rulesForm.reason.trim()) {
-      alert('Audit reason is required.');
+      setErrorMessage('Audit reason is required.');
+      setTimeout(() => setErrorMessage(''), 4000);
       return;
     }
     setIsUpdatingRules(true);
@@ -248,7 +256,8 @@ export const AdminSettlementsPage = () => {
       loadCommissionRules();
       setTimeout(() => setActionSuccess(''), 6000);
     } catch (err) {
-      alert(err.error || 'Failed to update commission rules');
+      setErrorMessage(err.error || err.message || 'Failed to update commission rules');
+      setTimeout(() => setErrorMessage(''), 4000);
     } finally {
       setIsUpdatingRules(false);
     }

@@ -110,7 +110,8 @@ export const AdminSupportPage = () => {
       const detail = await fetchAdminTicketDetail(ticketNumber);
       setSelectedTicket(detail);
     } catch (err) {
-      alert('Failed to load ticket details.');
+      setError('Failed to load ticket details.');
+      setTimeout(() => setError(null), 4000);
     } finally {
       setLoadingDetail(false);
     }
@@ -156,7 +157,8 @@ export const AdminSupportPage = () => {
       setEscalationReason('');
       loadTickets();
     } catch (err) {
-      alert(err?.detail || 'Failed to escalate ticket.');
+      setError(err?.detail || err?.message || 'Failed to escalate ticket.');
+      setTimeout(() => setError(null), 4000);
     } finally {
       setIsSubmittingEscalate(false);
     }
@@ -192,7 +194,8 @@ export const AdminSupportPage = () => {
       setSelectedTicket(updated);
       loadTickets();
     } catch (err) {
-      alert(err?.detail || 'Failed to close ticket.');
+      setError(err?.detail || err?.message || 'Failed to close ticket.');
+      setTimeout(() => setError(null), 4000);
     }
   };
 
@@ -203,7 +206,8 @@ export const AdminSupportPage = () => {
       loadTickets();
       setTimeout(() => setAutoEscalateFeedback(null), 4000);
     } catch (err) {
-      alert('SLA sweep failed.');
+      setError('SLA sweep failed: ' + (err?.message || 'Error'));
+      setTimeout(() => setError(null), 4000);
     }
   };
 

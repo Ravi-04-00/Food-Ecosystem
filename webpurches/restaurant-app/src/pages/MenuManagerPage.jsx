@@ -42,6 +42,7 @@ export const MenuManagerPage = ({ onOpenAddFood }) => {
     meal_periods: []
   });
   const [isSavingSchedule, setIsSavingSchedule] = useState(false);
+  const [scheduleError, setScheduleError] = useState(null);
 
   // Category Modal state
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
@@ -91,6 +92,7 @@ export const MenuManagerPage = ({ onOpenAddFood }) => {
       available_to_time: item.available_to_time || '',
       meal_periods: Array.isArray(item.meal_periods) ? [...item.meal_periods] : []
     });
+    setScheduleError(null);
     setScheduleModalOpen(true);
   };
 
@@ -102,7 +104,7 @@ export const MenuManagerPage = ({ onOpenAddFood }) => {
       setScheduleModalOpen(false);
       setSchedulingFood(null);
     } catch (err) {
-      alert('Failed to update dish schedule: ' + (err.message || 'Error'));
+      setScheduleError('Failed to update dish schedule: ' + (err.message || 'Error'));
     } finally {
       setIsSavingSchedule(false);
     }
@@ -1168,6 +1170,20 @@ export const MenuManagerPage = ({ onOpenAddFood }) => {
             <p style={{ fontSize: '0.84rem', color: 'var(--ws-text-secondary)', margin: 0, lineHeight: 1.5 }}>
               Configure specific serving hours or meal periods (e.g. Breakfast-only specials). Customers cannot cart or order this dish outside these hours.
             </p>
+
+            {scheduleError && (
+              <div style={{
+                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                border: '1px solid rgba(239, 68, 68, 0.3)',
+                borderRadius: '10px',
+                padding: '10px 14px',
+                color: '#EF4444',
+                fontSize: '0.82rem',
+                fontWeight: 600
+              }}>
+                {scheduleError}
+              </div>
+            )}
 
             {/* Quick Presets */}
             <div>

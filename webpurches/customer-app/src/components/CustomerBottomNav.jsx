@@ -54,6 +54,7 @@ export const CustomerBottomNav = ({ activeTab, setActiveTab }) => {
               onClick={() => setActiveTab && setActiveTab(item.id)}
               type="button"
               aria-label={item.label}
+              aria-current={isActive ? 'page' : undefined}
               style={{
                 display: 'flex',
                 flexDirection: 'column',

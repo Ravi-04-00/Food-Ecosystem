@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heart, MessageCircle, Share2, Bookmark, Star, ShoppingBag, Eye, Volume2, VolumeX } from 'lucide-react';
+import { Heart, MessageCircle, Share2, Bookmark, Star, ShoppingBag, Eye, Volume2, VolumeX, X } from 'lucide-react';
 import { useCustomer } from '../context/CustomerContext.jsx';
 
 export const FoodReelsPlayer = ({ onSelectFood, onGoToCart }) => {
@@ -8,6 +8,7 @@ export const FoodReelsPlayer = ({ onSelectFood, onGoToCart }) => {
   const [likes, setLikes] = useState({});
   const [bookmarks, setBookmarks] = useState({});
   const [isMuted, setIsMuted] = useState(true);
+  const [showComments, setShowComments] = useState(false);
 
   const reelList = Array.isArray(reels) && reels.length > 0 ? reels : [
     {
@@ -168,7 +169,7 @@ export const FoodReelsPlayer = ({ onSelectFood, onGoToCart }) => {
 
         {/* Comment */}
         <button
-          onClick={() => alert('Community comments modal')}
+          onClick={() => setShowComments(prev => !prev)}
           style={{
             background: 'none',
             border: 'none',
@@ -343,6 +344,50 @@ export const FoodReelsPlayer = ({ onSelectFood, onGoToCart }) => {
           ))}
         </div>
       </div>
+
+      {/* Community Comments Drawer */}
+      {showComments && (
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          maxHeight: '60%',
+          backgroundColor: '#FFFFFF',
+          borderTopLeftRadius: '20px',
+          borderTopRightRadius: '20px',
+          padding: '18px',
+          boxShadow: '0 -8px 24px rgba(0,0,0,0.3)',
+          zIndex: 50,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '12px'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #E5E7EB', paddingBottom: '8px' }}>
+            <span style={{ fontWeight: 800, fontSize: '0.92rem', color: '#1F2937' }}>
+              Community Comments ({currentReel.comments_count || 48})
+            </span>
+            <button
+              type="button"
+              onClick={() => setShowComments(false)}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6B7280' }}
+            >
+              <X size={18} />
+            </button>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', overflowY: 'auto', maxHeight: '200px' }}>
+            <div style={{ fontSize: '0.8rem', color: '#374151', borderBottom: '1px dashed #EDE8DE', paddingBottom: '8px' }}>
+              <strong>Kiran S.</strong>: "The spice balance on this is incredible! Ordered twice this week."
+            </div>
+            <div style={{ fontSize: '0.8rem', color: '#374151', borderBottom: '1px dashed #EDE8DE', paddingBottom: '8px' }}>
+              <strong>Deepa M.</strong>: "Super fresh and delivered steaming hot in under 20 mins."
+            </div>
+            <div style={{ fontSize: '0.8rem', color: '#374151' }}>
+              <strong>Arjun R.</strong>: "Must try if you love authentic claypot flavors!"
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

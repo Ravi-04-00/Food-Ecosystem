@@ -63,6 +63,7 @@ export const RestaurantBottomNav = ({ activeTab, setActiveTab, onOpenSidebar }) 
               onClick={handleClick}
               type="button"
               aria-label={item.label}
+              aria-current={isActive ? 'page' : undefined}
               style={{
                 display: 'flex',
                 flexDirection: 'column',

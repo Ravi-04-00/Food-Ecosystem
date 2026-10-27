@@ -225,7 +225,7 @@ export const AdminOffersLoyaltyPage = () => {
       loadCoupons();
       loadStats();
     } catch (err) {
-      alert(err.message || 'Failed to toggle status');
+      showToast(err.message || 'Failed to toggle status');
     }
   };
 
@@ -237,7 +237,7 @@ export const AdminOffersLoyaltyPage = () => {
       loadCoupons();
       loadStats();
     } catch (err) {
-      alert(err.message || 'Failed to delete coupon');
+      showToast(err.message || 'Failed to delete coupon');
     }
   };
 
@@ -251,7 +251,7 @@ export const AdminOffersLoyaltyPage = () => {
       showToast('Loyalty Program settings updated!');
       loadStats();
     } catch (err) {
-      alert(err.message || 'Failed to update configuration');
+      showToast(err.message || 'Failed to update configuration');
     } finally {
       setSavingConfig(false);
     }

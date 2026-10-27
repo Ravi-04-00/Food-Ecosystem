@@ -78,7 +78,8 @@ export const RestaurantDetailPage = ({ restaurantId, onBack, onSelectFood }) => 
         setReportExplanation('');
       }, 2500);
     } catch (err) {
-      alert(err.message || 'Failed to submit report');
+      setReportFeedback(err.message || 'Failed to submit report');
+      setTimeout(() => setReportFeedback(null), 4000);
     } finally {
       setReportSubmitting(false);
     }

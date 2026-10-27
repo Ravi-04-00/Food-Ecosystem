@@ -185,7 +185,7 @@ export const SupportPage = ({ initialOrderNumber = null, onBackToOrders }) => {
       const detail = await fetchCustomerTicketDetail(ticketNumber);
       setSelectedTicket(detail);
     } catch (err) {
-      alert(isTamil ? 'டிக்கெட் விவரங்களை ஏற்றுவதில் தோல்வி.' : 'Failed to load ticket details.');
+      setReplyError(isTamil ? 'டிக்கெட் விவரங்களை ஏற்றுவதில் தோல்வி.' : 'Failed to load ticket details.');
     } finally {
       setLoadingDetail(false);
     }
@@ -226,7 +226,7 @@ export const SupportPage = ({ initialOrderNumber = null, onBackToOrders }) => {
       setSelectedTicket(updated);
       loadTickets();
     } catch (err) {
-      alert(err?.detail || (isTamil ? 'செயல்பாடு தோல்வியடைந்தது.' : 'Action failed.'));
+      setReplyError(err?.detail || err?.message || (isTamil ? 'செயல்பாடு தோல்வியடைந்தது.' : 'Action failed.'));
     } finally {
       setIsSubmittingReply(false);
     }

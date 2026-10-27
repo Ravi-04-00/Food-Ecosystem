@@ -36,7 +36,8 @@ export const OrdersPage = ({ onContinueShopping, onTrackOrder, onDisputeOrder })
       await loadOrders(filter);
       setTimeout(() => setCancelFeedback(null), 4000);
     } catch (err) {
-      alert(err.message || 'Failed to cancel order.');
+      setCancelFeedback(err.message || 'Failed to cancel order.');
+      setTimeout(() => setCancelFeedback(null), 4000);
     } finally {
       setIsCancelling(false);
     }

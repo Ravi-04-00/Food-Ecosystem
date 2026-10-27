@@ -155,7 +155,7 @@ export const RestaurantLocationMap = ({
 
   const handleUseCurrentLocation = () => {
     if (!navigator.geolocation) {
-      alert('Geolocation is not supported by your browser.');
+      setMapError('Geolocation is not supported by your browser.');
       return;
     }
     setLocatingUser(true);
@@ -177,7 +177,7 @@ export const RestaurantLocationMap = ({
       },
       (err) => {
         setLocatingUser(false);
-        alert(`Failed to detect location: ${err.message}`);
+        setMapError(`Failed to detect location: ${err.message}`);
       },
       { timeout: 10000, enableHighAccuracy: true }
     );
