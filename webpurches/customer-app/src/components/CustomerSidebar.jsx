@@ -13,7 +13,8 @@ import {
   LogOut, 
   User, 
   X,
-  LogIn
+  LogIn,
+  Wallet
 } from 'lucide-react';
 import { FDOrganicLogo } from './FDOrganicLogo.jsx';
 import { useCustomer } from '../context/CustomerContext.jsx';
@@ -25,7 +26,8 @@ export const CustomerSidebar = ({
   onClose,
   onOpenAuth,
   onOpenRegister,
-  onOpenProfile
+  onOpenProfile,
+  onOpenWallet
 }) => {
   const { cartCount, currentUser, authState, promptLogout, orders = [] } = useCustomer();
   const orderCount = Array.isArray(orders) ? orders.length : 0;
@@ -54,6 +56,13 @@ export const CustomerSidebar = ({
   }, [open, onClose]);
 
   const navigate = (id) => {
+    if (id === 'wallet') {
+      if (onOpenWallet) onOpenWallet();
+      if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+        if (onClose) onClose();
+      }
+      return;
+    }
     if (setActiveTab) setActiveTab(id);
     if (typeof window !== 'undefined' && window.innerWidth < 1024) {
       if (onClose) onClose();
@@ -71,6 +80,7 @@ export const CustomerSidebar = ({
   const orderItems = [
     { id: 'cart', label: 'My Cart', icon: ShoppingBag, badge: cartCount > 0 ? String(cartCount) : null },
     { id: 'orders', label: 'My Orders', icon: Package, badge: orderCount > 0 ? String(orderCount) : null },
+    { id: 'wallet', label: 'Wallet & Rewards', icon: Wallet, badge: 'Rewards' },
     { id: 'tracking', label: 'Live Tracking', icon: Navigation },
     { id: 'support', label: 'Support & Help', icon: Headphones },
     { id: 'settings', label: 'Account Settings', icon: Settings }

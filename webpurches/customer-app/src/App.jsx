@@ -28,6 +28,7 @@ import { FDSessionExpiredModal } from './components/FDSessionExpiredModal.jsx';
 import { CartConflictModal } from './components/CartConflictModal.jsx';
 import { AddressManagerModal } from './components/AddressManagerModal.jsx';
 import { OffersPage } from './pages/OffersPage.jsx';
+import { CustomerWalletModal } from './components/CustomerWalletModal.jsx';
 import { useCustomer } from './context/CustomerContext.jsx';
 import { usePWA } from './hooks/usePWA.js';
 import { ConnectivityBanner } from './components/ConnectivityBanner.jsx';
@@ -75,6 +76,7 @@ const CustomerMain = () => {
   const [locationModalOpen, setLocationModalOpen] = useState(false);
   const [addressModalOpen, setAddressModalOpen] = useState(false);
   const [profileModalOpen, setProfileModalOpen] = useState(false);
+  const [walletModalOpen, setWalletModalOpen] = useState(false);
   const [offersModalOpen, setOffersModalOpen] = useState(false);
   const [notificationsModalOpen, setNotificationsModalOpen] = useState(false);
   const [selectedFood, setSelectedFood] = useState(null);
@@ -126,6 +128,7 @@ const CustomerMain = () => {
         }}
         onOpenRegister={() => setActiveTab('register')}
         onOpenProfile={() => setProfileModalOpen(true)}
+        onOpenWallet={() => setWalletModalOpen(true)}
       />
 
       {/* Main Content Viewport */}
@@ -170,6 +173,7 @@ const CustomerMain = () => {
             }
           }}
           onOpenProfile={() => setProfileModalOpen(true)}
+          onOpenWallet={() => setWalletModalOpen(true)}
           onOpenOffers={() => setOffersModalOpen(true)}
           onOpenNotifications={() => setNotificationsModalOpen(true)}
           onReplayIntro={handleReplayIntro}
@@ -341,6 +345,12 @@ const CustomerMain = () => {
         onClose={() => setProfileModalOpen(false)}
         onOpenAuth={() => setAuthModalOpen(true)}
         onNavigateTab={(tab) => setActiveTab(tab)}
+      />
+
+      <CustomerWalletModal
+        isOpen={walletModalOpen}
+        onClose={() => setWalletModalOpen(false)}
+        currentUser={currentUser}
       />
 
       <OffersModal

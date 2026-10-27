@@ -1260,6 +1260,27 @@ export const fetchCustomerLoyalty = async () => {
   return data;
 };
 
+export const fetchCustomerWallet = async () => {
+  const res = await fetchWithAuth(`${API_BASE}/auth/wallet/`);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data.error || data.detail || 'Failed to fetch customer wallet.');
+  }
+  return data;
+};
+
+export const topupCustomerWallet = async (amount = 500, description = 'Instant 1-Tap Top-Up') => {
+  const res = await fetchWithAuth(`${API_BASE}/auth/wallet/`, {
+    method: 'POST',
+    body: JSON.stringify({ amount: Number(amount), description })
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data.error || data.detail || 'Failed to top-up wallet.');
+  }
+  return data;
+};
+
 // ==========================================
 // PHASE 20: SMART SEARCH & RECOMMENDATIONS
 // ==========================================

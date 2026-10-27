@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   ShoppingBag, User, LogOut, Settings, Package, 
-  HelpCircle, ChevronDown, Menu, X, ExternalLink
+  HelpCircle, ChevronDown, Menu, X, ExternalLink, Wallet
 } from 'lucide-react';
 import { useCustomer } from '../context/CustomerContext.jsx';
 import { ThemeToggle } from './ThemeToggle.jsx';
@@ -16,6 +16,7 @@ export const CustomerNavbar = ({
   onOpenRegister,
   onOpenProfile,
   onOpenSidebar,
+  onOpenWallet,
   sidebarOpen = false
 }) => {
   const { cartCount, currentUser, authState, promptLogout, orders } = useCustomer();
@@ -181,6 +182,34 @@ export const CustomerNavbar = ({
           {/* Right Controls: Cart Icon | Profile Icon (Desktop) & Menu Icon (Mobile) */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             
+            {/* Quick Wallet & Rewards Pill */}
+            {currentUser && (
+              <button
+                type="button"
+                onClick={() => {
+                  if (onOpenWallet) onOpenWallet();
+                }}
+                title="FD Wallet & Rewards"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '7px 12px',
+                  borderRadius: '20px',
+                  border: '1px solid rgba(27, 67, 50, 0.15)',
+                  background: 'rgba(216, 243, 220, 0.4)',
+                  color: '#1B4332',
+                  fontSize: '0.82rem',
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease'
+                }}
+              >
+                <Wallet size={15} color="#1B4332" />
+                <span className="hidden sm:inline">Wallet</span>
+              </button>
+            )}
+
             {/* Cart Icon with Live Item-Count Badge */}
             <button type="button"
               onClick={() => handleNavClick('cart')}
@@ -343,6 +372,31 @@ export const CustomerNavbar = ({
                             {orders.length}
                           </span>
                         )}
+                      </button>
+
+                      {/* FD Wallet & Rewards inside Profile menu */}
+                      <button type="button"
+                        onClick={() => {
+                          if (onOpenWallet) onOpenWallet();
+                          setProfileMenuOpen(false);
+                        }}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '10px',
+                          padding: '9px 12px',
+                          borderRadius: '10px',
+                          border: 'none',
+                          background: 'transparent',
+                          color: '#163D2B',
+                          fontSize: '0.85rem',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          textAlign: 'left'
+                        }}
+                      >
+                        <Wallet size={16} color="#52B788" />
+                        <span>FD Wallet & Rewards</span>
                       </button>
 
                       {/* Help & Support inside Profile menu */}
