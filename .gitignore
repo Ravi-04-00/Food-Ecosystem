@@ -19,8 +19,9 @@ __pycache__/
 *.sqlite3
 staticfiles/
 media/restaurants/logos/temp*
-webpurches/backend/media/delivery/delivery_photos/*_*.*
-webpurches/backend/media/handover/pickup_photos/*_*.*
+webpurches/backend/media/delivery/delivery_photos/**
+webpurches/backend/media/handover/pickup_photos/**
+webpurches/backend/media/restaurants/logos/temp*
 
 # Environment and secrets
 .env

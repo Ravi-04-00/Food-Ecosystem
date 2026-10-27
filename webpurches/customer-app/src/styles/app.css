@@ -176,34 +176,19 @@ p, h1, h2, h3, h4, h5, h6 {
   outline-offset: 2px;
 }
 
-/* Responsive Food Listing Grid — FD Foods Royal 5-Col Desktop & 3-Col Mobile System */
+/* Responsive Food Listing Grid — FD Foods 2-Col Mobile, 3-Col Tablet, 4/5-Col Desktop */
 .fd-food-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
   min-width: 0;
 }
 
-/* Fallback for ultra-compact mobile (<= 360px / 320px) to prevent cramped cards */
-@media (max-width: 360px) {
-  .fd-food-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-  }
-}
-
-@media (max-width: 320px) {
+/* Fallback for ultra-compact mobile (<= 340px) to prevent cramped cards */
+@media (max-width: 340px) {
   .fd-food-grid {
     grid-template-columns: 1fr;
     gap: 8px;
-  }
-}
-
-/* Normal mobile viewports with adequate usable width (361px - 767px): exactly 3 cards per row */
-@media (min-width: 361px) and (max-width: 767px) {
-  .fd-food-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
   }
 }
 
@@ -231,7 +216,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 /* Desktop with usable width: exactly 5 food cards per row */
-@media (min-width: 1140px) {
+@media (min-width: 1280px) {
   .fd-food-grid {
     grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 16px;
