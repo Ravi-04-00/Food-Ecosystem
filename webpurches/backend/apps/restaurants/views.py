@@ -144,6 +144,8 @@ class RestaurantMyProfileView(views.APIView):
             'phone': user.phone or (profile.phone if profile else ''),
             'restaurant_address': restaurant.address,
             'address': restaurant.address,
+            'latitude': float(restaurant.latitude) if restaurant.latitude is not None else 12.9716,
+            'longitude': float(restaurant.longitude) if restaurant.longitude is not None else 77.5946,
             'restaurant_logo': logo_url,
             'logo': logo_url,
             'verification_status': restaurant.verification_status,  # Read-only
@@ -214,6 +216,29 @@ class RestaurantMyProfileView(views.APIView):
             restaurant.address = addr_clean
             profile.address = addr_clean
 
+        # Update coordinates with strict bounds validation [-90, 90] and [-180, 180]
+        lat_val = request.data.get('latitude')
+        lng_val = request.data.get('longitude')
+        if lat_val is not None and str(lat_val).strip() != '':
+            try:
+                lat_float = float(lat_val)
+                if -90.0 <= lat_float <= 90.0:
+                    restaurant.latitude = lat_float
+                else:
+                    return Response({'errors': {'latitude': ['Latitude must be between -90 and 90 degrees.']}}, status=status.HTTP_400_BAD_REQUEST)
+            except (ValueError, TypeError):
+                return Response({'errors': {'latitude': ['Invalid latitude coordinate format.']}}, status=status.HTTP_400_BAD_REQUEST)
+
+        if lng_val is not None and str(lng_val).strip() != '':
+            try:
+                lng_float = float(lng_val)
+                if -180.0 <= lng_float <= 180.0:
+                    restaurant.longitude = lng_float
+                else:
+                    return Response({'errors': {'longitude': ['Longitude must be between -180 and 180 degrees.']}}, status=status.HTTP_400_BAD_REQUEST)
+            except (ValueError, TypeError):
+                return Response({'errors': {'longitude': ['Invalid longitude coordinate format.']}}, status=status.HTTP_400_BAD_REQUEST)
+
         # Handle Logo upload / replace / removal
         remove_logo = request.data.get('remove_logo')
         if remove_logo is not None and str(remove_logo).strip().lower() in ['true', '1']:
@@ -246,6 +271,8 @@ class RestaurantMyProfileView(views.APIView):
             'email': user.email,
             'phone': user.phone,
             'restaurant_address': restaurant.address,
+            'latitude': float(restaurant.latitude) if restaurant.latitude is not None else 12.9716,
+            'longitude': float(restaurant.longitude) if restaurant.longitude is not None else 77.5946,
             'restaurant_logo': logo_url,
             'verification_status': restaurant.verification_status,
             'is_open': restaurant.is_open,

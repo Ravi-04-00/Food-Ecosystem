@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { MapPin, Navigation, AlertTriangle, RefreshCw, Layers, ShieldCheck, Compass, Info } from 'lucide-react';
+import { loadGoogleMapsApi } from '../utils/googleMaps.js';
 
 /**
  * GoogleLiveMap - Real-time Google Maps Tracking Component for Food Delivery
@@ -36,45 +37,20 @@ export const GoogleLiveMap = ({
 
   // 1. Google Maps JS Script Dynamic Loader
   useEffect(() => {
-    if (!resolvedApiKey) {
-      setLoadError('No Google Maps API key provided. Using high-precision telemetry radar.');
-      return;
-    }
-
-    if (window.google?.maps) {
-      setMapLoaded(true);
-      return;
-    }
-
-    const scriptId = 'google-maps-api-script';
-    let script = document.getElementById(scriptId);
-
-    if (!script) {
-      script = document.createElement('script');
-      script.id = scriptId;
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(resolvedApiKey)}&libraries=geometry`;
-      script.async = true;
-      script.defer = true;
-
-      script.onload = () => {
-        setMapLoaded(true);
-        setLoadError(null);
-      };
-
-      script.onerror = () => {
-        setLoadError('Failed to load Google Maps JavaScript API. Operating in telemetry radar fallback mode.');
-      };
-
-      document.head.appendChild(script);
-    } else {
-      const checkInterval = setInterval(() => {
-        if (window.google?.maps) {
-          clearInterval(checkInterval);
+    let cancelled = false;
+    loadGoogleMapsApi(resolvedApiKey)
+      .then(() => {
+        if (!cancelled) {
           setMapLoaded(true);
+          setLoadError(null);
         }
-      }, 100);
-      return () => clearInterval(checkInterval);
-    }
+      })
+      .catch((_) => {
+        if (!cancelled) {
+          setLoadError('Google Maps API key not provided or unavailable. Operating in telemetry radar fallback mode.');
+        }
+      });
+    return () => { cancelled = true; };
   }, [resolvedApiKey]);
 
   // 2. Initialize Map Instance

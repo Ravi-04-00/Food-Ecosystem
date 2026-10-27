@@ -14,6 +14,7 @@ import {
   Compass
 } from 'lucide-react';
 import { useDelivery } from '../../context/DeliveryContext.jsx';
+import { loadGoogleMapsApi } from '../../utils/googleMaps.js';
 
 export const OperationalMapCanvas = ({ 
   targetStage = 'restaurant', // 'restaurant' | 'customer'
@@ -54,47 +55,29 @@ export const OperationalMapCanvas = ({
   const partnerLng = Number(partnerCoords?.longitude || gpsStatus?.longitude || activeTrip?.rider_lng || 77.5980);
   const partnerHeading = Number(partnerCoords?.heading || gpsStatus?.heading || currentHeadingDeg || 0);
 
-  // 1. Google Maps Script Loader
+  // 1. Google Maps Script Loader via shared singleton
   useEffect(() => {
-    if (!resolvedApiKey) {
-      setGoogleMapError('No Google Maps API key provided. Using offline-ready operational vector map.');
-      return;
-    }
-
-    if (window.google?.maps) {
-      setGoogleMapLoaded(true);
-      return;
-    }
-
-    const scriptId = 'google-maps-api-script';
-    let script = document.getElementById(scriptId);
-
-    if (!script) {
-      script = document.createElement('script');
-      script.id = scriptId;
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(resolvedApiKey)}&libraries=geometry`;
-      script.async = true;
-      script.defer = true;
-
-      script.onload = () => {
-        setGoogleMapLoaded(true);
-        setGoogleMapError(null);
-      };
-
-      script.onerror = () => {
-        setGoogleMapError('Failed to load Google Maps script. Falling back to operational vector canvas.');
-      };
-
-      document.head.appendChild(script);
-    } else {
-      const interval = setInterval(() => {
-        if (window.google?.maps) {
-          clearInterval(interval);
+    let cancelled = false;
+    loadGoogleMapsApi(resolvedApiKey)
+      .then(() => {
+        if (!cancelled) {
           setGoogleMapLoaded(true);
+          setGoogleMapError(null);
         }
-      }, 100);
-      return () => clearInterval(interval);
-    }
+      })
+      .catch(err => {
+        if (!cancelled) {
+          if (err?.message === 'MISSING_API_KEY') {
+            setGoogleMapError('No Google Maps API key provided. Using offline-ready operational vector map.');
+          } else {
+            setGoogleMapError('Failed to load Google Maps script. Falling back to operational vector canvas.');
+          }
+          setGoogleMapLoaded(false);
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [resolvedApiKey]);
 
   // 2. Initialize Google Map Instance
@@ -217,6 +200,10 @@ export const OperationalMapCanvas = ({
       });
     } else {
       markersRef.current.customer.setPosition(custPos);
+    }
+
+    if (!bounds.isEmpty()) {
+      map.fitBounds(bounds, 50);
     }
 
     // Calculate directions from partner to current target

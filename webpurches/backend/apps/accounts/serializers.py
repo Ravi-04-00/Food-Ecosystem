@@ -888,6 +888,8 @@ class RestaurantProfileManageSerializer(serializers.Serializer):
     phone = serializers.CharField(max_length=25, required=False)
     restaurant_address = serializers.CharField(required=False)
     address = serializers.CharField(required=False)
+    latitude = serializers.DecimalField(max_digits=9, decimal_places=6, required=False, allow_null=True)
+    longitude = serializers.DecimalField(max_digits=9, decimal_places=6, required=False, allow_null=True)
     restaurant_logo = serializers.ImageField(required=False, allow_null=True)
     remove_logo = serializers.BooleanField(required=False, default=False)
     email = serializers.EmailField(read_only=True)
@@ -942,6 +944,18 @@ class RestaurantProfileManageSerializer(serializers.Serializer):
             restaurant.address = addr_clean
             profile.address = addr_clean
 
+        if 'latitude' in validated_data and validated_data['latitude'] is not None:
+            lat = float(validated_data['latitude'])
+            if not (-90.0 <= lat <= 90.0):
+                raise serializers.ValidationError({"latitude": ["Latitude must be between -90 and 90."]})
+            restaurant.latitude = lat
+
+        if 'longitude' in validated_data and validated_data['longitude'] is not None:
+            lng = float(validated_data['longitude'])
+            if not (-180.0 <= lng <= 180.0):
+                raise serializers.ValidationError({"longitude": ["Longitude must be between -180 and 180."]})
+            restaurant.longitude = lng
+
         remove_logo = validated_data.get('remove_logo', False)
         if remove_logo:
             if restaurant.restaurant_logo:
@@ -976,6 +990,8 @@ class RestaurantProfileManageSerializer(serializers.Serializer):
             'phone': instance.phone or (profile.phone if profile else ''),
             'restaurant_address': (restaurant.address if restaurant else '') or (profile.address if profile else ''),
             'address': (restaurant.address if restaurant else '') or (profile.address if profile else ''),
+            'latitude': float(restaurant.latitude) if (restaurant and restaurant.latitude is not None) else 12.9716,
+            'longitude': float(restaurant.longitude) if (restaurant and restaurant.longitude is not None) else 77.5946,
             'restaurant_logo': logo_url,
             'verification_status': restaurant.verification_status if restaurant else (profile.verification_status if profile else 'PENDING'),
             'rating': float(restaurant.rating) if restaurant else 4.8,

@@ -5,6 +5,7 @@ import {
   Edit3, Save, Camera, Trash2, AlertCircle, Loader, Lock
 } from 'lucide-react';
 import { useShop } from '../context/ShopContext.jsx';
+import { RestaurantLocationMap } from './RestaurantLocationMap.jsx';
 
 export const RestaurantProfileModal = ({ isOpen, onClose }) => {
   const { 
@@ -24,7 +25,9 @@ export const RestaurantProfileModal = ({ isOpen, onClose }) => {
     restaurant_name: '',
     owner_name: '',
     phone: '',
-    restaurant_address: ''
+    restaurant_address: '',
+    latitude: 12.9716,
+    longitude: 77.5946
   });
   const [selectedLogoFile, setSelectedLogoFile] = useState(null);
   const [logoPreview, setLogoPreview] = useState('');
@@ -38,6 +41,8 @@ export const RestaurantProfileModal = ({ isOpen, onClose }) => {
     email: restaurantProfileData?.email || currentUser?.email || 'chef_kane@fastdelivery.io',
     phone: restaurantProfileData?.phone || currentUser?.phone || '+91 94440 12890',
     restaurant_address: restaurantProfileData?.restaurant_address || restaurantProfileData?.address || currentUser?.address || '14/2 3rd Main Road, Anna Nagar East, Chennai 600102',
+    latitude: restaurantProfileData?.latitude != null ? Number(restaurantProfileData.latitude) : 12.9716,
+    longitude: restaurantProfileData?.longitude != null ? Number(restaurantProfileData.longitude) : 77.5946,
     restaurant_logo: restaurantProfileData?.restaurant_logo || '',
     verification_status: restaurantProfileData?.verification_status || 'APPROVED'
   };
@@ -60,7 +65,9 @@ export const RestaurantProfileModal = ({ isOpen, onClose }) => {
       restaurant_name: effectiveProfile.restaurant_name,
       owner_name: effectiveProfile.owner_name,
       phone: effectiveProfile.phone,
-      restaurant_address: effectiveProfile.restaurant_address
+      restaurant_address: effectiveProfile.restaurant_address,
+      latitude: effectiveProfile.latitude,
+      longitude: effectiveProfile.longitude
     });
     setSelectedLogoFile(null);
     setLogoPreview(effectiveProfile.restaurant_logo);
@@ -135,6 +142,12 @@ export const RestaurantProfileModal = ({ isOpen, onClose }) => {
       fd.append('owner_name', profileFormData.owner_name.trim());
       fd.append('phone', profileFormData.phone.trim());
       fd.append('restaurant_address', profileFormData.restaurant_address.trim());
+      if (profileFormData.latitude != null) {
+        fd.append('latitude', profileFormData.latitude.toString());
+      }
+      if (profileFormData.longitude != null) {
+        fd.append('longitude', profileFormData.longitude.toString());
+      }
       if (selectedLogoFile) {
         fd.append('restaurant_logo', selectedLogoFile);
       }
@@ -514,6 +527,16 @@ export const RestaurantProfileModal = ({ isOpen, onClose }) => {
                           {effectiveProfile.restaurant_address}
                         </div>
                       </div>
+
+                      <div style={{ gridColumn: 'span 2' }}>
+                        <RestaurantLocationMap
+                          latitude={effectiveProfile.latitude}
+                          longitude={effectiveProfile.longitude}
+                          isEditable={false}
+                          restaurantName={effectiveProfile.restaurant_name}
+                          address={effectiveProfile.restaurant_address}
+                        />
+                      </div>
                     </div>
                   </div>
                 ) : (
@@ -767,6 +790,24 @@ export const RestaurantProfileModal = ({ isOpen, onClose }) => {
                             {Array.isArray(profileErrors.restaurant_address) ? profileErrors.restaurant_address[0] : profileErrors.restaurant_address}
                           </span>
                         )}
+                      </div>
+
+                      <div style={{ gridColumn: 'span 2' }}>
+                        <RestaurantLocationMap
+                          latitude={profileFormData.latitude}
+                          longitude={profileFormData.longitude}
+                          isEditable={true}
+                          onLocationChange={({ lat, lng, address }) => {
+                            setProfileFormData(prev => ({
+                              ...prev,
+                              latitude: lat,
+                              longitude: lng,
+                              ...(address ? { restaurant_address: address } : {})
+                            }));
+                          }}
+                          restaurantName={profileFormData.restaurant_name}
+                          address={profileFormData.restaurant_address}
+                        />
                       </div>
                     </div>
 
