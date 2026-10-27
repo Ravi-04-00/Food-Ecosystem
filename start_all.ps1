@@ -8,7 +8,11 @@ Write-Host "       FD FOODS - FRESH CHOICES. ROYAL EXPERIENCES." -ForegroundColo
 Write-Host "       Unified Ecosystem Launcher (Port Conflict-Safe)" -ForegroundColor DarkGreen
 Write-Host "=====================================================================" -ForegroundColor Green
 
-$projectRoot = "$PSScriptRoot\webpurches"
+if (Test-Path "$PSScriptRoot\fd_") {
+    $projectRoot = "$PSScriptRoot\fd_"
+} else {
+    $projectRoot = "$PSScriptRoot\webpurches"
+}
 
 # 1. Resolve Python executable
 $pythonExe = "C:\Users\ELCOT\AppData\Local\Python\pythoncore-3.14-64\python.exe"
