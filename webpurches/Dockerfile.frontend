@@ -26,7 +26,7 @@ COPY delivery-partner-app ./delivery-partner-app
 COPY admin-app ./admin-app
 
 # Build all four React production bundles
-RUN npm run build
+RUN npm run build:all
 
 # --- STAGE 2: Web Server Stage (Nginx Alpine) ---
 FROM nginx:1.27-alpine AS runner

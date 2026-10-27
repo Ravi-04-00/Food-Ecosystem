@@ -1,80 +1,104 @@
-# Information about icons in this directory
+# FD Foods — Food Delivery Ecosystem
 
-## License
+> **Fresh Choices. Royal Experiences.**  
+> Multi-tier, production-oriented food delivery ecosystem powering customers, kitchen partners, delivery fleet, and platform administration.
 
-All icons in this directory are provided by
-[Font Awesome Free](https://fontawesome.com), version 6.7.2.
+---
 
-- The icons are licensed under the [Creative Commons Attribution 4.0
-  International (CC-BY-4.0)](https://creativecommons.org/licenses/by/4.0/)
-  license.
-- This license allows you to use, modify, and distribute the icons, provided
-  proper attribution is given.
+## 1. System Architecture
 
-## Usage
+The project consists of **four independent React 19 micro-frontends** and a **unified Django 5/6 ASGI REST & WebSocket backend** backed by PostgreSQL.
 
-- You may use, modify, and distribute the icons in this repository in
-  compliance with the [Creative Commons Attribution 4.0 International
-  (CC-BY-4.0)](https://creativecommons.org/licenses/by/4.0/) license.
+| Application | Path | Dev Port | Key Responsibilities |
+| :--- | :--- | :--- | :--- |
+| **FD Foods Customer** | `webpurches/customer-app` | `3000` | Menu discovery, cart, saved addresses with map pin picker, 1-tap checkout, live order tracking with OTP |
+| **FD Foods Restaurant** | `webpurches/restaurant-app` | `3001` | Live KDS queue (4-stage status machine), dispatch alerts, menu/category creation, operating hours |
+| **FD Foods Delivery** | `webpurches/delivery-partner-app` | `3002` | Live dispatch offers, turn-by-turn routing, GPS telemetry ingestion, pickup & customer OTP verification, shifts |
+| **FD Foods Admin** | `webpurches/admin-app` | `3003` | Platform command center, fleet telemetry, manual rider reassignment, partner KYC reviews, call queue |
+| **Backend REST & WS** | `webpurches/backend` | `8000` | Django REST Framework, SimpleJWT, Channels/Redis, PostgreSQL persistence, Swagger at `/api/docs/` |
 
-## Modifications
+---
 
-- These icons have been resized, recolored, or otherwise modified to fit the
-  requirements of this project.
+## 2. Quick Start (1-Click Launcher)
 
-- These modifications alter the appearance of the original icons but remain
-  covered under the terms of the
-  [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/) license.
+To launch the backend and all 4 frontends concurrently:
 
-## Contributing SVG Icons
-
-To ensure visual consistency, traceability, and proper license attribution,
-follow these guidelines. This applies when adding or modifying icons.
-
-## ⚠️ Important: Changing Font Awesome Version
-
-If you update to a different Font Awesome version, you must **update all SVG
-files** and **comments inside the files** to reflect the new version number and
-licensing URL accordingly. For example:
-
-* Original:
-```xml
-<!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-```
-* Updated:
-```xml
-<!--!Font Awesome Free X.Y.Z by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright YYYY Fonticons, Inc.-->
+```powershell
+.\start_all.ps1
 ```
 
-## Adding a new icon
+Or on command line:
 
-1. Use only [Font Awesome Free Icons](https://fontawesome.com/icons).
-2. Save the icon as an .svg file in this directory.
-3. Include the following attribution comment at the top of the file (do not
-   change it):
-```xml
-<!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-```
-4. Right before the `<path>` element, add the following metadata comment with
-   the appropriate values:
-```xml
-<!--
-  Icon Name: [icon-name]
-  Icon Family: [classic | sharp | brands | etc.]
-  Icon Style: [solid | regular | light | thin | duotone | etc.]
--->
+```powershell
+cd webpurches
+
+# 1. Install dependencies
+npm install
+
+# 2. Run all frontends concurrently
+npm run dev:all
+
+# 3. In another terminal, start Django backend:
+python backend/manage.py runserver 127.0.0.1:8000
 ```
 
-### Example SVG Structure
+### Demo Accounts
+- **Password**: `wsfood123` | **OTP**: `8492`
+- **Customer**: `customer@wsfood.io`
+- **Restaurant**: `shop@wsfood.io`
+- **Delivery Partner**: `rider@wsfood.io`
+- **Admin**: `admin@wsfood.io`
 
-```xml
-<svg width="13" height="13" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-  <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-  <!--
-    Icon Name: plus
-    Icon Family: classic
-    Icon Style: solid
-  -->
-  <path fill="#5fa225" stroke="#5fa225" stroke-width="30" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/>
-</svg>
+---
+
+## 3. Database Configuration (PostgreSQL)
+
+The ecosystem is configured for PostgreSQL (`fdfood_db` dev, `test_fdfood_db_fresh` test suite).
+
+- Configure database variables in your environment or local `.env` (refer to `.env.example`).
+- Never commit active `.env` files with production secrets.
+
+```bash
+# Verify migrations
+python backend/manage.py showmigrations
+
+# Apply migrations
+python backend/manage.py migrate
+```
+
+---
+
+## 4. Quality Assurance & Test Suites
+
+```powershell
+cd webpurches
+
+# Run frontend quality & responsive viewport test suite (75 tests)
+npm run test:frontend
+
+# Run Django backend regression test suite (76 tests)
+python backend/manage.py test apps.core_tests --keepdb
+
+# Run production build compilation across all 4 apps
+npm run build:all
+```
+
+---
+
+## 5. Directory Layout
+
+```
+Fd_foods/
+├── start_all.ps1                # Unified ecosystem launcher
+├── RESPONSIVE_ARCHITECTURE_TA.md # Architecture notes in Tamil
+└── webpurches/
+    ├── customer-app/            # Customer Portal (Port 3000)
+    ├── restaurant-app/          # Restaurant Kitchen Hub (Port 3001)
+    ├── delivery-partner-app/    # Fleet & Dispatch App (Port 3002)
+    ├── admin-app/               # Admin Command Center (Port 3003)
+    ├── backend/                 # Django ASGI Application (Port 8000)
+    │   ├── apps/                # 20 modular domain applications
+    │   ├── config/              # ASGI, WSGI, URLs, Settings
+    │   └── core_tests/          # Verified test regression suites
+    └── tests/                   # Automated Node.js quality test suites
 ```

@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3003 --open",
-    "build": "vite build",
+    "build": "npm run build:all",
+    "build:root": "vite build",
     "preview": "vite preview --port 3003",
     "test:frontend": "node --test tests/frontend_quality.test.mjs tests/responsive_viewport_qa.test.mjs tests/phase3_architecture.test.mjs tests/phase4_e2e_security_qa.test.mjs",
     "test:backend": "py backend/manage.py test apps.core_tests --keepdb",
