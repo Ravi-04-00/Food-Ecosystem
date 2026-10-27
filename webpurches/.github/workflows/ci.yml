@@ -1,0 +1,125 @@
+name: Fast Delivery CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  # ============================================================================
+  # 1. Backend Verification & Security Checks
+  # ============================================================================
+  backend-verification:
+    name: Backend Tests & Deployment Checks
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: wsfood_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: root
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Backend Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          pip install daphne
+
+      - name: Django Configuration & System Checks
+        working-directory: ./backend
+        env:
+          POSTGRES_DB: wsfood_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: root
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          DJANGO_DEBUG: "False"
+          DJANGO_SECRET_KEY: "ci-testing-long-secret-key-at-least-fifty-characters-here"
+          DJANGO_ALLOWED_HOSTS: "localhost,127.0.0.1"
+          REDIS_URL: "redis://localhost:6379/0"
+        run: |
+          python manage.py check
+          python manage.py collectstatic --noinput
+
+      - name: Run Backend Security & Architecture Tests
+        working-directory: ./backend
+        env:
+          POSTGRES_DB: wsfood_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: root
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          DJANGO_DEBUG: "True"
+        run: |
+          python manage.py migrate
+          python seed_wsfood_data.py
+          python manage.py test apps.core_tests --keepdb
+          python test_phase29.py
+          python test_phase28.py
+
+  # ============================================================================
+  # 2. Frontend Quality & Production Builds Verification
+  # ============================================================================
+  frontend-verification:
+    name: Frontend Quality & Asset Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Frontend Dependencies
+        run: npm install
+
+      - name: Run Automated Frontend Quality Tests
+        run: node tests/frontend_quality.test.mjs
+
+      - name: Build All 4 React Applications
+        run: |
+          npm run build
+        env:
+          VITE_API_BASE_URL: "/api"
+
+      - name: Verify Build Output Assets
+        run: |
+          test -f customer-app/dist/index.html || exit 1
+          test -f restaurant-app/dist/index.html || exit 1
+          test -f delivery-partner-app/dist/index.html || exit 1
+          test -f admin-app/dist/index.html || exit 1
+          echo "All 4 React production bundles successfully verified."

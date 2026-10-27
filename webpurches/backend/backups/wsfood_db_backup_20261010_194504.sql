@@ -1,0 +1,10127 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict BeQOID5k4Vu3rKSpe1x381d6BSj9b1QfYksVk6qbFhPzO7leWaISfFRnhJrJln1
+
+-- Dumped from database version 18.4
+-- Dumped by pg_dump version 18.4
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+ALTER TABLE IF EXISTS ONLY public.wishlist_wishlist DROP CONSTRAINT IF EXISTS wishlist_wishlist_user_id_13f28b16_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.wishlist_wishlist DROP CONSTRAINT IF EXISTS wishlist_wishlist_product_id_2d08b75d_fk_products_fooditem_id;
+ALTER TABLE IF EXISTS ONLY public.token_blacklist_outstandingtoken DROP CONSTRAINT IF EXISTS token_blacklist_outs_user_id_83bc629a_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.token_blacklist_blacklistedtoken DROP CONSTRAINT IF EXISTS token_blacklist_blacklistedtoken_token_id_3cc7fe56_fk;
+ALTER TABLE IF EXISTS ONLY public.social_userfollow DROP CONSTRAINT IF EXISTS social_userfollow_following_user_id_ae739b4e_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.social_userfollow DROP CONSTRAINT IF EXISTS social_userfollow_following_restaurant_3b9a8f96_fk_products_;
+ALTER TABLE IF EXISTS ONLY public.social_userfollow DROP CONSTRAINT IF EXISTS social_userfollow_follower_id_10e05253_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.social_socialreel DROP CONSTRAINT IF EXISTS social_socialreel_restaurant_id_04a06659_fk_products_;
+ALTER TABLE IF EXISTS ONLY public.social_socialreel DROP CONSTRAINT IF EXISTS social_socialreel_food_item_id_74b16c96_fk_products_fooditem_id;
+ALTER TABLE IF EXISTS ONLY public.social_socialreel DROP CONSTRAINT IF EXISTS social_socialreel_author_id_e8728a55_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.social_socialpost DROP CONSTRAINT IF EXISTS social_socialpost_restaurant_id_0a5da66d_fk_products_;
+ALTER TABLE IF EXISTS ONLY public.social_socialpost DROP CONSTRAINT IF EXISTS social_socialpost_food_item_id_3e6592ee_fk_products_fooditem_id;
+ALTER TABLE IF EXISTS ONLY public.social_socialpost DROP CONSTRAINT IF EXISTS social_socialpost_author_id_df2324ff_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.social_reellike DROP CONSTRAINT IF EXISTS social_reellike_user_id_5b7dfde5_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.social_reellike DROP CONSTRAINT IF EXISTS social_reellike_reel_id_c7d73dcc_fk_social_socialreel_id;
+ALTER TABLE IF EXISTS ONLY public.social_reelcomment DROP CONSTRAINT IF EXISTS social_reelcomment_user_id_e4cf5a1c_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.social_reelcomment DROP CONSTRAINT IF EXISTS social_reelcomment_reel_id_63ab8a78_fk_social_socialreel_id;
+ALTER TABLE IF EXISTS ONLY public.social_postlike DROP CONSTRAINT IF EXISTS social_postlike_user_id_5b69509e_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.social_postlike DROP CONSTRAINT IF EXISTS social_postlike_post_id_2e49b122_fk_social_socialpost_id;
+ALTER TABLE IF EXISTS ONLY public.social_postcomment DROP CONSTRAINT IF EXISTS social_postcomment_user_id_a3cca7e5_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.social_postcomment DROP CONSTRAINT IF EXISTS social_postcomment_post_id_06abad83_fk_social_socialpost_id;
+ALTER TABLE IF EXISTS ONLY public.social_photoreview DROP CONSTRAINT IF EXISTS social_photoreview_user_id_0adae011_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.social_photoreview DROP CONSTRAINT IF EXISTS social_photoreview_restaurant_id_7213154f_fk_products_;
+ALTER TABLE IF EXISTS ONLY public.social_photoreview DROP CONSTRAINT IF EXISTS social_photoreview_order_id_fac00517_fk_orders_order_id;
+ALTER TABLE IF EXISTS ONLY public.shifts_shiftswap DROP CONSTRAINT IF EXISTS shifts_shiftswap_requester_id_26236876_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.shifts_shiftswap DROP CONSTRAINT IF EXISTS shifts_shiftswap_receiver_id_5daafef2_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.shifts_shiftswap DROP CONSTRAINT IF EXISTS shifts_shiftswap_booking_id_a8ebc295_fk_shifts_shiftbooking_id;
+ALTER TABLE IF EXISTS ONLY public.shifts_shiftbooking DROP CONSTRAINT IF EXISTS shifts_shiftbooking_shift_id_3a8c7d00_fk_shifts_shift_id;
+ALTER TABLE IF EXISTS ONLY public.shifts_shiftbooking DROP CONSTRAINT IF EXISTS shifts_shiftbooking_rider_id_540aecfe_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.shifts_shiftbonus DROP CONSTRAINT IF EXISTS shifts_shiftbonus_rider_id_35ab78d9_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.shifts_shift DROP CONSTRAINT IF EXISTS shifts_shift_slot_id_0b9385a8_fk_shifts_shiftslot_id;
+ALTER TABLE IF EXISTS ONLY public.shifts_checkin DROP CONSTRAINT IF EXISTS shifts_checkin_rider_id_dfd3e692_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.shifts_checkin DROP CONSTRAINT IF EXISTS shifts_checkin_booking_id_7db5ef4a_fk_shifts_shiftbooking_id;
+ALTER TABLE IF EXISTS ONLY public.shifts_breaklog DROP CONSTRAINT IF EXISTS shifts_breaklog_rider_id_140167fb_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.shifts_breaklog DROP CONSTRAINT IF EXISTS shifts_breaklog_check_in_id_f4a988f5_fk_shifts_checkin_id;
+ALTER TABLE IF EXISTS ONLY public.seller_sellerprofile DROP CONSTRAINT IF EXISTS seller_sellerprofile_user_id_545a8b13_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.seller_sellerprofile DROP CONSTRAINT IF EXISTS seller_sellerprofile_restaurant_id_8d577880_fk_products_;
+ALTER TABLE IF EXISTS ONLY public.reviews_reviewreport DROP CONSTRAINT IF EXISTS reviews_reviewreport_review_id_b7dfcfca_fk_reviews_review_id;
+ALTER TABLE IF EXISTS ONLY public.reviews_reviewreport DROP CONSTRAINT IF EXISTS reviews_reviewreport_resolved_by_id_a6a79622_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.reviews_reviewreport DROP CONSTRAINT IF EXISTS reviews_reviewreport_reported_by_id_5c6b60f8_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.reviews_reviewmoderationlog DROP CONSTRAINT IF EXISTS reviews_reviewmodera_review_id_28a29b93_fk_reviews_r;
+ALTER TABLE IF EXISTS ONLY public.reviews_reviewmoderationlog DROP CONSTRAINT IF EXISTS reviews_reviewmodera_moderator_id_43fb81ee_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.reviews_review DROP CONSTRAINT IF EXISTS reviews_review_user_id_875caff2_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.reviews_review DROP CONSTRAINT IF EXISTS reviews_review_restaurant_id_c4709367_fk_products_restaurant_id;
+ALTER TABLE IF EXISTS ONLY public.reviews_review DROP CONSTRAINT IF EXISTS reviews_review_product_id_ce2fa4c6_fk_products_fooditem_id;
+ALTER TABLE IF EXISTS ONLY public.reviews_review DROP CONSTRAINT IF EXISTS reviews_review_order_id_5b59ebd8_fk_orders_order_id;
+ALTER TABLE IF EXISTS ONLY public.reviews_review DROP CONSTRAINT IF EXISTS reviews_review_moderated_by_id_a5dc38a3_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.reviews_review DROP CONSTRAINT IF EXISTS reviews_review_delivery_partner_id_51ada68a_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.products_restaurant DROP CONSTRAINT IF EXISTS products_restaurant_owner_id_792efc20_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.products_foodvariant DROP CONSTRAINT IF EXISTS products_foodvariant_food_id_fb238833_fk_products_fooditem_id;
+ALTER TABLE IF EXISTS ONLY public.products_foodreel DROP CONSTRAINT IF EXISTS products_foodreel_restaurant_id_9d61be43_fk_products_;
+ALTER TABLE IF EXISTS ONLY public.products_foodreel DROP CONSTRAINT IF EXISTS products_foodreel_food_item_id_78489992_fk_products_fooditem_id;
+ALTER TABLE IF EXISTS ONLY public.products_foodpost DROP CONSTRAINT IF EXISTS products_foodpost_restaurant_id_dfd7a5af_fk_products_;
+ALTER TABLE IF EXISTS ONLY public.products_foodpost DROP CONSTRAINT IF EXISTS products_foodpost_food_item_id_b489df82_fk_products_fooditem_id;
+ALTER TABLE IF EXISTS ONLY public.products_fooditem DROP CONSTRAINT IF EXISTS products_fooditem_restaurant_id_142f8e07_fk_products_;
+ALTER TABLE IF EXISTS ONLY public.products_fooditem DROP CONSTRAINT IF EXISTS products_fooditem_menu_category_id_08cf9b6f_fk_menu_menu;
+ALTER TABLE IF EXISTS ONLY public.products_fooditem DROP CONSTRAINT IF EXISTS products_fooditem_category_id_3932dd55_fk_categorie;
+ALTER TABLE IF EXISTS ONLY public.products_foodaddon DROP CONSTRAINT IF EXISTS products_foodaddon_food_id_190540be_fk_products_fooditem_id;
+ALTER TABLE IF EXISTS ONLY public.payments_transaction DROP CONSTRAINT IF EXISTS payments_transaction_payment_id_2f6b2801_fk_payments_payment_id;
+ALTER TABLE IF EXISTS ONLY public.payments_settlementadjustment DROP CONSTRAINT IF EXISTS payments_settlementa_settlement_id_24cf377f_fk_payments_;
+ALTER TABLE IF EXISTS ONLY public.payments_settlementadjustment DROP CONSTRAINT IF EXISTS payments_settlementa_restaurant_id_e9a92f8a_fk_products_;
+ALTER TABLE IF EXISTS ONLY public.payments_settlementadjustment DROP CONSTRAINT IF EXISTS payments_settlementa_authorized_by_id_1efa616b_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.payments_restaurantsettlement DROP CONSTRAINT IF EXISTS payments_restaurants_verified_by_id_d621f147_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.payments_restaurantsettlement DROP CONSTRAINT IF EXISTS payments_restaurants_restaurant_id_0782852b_fk_products_;
+ALTER TABLE IF EXISTS ONLY public.payments_restaurantsettlement DROP CONSTRAINT IF EXISTS payments_restaurants_created_by_id_00e34e4d_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.payments_restaurantsettlement DROP CONSTRAINT IF EXISTS payments_restaurants_approved_by_id_43912464_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.payments_restaurantcommission DROP CONSTRAINT IF EXISTS payments_restaurantc_settlement_id_8da2d17b_fk_payments_;
+ALTER TABLE IF EXISTS ONLY public.payments_restaurantcommission DROP CONSTRAINT IF EXISTS payments_restaurantc_restaurant_id_7070c276_fk_products_;
+ALTER TABLE IF EXISTS ONLY public.payments_restaurantcommission DROP CONSTRAINT IF EXISTS payments_restaurantc_order_id_79e08e00_fk_orders_or;
+ALTER TABLE IF EXISTS ONLY public.payments_payment DROP CONSTRAINT IF EXISTS payments_payment_order_id_22c479b7_fk_orders_order_id;
+ALTER TABLE IF EXISTS ONLY public.orders_orderstatushistory DROP CONSTRAINT IF EXISTS orders_orderstatushistory_order_id_bf09a0e1_fk_orders_order_id;
+ALTER TABLE IF EXISTS ONLY public.orders_orderstatushistory DROP CONSTRAINT IF EXISTS orders_orderstatushistory_actor_id_f3060964_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.orders_orderitem DROP CONSTRAINT IF EXISTS orders_orderitem_order_id_fe61a34d_fk_orders_order_id;
+ALTER TABLE IF EXISTS ONLY public.orders_orderitem DROP CONSTRAINT IF EXISTS orders_orderitem_food_item_id_a906ceae_fk_products_fooditem_id;
+ALTER TABLE IF EXISTS ONLY public.orders_order DROP CONSTRAINT IF EXISTS orders_order_shipping_address_id_c4f8227a_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.orders_order DROP CONSTRAINT IF EXISTS orders_order_rider_id_92a8fa73_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.orders_order DROP CONSTRAINT IF EXISTS orders_order_restaurant_id_a38fbfc0_fk_products_restaurant_id;
+ALTER TABLE IF EXISTS ONLY public.orders_order DROP CONSTRAINT IF EXISTS orders_order_customer_id_0b76f6a4_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.orders_order DROP CONSTRAINT IF EXISTS orders_order_coupon_id_5bddb887_fk_coupons_coupon_id;
+ALTER TABLE IF EXISTS ONLY public.orders_order DROP CONSTRAINT IF EXISTS orders_order_cancelled_by_id_b6528c6d_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.notifications_notification DROP CONSTRAINT IF EXISTS notifications_notification_user_id_b5e8c0ff_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.notifications_notificationpreference DROP CONSTRAINT IF EXISTS notifications_notifi_user_id_7cfb3d3a_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.notifications_notificationdeliveryattempt DROP CONSTRAINT IF EXISTS notifications_notifi_notification_id_3c948329_fk_notificat;
+ALTER TABLE IF EXISTS ONLY public.menu_menucategory DROP CONSTRAINT IF EXISTS menu_menucategory_restaurant_id_4cdb2a55_fk_products_;
+ALTER TABLE IF EXISTS ONLY public.django_admin_log DROP CONSTRAINT IF EXISTS django_admin_log_user_id_c564eba6_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.django_admin_log DROP CONSTRAINT IF EXISTS django_admin_log_content_type_id_c4bce8eb_fk_django_co;
+ALTER TABLE IF EXISTS ONLY public.discovery_usersearchhistory DROP CONSTRAINT IF EXISTS discovery_usersearch_user_id_3cdcc00b_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliverypartner DROP CONSTRAINT IF EXISTS delivery_deliverypartner_user_id_87df5982_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliverypartner DROP CONSTRAINT IF EXISTS delivery_deliverypar_active_order_id_116b1e1c_fk_orders_or;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryotp DROP CONSTRAINT IF EXISTS delivery_deliveryotp_order_id_2bc198ac_fk_orders_order_id;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryotp DROP CONSTRAINT IF EXISTS delivery_deliveryotp_assignment_id_f189f2cc_fk_delivery_;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryoffer DROP CONSTRAINT IF EXISTS delivery_deliveryoff_delivery_partner_id_e3a5c287_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryoffer DROP CONSTRAINT IF EXISTS delivery_deliveryoff_assignment_id_13ea9775_fk_delivery_;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryissuereport DROP CONSTRAINT IF EXISTS delivery_deliveryiss_reporter_id_50f2106f_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryissuereport DROP CONSTRAINT IF EXISTS delivery_deliveryiss_order_id_961c0a0a_fk_orders_or;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryissuereport DROP CONSTRAINT IF EXISTS delivery_deliveryiss_assignment_id_0d8f79b1_fk_delivery_;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryassignment DROP CONSTRAINT IF EXISTS delivery_deliveryass_order_id_a7f3b67d_fk_orders_or;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryassignment DROP CONSTRAINT IF EXISTS delivery_deliveryass_delivery_partner_id_bb9ad758_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryassignmenthistory DROP CONSTRAINT IF EXISTS delivery_deliveryass_assignment_id_174fff61_fk_delivery_;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryassignmenthistory DROP CONSTRAINT IF EXISTS delivery_deliveryass_actor_id_927b9793_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.coupons_loyaltyledgerentry DROP CONSTRAINT IF EXISTS coupons_loyaltyledgerentry_user_id_6970d243_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.coupons_loyaltyledgerentry DROP CONSTRAINT IF EXISTS coupons_loyaltyledgerentry_order_id_f1f690c9_fk_orders_order_id;
+ALTER TABLE IF EXISTS ONLY public.coupons_couponredemption DROP CONSTRAINT IF EXISTS coupons_couponredemption_user_id_4f014db1_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.coupons_couponredemption DROP CONSTRAINT IF EXISTS coupons_couponredemption_order_id_5c57d679_fk_orders_order_id;
+ALTER TABLE IF EXISTS ONLY public.coupons_couponredemption DROP CONSTRAINT IF EXISTS coupons_couponredemp_coupon_id_bff37705_fk_coupons_c;
+ALTER TABLE IF EXISTS ONLY public.coupons_coupon_applicable_restaurants DROP CONSTRAINT IF EXISTS coupons_coupon_appli_restaurant_id_608099fe_fk_products_;
+ALTER TABLE IF EXISTS ONLY public.coupons_coupon_applicable_restaurants DROP CONSTRAINT IF EXISTS coupons_coupon_appli_coupon_id_02ff6c8c_fk_coupons_c;
+ALTER TABLE IF EXISTS ONLY public.chat_message DROP CONSTRAINT IF EXISTS chat_message_sender_id_991c686c_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.chat_message DROP CONSTRAINT IF EXISTS chat_message_conversation_id_a1207bf4_fk_chat_conversation_id;
+ALTER TABLE IF EXISTS ONLY public.chat_conversation DROP CONSTRAINT IF EXISTS chat_conversation_seller_id_40c5e079_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.chat_conversation DROP CONSTRAINT IF EXISTS chat_conversation_customer_id_9b2323d3_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.cart_cartitem DROP CONSTRAINT IF EXISTS cart_cartitem_variant_id_69f5d8c8_fk_products_foodvariant_id;
+ALTER TABLE IF EXISTS ONLY public.cart_cartitem DROP CONSTRAINT IF EXISTS cart_cartitem_product_id_b24e265a_fk_products_fooditem_id;
+ALTER TABLE IF EXISTS ONLY public.cart_cartitem DROP CONSTRAINT IF EXISTS cart_cartitem_cart_id_370ad265_fk_cart_cart_id;
+ALTER TABLE IF EXISTS ONLY public.cart_cart DROP CONSTRAINT IF EXISTS cart_cart_user_id_9b4220b9_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.cart_cart DROP CONSTRAINT IF EXISTS cart_cart_restaurant_id_335a7ef9_fk_products_restaurant_id;
+ALTER TABLE IF EXISTS ONLY public.auth_permission DROP CONSTRAINT IF EXISTS auth_permission_content_type_id_2f476e4b_fk_django_co;
+ALTER TABLE IF EXISTS ONLY public.auth_group_permissions DROP CONSTRAINT IF EXISTS auth_group_permissions_group_id_b120cbf9_fk_auth_group_id;
+ALTER TABLE IF EXISTS ONLY public.auth_group_permissions DROP CONSTRAINT IF EXISTS auth_group_permissio_permission_id_84c5c92e_fk_auth_perm;
+ALTER TABLE IF EXISTS ONLY public.adminpanel_platformconfig DROP CONSTRAINT IF EXISTS adminpanel_platformc_updated_by_id_d0ba052b_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.accounts_wallettransaction DROP CONSTRAINT IF EXISTS accounts_wallettrans_wallet_id_d18b5a92_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.accounts_wallet DROP CONSTRAINT IF EXISTS accounts_wallet_user_id_e646a316_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.accounts_usersettings DROP CONSTRAINT IF EXISTS accounts_usersettings_user_id_3952da55_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.accounts_user_user_permissions DROP CONSTRAINT IF EXISTS accounts_user_user_p_user_id_e4f0a161_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.accounts_user_user_permissions DROP CONSTRAINT IF EXISTS accounts_user_user_p_permission_id_113bb443_fk_auth_perm;
+ALTER TABLE IF EXISTS ONLY public.accounts_user_groups DROP CONSTRAINT IF EXISTS accounts_user_groups_user_id_52b62117_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.accounts_user_groups DROP CONSTRAINT IF EXISTS accounts_user_groups_group_id_bd11a704_fk_auth_group_id;
+ALTER TABLE IF EXISTS ONLY public.accounts_ticketmessage DROP CONSTRAINT IF EXISTS accounts_ticketmessage_sender_id_e65746c8_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.accounts_ticketmessage DROP CONSTRAINT IF EXISTS accounts_ticketmessa_ticket_id_2045adb8_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.accounts_ticketauditlog DROP CONSTRAINT IF EXISTS accounts_ticketauditlog_actor_id_9a4eb106_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.accounts_ticketauditlog DROP CONSTRAINT IF EXISTS accounts_ticketaudit_ticket_id_f2a2d291_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.accounts_ticketattachment DROP CONSTRAINT IF EXISTS accounts_ticketattac_uploaded_by_id_e0774b4e_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.accounts_ticketattachment DROP CONSTRAINT IF EXISTS accounts_ticketattac_ticket_id_0177000f_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.accounts_ticketattachment DROP CONSTRAINT IF EXISTS accounts_ticketattac_message_id_05357a9a_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.accounts_supportticket DROP CONSTRAINT IF EXISTS accounts_supportticket_user_id_6e311941_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.accounts_supportticket DROP CONSTRAINT IF EXISTS accounts_supporttick_restaurant_id_cdf12494_fk_products_;
+ALTER TABLE IF EXISTS ONLY public.accounts_supportticket DROP CONSTRAINT IF EXISTS accounts_supporttick_linked_order_id_1689ef10_fk_orders_or;
+ALTER TABLE IF EXISTS ONLY public.accounts_supportticket DROP CONSTRAINT IF EXISTS accounts_supporttick_escalated_by_id_af1b7f4a_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.accounts_supportticket DROP CONSTRAINT IF EXISTS accounts_supporttick_delivery_partner_id_03e17c70_fk_delivery_;
+ALTER TABLE IF EXISTS ONLY public.accounts_supportticket DROP CONSTRAINT IF EXISTS accounts_supporttick_assigned_agent_id_0061b5fd_fk_accounts_;
+ALTER TABLE IF EXISTS ONLY public.accounts_profile DROP CONSTRAINT IF EXISTS accounts_profile_user_id_49a85d32_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.accounts_loyaltyprofile DROP CONSTRAINT IF EXISTS accounts_loyaltyprofile_user_id_17e0c83b_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.accounts_loginactivity DROP CONSTRAINT IF EXISTS accounts_loginactivity_user_id_e23ed239_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.accounts_auditlog DROP CONSTRAINT IF EXISTS accounts_auditlog_actor_id_f3348b18_fk_accounts_user_id;
+ALTER TABLE IF EXISTS ONLY public.accounts_address DROP CONSTRAINT IF EXISTS accounts_address_user_id_c8c74ddf_fk_accounts_user_id;
+DROP INDEX IF EXISTS public.wishlist_wishlist_user_id_13f28b16;
+DROP INDEX IF EXISTS public.wishlist_wishlist_product_id_2d08b75d;
+DROP INDEX IF EXISTS public.unique_order_target_review;
+DROP INDEX IF EXISTS public.unique_order_product_review;
+DROP INDEX IF EXISTS public.unique_committed_coupon_per_order;
+DROP INDEX IF EXISTS public.token_blacklist_outstandingtoken_user_id_83bc629a;
+DROP INDEX IF EXISTS public.token_blacklist_outstandingtoken_jti_hex_d9bdf6f7_like;
+DROP INDEX IF EXISTS public.social_userfollow_following_user_id_ae739b4e;
+DROP INDEX IF EXISTS public.social_userfollow_following_restaurant_id_3b9a8f96;
+DROP INDEX IF EXISTS public.social_userfollow_follower_id_10e05253;
+DROP INDEX IF EXISTS public.social_socialreel_restaurant_id_04a06659;
+DROP INDEX IF EXISTS public.social_socialreel_food_item_id_74b16c96;
+DROP INDEX IF EXISTS public.social_socialreel_author_id_e8728a55;
+DROP INDEX IF EXISTS public.social_socialpost_restaurant_id_0a5da66d;
+DROP INDEX IF EXISTS public.social_socialpost_food_item_id_3e6592ee;
+DROP INDEX IF EXISTS public.social_socialpost_author_id_df2324ff;
+DROP INDEX IF EXISTS public.social_reellike_user_id_5b7dfde5;
+DROP INDEX IF EXISTS public.social_reellike_reel_id_c7d73dcc;
+DROP INDEX IF EXISTS public.social_reelcomment_user_id_e4cf5a1c;
+DROP INDEX IF EXISTS public.social_reelcomment_reel_id_63ab8a78;
+DROP INDEX IF EXISTS public.social_postlike_user_id_5b69509e;
+DROP INDEX IF EXISTS public.social_postlike_post_id_2e49b122;
+DROP INDEX IF EXISTS public.social_postcomment_user_id_a3cca7e5;
+DROP INDEX IF EXISTS public.social_postcomment_post_id_06abad83;
+DROP INDEX IF EXISTS public.social_photoreview_user_id_0adae011;
+DROP INDEX IF EXISTS public.social_photoreview_restaurant_id_7213154f;
+DROP INDEX IF EXISTS public.social_photoreview_order_id_fac00517;
+DROP INDEX IF EXISTS public.shifts_shiftswap_requester_id_26236876;
+DROP INDEX IF EXISTS public.shifts_shiftswap_receiver_id_5daafef2;
+DROP INDEX IF EXISTS public.shifts_shiftswap_booking_id_a8ebc295;
+DROP INDEX IF EXISTS public.shifts_shiftbooking_shift_id_3a8c7d00;
+DROP INDEX IF EXISTS public.shifts_shiftbooking_rider_id_540aecfe;
+DROP INDEX IF EXISTS public.shifts_shiftbooking_date_2bade7f9;
+DROP INDEX IF EXISTS public.shifts_shiftbonus_rider_id_35ab78d9;
+DROP INDEX IF EXISTS public.shifts_shift_slot_id_0b9385a8;
+DROP INDEX IF EXISTS public.shifts_shift_date_2e61b0a9;
+DROP INDEX IF EXISTS public.shifts_checkin_rider_id_dfd3e692;
+DROP INDEX IF EXISTS public.shifts_breaklog_rider_id_140167fb;
+DROP INDEX IF EXISTS public.shifts_breaklog_check_in_id_f4a988f5;
+DROP INDEX IF EXISTS public.seller_sellerprofile_slug_05316edf_like;
+DROP INDEX IF EXISTS public.reviews_reviewreport_status_40e86bac_like;
+DROP INDEX IF EXISTS public.reviews_reviewreport_status_40e86bac;
+DROP INDEX IF EXISTS public.reviews_reviewreport_review_id_b7dfcfca;
+DROP INDEX IF EXISTS public.reviews_reviewreport_resolved_by_id_a6a79622;
+DROP INDEX IF EXISTS public.reviews_reviewreport_reported_by_id_5c6b60f8;
+DROP INDEX IF EXISTS public.reviews_reviewreport_created_at_1fc6c133;
+DROP INDEX IF EXISTS public.reviews_reviewmoderationlog_review_id_28a29b93;
+DROP INDEX IF EXISTS public.reviews_reviewmoderationlog_moderator_id_43fb81ee;
+DROP INDEX IF EXISTS public.reviews_reviewmoderationlog_created_at_b36951d0;
+DROP INDEX IF EXISTS public.reviews_review_user_id_875caff2;
+DROP INDEX IF EXISTS public.reviews_review_target_type_4f6a44b6_like;
+DROP INDEX IF EXISTS public.reviews_review_target_type_4f6a44b6;
+DROP INDEX IF EXISTS public.reviews_review_restaurant_id_c4709367;
+DROP INDEX IF EXISTS public.reviews_review_product_id_ce2fa4c6;
+DROP INDEX IF EXISTS public.reviews_review_order_id_5b59ebd8;
+DROP INDEX IF EXISTS public.reviews_review_moderation_status_2e0208b6_like;
+DROP INDEX IF EXISTS public.reviews_review_moderation_status_2e0208b6;
+DROP INDEX IF EXISTS public.reviews_review_moderated_by_id_a5dc38a3;
+DROP INDEX IF EXISTS public.reviews_review_delivery_partner_id_51ada68a;
+DROP INDEX IF EXISTS public.reviews_review_created_at_3e4e7d2e;
+DROP INDEX IF EXISTS public.reviews_rev_user_id_eeecea_idx;
+DROP INDEX IF EXISTS public.reviews_rev_target__624db6_idx;
+DROP INDEX IF EXISTS public.reviews_rev_status_90cf38_idx;
+DROP INDEX IF EXISTS public.reviews_rev_review__e01069_idx;
+DROP INDEX IF EXISTS public.reviews_rev_restaur_bb2d56_idx;
+DROP INDEX IF EXISTS public.reviews_rev_product_786cb2_idx;
+DROP INDEX IF EXISTS public.reviews_rev_order_i_a06ef5_idx;
+DROP INDEX IF EXISTS public.reviews_rev_deliver_5f674e_idx;
+DROP INDEX IF EXISTS public.products_restaurant_owner_id_792efc20;
+DROP INDEX IF EXISTS public.products_restaurant_name_d1924249_like;
+DROP INDEX IF EXISTS public.products_re_verific_4b5cc4_idx;
+DROP INDEX IF EXISTS public.products_re_rating_daa4bb_idx;
+DROP INDEX IF EXISTS public.products_re_created_aacbf1_idx;
+DROP INDEX IF EXISTS public.products_foodvariant_food_id_fb238833;
+DROP INDEX IF EXISTS public.products_foodreel_restaurant_id_9d61be43;
+DROP INDEX IF EXISTS public.products_foodreel_food_item_id_78489992;
+DROP INDEX IF EXISTS public.products_foodpost_restaurant_id_dfd7a5af;
+DROP INDEX IF EXISTS public.products_foodpost_food_item_id_b489df82;
+DROP INDEX IF EXISTS public.products_fooditem_slug_69ab38f3_like;
+DROP INDEX IF EXISTS public.products_fooditem_restaurant_id_142f8e07;
+DROP INDEX IF EXISTS public.products_fooditem_menu_category_id_08cf9b6f;
+DROP INDEX IF EXISTS public.products_fooditem_category_id_3932dd55;
+DROP INDEX IF EXISTS public.products_foodaddon_food_id_190540be;
+DROP INDEX IF EXISTS public.products_fo_restaur_fd3f59_idx;
+DROP INDEX IF EXISTS public.products_fo_rating_86a682_idx;
+DROP INDEX IF EXISTS public.products_fo_is_veg_6c98f1_idx;
+DROP INDEX IF EXISTS public.products_fo_created_073672_idx;
+DROP INDEX IF EXISTS public.products_fo_categor_6a1c4f_idx;
+DROP INDEX IF EXISTS public.payments_transaction_transaction_id_32594f01_like;
+DROP INDEX IF EXISTS public.payments_transaction_payment_id_2f6b2801;
+DROP INDEX IF EXISTS public.payments_transaction_idempotency_key_b68ab6d2_like;
+DROP INDEX IF EXISTS public.payments_transaction_idempotency_key_b68ab6d2;
+DROP INDEX IF EXISTS public.payments_settlementadjustment_settlement_id_24cf377f;
+DROP INDEX IF EXISTS public.payments_settlementadjustment_restaurant_id_e9a92f8a;
+DROP INDEX IF EXISTS public.payments_settlementadjustment_authorized_by_id_1efa616b;
+DROP INDEX IF EXISTS public.payments_restaurantsettlement_verified_by_id_d621f147;
+DROP INDEX IF EXISTS public.payments_restaurantsettlement_status_caa0e802_like;
+DROP INDEX IF EXISTS public.payments_restaurantsettlement_status_caa0e802;
+DROP INDEX IF EXISTS public.payments_restaurantsettlement_restaurant_id_0782852b;
+DROP INDEX IF EXISTS public.payments_restaurantsettlement_provider_reference_f213b6bf_like;
+DROP INDEX IF EXISTS public.payments_restaurantsettlement_provider_reference_f213b6bf;
+DROP INDEX IF EXISTS public.payments_restaurantsettlement_period_start_f6b4f173;
+DROP INDEX IF EXISTS public.payments_restaurantsettlement_period_end_43cccc7b;
+DROP INDEX IF EXISTS public.payments_restaurantsettlement_created_by_id_00e34e4d;
+DROP INDEX IF EXISTS public.payments_restaurantsettlement_created_at_b264bbf2;
+DROP INDEX IF EXISTS public.payments_restaurantsettlement_approved_by_id_43912464;
+DROP INDEX IF EXISTS public.payments_restaurantsettl_settlement_reference_f7520b3b_like;
+DROP INDEX IF EXISTS public.payments_restaurantcommission_status_914e6f96_like;
+DROP INDEX IF EXISTS public.payments_restaurantcommission_status_914e6f96;
+DROP INDEX IF EXISTS public.payments_restaurantcommission_settlement_id_8da2d17b;
+DROP INDEX IF EXISTS public.payments_restaurantcommission_restaurant_id_7070c276;
+DROP INDEX IF EXISTS public.payments_restaurantcommission_order_number_1d66c455_like;
+DROP INDEX IF EXISTS public.payments_restaurantcommission_order_number_1d66c455;
+DROP INDEX IF EXISTS public.payments_restaurantcommission_created_at_d0a15424;
+DROP INDEX IF EXISTS public.payments_re_status_a49203_idx;
+DROP INDEX IF EXISTS public.payments_re_status_4e62c8_idx;
+DROP INDEX IF EXISTS public.payments_re_restaur_c3fe0d_idx;
+DROP INDEX IF EXISTS public.payments_re_restaur_3364a7_idx;
+DROP INDEX IF EXISTS public.payments_re_period__d7ac24_idx;
+DROP INDEX IF EXISTS public.payments_re_order_n_e6328a_idx;
+DROP INDEX IF EXISTS public.payments_paymentwebhook_event_type_21cd6452_like;
+DROP INDEX IF EXISTS public.payments_paymentwebhook_event_type_21cd6452;
+DROP INDEX IF EXISTS public.payments_paymentwebhook_event_id_8fe95b4f_like;
+DROP INDEX IF EXISTS public.payments_payment_status_fc8cbda2_like;
+DROP INDEX IF EXISTS public.payments_payment_status_fc8cbda2;
+DROP INDEX IF EXISTS public.payments_payment_provider_payment_id_6e8e6ad7_like;
+DROP INDEX IF EXISTS public.payments_payment_provider_payment_id_6e8e6ad7;
+DROP INDEX IF EXISTS public.payments_payment_provider_order_id_d1e01640_like;
+DROP INDEX IF EXISTS public.payments_payment_provider_order_id_d1e01640;
+DROP INDEX IF EXISTS public.payments_payment_order_id_22c479b7;
+DROP INDEX IF EXISTS public.payments_payment_idempotency_key_d254539e_like;
+DROP INDEX IF EXISTS public.payments_payment_created_at_149046d5;
+DROP INDEX IF EXISTS public.payments_pa_provide_c37514_idx;
+DROP INDEX IF EXISTS public.payments_pa_provide_adf74c_idx;
+DROP INDEX IF EXISTS public.payments_pa_order_i_a76289_idx;
+DROP INDEX IF EXISTS public.orders_orderstatushistory_order_id_bf09a0e1;
+DROP INDEX IF EXISTS public.orders_orderstatushistory_created_at_535f9788;
+DROP INDEX IF EXISTS public.orders_orderstatushistory_actor_id_f3060964;
+DROP INDEX IF EXISTS public.orders_orderitem_order_id_fe61a34d;
+DROP INDEX IF EXISTS public.orders_orderitem_food_item_id_a906ceae;
+DROP INDEX IF EXISTS public.orders_order_status_445594e5_like;
+DROP INDEX IF EXISTS public.orders_order_status_445594e5;
+DROP INDEX IF EXISTS public.orders_order_shipping_address_id_c4f8227a;
+DROP INDEX IF EXISTS public.orders_order_rider_id_92a8fa73;
+DROP INDEX IF EXISTS public.orders_order_restaurant_id_a38fbfc0;
+DROP INDEX IF EXISTS public.orders_order_order_number_4e985f70_like;
+DROP INDEX IF EXISTS public.orders_order_customer_id_0b76f6a4;
+DROP INDEX IF EXISTS public.orders_order_created_at_20b8d253;
+DROP INDEX IF EXISTS public.orders_order_coupon_id_5bddb887;
+DROP INDEX IF EXISTS public.orders_order_cancelled_by_id_b6528c6d;
+DROP INDEX IF EXISTS public.orders_orde_rider_l_936324_idx;
+DROP INDEX IF EXISTS public.orders_orde_restaur_52dee8_idx;
+DROP INDEX IF EXISTS public.orders_orde_restaur_17016b_idx;
+DROP INDEX IF EXISTS public.orders_orde_order_i_1de1d7_idx;
+DROP INDEX IF EXISTS public.orders_orde_custome_c9b64a_idx;
+DROP INDEX IF EXISTS public.orders_orde_custome_89bd7e_idx;
+DROP INDEX IF EXISTS public.orders_orde_created_0e92de_idx;
+DROP INDEX IF EXISTS public.notifications_notification_user_id_b5e8c0ff;
+DROP INDEX IF EXISTS public.notifications_notification_notification_id_3c948329;
+DROP INDEX IF EXISTS public.notifications_notification_is_read_21b215ac;
+DROP INDEX IF EXISTS public.notifications_notification_is_dismissed_544ecb5d;
+DROP INDEX IF EXISTS public.notifications_notification_idempotency_key_0aab04ad_like;
+DROP INDEX IF EXISTS public.notifications_notification_event_type_822981c8_like;
+DROP INDEX IF EXISTS public.notifications_notification_event_type_822981c8;
+DROP INDEX IF EXISTS public.notifications_notification_created_at_10160fdd;
+DROP INDEX IF EXISTS public.notificatio_user_id_c62b26_idx;
+DROP INDEX IF EXISTS public.notificatio_user_id_c37c69_idx;
+DROP INDEX IF EXISTS public.notificatio_user_id_427e4b_idx;
+DROP INDEX IF EXISTS public.menu_menucategory_slug_8660493f_like;
+DROP INDEX IF EXISTS public.menu_menucategory_slug_8660493f;
+DROP INDEX IF EXISTS public.menu_menucategory_restaurant_id_4cdb2a55;
+DROP INDEX IF EXISTS public.django_session_session_key_c0390e0f_like;
+DROP INDEX IF EXISTS public.django_session_expire_date_a5c62663;
+DROP INDEX IF EXISTS public.django_admin_log_user_id_c564eba6;
+DROP INDEX IF EXISTS public.django_admin_log_content_type_id_c4bce8eb;
+DROP INDEX IF EXISTS public.discovery_usersearchhistory_user_id_3cdcc00b;
+DROP INDEX IF EXISTS public.discovery_usersearchhistory_query_76a632e7_like;
+DROP INDEX IF EXISTS public.discovery_usersearchhistory_query_76a632e7;
+DROP INDEX IF EXISTS public.discovery_usersearchhistory_created_at_f0e6fef2;
+DROP INDEX IF EXISTS public.discovery_u_user_id_120977_idx;
+DROP INDEX IF EXISTS public.delivery_deliverypartner_vehicle_number_904042cb_like;
+DROP INDEX IF EXISTS public.delivery_deliverypartner_active_order_id_116b1e1c;
+DROP INDEX IF EXISTS public.delivery_deliveryotp_assignment_id_f189f2cc;
+DROP INDEX IF EXISTS public.delivery_deliveryoffer_status_55dfe0a2_like;
+DROP INDEX IF EXISTS public.delivery_deliveryoffer_status_55dfe0a2;
+DROP INDEX IF EXISTS public.delivery_deliveryoffer_offered_at_27b05524;
+DROP INDEX IF EXISTS public.delivery_deliveryoffer_expires_at_0d8a7964;
+DROP INDEX IF EXISTS public.delivery_deliveryoffer_delivery_partner_id_e3a5c287;
+DROP INDEX IF EXISTS public.delivery_deliveryoffer_assignment_id_13ea9775;
+DROP INDEX IF EXISTS public.delivery_deliveryissuereport_reporter_id_50f2106f;
+DROP INDEX IF EXISTS public.delivery_deliveryissuereport_order_id_961c0a0a;
+DROP INDEX IF EXISTS public.delivery_deliveryissuereport_created_at_22349b3e;
+DROP INDEX IF EXISTS public.delivery_deliveryissuereport_category_445fd1d9_like;
+DROP INDEX IF EXISTS public.delivery_deliveryissuereport_category_445fd1d9;
+DROP INDEX IF EXISTS public.delivery_deliveryissuereport_assignment_id_0d8f79b1;
+DROP INDEX IF EXISTS public.delivery_deliveryassignmenthistory_created_at_c34f49a8;
+DROP INDEX IF EXISTS public.delivery_deliveryassignmenthistory_assignment_id_174fff61;
+DROP INDEX IF EXISTS public.delivery_deliveryassignmenthistory_actor_id_927b9793;
+DROP INDEX IF EXISTS public.delivery_deliveryassignment_status_6db2db74_like;
+DROP INDEX IF EXISTS public.delivery_deliveryassignment_status_6db2db74;
+DROP INDEX IF EXISTS public.delivery_deliveryassignment_delivery_partner_id_bb9ad758;
+DROP INDEX IF EXISTS public.delivery_de_status_9f12d4_idx;
+DROP INDEX IF EXISTS public.delivery_de_status_598725_idx;
+DROP INDEX IF EXISTS public.delivery_de_status_1cb66b_idx;
+DROP INDEX IF EXISTS public.delivery_de_order_i_e87c3d_idx;
+DROP INDEX IF EXISTS public.delivery_de_order_i_e155c3_idx;
+DROP INDEX IF EXISTS public.delivery_de_deliver_892491_idx;
+DROP INDEX IF EXISTS public.delivery_de_deliver_064518_idx;
+DROP INDEX IF EXISTS public.delivery_de_assignm_54e0c4_idx;
+DROP INDEX IF EXISTS public.delivery_de_assignm_0845e6_idx;
+DROP INDEX IF EXISTS public.delivery_de_assignm_027a95_idx;
+DROP INDEX IF EXISTS public.coupons_loyaltyledgerentry_user_id_6970d243;
+DROP INDEX IF EXISTS public.coupons_loyaltyledgerentry_order_id_f1f690c9;
+DROP INDEX IF EXISTS public.coupons_loyaltyledgerentry_idempotency_key_70aad76d_like;
+DROP INDEX IF EXISTS public.coupons_loy_user_id_4d8b8a_idx;
+DROP INDEX IF EXISTS public.coupons_loy_transac_ee0438_idx;
+DROP INDEX IF EXISTS public.coupons_couponredemption_user_id_4f014db1;
+DROP INDEX IF EXISTS public.coupons_couponredemption_order_id_5c57d679;
+DROP INDEX IF EXISTS public.coupons_couponredemption_coupon_id_bff37705;
+DROP INDEX IF EXISTS public.coupons_coupon_is_active_9e7ec5c3;
+DROP INDEX IF EXISTS public.coupons_coupon_code_40174643_like;
+DROP INDEX IF EXISTS public.coupons_coupon_applicable_restaurants_restaurant_id_608099fe;
+DROP INDEX IF EXISTS public.coupons_coupon_applicable_restaurants_coupon_id_02ff6c8c;
+DROP INDEX IF EXISTS public.chat_message_sender_id_991c686c;
+DROP INDEX IF EXISTS public.chat_message_conversation_id_a1207bf4;
+DROP INDEX IF EXISTS public.chat_conversation_seller_id_40c5e079;
+DROP INDEX IF EXISTS public.chat_conversation_customer_id_9b2323d3;
+DROP INDEX IF EXISTS public.categories_category_slug_6fddebb1_like;
+DROP INDEX IF EXISTS public.categories_category_name_debcfc14_like;
+DROP INDEX IF EXISTS public.cart_cartitem_variant_id_69f5d8c8;
+DROP INDEX IF EXISTS public.cart_cartitem_product_id_b24e265a;
+DROP INDEX IF EXISTS public.cart_cartitem_cart_id_370ad265;
+DROP INDEX IF EXISTS public.cart_cart_restaurant_id_335a7ef9;
+DROP INDEX IF EXISTS public.auth_permission_content_type_id_2f476e4b;
+DROP INDEX IF EXISTS public.auth_group_permissions_permission_id_84c5c92e;
+DROP INDEX IF EXISTS public.auth_group_permissions_group_id_b120cbf9;
+DROP INDEX IF EXISTS public.auth_group_name_a6ea08ec_like;
+DROP INDEX IF EXISTS public.adminpanel_platformconfig_updated_by_id_d0ba052b;
+DROP INDEX IF EXISTS public.adminpanel_platformconfig_key_d292d71c_like;
+DROP INDEX IF EXISTS public.accounts_wallettransaction_wallet_id_d18b5a92;
+DROP INDEX IF EXISTS public.accounts_user_username_6088629e_like;
+DROP INDEX IF EXISTS public.accounts_user_user_permissions_user_id_e4f0a161;
+DROP INDEX IF EXISTS public.accounts_user_user_permissions_permission_id_113bb443;
+DROP INDEX IF EXISTS public.accounts_user_groups_user_id_52b62117;
+DROP INDEX IF EXISTS public.accounts_user_groups_group_id_bd11a704;
+DROP INDEX IF EXISTS public.accounts_user_email_b2644a56_like;
+DROP INDEX IF EXISTS public.accounts_ticketmessage_ticket_id_2045adb8;
+DROP INDEX IF EXISTS public.accounts_ticketmessage_sender_id_e65746c8;
+DROP INDEX IF EXISTS public.accounts_ticketauditlog_ticket_id_f2a2d291;
+DROP INDEX IF EXISTS public.accounts_ticketauditlog_actor_id_9a4eb106;
+DROP INDEX IF EXISTS public.accounts_ticketattachment_uploaded_by_id_e0774b4e;
+DROP INDEX IF EXISTS public.accounts_ticketattachment_ticket_id_0177000f;
+DROP INDEX IF EXISTS public.accounts_ticketattachment_message_id_05357a9a;
+DROP INDEX IF EXISTS public.accounts_supportticket_user_id_6e311941;
+DROP INDEX IF EXISTS public.accounts_supportticket_ticket_number_3af128bf_like;
+DROP INDEX IF EXISTS public.accounts_supportticket_restaurant_id_cdf12494;
+DROP INDEX IF EXISTS public.accounts_supportticket_linked_order_id_1689ef10;
+DROP INDEX IF EXISTS public.accounts_supportticket_idempotency_key_a91a2a51_like;
+DROP INDEX IF EXISTS public.accounts_supportticket_idempotency_key_a91a2a51;
+DROP INDEX IF EXISTS public.accounts_supportticket_escalated_by_id_af1b7f4a;
+DROP INDEX IF EXISTS public.accounts_supportticket_delivery_partner_id_03e17c70;
+DROP INDEX IF EXISTS public.accounts_supportticket_assigned_agent_id_0061b5fd;
+DROP INDEX IF EXISTS public.accounts_mobileotp_phone_003504a8_like;
+DROP INDEX IF EXISTS public.accounts_mobileotp_phone_003504a8;
+DROP INDEX IF EXISTS public.accounts_loginactivity_user_id_e23ed239;
+DROP INDEX IF EXISTS public.accounts_auditlog_actor_id_f3348b18;
+DROP INDEX IF EXISTS public.accounts_address_user_id_c8c74ddf;
+ALTER TABLE IF EXISTS ONLY public.wishlist_wishlist DROP CONSTRAINT IF EXISTS wishlist_wishlist_user_id_product_id_57695ed7_uniq;
+ALTER TABLE IF EXISTS ONLY public.wishlist_wishlist DROP CONSTRAINT IF EXISTS wishlist_wishlist_pkey;
+ALTER TABLE IF EXISTS ONLY public.reviews_reviewreport DROP CONSTRAINT IF EXISTS unique_review_report_per_user;
+ALTER TABLE IF EXISTS ONLY public.token_blacklist_outstandingtoken DROP CONSTRAINT IF EXISTS token_blacklist_outstandingtoken_pkey;
+ALTER TABLE IF EXISTS ONLY public.token_blacklist_outstandingtoken DROP CONSTRAINT IF EXISTS token_blacklist_outstandingtoken_jti_hex_d9bdf6f7_uniq;
+ALTER TABLE IF EXISTS ONLY public.token_blacklist_blacklistedtoken DROP CONSTRAINT IF EXISTS token_blacklist_blacklistedtoken_token_id_key;
+ALTER TABLE IF EXISTS ONLY public.token_blacklist_blacklistedtoken DROP CONSTRAINT IF EXISTS token_blacklist_blacklistedtoken_pkey;
+ALTER TABLE IF EXISTS ONLY public.social_userfollow DROP CONSTRAINT IF EXISTS social_userfollow_pkey;
+ALTER TABLE IF EXISTS ONLY public.social_userfollow DROP CONSTRAINT IF EXISTS social_userfollow_follower_id_following_user_id_c2e51280_uniq;
+ALTER TABLE IF EXISTS ONLY public.social_userfollow DROP CONSTRAINT IF EXISTS social_userfollow_follower_id_following_re_10986163_uniq;
+ALTER TABLE IF EXISTS ONLY public.social_socialreel DROP CONSTRAINT IF EXISTS social_socialreel_pkey;
+ALTER TABLE IF EXISTS ONLY public.social_socialpost DROP CONSTRAINT IF EXISTS social_socialpost_pkey;
+ALTER TABLE IF EXISTS ONLY public.social_reellike DROP CONSTRAINT IF EXISTS social_reellike_reel_id_user_id_80403a20_uniq;
+ALTER TABLE IF EXISTS ONLY public.social_reellike DROP CONSTRAINT IF EXISTS social_reellike_pkey;
+ALTER TABLE IF EXISTS ONLY public.social_reelcomment DROP CONSTRAINT IF EXISTS social_reelcomment_pkey;
+ALTER TABLE IF EXISTS ONLY public.social_postlike DROP CONSTRAINT IF EXISTS social_postlike_post_id_user_id_8d67496a_uniq;
+ALTER TABLE IF EXISTS ONLY public.social_postlike DROP CONSTRAINT IF EXISTS social_postlike_pkey;
+ALTER TABLE IF EXISTS ONLY public.social_postcomment DROP CONSTRAINT IF EXISTS social_postcomment_pkey;
+ALTER TABLE IF EXISTS ONLY public.social_photoreview DROP CONSTRAINT IF EXISTS social_photoreview_pkey;
+ALTER TABLE IF EXISTS ONLY public.shifts_shiftswap DROP CONSTRAINT IF EXISTS shifts_shiftswap_pkey;
+ALTER TABLE IF EXISTS ONLY public.shifts_shiftslot DROP CONSTRAINT IF EXISTS shifts_shiftslot_pkey;
+ALTER TABLE IF EXISTS ONLY public.shifts_shiftbooking DROP CONSTRAINT IF EXISTS shifts_shiftbooking_shift_id_rider_id_8535cc62_uniq;
+ALTER TABLE IF EXISTS ONLY public.shifts_shiftbooking DROP CONSTRAINT IF EXISTS shifts_shiftbooking_pkey;
+ALTER TABLE IF EXISTS ONLY public.shifts_shiftbonus DROP CONSTRAINT IF EXISTS shifts_shiftbonus_pkey;
+ALTER TABLE IF EXISTS ONLY public.shifts_shift DROP CONSTRAINT IF EXISTS shifts_shift_slot_id_date_zone_b2d9ce84_uniq;
+ALTER TABLE IF EXISTS ONLY public.shifts_shift DROP CONSTRAINT IF EXISTS shifts_shift_pkey;
+ALTER TABLE IF EXISTS ONLY public.shifts_checkin DROP CONSTRAINT IF EXISTS shifts_checkin_pkey;
+ALTER TABLE IF EXISTS ONLY public.shifts_checkin DROP CONSTRAINT IF EXISTS shifts_checkin_booking_id_key;
+ALTER TABLE IF EXISTS ONLY public.shifts_breaklog DROP CONSTRAINT IF EXISTS shifts_breaklog_pkey;
+ALTER TABLE IF EXISTS ONLY public.seller_sellerprofile DROP CONSTRAINT IF EXISTS seller_sellerprofile_user_id_key;
+ALTER TABLE IF EXISTS ONLY public.seller_sellerprofile DROP CONSTRAINT IF EXISTS seller_sellerprofile_slug_key;
+ALTER TABLE IF EXISTS ONLY public.seller_sellerprofile DROP CONSTRAINT IF EXISTS seller_sellerprofile_restaurant_id_key;
+ALTER TABLE IF EXISTS ONLY public.seller_sellerprofile DROP CONSTRAINT IF EXISTS seller_sellerprofile_pkey;
+ALTER TABLE IF EXISTS ONLY public.reviews_reviewreport DROP CONSTRAINT IF EXISTS reviews_reviewreport_pkey;
+ALTER TABLE IF EXISTS ONLY public.reviews_reviewmoderationlog DROP CONSTRAINT IF EXISTS reviews_reviewmoderationlog_pkey;
+ALTER TABLE IF EXISTS ONLY public.reviews_review DROP CONSTRAINT IF EXISTS reviews_review_pkey;
+ALTER TABLE IF EXISTS ONLY public.products_restaurant DROP CONSTRAINT IF EXISTS products_restaurant_pkey;
+ALTER TABLE IF EXISTS ONLY public.products_restaurant DROP CONSTRAINT IF EXISTS products_restaurant_name_d1924249_uniq;
+ALTER TABLE IF EXISTS ONLY public.products_foodvariant DROP CONSTRAINT IF EXISTS products_foodvariant_pkey;
+ALTER TABLE IF EXISTS ONLY public.products_foodreel DROP CONSTRAINT IF EXISTS products_foodreel_pkey;
+ALTER TABLE IF EXISTS ONLY public.products_foodpost DROP CONSTRAINT IF EXISTS products_foodpost_pkey;
+ALTER TABLE IF EXISTS ONLY public.products_fooditem DROP CONSTRAINT IF EXISTS products_fooditem_slug_key;
+ALTER TABLE IF EXISTS ONLY public.products_fooditem DROP CONSTRAINT IF EXISTS products_fooditem_pkey;
+ALTER TABLE IF EXISTS ONLY public.products_foodaddon DROP CONSTRAINT IF EXISTS products_foodaddon_pkey;
+ALTER TABLE IF EXISTS ONLY public.payments_transaction DROP CONSTRAINT IF EXISTS payments_transaction_transaction_id_key;
+ALTER TABLE IF EXISTS ONLY public.payments_transaction DROP CONSTRAINT IF EXISTS payments_transaction_pkey;
+ALTER TABLE IF EXISTS ONLY public.payments_settlementadjustment DROP CONSTRAINT IF EXISTS payments_settlementadjustment_pkey;
+ALTER TABLE IF EXISTS ONLY public.payments_restaurantsettlement DROP CONSTRAINT IF EXISTS payments_restaurantsettlement_settlement_reference_key;
+ALTER TABLE IF EXISTS ONLY public.payments_restaurantsettlement DROP CONSTRAINT IF EXISTS payments_restaurantsettlement_pkey;
+ALTER TABLE IF EXISTS ONLY public.payments_restaurantcommission DROP CONSTRAINT IF EXISTS payments_restaurantcommission_pkey;
+ALTER TABLE IF EXISTS ONLY public.payments_restaurantcommission DROP CONSTRAINT IF EXISTS payments_restaurantcommission_order_id_key;
+ALTER TABLE IF EXISTS ONLY public.payments_paymentwebhook DROP CONSTRAINT IF EXISTS payments_paymentwebhook_pkey;
+ALTER TABLE IF EXISTS ONLY public.payments_paymentwebhook DROP CONSTRAINT IF EXISTS payments_paymentwebhook_event_id_key;
+ALTER TABLE IF EXISTS ONLY public.payments_payment DROP CONSTRAINT IF EXISTS payments_payment_pkey;
+ALTER TABLE IF EXISTS ONLY public.payments_payment DROP CONSTRAINT IF EXISTS payments_payment_idempotency_key_key;
+ALTER TABLE IF EXISTS ONLY public.orders_orderstatushistory DROP CONSTRAINT IF EXISTS orders_orderstatushistory_pkey;
+ALTER TABLE IF EXISTS ONLY public.orders_orderitem DROP CONSTRAINT IF EXISTS orders_orderitem_pkey;
+ALTER TABLE IF EXISTS ONLY public.orders_order DROP CONSTRAINT IF EXISTS orders_order_pkey;
+ALTER TABLE IF EXISTS ONLY public.orders_order DROP CONSTRAINT IF EXISTS orders_order_order_number_key;
+ALTER TABLE IF EXISTS ONLY public.notifications_notificationpreference DROP CONSTRAINT IF EXISTS notifications_notificationpreference_user_id_key;
+ALTER TABLE IF EXISTS ONLY public.notifications_notificationpreference DROP CONSTRAINT IF EXISTS notifications_notificationpreference_pkey;
+ALTER TABLE IF EXISTS ONLY public.notifications_notificationdeliveryattempt DROP CONSTRAINT IF EXISTS notifications_notificationdeliveryattempt_pkey;
+ALTER TABLE IF EXISTS ONLY public.notifications_notification DROP CONSTRAINT IF EXISTS notifications_notification_pkey;
+ALTER TABLE IF EXISTS ONLY public.notifications_notification DROP CONSTRAINT IF EXISTS notifications_notification_idempotency_key_key;
+ALTER TABLE IF EXISTS ONLY public.menu_menucategory DROP CONSTRAINT IF EXISTS menu_menucategory_restaurant_id_name_eab7ad9c_uniq;
+ALTER TABLE IF EXISTS ONLY public.menu_menucategory DROP CONSTRAINT IF EXISTS menu_menucategory_pkey;
+ALTER TABLE IF EXISTS ONLY public.django_session DROP CONSTRAINT IF EXISTS django_session_pkey;
+ALTER TABLE IF EXISTS ONLY public.django_migrations DROP CONSTRAINT IF EXISTS django_migrations_pkey;
+ALTER TABLE IF EXISTS ONLY public.django_content_type DROP CONSTRAINT IF EXISTS django_content_type_pkey;
+ALTER TABLE IF EXISTS ONLY public.django_content_type DROP CONSTRAINT IF EXISTS django_content_type_app_label_model_76bd3d3b_uniq;
+ALTER TABLE IF EXISTS ONLY public.django_admin_log DROP CONSTRAINT IF EXISTS django_admin_log_pkey;
+ALTER TABLE IF EXISTS ONLY public.discovery_usersearchhistory DROP CONSTRAINT IF EXISTS discovery_usersearchhistory_pkey;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliverypartner DROP CONSTRAINT IF EXISTS delivery_deliverypartner_vehicle_number_904042cb_uniq;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliverypartner DROP CONSTRAINT IF EXISTS delivery_deliverypartner_user_id_key;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliverypartner DROP CONSTRAINT IF EXISTS delivery_deliverypartner_pkey;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryotp DROP CONSTRAINT IF EXISTS delivery_deliveryotp_pkey;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryotp DROP CONSTRAINT IF EXISTS delivery_deliveryotp_order_id_key;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryoffer DROP CONSTRAINT IF EXISTS delivery_deliveryoffer_pkey;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryissuereport DROP CONSTRAINT IF EXISTS delivery_deliveryissuereport_pkey;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryassignmenthistory DROP CONSTRAINT IF EXISTS delivery_deliveryassignmenthistory_pkey;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryassignment DROP CONSTRAINT IF EXISTS delivery_deliveryassignment_pkey;
+ALTER TABLE IF EXISTS ONLY public.delivery_deliveryassignment DROP CONSTRAINT IF EXISTS delivery_deliveryassignment_order_id_key;
+ALTER TABLE IF EXISTS ONLY public.coupons_loyaltyprogramconfig DROP CONSTRAINT IF EXISTS coupons_loyaltyprogramconfig_pkey;
+ALTER TABLE IF EXISTS ONLY public.coupons_loyaltyledgerentry DROP CONSTRAINT IF EXISTS coupons_loyaltyledgerentry_pkey;
+ALTER TABLE IF EXISTS ONLY public.coupons_loyaltyledgerentry DROP CONSTRAINT IF EXISTS coupons_loyaltyledgerentry_idempotency_key_key;
+ALTER TABLE IF EXISTS ONLY public.coupons_couponredemption DROP CONSTRAINT IF EXISTS coupons_couponredemption_pkey;
+ALTER TABLE IF EXISTS ONLY public.coupons_coupon DROP CONSTRAINT IF EXISTS coupons_coupon_pkey;
+ALTER TABLE IF EXISTS ONLY public.coupons_coupon DROP CONSTRAINT IF EXISTS coupons_coupon_code_key;
+ALTER TABLE IF EXISTS ONLY public.coupons_coupon_applicable_restaurants DROP CONSTRAINT IF EXISTS coupons_coupon_applicable_restaurants_pkey;
+ALTER TABLE IF EXISTS ONLY public.coupons_coupon_applicable_restaurants DROP CONSTRAINT IF EXISTS coupons_coupon_applicabl_coupon_id_restaurant_id_dab9084b_uniq;
+ALTER TABLE IF EXISTS ONLY public.chat_message DROP CONSTRAINT IF EXISTS chat_message_pkey;
+ALTER TABLE IF EXISTS ONLY public.chat_conversation DROP CONSTRAINT IF EXISTS chat_conversation_pkey;
+ALTER TABLE IF EXISTS ONLY public.chat_conversation DROP CONSTRAINT IF EXISTS chat_conversation_customer_id_seller_id_ceb153eb_uniq;
+ALTER TABLE IF EXISTS ONLY public.categories_category DROP CONSTRAINT IF EXISTS categories_category_slug_key;
+ALTER TABLE IF EXISTS ONLY public.categories_category DROP CONSTRAINT IF EXISTS categories_category_pkey;
+ALTER TABLE IF EXISTS ONLY public.categories_category DROP CONSTRAINT IF EXISTS categories_category_name_key;
+ALTER TABLE IF EXISTS ONLY public.cart_cartitem DROP CONSTRAINT IF EXISTS cart_cartitem_pkey;
+ALTER TABLE IF EXISTS ONLY public.cart_cart DROP CONSTRAINT IF EXISTS cart_cart_user_id_key;
+ALTER TABLE IF EXISTS ONLY public.cart_cart DROP CONSTRAINT IF EXISTS cart_cart_pkey;
+ALTER TABLE IF EXISTS ONLY public.auth_permission DROP CONSTRAINT IF EXISTS auth_permission_pkey;
+ALTER TABLE IF EXISTS ONLY public.auth_permission DROP CONSTRAINT IF EXISTS auth_permission_content_type_id_codename_01ab375a_uniq;
+ALTER TABLE IF EXISTS ONLY public.auth_group DROP CONSTRAINT IF EXISTS auth_group_pkey;
+ALTER TABLE IF EXISTS ONLY public.auth_group_permissions DROP CONSTRAINT IF EXISTS auth_group_permissions_pkey;
+ALTER TABLE IF EXISTS ONLY public.auth_group_permissions DROP CONSTRAINT IF EXISTS auth_group_permissions_group_id_permission_id_0cd325b0_uniq;
+ALTER TABLE IF EXISTS ONLY public.auth_group DROP CONSTRAINT IF EXISTS auth_group_name_key;
+ALTER TABLE IF EXISTS ONLY public.adminpanel_platformconfig DROP CONSTRAINT IF EXISTS adminpanel_platformconfig_pkey;
+ALTER TABLE IF EXISTS ONLY public.adminpanel_platformconfig DROP CONSTRAINT IF EXISTS adminpanel_platformconfig_key_key;
+ALTER TABLE IF EXISTS ONLY public.accounts_wallettransaction DROP CONSTRAINT IF EXISTS accounts_wallettransaction_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_wallet DROP CONSTRAINT IF EXISTS accounts_wallet_user_id_key;
+ALTER TABLE IF EXISTS ONLY public.accounts_wallet DROP CONSTRAINT IF EXISTS accounts_wallet_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_usersettings DROP CONSTRAINT IF EXISTS accounts_usersettings_user_id_key;
+ALTER TABLE IF EXISTS ONLY public.accounts_usersettings DROP CONSTRAINT IF EXISTS accounts_usersettings_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_user DROP CONSTRAINT IF EXISTS accounts_user_username_key;
+ALTER TABLE IF EXISTS ONLY public.accounts_user_user_permissions DROP CONSTRAINT IF EXISTS accounts_user_user_permissions_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_user_user_permissions DROP CONSTRAINT IF EXISTS accounts_user_user_permi_user_id_permission_id_2ab516c2_uniq;
+ALTER TABLE IF EXISTS ONLY public.accounts_user DROP CONSTRAINT IF EXISTS accounts_user_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_user_groups DROP CONSTRAINT IF EXISTS accounts_user_groups_user_id_group_id_59c0b32f_uniq;
+ALTER TABLE IF EXISTS ONLY public.accounts_user_groups DROP CONSTRAINT IF EXISTS accounts_user_groups_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_user DROP CONSTRAINT IF EXISTS accounts_user_email_key;
+ALTER TABLE IF EXISTS ONLY public.accounts_ticketmessage DROP CONSTRAINT IF EXISTS accounts_ticketmessage_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_ticketauditlog DROP CONSTRAINT IF EXISTS accounts_ticketauditlog_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_ticketattachment DROP CONSTRAINT IF EXISTS accounts_ticketattachment_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_supportticket DROP CONSTRAINT IF EXISTS accounts_supportticket_ticket_number_key;
+ALTER TABLE IF EXISTS ONLY public.accounts_supportticket DROP CONSTRAINT IF EXISTS accounts_supportticket_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_securityalert DROP CONSTRAINT IF EXISTS accounts_securityalert_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_profile DROP CONSTRAINT IF EXISTS accounts_profile_user_id_key;
+ALTER TABLE IF EXISTS ONLY public.accounts_profile DROP CONSTRAINT IF EXISTS accounts_profile_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_mobileotp DROP CONSTRAINT IF EXISTS accounts_mobileotp_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_loyaltyprofile DROP CONSTRAINT IF EXISTS accounts_loyaltyprofile_user_id_key;
+ALTER TABLE IF EXISTS ONLY public.accounts_loyaltyprofile DROP CONSTRAINT IF EXISTS accounts_loyaltyprofile_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_loginactivity DROP CONSTRAINT IF EXISTS accounts_loginactivity_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_auditlog DROP CONSTRAINT IF EXISTS accounts_auditlog_pkey;
+ALTER TABLE IF EXISTS ONLY public.accounts_address DROP CONSTRAINT IF EXISTS accounts_address_pkey;
+DROP TABLE IF EXISTS public.wishlist_wishlist;
+DROP TABLE IF EXISTS public.token_blacklist_outstandingtoken;
+DROP TABLE IF EXISTS public.token_blacklist_blacklistedtoken;
+DROP TABLE IF EXISTS public.social_userfollow;
+DROP TABLE IF EXISTS public.social_socialreel;
+DROP TABLE IF EXISTS public.social_socialpost;
+DROP TABLE IF EXISTS public.social_reellike;
+DROP TABLE IF EXISTS public.social_reelcomment;
+DROP TABLE IF EXISTS public.social_postlike;
+DROP TABLE IF EXISTS public.social_postcomment;
+DROP TABLE IF EXISTS public.social_photoreview;
+DROP TABLE IF EXISTS public.shifts_shiftswap;
+DROP TABLE IF EXISTS public.shifts_shiftslot;
+DROP TABLE IF EXISTS public.shifts_shiftbooking;
+DROP TABLE IF EXISTS public.shifts_shiftbonus;
+DROP TABLE IF EXISTS public.shifts_shift;
+DROP TABLE IF EXISTS public.shifts_checkin;
+DROP TABLE IF EXISTS public.shifts_breaklog;
+DROP TABLE IF EXISTS public.seller_sellerprofile;
+DROP TABLE IF EXISTS public.reviews_reviewreport;
+DROP TABLE IF EXISTS public.reviews_reviewmoderationlog;
+DROP TABLE IF EXISTS public.reviews_review;
+DROP TABLE IF EXISTS public.products_restaurant;
+DROP TABLE IF EXISTS public.products_foodvariant;
+DROP TABLE IF EXISTS public.products_foodreel;
+DROP TABLE IF EXISTS public.products_foodpost;
+DROP TABLE IF EXISTS public.products_fooditem;
+DROP TABLE IF EXISTS public.products_foodaddon;
+DROP TABLE IF EXISTS public.payments_transaction;
+DROP TABLE IF EXISTS public.payments_settlementadjustment;
+DROP TABLE IF EXISTS public.payments_restaurantsettlement;
+DROP TABLE IF EXISTS public.payments_restaurantcommission;
+DROP TABLE IF EXISTS public.payments_paymentwebhook;
+DROP TABLE IF EXISTS public.payments_payment;
+DROP TABLE IF EXISTS public.orders_orderstatushistory;
+DROP TABLE IF EXISTS public.orders_orderitem;
+DROP TABLE IF EXISTS public.orders_order;
+DROP TABLE IF EXISTS public.notifications_notificationpreference;
+DROP TABLE IF EXISTS public.notifications_notificationdeliveryattempt;
+DROP TABLE IF EXISTS public.notifications_notification;
+DROP TABLE IF EXISTS public.menu_menucategory;
+DROP TABLE IF EXISTS public.django_session;
+DROP TABLE IF EXISTS public.django_migrations;
+DROP TABLE IF EXISTS public.django_content_type;
+DROP TABLE IF EXISTS public.django_admin_log;
+DROP TABLE IF EXISTS public.discovery_usersearchhistory;
+DROP TABLE IF EXISTS public.delivery_deliverypartner;
+DROP TABLE IF EXISTS public.delivery_deliveryotp;
+DROP TABLE IF EXISTS public.delivery_deliveryoffer;
+DROP TABLE IF EXISTS public.delivery_deliveryissuereport;
+DROP TABLE IF EXISTS public.delivery_deliveryassignmenthistory;
+DROP TABLE IF EXISTS public.delivery_deliveryassignment;
+DROP TABLE IF EXISTS public.coupons_loyaltyprogramconfig;
+DROP TABLE IF EXISTS public.coupons_loyaltyledgerentry;
+DROP TABLE IF EXISTS public.coupons_couponredemption;
+DROP TABLE IF EXISTS public.coupons_coupon_applicable_restaurants;
+DROP TABLE IF EXISTS public.coupons_coupon;
+DROP TABLE IF EXISTS public.chat_message;
+DROP TABLE IF EXISTS public.chat_conversation;
+DROP TABLE IF EXISTS public.categories_category;
+DROP TABLE IF EXISTS public.cart_cartitem;
+DROP TABLE IF EXISTS public.cart_cart;
+DROP TABLE IF EXISTS public.auth_permission;
+DROP TABLE IF EXISTS public.auth_group_permissions;
+DROP TABLE IF EXISTS public.auth_group;
+DROP TABLE IF EXISTS public.adminpanel_platformconfig;
+DROP TABLE IF EXISTS public.accounts_wallettransaction;
+DROP TABLE IF EXISTS public.accounts_wallet;
+DROP TABLE IF EXISTS public.accounts_usersettings;
+DROP TABLE IF EXISTS public.accounts_user_user_permissions;
+DROP TABLE IF EXISTS public.accounts_user_groups;
+DROP TABLE IF EXISTS public.accounts_user;
+DROP TABLE IF EXISTS public.accounts_ticketmessage;
+DROP TABLE IF EXISTS public.accounts_ticketauditlog;
+DROP TABLE IF EXISTS public.accounts_ticketattachment;
+DROP TABLE IF EXISTS public.accounts_supportticket;
+DROP TABLE IF EXISTS public.accounts_securityalert;
+DROP TABLE IF EXISTS public.accounts_profile;
+DROP TABLE IF EXISTS public.accounts_mobileotp;
+DROP TABLE IF EXISTS public.accounts_loyaltyprofile;
+DROP TABLE IF EXISTS public.accounts_loginactivity;
+DROP TABLE IF EXISTS public.accounts_auditlog;
+DROP TABLE IF EXISTS public.accounts_address;
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: accounts_address; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_address (
+    id bigint NOT NULL,
+    label character varying(50) NOT NULL,
+    full_name character varying(120) NOT NULL,
+    street character varying(255) NOT NULL,
+    city character varying(100) NOT NULL,
+    state character varying(100) NOT NULL,
+    pincode character varying(20) NOT NULL,
+    country character varying(100) NOT NULL,
+    phone character varying(25) NOT NULL,
+    latitude numeric(9,6) NOT NULL,
+    longitude numeric(9,6) NOT NULL,
+    is_default boolean NOT NULL,
+    user_id bigint NOT NULL
+);
+
+
+--
+-- Name: accounts_address_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_address ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_address_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_auditlog; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_auditlog (
+    id bigint NOT NULL,
+    action character varying(120) NOT NULL,
+    target_model character varying(100) NOT NULL,
+    target_id character varying(100) NOT NULL,
+    details jsonb NOT NULL,
+    ip_address character varying(64) NOT NULL,
+    "timestamp" timestamp with time zone NOT NULL,
+    actor_id bigint
+);
+
+
+--
+-- Name: accounts_auditlog_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_auditlog ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_auditlog_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_loginactivity; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_loginactivity (
+    id bigint NOT NULL,
+    email character varying(255) NOT NULL,
+    ip_address character varying(64) NOT NULL,
+    user_agent text NOT NULL,
+    status character varying(20) NOT NULL,
+    failure_reason character varying(255) NOT NULL,
+    "timestamp" timestamp with time zone NOT NULL,
+    user_id bigint
+);
+
+
+--
+-- Name: accounts_loginactivity_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_loginactivity ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_loginactivity_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_loyaltyprofile; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_loyaltyprofile (
+    id bigint NOT NULL,
+    points integer NOT NULL,
+    tier character varying(20) NOT NULL,
+    lifetime_orders integer NOT NULL,
+    total_saved numeric(10,2) NOT NULL,
+    user_id bigint NOT NULL,
+    CONSTRAINT accounts_loyaltyprofile_lifetime_orders_check CHECK ((lifetime_orders >= 0)),
+    CONSTRAINT accounts_loyaltyprofile_points_check CHECK ((points >= 0))
+);
+
+
+--
+-- Name: accounts_loyaltyprofile_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_loyaltyprofile ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_loyaltyprofile_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_mobileotp; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_mobileotp (
+    id bigint NOT NULL,
+    phone character varying(25) NOT NULL,
+    otp_code character varying(8) NOT NULL,
+    purpose character varying(20) NOT NULL,
+    is_verified boolean NOT NULL,
+    expires_at timestamp with time zone NOT NULL,
+    created_at timestamp with time zone NOT NULL
+);
+
+
+--
+-- Name: accounts_mobileotp_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_mobileotp ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_mobileotp_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_profile; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_profile (
+    id bigint NOT NULL,
+    full_name character varying(150) NOT NULL,
+    avatar character varying(200) NOT NULL,
+    phone character varying(25) NOT NULL,
+    bio text NOT NULL,
+    is_verified boolean NOT NULL,
+    current_lat numeric(9,6) NOT NULL,
+    current_lng numeric(9,6) NOT NULL,
+    user_id bigint NOT NULL,
+    address text NOT NULL,
+    profile_photo character varying(100),
+    verification_status character varying(20) NOT NULL
+);
+
+
+--
+-- Name: accounts_profile_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_profile ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_profile_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_securityalert; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_securityalert (
+    id bigint NOT NULL,
+    alert_type character varying(60) NOT NULL,
+    severity character varying(20) NOT NULL,
+    description text NOT NULL,
+    is_resolved boolean NOT NULL,
+    created_at timestamp with time zone NOT NULL
+);
+
+
+--
+-- Name: accounts_securityalert_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_securityalert ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_securityalert_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_supportticket; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_supportticket (
+    id bigint NOT NULL,
+    ticket_number character varying(32) NOT NULL,
+    order_id character varying(50) NOT NULL,
+    subject character varying(255) NOT NULL,
+    category character varying(50) NOT NULL,
+    priority character varying(20) NOT NULL,
+    status character varying(20) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    user_id bigint NOT NULL,
+    assigned_agent_id bigint,
+    delivery_partner_id bigint,
+    description text NOT NULL,
+    escalated_at timestamp with time zone,
+    escalated_by_id bigint,
+    escalation_reason character varying(255) NOT NULL,
+    idempotency_key character varying(64) NOT NULL,
+    linked_order_id bigint,
+    resolution_summary text NOT NULL,
+    resolved_at timestamp with time zone,
+    restaurant_id bigint
+);
+
+
+--
+-- Name: accounts_supportticket_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_supportticket ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_supportticket_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_ticketattachment; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_ticketattachment (
+    id bigint NOT NULL,
+    file character varying(100) NOT NULL,
+    file_name character varying(255) NOT NULL,
+    file_size integer NOT NULL,
+    mime_type character varying(100) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    message_id bigint,
+    ticket_id bigint NOT NULL,
+    uploaded_by_id bigint NOT NULL,
+    CONSTRAINT accounts_ticketattachment_file_size_check CHECK ((file_size >= 0))
+);
+
+
+--
+-- Name: accounts_ticketattachment_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_ticketattachment ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_ticketattachment_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_ticketauditlog; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_ticketauditlog (
+    id bigint NOT NULL,
+    action character varying(64) NOT NULL,
+    from_status character varying(32) NOT NULL,
+    to_status character varying(32) NOT NULL,
+    notes text NOT NULL,
+    details jsonb NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    actor_id bigint,
+    ticket_id bigint NOT NULL
+);
+
+
+--
+-- Name: accounts_ticketauditlog_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_ticketauditlog ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_ticketauditlog_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_ticketmessage; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_ticketmessage (
+    id bigint NOT NULL,
+    message text NOT NULL,
+    is_staff boolean NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    sender_id bigint NOT NULL,
+    ticket_id bigint NOT NULL,
+    is_internal_note boolean NOT NULL,
+    sender_role character varying(30) NOT NULL
+);
+
+
+--
+-- Name: accounts_ticketmessage_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_ticketmessage ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_ticketmessage_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_user; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_user (
+    id bigint NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(150) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL,
+    email character varying(254) NOT NULL,
+    role character varying(20) NOT NULL,
+    phone character varying(25) NOT NULL,
+    avatar character varying(200) NOT NULL,
+    is_online boolean NOT NULL,
+    rating numeric(3,2) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+--
+-- Name: accounts_user_groups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_user_groups (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+--
+-- Name: accounts_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_user_groups ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_user_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_user ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_user_user_permissions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_user_user_permissions (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+--
+-- Name: accounts_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_user_user_permissions ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_usersettings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_usersettings (
+    id bigint NOT NULL,
+    theme character varying(20) NOT NULL,
+    language character varying(20) NOT NULL,
+    push_notifications boolean NOT NULL,
+    email_notifications boolean NOT NULL,
+    sms_notifications boolean NOT NULL,
+    personalization boolean NOT NULL,
+    location_permission_preference boolean NOT NULL,
+    shift character varying(30) NOT NULL,
+    preferred_start_time character varying(30) NOT NULL,
+    preferred_end_time character varying(30) NOT NULL,
+    available_days jsonb NOT NULL,
+    break_start character varying(30) NOT NULL,
+    break_end character varying(30) NOT NULL,
+    preferred_zone character varying(120) NOT NULL,
+    availability character varying(30) NOT NULL,
+    order_alerts boolean NOT NULL,
+    business_status character varying(30) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    user_id bigint NOT NULL
+);
+
+
+--
+-- Name: accounts_usersettings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_usersettings ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_usersettings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_wallet; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_wallet (
+    id bigint NOT NULL,
+    balance numeric(10,2) NOT NULL,
+    currency character varying(10) NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    user_id bigint NOT NULL
+);
+
+
+--
+-- Name: accounts_wallet_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_wallet ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_wallet_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: accounts_wallettransaction; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.accounts_wallettransaction (
+    id bigint NOT NULL,
+    transaction_type character varying(20) NOT NULL,
+    amount numeric(10,2) NOT NULL,
+    description character varying(255) NOT NULL,
+    reference_id character varying(100) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    wallet_id bigint NOT NULL
+);
+
+
+--
+-- Name: accounts_wallettransaction_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.accounts_wallettransaction ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.accounts_wallettransaction_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: adminpanel_platformconfig; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.adminpanel_platformconfig (
+    id bigint NOT NULL,
+    key character varying(64) NOT NULL,
+    value jsonb NOT NULL,
+    description character varying(255) NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    updated_by_id bigint
+);
+
+
+--
+-- Name: adminpanel_platformconfig_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.adminpanel_platformconfig ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.adminpanel_platformconfig_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.auth_group ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id bigint NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.auth_group_permissions ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.auth_permission ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: cart_cart; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cart_cart (
+    id bigint NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    restaurant_id bigint,
+    user_id bigint NOT NULL
+);
+
+
+--
+-- Name: cart_cart_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.cart_cart ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.cart_cart_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: cart_cartitem; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cart_cartitem (
+    id bigint NOT NULL,
+    selected_addons jsonb NOT NULL,
+    special_instructions text NOT NULL,
+    unit_price numeric(10,2) NOT NULL,
+    quantity integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    cart_id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    variant_id bigint,
+    CONSTRAINT cart_cartitem_quantity_check CHECK ((quantity >= 0))
+);
+
+
+--
+-- Name: cart_cartitem_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.cart_cartitem ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.cart_cartitem_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: categories_category; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.categories_category (
+    id bigint NOT NULL,
+    name character varying(100) NOT NULL,
+    slug character varying(100) NOT NULL,
+    description text NOT NULL,
+    icon character varying(50) NOT NULL,
+    image character varying(200) NOT NULL,
+    created_at timestamp with time zone NOT NULL
+);
+
+
+--
+-- Name: categories_category_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.categories_category ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.categories_category_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: chat_conversation; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.chat_conversation (
+    id bigint NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    customer_id bigint NOT NULL,
+    seller_id bigint NOT NULL
+);
+
+
+--
+-- Name: chat_conversation_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.chat_conversation ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.chat_conversation_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: chat_message; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.chat_message (
+    id bigint NOT NULL,
+    content text NOT NULL,
+    attachment character varying(200) NOT NULL,
+    is_read boolean NOT NULL,
+    "timestamp" timestamp with time zone NOT NULL,
+    conversation_id bigint NOT NULL,
+    sender_id bigint NOT NULL
+);
+
+
+--
+-- Name: chat_message_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.chat_message ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.chat_message_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: coupons_coupon; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.coupons_coupon (
+    id bigint NOT NULL,
+    code character varying(50) NOT NULL,
+    description text NOT NULL,
+    discount_percentage integer NOT NULL,
+    max_discount_amount numeric(8,2) NOT NULL,
+    min_order_value numeric(8,2) NOT NULL,
+    is_active boolean NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    current_uses integer NOT NULL,
+    discount_amount numeric(8,2) NOT NULL,
+    discount_type character varying(20) NOT NULL,
+    expiry_date timestamp with time zone,
+    first_order_only boolean NOT NULL,
+    is_combinable boolean NOT NULL,
+    max_uses integer,
+    max_uses_per_user integer NOT NULL,
+    start_date timestamp with time zone NOT NULL,
+    terms_and_conditions text NOT NULL,
+    title character varying(120) NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    CONSTRAINT coupons_coupon_current_uses_check CHECK ((current_uses >= 0)),
+    CONSTRAINT coupons_coupon_discount_percentage_check CHECK ((discount_percentage >= 0)),
+    CONSTRAINT coupons_coupon_max_uses_check CHECK ((max_uses >= 0)),
+    CONSTRAINT coupons_coupon_max_uses_per_user_check CHECK ((max_uses_per_user >= 0))
+);
+
+
+--
+-- Name: coupons_coupon_applicable_restaurants; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.coupons_coupon_applicable_restaurants (
+    id bigint NOT NULL,
+    coupon_id bigint NOT NULL,
+    restaurant_id bigint NOT NULL
+);
+
+
+--
+-- Name: coupons_coupon_applicable_restaurants_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.coupons_coupon_applicable_restaurants ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.coupons_coupon_applicable_restaurants_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: coupons_coupon_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.coupons_coupon ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.coupons_coupon_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: coupons_couponredemption; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.coupons_couponredemption (
+    id bigint NOT NULL,
+    discount_amount numeric(8,2) NOT NULL,
+    status character varying(20) NOT NULL,
+    redeemed_at timestamp with time zone NOT NULL,
+    coupon_id bigint NOT NULL,
+    order_id bigint NOT NULL,
+    user_id bigint NOT NULL
+);
+
+
+--
+-- Name: coupons_couponredemption_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.coupons_couponredemption ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.coupons_couponredemption_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: coupons_loyaltyledgerentry; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.coupons_loyaltyledgerentry (
+    id bigint NOT NULL,
+    transaction_type character varying(20) NOT NULL,
+    points integer NOT NULL,
+    balance_after integer NOT NULL,
+    reference_amount numeric(10,2) NOT NULL,
+    description character varying(255) NOT NULL,
+    idempotency_key character varying(128),
+    created_at timestamp with time zone NOT NULL,
+    order_id bigint,
+    user_id bigint NOT NULL,
+    CONSTRAINT coupons_loyaltyledgerentry_balance_after_check CHECK ((balance_after >= 0))
+);
+
+
+--
+-- Name: coupons_loyaltyledgerentry_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.coupons_loyaltyledgerentry ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.coupons_loyaltyledgerentry_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: coupons_loyaltyprogramconfig; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.coupons_loyaltyprogramconfig (
+    id bigint NOT NULL,
+    points_earn_rate numeric(5,2) NOT NULL,
+    earn_per_amount numeric(8,2) NOT NULL,
+    points_to_inr_rate numeric(5,2) NOT NULL,
+    min_points_to_redeem integer NOT NULL,
+    max_discount_percentage_of_subtotal integer CONSTRAINT coupons_loyaltyprogramconfi_max_discount_percentage_of_not_null NOT NULL,
+    is_active boolean NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    CONSTRAINT coupons_loyaltyprogramconfig_max_discount_percentage_of_s_check CHECK ((max_discount_percentage_of_subtotal >= 0)),
+    CONSTRAINT coupons_loyaltyprogramconfig_min_points_to_redeem_check CHECK ((min_points_to_redeem >= 0))
+);
+
+
+--
+-- Name: coupons_loyaltyprogramconfig_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.coupons_loyaltyprogramconfig ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.coupons_loyaltyprogramconfig_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: delivery_deliveryassignment; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.delivery_deliveryassignment (
+    id bigint NOT NULL,
+    status character varying(30) NOT NULL,
+    cancellation_reason text NOT NULL,
+    assigned_at timestamp with time zone,
+    accepted_at timestamp with time zone,
+    reached_restaurant_at timestamp with time zone,
+    picked_up_at timestamp with time zone,
+    delivered_at timestamp with time zone,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    delivery_partner_id bigint,
+    order_id bigint NOT NULL,
+    issue_notes text NOT NULL,
+    attempt_count smallint NOT NULL,
+    max_retries smallint NOT NULL,
+    offer_expires_at timestamp with time zone,
+    CONSTRAINT delivery_deliveryassignment_attempt_count_check CHECK ((attempt_count >= 0)),
+    CONSTRAINT delivery_deliveryassignment_max_retries_check CHECK ((max_retries >= 0))
+);
+
+
+--
+-- Name: delivery_deliveryassignment_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.delivery_deliveryassignment ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.delivery_deliveryassignment_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: delivery_deliveryassignmenthistory; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.delivery_deliveryassignmenthistory (
+    id bigint NOT NULL,
+    from_status character varying(32) NOT NULL,
+    to_status character varying(32) NOT NULL,
+    notes text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    actor_id bigint,
+    assignment_id bigint NOT NULL
+);
+
+
+--
+-- Name: delivery_deliveryassignmenthistory_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.delivery_deliveryassignmenthistory ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.delivery_deliveryassignmenthistory_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: delivery_deliveryissuereport; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.delivery_deliveryissuereport (
+    id bigint NOT NULL,
+    category character varying(64) NOT NULL,
+    description text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    resolved boolean NOT NULL,
+    resolution_notes text NOT NULL,
+    assignment_id bigint NOT NULL,
+    order_id bigint NOT NULL,
+    reporter_id bigint NOT NULL
+);
+
+
+--
+-- Name: delivery_deliveryissuereport_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.delivery_deliveryissuereport ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.delivery_deliveryissuereport_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: delivery_deliveryoffer; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.delivery_deliveryoffer (
+    id bigint NOT NULL,
+    status character varying(20) NOT NULL,
+    attempt_number smallint NOT NULL,
+    distance_km numeric(6,2) NOT NULL,
+    matching_score numeric(6,2) NOT NULL,
+    estimated_payout numeric(10,2) NOT NULL,
+    offered_at timestamp with time zone NOT NULL,
+    expires_at timestamp with time zone NOT NULL,
+    responded_at timestamp with time zone,
+    rejection_reason character varying(255) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    assignment_id bigint NOT NULL,
+    delivery_partner_id bigint NOT NULL,
+    CONSTRAINT delivery_deliveryoffer_attempt_number_check CHECK ((attempt_number >= 0))
+);
+
+
+--
+-- Name: delivery_deliveryoffer_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.delivery_deliveryoffer ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.delivery_deliveryoffer_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: delivery_deliveryotp; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.delivery_deliveryotp (
+    id bigint NOT NULL,
+    otp_hash character varying(255) NOT NULL,
+    failed_attempts smallint NOT NULL,
+    max_attempts smallint NOT NULL,
+    locked_until timestamp with time zone,
+    is_used boolean NOT NULL,
+    verified_at timestamp with time zone,
+    expires_at timestamp with time zone NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    assignment_id bigint,
+    order_id bigint NOT NULL,
+    CONSTRAINT delivery_deliveryotp_failed_attempts_check CHECK ((failed_attempts >= 0)),
+    CONSTRAINT delivery_deliveryotp_max_attempts_check CHECK ((max_attempts >= 0))
+);
+
+
+--
+-- Name: delivery_deliveryotp_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.delivery_deliveryotp ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.delivery_deliveryotp_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: delivery_deliverypartner; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.delivery_deliverypartner (
+    id bigint NOT NULL,
+    vehicle_type character varying(32) NOT NULL,
+    vehicle_number character varying(32) NOT NULL,
+    driving_license character varying(64) NOT NULL,
+    is_verified boolean NOT NULL,
+    is_online boolean NOT NULL,
+    current_latitude numeric(9,6) NOT NULL,
+    current_longitude numeric(9,6) NOT NULL,
+    battery_percentage integer NOT NULL,
+    total_deliveries integer NOT NULL,
+    rating numeric(3,2) NOT NULL,
+    today_earnings numeric(10,2) NOT NULL,
+    weekly_earnings numeric(10,2) NOT NULL,
+    total_earnings numeric(12,2) NOT NULL,
+    tips_earned numeric(10,2) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    active_order_id bigint,
+    user_id bigint NOT NULL,
+    profile_photo character varying(100),
+    vehicle_model character varying(100) NOT NULL,
+    verification_status character varying(20) NOT NULL,
+    heading numeric(5,2) NOT NULL,
+    last_location_updated_at timestamp with time zone,
+    CONSTRAINT delivery_deliverypartner_battery_percentage_check CHECK ((battery_percentage >= 0)),
+    CONSTRAINT delivery_deliverypartner_total_deliveries_check CHECK ((total_deliveries >= 0))
+);
+
+
+--
+-- Name: delivery_deliverypartner_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.delivery_deliverypartner ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.delivery_deliverypartner_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: discovery_usersearchhistory; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.discovery_usersearchhistory (
+    id bigint NOT NULL,
+    query character varying(255) NOT NULL,
+    results_count integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    user_id bigint NOT NULL,
+    CONSTRAINT discovery_usersearchhistory_results_count_check CHECK ((results_count >= 0))
+);
+
+
+--
+-- Name: discovery_usersearchhistory_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.discovery_usersearchhistory ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.discovery_usersearchhistory_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id bigint NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.django_admin_log ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.django_content_type ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.django_migrations (
+    id bigint NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.django_migrations ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+--
+-- Name: menu_menucategory; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.menu_menucategory (
+    id bigint NOT NULL,
+    name character varying(120) NOT NULL,
+    slug character varying(140) NOT NULL,
+    description text NOT NULL,
+    is_active boolean NOT NULL,
+    display_order integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    restaurant_id bigint NOT NULL
+);
+
+
+--
+-- Name: menu_menucategory_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.menu_menucategory ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.menu_menucategory_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: notifications_notification; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.notifications_notification (
+    id bigint NOT NULL,
+    title character varying(150) NOT NULL,
+    message text NOT NULL,
+    notification_type character varying(50) NOT NULL,
+    is_read boolean NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    user_id bigint NOT NULL,
+    data jsonb NOT NULL,
+    event_type character varying(60) NOT NULL,
+    idempotency_key character varying(160),
+    is_dismissed boolean NOT NULL,
+    related_resource_id character varying(100) NOT NULL,
+    related_resource_type character varying(50) NOT NULL
+);
+
+
+--
+-- Name: notifications_notification_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.notifications_notification ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.notifications_notification_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: notifications_notificationdeliveryattempt; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.notifications_notificationdeliveryattempt (
+    id bigint NOT NULL,
+    channel character varying(20) NOT NULL,
+    status character varying(20) NOT NULL,
+    recipient_destination character varying(255) CONSTRAINT notifications_notificationdelive_recipient_destination_not_null NOT NULL,
+    attempt_count integer CONSTRAINT notifications_notificationdeliveryattemp_attempt_count_not_null NOT NULL,
+    provider character varying(50) NOT NULL,
+    provider_response_id character varying(150) CONSTRAINT notifications_notificationdeliver_provider_response_id_not_null NOT NULL,
+    error_message text CONSTRAINT notifications_notificationdeliveryattemp_error_message_not_null NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    notification_id bigint CONSTRAINT notifications_notificationdeliveryatte_notification_id_not_null NOT NULL,
+    CONSTRAINT notifications_notificationdeliveryattempt_attempt_count_check CHECK ((attempt_count >= 0))
+);
+
+
+--
+-- Name: notifications_notificationdeliveryattempt_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.notifications_notificationdeliveryattempt ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.notifications_notificationdeliveryattempt_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: notifications_notificationpreference; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.notifications_notificationpreference (
+    id bigint NOT NULL,
+    in_app_enabled boolean NOT NULL,
+    email_enabled boolean NOT NULL,
+    sms_enabled boolean NOT NULL,
+    push_enabled boolean NOT NULL,
+    order_updates boolean NOT NULL,
+    payment_updates boolean NOT NULL,
+    promotional_updates boolean CONSTRAINT notifications_notificationpreferen_promotional_updates_not_null NOT NULL,
+    language character varying(10) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    user_id bigint NOT NULL
+);
+
+
+--
+-- Name: notifications_notificationpreference_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.notifications_notificationpreference ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.notifications_notificationpreference_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: orders_order; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.orders_order (
+    id bigint NOT NULL,
+    order_number character varying(64) NOT NULL,
+    delivery_address_text text NOT NULL,
+    status character varying(30) NOT NULL,
+    otp character varying(6) NOT NULL,
+    item_total numeric(10,2) NOT NULL,
+    delivery_fee numeric(8,2) NOT NULL,
+    taxes numeric(8,2) NOT NULL,
+    platform_fee numeric(8,2) NOT NULL,
+    discount numeric(8,2) NOT NULL,
+    grand_total numeric(10,2) NOT NULL,
+    payment_method character varying(64) NOT NULL,
+    payment_status character varying(32) NOT NULL,
+    cooking_instructions text NOT NULL,
+    customer_lat numeric(9,6) NOT NULL,
+    customer_lng numeric(9,6) NOT NULL,
+    restaurant_lat numeric(9,6) NOT NULL,
+    restaurant_lng numeric(9,6) NOT NULL,
+    rider_lat numeric(9,6) NOT NULL,
+    rider_lng numeric(9,6) NOT NULL,
+    eta_minutes integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    customer_id bigint NOT NULL,
+    restaurant_id bigint,
+    rider_id bigint,
+    shipping_address_id bigint,
+    delivery_address_snapshot jsonb NOT NULL,
+    packaging_fee numeric(8,2) NOT NULL,
+    subtotal numeric(10,2) NOT NULL,
+    total numeric(10,2) NOT NULL,
+    cancellation_reason text NOT NULL,
+    cancelled_by_id bigint,
+    rejection_reason text NOT NULL,
+    last_location_updated_at timestamp with time zone,
+    rider_heading numeric(5,2) NOT NULL,
+    coupon_id bigint,
+    coupon_code_snapshot character varying(50) NOT NULL,
+    loyalty_discount numeric(8,2) NOT NULL,
+    loyalty_points_used integer NOT NULL,
+    CONSTRAINT orders_order_eta_minutes_check CHECK ((eta_minutes >= 0)),
+    CONSTRAINT orders_order_loyalty_points_used_check CHECK ((loyalty_points_used >= 0))
+);
+
+
+--
+-- Name: orders_order_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.orders_order ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.orders_order_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: orders_orderitem; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.orders_orderitem (
+    id bigint NOT NULL,
+    quantity integer NOT NULL,
+    price numeric(10,2) NOT NULL,
+    selected_addons jsonb NOT NULL,
+    food_item_id bigint,
+    order_id bigint NOT NULL,
+    customization_snapshot jsonb NOT NULL,
+    food_name_snapshot character varying(255) NOT NULL,
+    item_total numeric(10,2) NOT NULL,
+    unit_price_snapshot numeric(10,2) NOT NULL,
+    CONSTRAINT orders_orderitem_quantity_check CHECK ((quantity >= 0))
+);
+
+
+--
+-- Name: orders_orderitem_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.orders_orderitem ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.orders_orderitem_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: orders_orderstatushistory; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.orders_orderstatushistory (
+    id bigint NOT NULL,
+    from_status character varying(32) NOT NULL,
+    to_status character varying(32) NOT NULL,
+    actor_role character varying(32) NOT NULL,
+    reason text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    actor_id bigint,
+    order_id bigint NOT NULL
+);
+
+
+--
+-- Name: orders_orderstatushistory_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.orders_orderstatushistory ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.orders_orderstatushistory_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: payments_payment; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.payments_payment (
+    id bigint NOT NULL,
+    amount numeric(12,2) NOT NULL,
+    currency character varying(10) NOT NULL,
+    status character varying(32) NOT NULL,
+    payment_method character varying(50) NOT NULL,
+    gateway_session_id character varying(150) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    order_id bigint NOT NULL,
+    idempotency_key character varying(128),
+    refund_amount numeric(12,2) NOT NULL,
+    refund_reason text NOT NULL,
+    refunded_at timestamp with time zone,
+    amount_minor_units bigint NOT NULL,
+    failure_code character varying(100) NOT NULL,
+    failure_description text NOT NULL,
+    payment_provider character varying(50) NOT NULL,
+    provider_order_id character varying(128) NOT NULL,
+    provider_payment_id character varying(128) NOT NULL,
+    provider_refund_id character varying(128) NOT NULL,
+    provider_signature character varying(256) NOT NULL,
+    verified_at timestamp with time zone,
+    CONSTRAINT payments_payment_amount_minor_units_check CHECK ((amount_minor_units >= 0))
+);
+
+
+--
+-- Name: payments_payment_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.payments_payment ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.payments_payment_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: payments_paymentwebhook; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.payments_paymentwebhook (
+    id bigint NOT NULL,
+    event_type character varying(100) NOT NULL,
+    payload jsonb NOT NULL,
+    is_verified boolean NOT NULL,
+    processed_at timestamp with time zone,
+    signature character varying(256) NOT NULL,
+    created_at timestamp with time zone,
+    event_id character varying(128),
+    is_processed boolean NOT NULL,
+    provider character varying(50) NOT NULL
+);
+
+
+--
+-- Name: payments_paymentwebhook_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.payments_paymentwebhook ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.payments_paymentwebhook_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: payments_restaurantcommission; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.payments_restaurantcommission (
+    id bigint NOT NULL,
+    order_number character varying(64) NOT NULL,
+    calculation_base numeric(12,2) NOT NULL,
+    packaging_fee numeric(8,2) NOT NULL,
+    rate_percentage numeric(5,2) NOT NULL,
+    fixed_fee numeric(8,2) NOT NULL,
+    commission_amount numeric(12,2) NOT NULL,
+    tax_on_commission numeric(12,2) NOT NULL,
+    net_restaurant_amount numeric(12,2) NOT NULL,
+    refund_deduction numeric(12,2) NOT NULL,
+    status character varying(32) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    order_id bigint NOT NULL,
+    restaurant_id bigint NOT NULL,
+    settlement_id bigint
+);
+
+
+--
+-- Name: payments_restaurantcommission_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.payments_restaurantcommission ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.payments_restaurantcommission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: payments_restaurantsettlement; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.payments_restaurantsettlement (
+    id bigint NOT NULL,
+    settlement_reference character varying(64) NOT NULL,
+    period_start date NOT NULL,
+    period_end date NOT NULL,
+    currency character varying(10) NOT NULL,
+    order_count integer NOT NULL,
+    gross_sales_amount numeric(12,2) NOT NULL,
+    total_packaging_fees numeric(12,2) NOT NULL,
+    total_commission_deducted numeric(12,2) CONSTRAINT payments_restaurantsettlemen_total_commission_deducted_not_null NOT NULL,
+    total_adjustments numeric(12,2) NOT NULL,
+    net_payout_amount numeric(12,2) NOT NULL,
+    status character varying(32) NOT NULL,
+    payout_provider character varying(50) NOT NULL,
+    provider_reference character varying(128) NOT NULL,
+    provider_utr character varying(128) NOT NULL,
+    failure_reason text NOT NULL,
+    notes text NOT NULL,
+    payout_initiated_at timestamp with time zone,
+    payout_completed_at timestamp with time zone,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    approved_by_id bigint,
+    created_by_id bigint,
+    restaurant_id bigint NOT NULL,
+    verified_by_id bigint,
+    CONSTRAINT payments_restaurantsettlement_order_count_check CHECK ((order_count >= 0))
+);
+
+
+--
+-- Name: payments_restaurantsettlement_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.payments_restaurantsettlement ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.payments_restaurantsettlement_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: payments_settlementadjustment; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.payments_settlementadjustment (
+    id bigint NOT NULL,
+    adjustment_type character varying(50) NOT NULL,
+    amount numeric(12,2) NOT NULL,
+    reason text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    authorized_by_id bigint,
+    restaurant_id bigint NOT NULL,
+    settlement_id bigint
+);
+
+
+--
+-- Name: payments_settlementadjustment_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.payments_settlementadjustment ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.payments_settlementadjustment_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: payments_transaction; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.payments_transaction (
+    id bigint NOT NULL,
+    transaction_id character varying(120) NOT NULL,
+    amount numeric(12,2) NOT NULL,
+    is_success boolean NOT NULL,
+    raw_response jsonb NOT NULL,
+    "timestamp" timestamp with time zone NOT NULL,
+    payment_id bigint NOT NULL,
+    idempotency_key character varying(128),
+    transaction_type character varying(20) NOT NULL
+);
+
+
+--
+-- Name: payments_transaction_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.payments_transaction ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.payments_transaction_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: products_foodaddon; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.products_foodaddon (
+    id bigint NOT NULL,
+    name character varying(128) NOT NULL,
+    price numeric(8,2) NOT NULL,
+    is_available boolean NOT NULL,
+    food_id bigint NOT NULL
+);
+
+
+--
+-- Name: products_foodaddon_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.products_foodaddon ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.products_foodaddon_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: products_fooditem; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.products_fooditem (
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    slug character varying(255) NOT NULL,
+    short_description text NOT NULL,
+    full_description text NOT NULL,
+    price numeric(10,2) NOT NULL,
+    original_price numeric(10,2),
+    discount character varying(32) NOT NULL,
+    is_veg boolean NOT NULL,
+    spice_level smallint NOT NULL,
+    prep_time_minutes integer NOT NULL,
+    ingredients jsonb NOT NULL,
+    allergens jsonb NOT NULL,
+    image character varying(200) NOT NULL,
+    video_url character varying(200) NOT NULL,
+    rating numeric(3,2) NOT NULL,
+    review_count integer NOT NULL,
+    is_available boolean NOT NULL,
+    is_featured boolean NOT NULL,
+    stock integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    category_id bigint,
+    restaurant_id bigint NOT NULL,
+    dietary_type character varying(20) NOT NULL,
+    display_order integer NOT NULL,
+    food_image character varying(100),
+    menu_category_id bigint,
+    available_from_time time without time zone,
+    available_to_time time without time zone,
+    is_sold_out boolean NOT NULL,
+    meal_periods jsonb NOT NULL,
+    CONSTRAINT products_fooditem_prep_time_minutes_check CHECK ((prep_time_minutes >= 0)),
+    CONSTRAINT products_fooditem_review_count_check CHECK ((review_count >= 0)),
+    CONSTRAINT products_fooditem_spice_level_check CHECK ((spice_level >= 0)),
+    CONSTRAINT products_fooditem_stock_check CHECK ((stock >= 0))
+);
+
+
+--
+-- Name: products_fooditem_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.products_fooditem ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.products_fooditem_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: products_foodpost; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.products_foodpost (
+    id bigint NOT NULL,
+    title character varying(255) NOT NULL,
+    caption text NOT NULL,
+    image character varying(200) NOT NULL,
+    likes_count integer NOT NULL,
+    comments_count integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    food_item_id bigint,
+    restaurant_id bigint NOT NULL,
+    CONSTRAINT products_foodpost_comments_count_check CHECK ((comments_count >= 0)),
+    CONSTRAINT products_foodpost_likes_count_check CHECK ((likes_count >= 0))
+);
+
+
+--
+-- Name: products_foodpost_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.products_foodpost ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.products_foodpost_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: products_foodreel; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.products_foodreel (
+    id bigint NOT NULL,
+    title character varying(255) NOT NULL,
+    caption text NOT NULL,
+    video_url character varying(200) NOT NULL,
+    thumbnail character varying(200) NOT NULL,
+    likes_count integer NOT NULL,
+    comments_count integer NOT NULL,
+    views_count integer NOT NULL,
+    audio_title character varying(150) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    food_item_id bigint,
+    restaurant_id bigint NOT NULL,
+    CONSTRAINT products_foodreel_comments_count_check CHECK ((comments_count >= 0)),
+    CONSTRAINT products_foodreel_likes_count_check CHECK ((likes_count >= 0)),
+    CONSTRAINT products_foodreel_views_count_check CHECK ((views_count >= 0))
+);
+
+
+--
+-- Name: products_foodreel_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.products_foodreel ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.products_foodreel_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: products_foodvariant; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.products_foodvariant (
+    id bigint NOT NULL,
+    name character varying(128) NOT NULL,
+    price_modifier numeric(8,2) NOT NULL,
+    food_id bigint NOT NULL
+);
+
+
+--
+-- Name: products_foodvariant_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.products_foodvariant ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.products_foodvariant_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: products_restaurant; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.products_restaurant (
+    id bigint NOT NULL,
+    name character varying(255) NOT NULL,
+    tagline character varying(255) NOT NULL,
+    description text NOT NULL,
+    cuisines jsonb NOT NULL,
+    rating numeric(3,2) NOT NULL,
+    review_count integer NOT NULL,
+    address text NOT NULL,
+    latitude numeric(9,6) NOT NULL,
+    longitude numeric(9,6) NOT NULL,
+    delivery_time_text character varying(64) NOT NULL,
+    delivery_radius_km numeric(4,1) NOT NULL,
+    price_for_two character varying(64) NOT NULL,
+    hero_image character varying(200) NOT NULL,
+    avatar character varying(200) NOT NULL,
+    is_open boolean NOT NULL,
+    is_verified boolean NOT NULL,
+    revenue_today numeric(12,2) NOT NULL,
+    revenue_weekly numeric(12,2) NOT NULL,
+    revenue_monthly numeric(12,2) NOT NULL,
+    total_orders integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    owner_id bigint NOT NULL,
+    owner_name character varying(150) NOT NULL,
+    restaurant_logo character varying(100),
+    verification_status character varying(20) NOT NULL,
+    avg_prep_time_minutes integer NOT NULL,
+    closing_time time without time zone NOT NULL,
+    exceptional_closures jsonb NOT NULL,
+    opening_time time without time zone NOT NULL,
+    operating_hours jsonb NOT NULL,
+    orders_paused boolean NOT NULL,
+    pause_reason character varying(255) NOT NULL,
+    timezone character varying(64) NOT NULL,
+    CONSTRAINT products_restaurant_avg_prep_time_minutes_check CHECK ((avg_prep_time_minutes >= 0)),
+    CONSTRAINT products_restaurant_review_count_check CHECK ((review_count >= 0)),
+    CONSTRAINT products_restaurant_total_orders_check CHECK ((total_orders >= 0))
+);
+
+
+--
+-- Name: products_restaurant_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.products_restaurant ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.products_restaurant_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: reviews_review; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.reviews_review (
+    id bigint NOT NULL,
+    rating smallint NOT NULL,
+    comment text NOT NULL,
+    is_verified_purchase boolean NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    product_id bigint,
+    user_id bigint NOT NULL,
+    delivery_partner_id bigint,
+    delivery_rating smallint,
+    food_quality_rating smallint,
+    language character varying(8) NOT NULL,
+    moderated_at timestamp with time zone,
+    moderated_by_id bigint,
+    moderation_reason text NOT NULL,
+    moderation_status character varying(20) NOT NULL,
+    order_id bigint,
+    packaging_rating smallint,
+    restaurant_id bigint,
+    target_type character varying(20) NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    CONSTRAINT reviews_review_delivery_rating_check CHECK ((delivery_rating >= 0)),
+    CONSTRAINT reviews_review_food_quality_rating_check CHECK ((food_quality_rating >= 0)),
+    CONSTRAINT reviews_review_packaging_rating_check CHECK ((packaging_rating >= 0)),
+    CONSTRAINT reviews_review_rating_check CHECK ((rating >= 0))
+);
+
+
+--
+-- Name: reviews_review_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.reviews_review ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.reviews_review_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: reviews_reviewmoderationlog; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.reviews_reviewmoderationlog (
+    id bigint NOT NULL,
+    action character varying(20) NOT NULL,
+    reason text NOT NULL,
+    previous_status character varying(20) NOT NULL,
+    new_status character varying(20) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    moderator_id bigint,
+    review_id bigint NOT NULL
+);
+
+
+--
+-- Name: reviews_reviewmoderationlog_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.reviews_reviewmoderationlog ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.reviews_reviewmoderationlog_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: reviews_reviewreport; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.reviews_reviewreport (
+    id bigint NOT NULL,
+    reason character varying(32) NOT NULL,
+    explanation text NOT NULL,
+    status character varying(20) NOT NULL,
+    admin_notes text NOT NULL,
+    resolved_at timestamp with time zone,
+    created_at timestamp with time zone NOT NULL,
+    reported_by_id bigint NOT NULL,
+    resolved_by_id bigint,
+    review_id bigint NOT NULL
+);
+
+
+--
+-- Name: reviews_reviewreport_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.reviews_reviewreport ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.reviews_reviewreport_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: seller_sellerprofile; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.seller_sellerprofile (
+    id bigint NOT NULL,
+    store_name character varying(150) NOT NULL,
+    slug character varying(150) NOT NULL,
+    description text NOT NULL,
+    banner character varying(200) NOT NULL,
+    is_verified boolean NOT NULL,
+    total_sales numeric(14,2) NOT NULL,
+    rating numeric(3,2) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    restaurant_id bigint,
+    user_id bigint NOT NULL
+);
+
+
+--
+-- Name: seller_sellerprofile_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.seller_sellerprofile ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.seller_sellerprofile_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: shifts_breaklog; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.shifts_breaklog (
+    id bigint NOT NULL,
+    break_number smallint NOT NULL,
+    break_start timestamp with time zone NOT NULL,
+    break_end timestamp with time zone,
+    duration_minutes integer NOT NULL,
+    status character varying(20) NOT NULL,
+    rider_id bigint NOT NULL,
+    check_in_id bigint NOT NULL,
+    CONSTRAINT shifts_breaklog_break_number_check CHECK ((break_number >= 0)),
+    CONSTRAINT shifts_breaklog_duration_minutes_check CHECK ((duration_minutes >= 0))
+);
+
+
+--
+-- Name: shifts_breaklog_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.shifts_breaklog ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.shifts_breaklog_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: shifts_checkin; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.shifts_checkin (
+    id bigint NOT NULL,
+    check_in_time timestamp with time zone NOT NULL,
+    check_out_time timestamp with time zone,
+    check_in_lat numeric(9,6) NOT NULL,
+    check_in_lng numeric(9,6) NOT NULL,
+    check_out_lat numeric(9,6),
+    check_out_lng numeric(9,6),
+    is_late boolean NOT NULL,
+    late_minutes integer NOT NULL,
+    penalty_applied numeric(8,2) NOT NULL,
+    status character varying(20) NOT NULL,
+    orders_delivered integer NOT NULL,
+    shift_earnings numeric(10,2) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    rider_id bigint NOT NULL,
+    booking_id bigint NOT NULL,
+    CONSTRAINT shifts_checkin_late_minutes_check CHECK ((late_minutes >= 0)),
+    CONSTRAINT shifts_checkin_orders_delivered_check CHECK ((orders_delivered >= 0))
+);
+
+
+--
+-- Name: shifts_checkin_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.shifts_checkin ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.shifts_checkin_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: shifts_shift; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.shifts_shift (
+    id bigint NOT NULL,
+    date date NOT NULL,
+    zone character varying(100) NOT NULL,
+    capacity integer NOT NULL,
+    booked_count integer NOT NULL,
+    waitlist_count integer NOT NULL,
+    is_active boolean NOT NULL,
+    slot_id bigint NOT NULL,
+    CONSTRAINT shifts_shift_booked_count_check CHECK ((booked_count >= 0)),
+    CONSTRAINT shifts_shift_capacity_check CHECK ((capacity >= 0)),
+    CONSTRAINT shifts_shift_waitlist_count_check CHECK ((waitlist_count >= 0))
+);
+
+
+--
+-- Name: shifts_shift_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.shifts_shift ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.shifts_shift_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: shifts_shiftbonus; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.shifts_shiftbonus (
+    id bigint NOT NULL,
+    streak_count integer NOT NULL,
+    bonus_amount numeric(10,2) NOT NULL,
+    reason character varying(255) NOT NULL,
+    is_claimed boolean NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    rider_id bigint NOT NULL,
+    CONSTRAINT shifts_shiftbonus_streak_count_check CHECK ((streak_count >= 0))
+);
+
+
+--
+-- Name: shifts_shiftbonus_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.shifts_shiftbonus ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.shifts_shiftbonus_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: shifts_shiftbooking; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.shifts_shiftbooking (
+    id bigint NOT NULL,
+    date date NOT NULL,
+    status character varying(20) NOT NULL,
+    waitlist_position integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    rider_id bigint NOT NULL,
+    shift_id bigint NOT NULL,
+    CONSTRAINT shifts_shiftbooking_waitlist_position_check CHECK ((waitlist_position >= 0))
+);
+
+
+--
+-- Name: shifts_shiftbooking_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.shifts_shiftbooking ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.shifts_shiftbooking_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: shifts_shiftslot; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.shifts_shiftslot (
+    id bigint NOT NULL,
+    name character varying(100) NOT NULL,
+    slot_type character varying(30) NOT NULL,
+    start_time time without time zone NOT NULL,
+    end_time time without time zone NOT NULL,
+    multiplier numeric(3,1) NOT NULL,
+    is_peak boolean NOT NULL,
+    zone character varying(100) NOT NULL,
+    zone_lat numeric(9,6) NOT NULL,
+    zone_lng numeric(9,6) NOT NULL,
+    geofence_radius_km numeric(4,1) NOT NULL,
+    max_capacity integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    CONSTRAINT shifts_shiftslot_max_capacity_check CHECK ((max_capacity >= 0))
+);
+
+
+--
+-- Name: shifts_shiftslot_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.shifts_shiftslot ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.shifts_shiftslot_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: shifts_shiftswap; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.shifts_shiftswap (
+    id bigint NOT NULL,
+    reason text NOT NULL,
+    status character varying(20) NOT NULL,
+    admin_approved boolean NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL,
+    booking_id bigint NOT NULL,
+    receiver_id bigint,
+    requester_id bigint NOT NULL
+);
+
+
+--
+-- Name: shifts_shiftswap_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.shifts_shiftswap ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.shifts_shiftswap_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: social_photoreview; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.social_photoreview (
+    id bigint NOT NULL,
+    rating numeric(2,1) NOT NULL,
+    comment text NOT NULL,
+    photos jsonb NOT NULL,
+    likes_count integer NOT NULL,
+    reply text NOT NULL,
+    replied_at timestamp with time zone,
+    created_at timestamp with time zone NOT NULL,
+    order_id bigint,
+    restaurant_id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    CONSTRAINT social_photoreview_likes_count_check CHECK ((likes_count >= 0))
+);
+
+
+--
+-- Name: social_photoreview_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.social_photoreview ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.social_photoreview_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: social_postcomment; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.social_postcomment (
+    id bigint NOT NULL,
+    text text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    user_id bigint NOT NULL,
+    post_id bigint NOT NULL
+);
+
+
+--
+-- Name: social_postcomment_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.social_postcomment ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.social_postcomment_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: social_postlike; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.social_postlike (
+    id bigint NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    user_id bigint NOT NULL,
+    post_id bigint NOT NULL
+);
+
+
+--
+-- Name: social_postlike_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.social_postlike ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.social_postlike_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: social_reelcomment; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.social_reelcomment (
+    id bigint NOT NULL,
+    text text NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    user_id bigint NOT NULL,
+    reel_id bigint NOT NULL
+);
+
+
+--
+-- Name: social_reelcomment_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.social_reelcomment ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.social_reelcomment_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: social_reellike; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.social_reellike (
+    id bigint NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    user_id bigint NOT NULL,
+    reel_id bigint NOT NULL
+);
+
+
+--
+-- Name: social_reellike_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.social_reellike ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.social_reellike_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: social_socialpost; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.social_socialpost (
+    id bigint NOT NULL,
+    title character varying(255) NOT NULL,
+    caption text NOT NULL,
+    image character varying(200) NOT NULL,
+    likes_count integer NOT NULL,
+    comments_count integer NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    author_id bigint NOT NULL,
+    food_item_id bigint,
+    restaurant_id bigint,
+    CONSTRAINT social_socialpost_comments_count_check CHECK ((comments_count >= 0)),
+    CONSTRAINT social_socialpost_likes_count_check CHECK ((likes_count >= 0))
+);
+
+
+--
+-- Name: social_socialpost_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.social_socialpost ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.social_socialpost_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: social_socialreel; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.social_socialreel (
+    id bigint NOT NULL,
+    title character varying(255) NOT NULL,
+    caption text NOT NULL,
+    video_url character varying(200) NOT NULL,
+    thumbnail character varying(200) NOT NULL,
+    likes_count integer NOT NULL,
+    comments_count integer NOT NULL,
+    views_count integer NOT NULL,
+    audio_title character varying(150) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    author_id bigint NOT NULL,
+    food_item_id bigint,
+    restaurant_id bigint,
+    CONSTRAINT social_socialreel_comments_count_check CHECK ((comments_count >= 0)),
+    CONSTRAINT social_socialreel_likes_count_check CHECK ((likes_count >= 0)),
+    CONSTRAINT social_socialreel_views_count_check CHECK ((views_count >= 0))
+);
+
+
+--
+-- Name: social_socialreel_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.social_socialreel ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.social_socialreel_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: social_userfollow; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.social_userfollow (
+    id bigint NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    follower_id bigint NOT NULL,
+    following_restaurant_id bigint,
+    following_user_id bigint
+);
+
+
+--
+-- Name: social_userfollow_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.social_userfollow ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.social_userfollow_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: token_blacklist_blacklistedtoken; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.token_blacklist_blacklistedtoken (
+    id bigint NOT NULL,
+    blacklisted_at timestamp with time zone NOT NULL,
+    token_id bigint NOT NULL
+);
+
+
+--
+-- Name: token_blacklist_blacklistedtoken_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.token_blacklist_blacklistedtoken ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.token_blacklist_blacklistedtoken_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: token_blacklist_outstandingtoken; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.token_blacklist_outstandingtoken (
+    id bigint NOT NULL,
+    token text NOT NULL,
+    created_at timestamp with time zone,
+    expires_at timestamp with time zone NOT NULL,
+    user_id bigint,
+    jti character varying(255) CONSTRAINT token_blacklist_outstandingtoken_jti_hex_not_null NOT NULL
+);
+
+
+--
+-- Name: token_blacklist_outstandingtoken_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.token_blacklist_outstandingtoken ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.token_blacklist_outstandingtoken_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: wishlist_wishlist; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.wishlist_wishlist (
+    id bigint NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    product_id bigint NOT NULL,
+    user_id bigint NOT NULL
+);
+
+
+--
+-- Name: wishlist_wishlist_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+ALTER TABLE public.wishlist_wishlist ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.wishlist_wishlist_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Data for Name: accounts_address; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_address (id, label, full_name, street, city, state, pincode, country, phone, latitude, longitude, is_default, user_id) FROM stdin;
+1	Home - T. Nagar	Priya Ramanathan	Flat 4B, Lotus Apartments, Usman Road	Chennai	Tamil Nadu	600017	India	+91 98765 00001	13.041800	80.234100	t	1
+2	Home	Test	Street 1	Chennai	Tamil Nadu	600001	India	9876543210	13.082700	80.270700	t	30
+3	Work	Test	Street 2	Chennai	Tamil Nadu	600002	India	9876543210	13.082700	80.270700	f	30
+\.
+
+
+--
+-- Data for Name: accounts_auditlog; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_auditlog (id, action, target_model, target_id, details, ip_address, "timestamp", actor_id) FROM stdin;
+1	System Initialized & Chennai Metro Cluster Seeded	Ecosystem	CHENNAI_METRO_01	{}		2026-10-08 11:22:50.594867+05:30	4
+2	SETTLEMENT_BATCH_CREATED	RestaurantSettlement	2	{"period": "2026-10-10 to 2026-10-10", "order_count": 2, "restaurant_id": 23, "net_payout_amount": "667.47", "settlement_reference": "SET-20261010-FB4CF6"}	127.0.0.1	2026-10-10 14:42:52.882793+05:30	47
+3	SETTLEMENT_STATUS_PROCESSING	RestaurantSettlement	2	{"reason": "", "to_status": "PROCESSING", "from_status": "PENDING", "provider_utr": "", "settlement_reference": "SET-20261010-FB4CF6"}	127.0.0.1	2026-10-10 14:42:52.931261+05:30	47
+4	SETTLEMENT_STATUS_PAID	RestaurantSettlement	2	{"reason": "", "to_status": "PAID", "from_status": "PROCESSING", "provider_utr": "UTR_HDFC_20261010_9981", "settlement_reference": "SET-20261010-FB4CF6"}	127.0.0.1	2026-10-10 14:42:52.940971+05:30	47
+5	SETTLEMENT_BATCH_CREATED	RestaurantSettlement	3	{"period": "2026-10-10 to 2026-10-10", "order_count": 1, "restaurant_id": 24, "net_payout_amount": "835.00", "settlement_reference": "SET-20261010-F11786"}	127.0.0.1	2026-10-10 14:42:52.961887+05:30	47
+6	SETTLEMENT_ADJUSTMENT_ADDED	SettlementAdjustment	1	{"amount": "50.00", "reason": "Diwali festival marketing promotional subsidy", "adjustment_id": 1, "settlement_reference": "SET-20261010-F11786"}	127.0.0.1	2026-10-10 14:42:52.974274+05:30	47
+7	COMMISSION_RULES_UPDATED	PlatformConfig	1	{"after": {"platform_commission_fixed_fee": 5.0, "platform_commission_percentage": 15.0}, "before": {"platform_commission_fixed_fee": 0.0, "platform_commission_percentage": 18.0}, "reason": "Q4 competitive commission revision for platform partners"}	127.0.0.1	2026-10-10 14:42:52.989432+05:30	47
+8	SETTLEMENT_STATUS_PROCESSING	RestaurantSettlement	3	{"reason": "", "to_status": "PROCESSING", "from_status": "PENDING", "provider_utr": "", "settlement_reference": "SET-20261010-F11786"}	127.0.0.1	2026-10-10 14:42:52.996624+05:30	47
+9	SETTLEMENT_STATUS_PAID	RestaurantSettlement	3	{"reason": "", "to_status": "PAID", "from_status": "PROCESSING", "provider_utr": "UTR_B_1234", "settlement_reference": "SET-20261010-F11786"}	127.0.0.1	2026-10-10 14:42:53.003164+05:30	47
+10	SETTLEMENT_BATCH_CREATED	RestaurantSettlement	4	{"period": "2026-10-10 to 2026-10-10", "order_count": 2, "restaurant_id": 23, "net_payout_amount": "667.47", "settlement_reference": "SET-20261010-C4EF51"}	127.0.0.1	2026-10-10 14:51:34.934272+05:30	47
+11	SETTLEMENT_STATUS_PROCESSING	RestaurantSettlement	4	{"reason": "", "to_status": "PROCESSING", "from_status": "PENDING", "provider_utr": "", "settlement_reference": "SET-20261010-C4EF51"}	127.0.0.1	2026-10-10 14:51:34.980867+05:30	47
+12	SETTLEMENT_STATUS_PAID	RestaurantSettlement	4	{"reason": "", "to_status": "PAID", "from_status": "PROCESSING", "provider_utr": "UTR_HDFC_20261010_9981", "settlement_reference": "SET-20261010-C4EF51"}	127.0.0.1	2026-10-10 14:51:34.991424+05:30	47
+13	SETTLEMENT_BATCH_CREATED	RestaurantSettlement	5	{"period": "2026-10-10 to 2026-10-10", "order_count": 1, "restaurant_id": 24, "net_payout_amount": "835.00", "settlement_reference": "SET-20261010-82EA15"}	127.0.0.1	2026-10-10 14:51:35.011637+05:30	47
+14	SETTLEMENT_ADJUSTMENT_ADDED	SettlementAdjustment	2	{"amount": "50.00", "reason": "Diwali festival marketing promotional subsidy", "adjustment_id": 2, "settlement_reference": "SET-20261010-82EA15"}	127.0.0.1	2026-10-10 14:51:35.02334+05:30	47
+15	COMMISSION_RULES_UPDATED	PlatformConfig	1	{"after": {"platform_commission_fixed_fee": 5.0, "platform_commission_percentage": 15.0}, "before": {"platform_commission_fixed_fee": 0.0, "platform_commission_percentage": 18.0}, "reason": "Q4 competitive commission revision for platform partners"}	127.0.0.1	2026-10-10 14:51:35.033995+05:30	47
+16	SETTLEMENT_STATUS_PROCESSING	RestaurantSettlement	5	{"reason": "", "to_status": "PROCESSING", "from_status": "PENDING", "provider_utr": "", "settlement_reference": "SET-20261010-82EA15"}	127.0.0.1	2026-10-10 14:51:35.040641+05:30	47
+17	SETTLEMENT_STATUS_PAID	RestaurantSettlement	5	{"reason": "", "to_status": "PAID", "from_status": "PROCESSING", "provider_utr": "UTR_B_1234", "settlement_reference": "SET-20261010-82EA15"}	127.0.0.1	2026-10-10 14:51:35.046583+05:30	47
+18	SETTLEMENT_BATCH_CREATED	RestaurantSettlement	6	{"period": "2026-10-10 to 2026-10-10", "order_count": 2, "restaurant_id": 23, "net_payout_amount": "667.47", "settlement_reference": "SET-20261010-A40D0D"}	127.0.0.1	2026-10-10 16:20:16.832933+05:30	47
+19	SETTLEMENT_STATUS_PROCESSING	RestaurantSettlement	6	{"reason": "", "to_status": "PROCESSING", "from_status": "PENDING", "provider_utr": "", "settlement_reference": "SET-20261010-A40D0D"}	127.0.0.1	2026-10-10 16:20:16.880265+05:30	47
+20	SETTLEMENT_STATUS_PAID	RestaurantSettlement	6	{"reason": "", "to_status": "PAID", "from_status": "PROCESSING", "provider_utr": "UTR_HDFC_20261010_9981", "settlement_reference": "SET-20261010-A40D0D"}	127.0.0.1	2026-10-10 16:20:16.890084+05:30	47
+21	SETTLEMENT_BATCH_CREATED	RestaurantSettlement	7	{"period": "2026-10-10 to 2026-10-10", "order_count": 1, "restaurant_id": 24, "net_payout_amount": "835.00", "settlement_reference": "SET-20261010-A20726"}	127.0.0.1	2026-10-10 16:20:16.910298+05:30	47
+22	SETTLEMENT_ADJUSTMENT_ADDED	SettlementAdjustment	3	{"amount": "50.00", "reason": "Diwali festival marketing promotional subsidy", "adjustment_id": 3, "settlement_reference": "SET-20261010-A20726"}	127.0.0.1	2026-10-10 16:20:16.921593+05:30	47
+23	COMMISSION_RULES_UPDATED	PlatformConfig	1	{"after": {"platform_commission_fixed_fee": 5.0, "platform_commission_percentage": 15.0}, "before": {"platform_commission_fixed_fee": 0.0, "platform_commission_percentage": 18.0}, "reason": "Q4 competitive commission revision for platform partners"}	127.0.0.1	2026-10-10 16:20:16.932066+05:30	47
+24	SETTLEMENT_STATUS_PROCESSING	RestaurantSettlement	7	{"reason": "", "to_status": "PROCESSING", "from_status": "PENDING", "provider_utr": "", "settlement_reference": "SET-20261010-A20726"}	127.0.0.1	2026-10-10 16:20:16.938624+05:30	47
+25	SETTLEMENT_STATUS_PAID	RestaurantSettlement	7	{"reason": "", "to_status": "PAID", "from_status": "PROCESSING", "provider_utr": "UTR_B_1234", "settlement_reference": "SET-20261010-A20726"}	127.0.0.1	2026-10-10 16:20:16.944803+05:30	47
+26	SETTLEMENT_BATCH_CREATED	RestaurantSettlement	8	{"period": "2026-10-10 to 2026-10-10", "order_count": 2, "restaurant_id": 23, "net_payout_amount": "667.47", "settlement_reference": "SET-20261010-508614"}	127.0.0.1	2026-10-10 17:05:12.386511+05:30	47
+27	SETTLEMENT_STATUS_PROCESSING	RestaurantSettlement	8	{"reason": "", "to_status": "PROCESSING", "from_status": "PENDING", "provider_utr": "", "settlement_reference": "SET-20261010-508614"}	127.0.0.1	2026-10-10 17:05:12.434269+05:30	47
+28	SETTLEMENT_STATUS_PAID	RestaurantSettlement	8	{"reason": "", "to_status": "PAID", "from_status": "PROCESSING", "provider_utr": "UTR_HDFC_20261010_9981", "settlement_reference": "SET-20261010-508614"}	127.0.0.1	2026-10-10 17:05:12.444179+05:30	47
+29	SETTLEMENT_BATCH_CREATED	RestaurantSettlement	9	{"period": "2026-10-10 to 2026-10-10", "order_count": 1, "restaurant_id": 24, "net_payout_amount": "835.00", "settlement_reference": "SET-20261010-55C2E4"}	127.0.0.1	2026-10-10 17:05:12.464656+05:30	47
+30	SETTLEMENT_ADJUSTMENT_ADDED	SettlementAdjustment	4	{"amount": "50.00", "reason": "Diwali festival marketing promotional subsidy", "adjustment_id": 4, "settlement_reference": "SET-20261010-55C2E4"}	127.0.0.1	2026-10-10 17:05:12.47904+05:30	47
+31	COMMISSION_RULES_UPDATED	PlatformConfig	1	{"after": {"platform_commission_fixed_fee": 5.0, "platform_commission_percentage": 15.0}, "before": {"platform_commission_fixed_fee": 0.0, "platform_commission_percentage": 18.0}, "reason": "Q4 competitive commission revision for platform partners"}	127.0.0.1	2026-10-10 17:05:12.489892+05:30	47
+32	SETTLEMENT_STATUS_PROCESSING	RestaurantSettlement	9	{"reason": "", "to_status": "PROCESSING", "from_status": "PENDING", "provider_utr": "", "settlement_reference": "SET-20261010-55C2E4"}	127.0.0.1	2026-10-10 17:05:12.496816+05:30	47
+33	SETTLEMENT_STATUS_PAID	RestaurantSettlement	9	{"reason": "", "to_status": "PAID", "from_status": "PROCESSING", "provider_utr": "UTR_B_1234", "settlement_reference": "SET-20261010-55C2E4"}	127.0.0.1	2026-10-10 17:05:12.502847+05:30	47
+34	PAYMENT_REFUND_PROCESSED	Payment	1	{"reason": "Security Audit Test Refund", "order_id": 62, "order_number": "WS-T28-9B2091", "refund_amount": "350.00", "refund_reason": "Security Audit Test Refund", "refund_transaction_id": "REFUND-F13764407D"}	127.0.0.1	2026-10-10 19:12:52.320977+05:30	4
+35	PAYMENT_REFUND_PROCESSED	Payment	1	{"reason": "Security Audit Test Refund", "order_id": 62, "order_number": "WS-T28-9B2091", "refund_amount": "350.00", "refund_reason": "Security Audit Test Refund", "refund_transaction_id": "REFUND-9ED2488C70"}	127.0.0.1	2026-10-10 19:13:30.674357+05:30	4
+36	PAYMENT_REFUND_PROCESSED	Payment	1	{"reason": "Security Audit Test Refund", "order_id": 62, "order_number": "WS-T28-9B2091", "refund_amount": "350.00", "refund_reason": "Security Audit Test Refund", "refund_transaction_id": "REFUND-2280783774"}	127.0.0.1	2026-10-10 19:13:57.196877+05:30	4
+37	PAYMENT_REFUND_PROCESSED	Payment	1	{"reason": "Security Audit Test Refund", "order_id": 62, "order_number": "WS-T28-9B2091", "refund_amount": "350.00", "refund_reason": "Security Audit Test Refund", "refund_transaction_id": "REFUND-9A17484A07"}	127.0.0.1	2026-10-10 19:15:21.940296+05:30	4
+38	PAYMENT_REFUND_PROCESSED	Payment	1	{"reason": "Security Audit Test Refund", "order_id": 62, "order_number": "WS-T28-9B2091", "refund_amount": "350.00", "refund_reason": "Security Audit Test Refund", "refund_transaction_id": "REFUND-C82EB514E3"}	127.0.0.1	2026-10-10 19:18:51.278475+05:30	4
+\.
+
+
+--
+-- Data for Name: accounts_loginactivity; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_loginactivity (id, email, ip_address, user_agent, status, failure_reason, "timestamp", user_id) FROM stdin;
+1	customer@wsfood.io	127.0.0.1	Mozilla/5.0 Chrome/130	SUCCESS		2026-10-08 11:22:50.57995+05:30	1
+2	p3_customer@example.com	127.0.0.1		SUCCESS		2026-10-08 14:23:28.828226+05:30	15
+3	+91 99001 11222	127.0.0.1		FAILED	Invalid email/phone or password.	2026-10-08 14:23:28.846993+05:30	\N
+4	p3_customer@example.com	127.0.0.1		SUCCESS		2026-10-08 14:24:23.50242+05:30	15
+5	p3_customer@example.com	127.0.0.1		SUCCESS		2026-10-08 14:24:24.052194+05:30	15
+6	p3_customer@example.com	127.0.0.1		FAILED	Invalid email/phone or password.	2026-10-08 14:24:24.610922+05:30	15
+7	nobody@example.com	127.0.0.1		FAILED	Invalid email/phone or password.	2026-10-08 14:24:24.637936+05:30	\N
+8	p3_blocked@example.com	127.0.0.1		FAILED	Your account is currently blocked.	2026-10-08 14:24:25.172745+05:30	16
+9	p3_restaurant@example.com	127.0.0.1		SUCCESS		2026-10-08 14:24:25.760436+05:30	17
+10	p3_pending_rest@example.com	127.0.0.1		FAILED	Your account is waiting for verification.	2026-10-08 14:24:26.357164+05:30	18
+11	p3_rider@example.com	127.0.0.1		SUCCESS		2026-10-08 14:24:26.930003+05:30	19
+12	p3_pending_rider@example.com	127.0.0.1		FAILED	Your account is waiting for verification.	2026-10-08 14:24:27.535732+05:30	20
+13	p3_customer@example.com	127.0.0.1		FAILED	You are not authorized to access this application.	2026-10-08 14:24:28.098144+05:30	15
+14	p3_customer@example.com	127.0.0.1		SUCCESS		2026-10-08 14:35:57.224+05:30	15
+15	p3_customer@example.com	127.0.0.1		SUCCESS		2026-10-08 14:35:57.799678+05:30	15
+16	p3_customer@example.com	127.0.0.1		FAILED	Invalid email/phone or password.	2026-10-08 14:35:58.346628+05:30	15
+17	nobody@example.com	127.0.0.1		FAILED	Invalid email/phone or password.	2026-10-08 14:35:58.375573+05:30	\N
+18	p3_blocked@example.com	127.0.0.1		FAILED	Your account is currently blocked.	2026-10-08 14:35:58.934101+05:30	16
+19	p3_restaurant@example.com	127.0.0.1		SUCCESS		2026-10-08 14:35:59.518639+05:30	17
+20	p3_pending_rest@example.com	127.0.0.1		FAILED	Your account is waiting for verification.	2026-10-08 14:36:00.074598+05:30	18
+21	p3_rider@example.com	127.0.0.1		SUCCESS		2026-10-08 14:36:00.619415+05:30	19
+22	p3_pending_rider@example.com	127.0.0.1		FAILED	Your account is waiting for verification.	2026-10-08 14:36:01.201852+05:30	20
+23	p3_customer@example.com	127.0.0.1		FAILED	You are not authorized to access this application.	2026-10-08 14:36:01.76412+05:30	15
+24	customer@wsfood.io	127.0.0.1	Mozilla/5.0 (Windows NT; Windows NT 10.0; en-IN) WindowsPowerShell/5.1.26100.9444	SUCCESS		2026-10-08 14:38:40.637009+05:30	1
+25	customer@wsfood.io	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0	SUCCESS		2026-10-08 14:40:17.695418+05:30	1
+26	shop@wsfood.io	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0	SUCCESS		2026-10-08 14:41:33.536184+05:30	2
+27	customer@wsfood.io	127.0.0.1		SUCCESS		2026-10-08 14:49:15.737793+05:30	1
+28	customer@wsfood.io	127.0.0.1		LOGOUT		2026-10-08 14:49:15.763735+05:30	1
+29	phase4_tester@example.com	127.0.0.1		SUCCESS		2026-10-08 15:24:52.847091+05:30	21
+30	phase4_tester@example.com	127.0.0.1		LOGOUT		2026-10-08 15:24:52.890062+05:30	21
+31	phase4_tester@example.com	127.0.0.1		SUCCESS		2026-10-08 15:24:53.506233+05:30	21
+32	phase4_tester@example.com	127.0.0.1		LOGOUT		2026-10-08 15:24:53.520769+05:30	21
+33	cust_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 15:39:14.900457+05:30	22
+34	cust_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 15:39:46.234669+05:30	22
+35	cust_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 15:42:40.502861+05:30	22
+36	cust_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 15:43:21.103185+05:30	22
+37	cust_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 15:43:46.988148+05:30	22
+38	cust_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 15:44:10.172154+05:30	22
+39	cust_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 15:45:52.022072+05:30	22
+40	rest_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 15:45:53.448414+05:30	23
+41	rider_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 15:45:54.694015+05:30	24
+42	cust_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 16:20:44.555725+05:30	22
+43	rest_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 16:20:45.957778+05:30	23
+44	cust_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 16:23:10.747249+05:30	22
+45	rest_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 16:23:12.068942+05:30	23
+46	rider_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 16:23:13.282453+05:30	24
+47	cust_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 16:24:20.06131+05:30	22
+48	rest_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 16:24:21.431556+05:30	23
+49	rider_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 16:24:22.658075+05:30	24
+50	admin_phase5@test.com	127.0.0.1		SUCCESS		2026-10-08 16:24:23.862077+05:30	25
+51	cust_settings@test.com	127.0.0.1		SUCCESS		2026-10-08 16:40:15.38822+05:30	26
+52	rest_settings@test.com	127.0.0.1		FAILED	Your account is waiting for verification.	2026-10-08 16:40:16.5587+05:30	27
+53	cust_settings@test.com	127.0.0.1		SUCCESS		2026-10-08 16:56:36.966991+05:30	26
+54	rest_settings@test.com	127.0.0.1		SUCCESS		2026-10-08 16:56:38.281342+05:30	27
+55	rider_settings@test.com	127.0.0.1		SUCCESS		2026-10-08 16:56:39.597476+05:30	28
+56	cust_settings@test.com	127.0.0.1		SUCCESS		2026-10-08 17:34:34.711112+05:30	26
+57	rest_settings@test.com	127.0.0.1		SUCCESS		2026-10-08 17:34:35.904232+05:30	27
+58	rider_settings@test.com	127.0.0.1		SUCCESS		2026-10-08 17:34:37.0724+05:30	28
+59	shop@wsfood.io	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0	SUCCESS		2026-10-08 21:30:12.373554+05:30	2
+60	rider@wsfood.io	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0	SUCCESS		2026-10-08 21:30:50.719136+05:30	3
+61	admin@wsfood.io	127.0.0.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36 Edg/154.0.0.0	SUCCESS		2026-10-08 21:32:28.464261+05:30	4
+\.
+
+
+--
+-- Data for Name: accounts_loyaltyprofile; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_loyaltyprofile (id, points, tier, lifetime_orders, total_saved, user_id) FROM stdin;
+1	450	GOLD	24	1240.00	1
+3	150	SILVER	0	0.00	12
+\.
+
+
+--
+-- Data for Name: accounts_mobileotp; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_mobileotp (id, phone, otp_code, purpose, is_verified, expires_at, created_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: accounts_profile; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_profile (id, full_name, avatar, phone, bio, is_verified, current_lat, current_lng, user_id, address, profile_photo, verification_status) FROM stdin;
+1	Priya Ramanathan	https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80	+91 98765 00001		t	13.041800	80.234100	1		\N	APPROVED
+2	Master Chef Kane	https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=400&q=80	+91 98765 00002		t	13.082700	80.270700	2		\N	APPROVED
+3	Kaelen Vance	https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80	+91 98765 00003		t	13.082700	80.270700	3		\N	APPROVED
+4	WS System Commander				t	13.082700	80.270700	4		\N	APPROVED
+5	Rajesh Kumar		+91 98765 00011		t	13.085000	80.210000	5		\N	APPROVED
+6	Vignesh Sundar		+91 98765 00012		t	13.041800	80.234100	6		\N	APPROVED
+7	Dinesh Karthik		+91 98765 00013		t	13.001200	80.256500	7		\N	APPROVED
+8	Mohammed Arif		+91 98765 00014		t	12.981500	80.218000	8		\N	APPROVED
+12	Aarav Patel		+919988776655		t	13.082700	80.270700	12	No. 42, 1st Cross, Indiranagar, Bengaluru	profiles/avatar_3xsj6Aa.jpg	APPROVED
+13	Kavita Menon		+919123456789		f	13.082700	80.270700	13	104 Food Street, Koramangala 4th Block, Bengaluru		PENDING
+14	Suresh Sundaram		+919888877777		f	13.082700	80.270700	14		profiles/rider_wrpky5Q.jpg	PENDING
+15	Ravi Customer				t	13.082700	80.270700	15	Anna Nagar		APPROVED
+16	Chef Mario				t	13.082700	80.270700	17	Kitchen Bay 1		APPROVED
+17	Suresh Rider				t	13.082700	80.270700	19	Depot 4		APPROVED
+18	Updated Customer Name		+919876543211		t	13.082700	80.270700	22	Plot 99, 4th Main Road, Anna Nagar		APPROVED
+19	Chef Marcus Vance		+919444012891		t	13.082700	80.270700	23	88 North Boag Rd, T Nagar		APPROVED
+20	Rider Arjun Express		+919988771123		t	13.082700	80.270700	24	Courier Hub 4, Guindy	profiles/rider_face_RO1n16J.png	APPROVED
+21	Chief Controller Marcus		+918040009999		t	13.082700	80.270700	25	FD Mission Control HQ Level 42		APPROVED
+22	Settings Customer				t	13.082700	80.270700	26			APPROVED
+23					t	13.082700	80.270700	27			APPROVED
+24					t	13.082700	80.270700	28			APPROVED
+\.
+
+
+--
+-- Data for Name: accounts_securityalert; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_securityalert (id, alert_type, severity, description, is_resolved, created_at) FROM stdin;
+1	SYSTEM_INITIALIZED	LOW	WS FOOD Chennai Metro cluster nodes online and synchronized.	t	2026-10-08 11:22:50.587695+05:30
+\.
+
+
+--
+-- Data for Name: accounts_supportticket; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_supportticket (id, ticket_number, order_id, subject, category, priority, status, created_at, updated_at, user_id, assigned_agent_id, delivery_partner_id, description, escalated_at, escalated_by_id, escalation_reason, idempotency_key, linked_order_id, resolution_summary, resolved_at, restaurant_id) FROM stdin;
+3	TKT-20261010-8FC9	ORD-P24-TEST-001	Soup was completely spilled upon arrival	DAMAGED_FOOD	HIGH	CLOSED	2026-10-10 14:51:51.565543+05:30	2026-10-10 14:52:00.15735+05:30	39	\N	\N	The lid was cracked and the bag was soaked in soup.	\N	\N		idemp-p24-key-001	43	Merchant packaging reviewed; merchant will double-seal soup containers.	2026-10-10 14:51:55.978918+05:30	21
+\.
+
+
+--
+-- Data for Name: accounts_ticketattachment; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_ticketattachment (id, file, file_name, file_size, mime_type, created_at, message_id, ticket_id, uploaded_by_id) FROM stdin;
+3	support_attachments/2026/10/spilled_soup_WVCrFJx.jpg	spilled_soup.jpg	26	image/jpeg	2026-10-10 14:51:55.733198+05:30	12	3	39
+\.
+
+
+--
+-- Data for Name: accounts_ticketauditlog; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_ticketauditlog (id, action, from_status, to_status, notes, details, created_at, actor_id, ticket_id) FROM stdin;
+13	CREATED		OPEN	Ticket #TKT-20261010-8FC9 created by customer p24_cust_a.	{"order": "ORD-P24-TEST-001", "category": "DAMAGED_FOOD", "priority": "HIGH"}	2026-10-10 14:51:51.569531+05:30	39	3
+14	REPLY_ADDED	OPEN	OPEN	Customer reply added to ticket #TKT-20261010-8FC9.	{}	2026-10-10 14:51:55.735488+05:30	39	3
+15	INTERNAL_NOTE	OPEN	OPEN	Internal note recorded.	{}	2026-10-10 14:51:55.774356+05:30	44	3
+16	RESOLVED	OPEN	RESOLVED	Resolved by p24_admin. Summary: Merchant packaging reviewed; merchant will double-seal soup containers.	{}	2026-10-10 14:51:55.981629+05:30	44	3
+17	REOPENED	RESOLVED	IN_PROGRESS	Reopened by customer. Reason: Spill also ruined the side bread.	{}	2026-10-10 14:52:00.118305+05:30	39	3
+18	CLOSED	IN_PROGRESS	CLOSED	Resolution confirmed by customer.	{}	2026-10-10 14:52:00.159694+05:30	39	3
+\.
+
+
+--
+-- Data for Name: accounts_ticketmessage; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_ticketmessage (id, message, is_staff, created_at, sender_id, ticket_id, is_internal_note, sender_role) FROM stdin;
+11	The lid was cracked and the bag was soaked in soup.	f	2026-10-10 14:51:51.567627+05:30	39	3	f	CUSTOMER
+12	Photo of spilled container attached.	f	2026-10-10 14:51:55.729651+05:30	39	3	f	CUSTOMER
+13	INTERNAL NOTE: Spilled soup looks legitimate. Do not disclose customer phone to restaurant.	f	2026-10-10 14:51:55.772715+05:30	44	3	t	SUPPORT_AGENT
+14	Customer reopened the dispute: Spill also ruined the side bread.	f	2026-10-10 14:52:00.11695+05:30	39	3	f	CUSTOMER
+15	Customer confirmed resolution and closed the ticket. Satisfied with merchant follow-up.	f	2026-10-10 14:52:00.15879+05:30	39	3	f	CUSTOMER
+\.
+
+
+--
+-- Data for Name: accounts_user; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_user (id, password, last_login, is_superuser, username, first_name, last_name, is_staff, is_active, date_joined, email, role, phone, avatar, is_online, rating, created_at, updated_at) FROM stdin;
+1	pbkdf2_sha256$1500000$HR5Saen9TTn8PWMsbWk5j4$DaN9uTh+huF5IG70Z8UFq/XHPlGop8iL6IPtR9lTEnU=	\N	f	priya_ram			f	t	2026-10-08 11:22:43.543333+05:30	customer@wsfood.io	CUSTOMER	+91 98765 00001		f	5.00	2026-10-08 11:22:43.543926+05:30	2026-10-08 11:22:44.322994+05:30
+2	pbkdf2_sha256$1500000$PNWnFCGNweK9tHMASbjRXx$S0foukANnGJFTuGtTGmxgAlUsHv80AYTHpyfT/5w7b8=	\N	f	chef_marcus_kane			f	t	2026-10-08 11:22:44.395635+05:30	shop@wsfood.io	RESTAURANT	+91 98765 00002		f	5.00	2026-10-08 11:22:44.396003+05:30	2026-10-08 11:22:45.02506+05:30
+3	pbkdf2_sha256$1500000$D8KSCxTmL9xKhoHh9Q4aPh$LRgYBd1+A8aZTrwNao9CbGLqPsg1ghTXYOrL2kK5Y0U=	\N	f	kaelen_vance			f	t	2026-10-08 11:22:45.042427+05:30	rider@wsfood.io	DELIVERY	+91 98765 00003		f	5.00	2026-10-08 11:22:45.042933+05:30	2026-10-08 11:22:45.648659+05:30
+4	pbkdf2_sha256$1500000$jCg8VStX2MMlIVUnEoLbcA$r+Emy1LH/Beovtu/F+CGWxAcfVM3yXsqWNj1DupOZNk=	\N	t	ws_commander			t	t	2026-10-08 11:22:45.666405+05:30	admin@wsfood.io	ADMIN	+91 98765 00000		f	5.00	2026-10-08 11:22:45.667031+05:30	2026-10-08 11:22:46.323371+05:30
+5	pbkdf2_sha256$1500000$SbYUd76j7mz7cgUKtcqAga$u2bX/uecW5Ck2URFUrBHtXuJZdSrH274ExcxyOlEGEo=	\N	f	rider_rajesh			f	t	2026-10-08 11:22:46.356049+05:30	rider_rajesh@wsfood.io	DELIVERY	+91 98765 00011		f	5.00	2026-10-08 11:22:46.356287+05:30	2026-10-08 11:22:47.104853+05:30
+6	pbkdf2_sha256$1500000$XIyKNsz7eNFoT8UtDuOl8G$UmgtRyfRQkeSrMaoS1ALKcXVmtafxaxKVEB9TCBiNY8=	\N	f	rider_vignesh			f	t	2026-10-08 11:22:47.12852+05:30	rider_vignesh@wsfood.io	DELIVERY	+91 98765 00012		f	5.00	2026-10-08 11:22:47.128807+05:30	2026-10-08 11:22:47.785427+05:30
+7	pbkdf2_sha256$1500000$5S52yXd71pQtN8JoYpcaL0$Y8GV3+cWz1Y6dmTaV6mWXsAtjBQPO4Fxz+MfeuNVSXA=	\N	f	rider_dinesh			f	t	2026-10-08 11:22:47.806275+05:30	rider_dinesh@wsfood.io	DELIVERY	+91 98765 00013		f	5.00	2026-10-08 11:22:47.806495+05:30	2026-10-08 11:22:48.462874+05:30
+8	pbkdf2_sha256$1500000$61dj8mOlfjbgrNgCQwhAeh$D8AoATq4OMFjTmN0+FLk2i+JR1F6vtXzHOyhs1jWsUI=	\N	f	rider_arif			f	t	2026-10-08 11:22:48.478982+05:30	rider_arif@wsfood.io	DELIVERY	+91 98765 00014		f	5.00	2026-10-08 11:22:48.479284+05:30	2026-10-08 11:22:49.106327+05:30
+12	pbkdf2_sha256$1500000$vZzHEJTntdILBUwumBICAc$ui/xI+fd1kffLYHU6492DcIV1lZeHedrDrSn16moqAg=	\N	f	test_customer_p2			f	t	2026-10-08 11:38:58.117499+05:30	test_customer_p2@example.com	CUSTOMER	+919988776655		f	5.00	2026-10-08 11:38:59.09248+05:30	2026-10-08 11:38:59.092497+05:30
+13	pbkdf2_sha256$1500000$rpnI60PW2usdd4w6xZ0YxR$8puiZICbrJQSB9DMVLv62tngmyBWgxJypPgBXWDKfAw=	\N	f	spiceroutekitchen			f	t	2026-10-08 11:39:00.614801+05:30	test_restaurant_p2@example.com	RESTAURANT	+919123456789		f	5.00	2026-10-08 11:39:01.775934+05:30	2026-10-08 11:39:01.775946+05:30
+14	pbkdf2_sha256$1500000$9SUwp9c1MxpPFxybOiFSux$KFNc58IkwIVDrfdtpZ++9oPtBMpsILIXPhfwDQw8Whc=	\N	f	sureshsundaram			f	t	2026-10-08 11:39:02.748385+05:30	test_rider_p2@example.com	DELIVERY	+919888877777		f	5.00	2026-10-08 11:39:03.606824+05:30	2026-10-08 11:39:03.606836+05:30
+22	pbkdf2_sha256$1500000$tx6uS3kD8qDEdmKXcp6RDS$7tJxd+u2FYNghWy2P2LfFibnXiKy9g0ZyfJX4mbFRdM=	\N	f	cust_phase5			f	t	2026-10-08 15:39:13.379971+05:30	cust_phase5@test.com	CUSTOMER	+919876543211		f	5.00	2026-10-08 15:39:13.380378+05:30	2026-10-08 16:24:20.203181+05:30
+29	pbkdf2_sha256$1500000$Gsd3K76H91CpX3FWRDIqBo$g9ZiyND113E34pHq1+VxN4afT4ZYv3cJwQXcluZ12cU=	\N	f	test_user_xyz			f	t	2026-10-08 20:00:07.711123+05:30	test_xyz@test.com	CUSTOMER			f	5.00	2026-10-08 20:00:08.569583+05:30	2026-10-08 20:00:08.569602+05:30
+23	pbkdf2_sha256$1500000$xbXU7vh8C5Y45y5I1Wqshh$Cmsd78PADdA4Du7BQliAvY7YqYfePm8sN4sixWIIPtc=	\N	f	rest_phase5			f	t	2026-10-08 15:45:52.260492+05:30	rest_phase5@test.com	RESTAURANT	+919444012891		f	5.00	2026-10-08 15:45:52.260855+05:30	2026-10-08 16:24:21.461448+05:30
+30	pbkdf2_sha256$1500000$OGCqQ5jfQuXGuOn0ObxkUz$J8Imhk2I00LquOtPyhyAXQM7em+ItbX6YcJTsyGMUg4=	\N	f	c_test			f	t	2026-10-08 20:01:03.45353+05:30	c_test@wsfood.io	CUSTOMER			f	5.00	2026-10-08 20:01:04.217218+05:30	2026-10-08 20:01:04.217255+05:30
+24	pbkdf2_sha256$1500000$DswSspu4eCdZ3Fn54YW3xO$IWSNkJjrN0ARnw5+w30AhHfIKjSfZscJrXDCXMXttqE=	\N	f	rider_phase5			f	t	2026-10-08 15:45:53.498724+05:30	rider_phase5@test.com	DELIVERY	+919988771123		f	5.00	2026-10-08 15:45:53.499257+05:30	2026-10-08 16:24:22.692932+05:30
+31	pbkdf2_sha256$1500000$JXpyBMtW5slOOSAi1zRSbt$AqoTkqpMvRlBjCT5ydV89JhMvlkohlGToZfJy9a/Jls=	\N	f	cust_test3			f	t	2026-10-08 20:01:27.487902+05:30	cust_test3@wsfood.io	CUSTOMER			f	5.00	2026-10-08 20:01:28.261641+05:30	2026-10-08 20:01:28.261694+05:30
+15	pbkdf2_sha256$1500000$sJIDtOuZHoErexLoV4v7zk$DRtTJmhWMWNdyTYAt4jho+aIZxEMieDF9bk2bs9xQiE=	\N	f	p3_customer			f	t	2026-10-08 14:23:24.61129+05:30	p3_customer@example.com	CUSTOMER	+91 99001 11222		f	5.00	2026-10-08 14:23:24.611698+05:30	2026-10-08 14:35:53.449481+05:30
+16	pbkdf2_sha256$1500000$034s92KEyPSZBcj8vkdk0W$tp1rr5yK/3PUTYhIFtZC7KdjHqPKzslyMhA+ds5zQ/4=	\N	f	p3_blocked			f	f	2026-10-08 14:23:25.215188+05:30	p3_blocked@example.com	CUSTOMER	+91 99001 33444		f	5.00	2026-10-08 14:23:25.215546+05:30	2026-10-08 14:35:54.059023+05:30
+17	pbkdf2_sha256$1500000$cXBwggZmu4rK1IAQL03AOZ$mjSXug2rNVMzmqKS79o0cpnL5rA2WyOkf0jAR+Ge2DM=	\N	f	p3_restaurant			f	t	2026-10-08 14:23:25.788473+05:30	p3_restaurant@example.com	RESTAURANT	+91 99001 55666		f	5.00	2026-10-08 14:23:25.788944+05:30	2026-10-08 14:35:54.707418+05:30
+18	pbkdf2_sha256$1500000$nlvAiy9FmOGQwJCfNX59Sp$Kyb8ay0gO0T+QhIgLNHjhM0ubRpFpLLe8APuAMxw73Y=	\N	f	p3_pending_rest			f	t	2026-10-08 14:23:26.368761+05:30	p3_pending_rest@example.com	RESTAURANT	+91 99001 77888		f	5.00	2026-10-08 14:23:26.369038+05:30	2026-10-08 14:35:55.342362+05:30
+19	pbkdf2_sha256$1500000$PJZtDalAQ3L1muwXri2ZTV$lKi1T+hot9RtO0uhH+jSFOsbcmpc9DBsP2RFLQd7sU4=	\N	f	p3_rider			f	t	2026-10-08 14:23:26.972931+05:30	p3_rider@example.com	DELIVERY_PARTNER	+91 99001 99000		f	5.00	2026-10-08 14:23:26.973205+05:30	2026-10-08 14:35:55.910024+05:30
+20	pbkdf2_sha256$1500000$tTibdok4teo0wVQjkMTpg3$+comFKWYRBYsda7pLN9GWkffoYzTggIU5icS7sxxXHY=	\N	f	p3_pending_rider			f	t	2026-10-08 14:23:27.53602+05:30	p3_pending_rider@example.com	DELIVERY_PARTNER	+91 99001 22333		f	5.00	2026-10-08 14:23:27.536329+05:30	2026-10-08 14:35:56.453904+05:30
+21	pbkdf2_sha256$1500000$IydEevWd4GFby7uowVzI9n$iMiMizekjvFGJqtKtg8ioD5vzqLfDOP72IAh2L8UVCw=	\N	f	phase4_tester			f	t	2026-10-08 15:24:51.081745+05:30	phase4_tester@example.com	CUSTOMER	+919988776655		f	5.00	2026-10-08 15:24:51.082202+05:30	2026-10-08 15:24:51.694877+05:30
+25	pbkdf2_sha256$1500000$c8BulEO79fm7MBQXvqpAV0$ms1P75QrsAT3EmVfL25KC/NPtNCm79jZb/M5w17X7ek=	\N	t	admin_phase5			t	t	2026-10-08 16:24:22.71227+05:30	admin_phase5@test.com	ADMIN	+918040009999		f	5.00	2026-10-08 16:24:22.712706+05:30	2026-10-08 16:24:23.882346+05:30
+32	pbkdf2_sha256$1500000$GzofoXDXDO8xOqP969tbpf$UMwJY3kUKriz8FsI3CfkVja7ViJORBkA6kTD9xQgYzQ=	\N	f				f	t	2026-10-10 12:55:44.40579+05:30	phase22_test_merchant@wsfood.io	RESTAURANT			f	5.00	2026-10-10 12:55:44.406437+05:30	2026-10-10 12:55:45.009926+05:30
+26	pbkdf2_sha256$1500000$hHiozwcFIAhgTy29Aahswr$xDYBP0/N2cxy84r60LOCxusVUHw/Z5tBEiBHW8d+mmM=	\N	f	cust_settings			f	t	2026-10-08 16:40:13.865818+05:30	cust_settings@test.com	CUSTOMER	+919876543299		f	5.00	2026-10-08 16:40:13.866727+05:30	2026-10-08 17:34:33.802058+05:30
+27	pbkdf2_sha256$1500000$7TJ70aHDAgbzgsIswGcFsK$26Ze3ejIS41fDDLhbsO+zp7ugEp+A8sEKP4IcTEGLGo=	\N	f	rest_settings			f	t	2026-10-08 16:40:15.44233+05:30	rest_settings@test.com	RESTAURANT	+919444012899		f	5.00	2026-10-08 16:40:15.442675+05:30	2026-10-08 17:34:35.294974+05:30
+28	pbkdf2_sha256$1500000$EIvpZTk6YpO0QTuc3PwCH8$8qlCbtPlBctXzsxgEmVdU61Ou1Ff412FSrncGzwA/QA=	\N	f	rider_settings			f	t	2026-10-08 16:56:38.306794+05:30	rider_settings@test.com	DELIVERY	+919988771199		f	5.00	2026-10-08 16:56:38.307089+05:30	2026-10-08 17:34:36.487882+05:30
+33		\N	f	test_p23_customer			f	t	2026-10-10 13:31:51.522288+05:30	cust_p23@test.io	CUSTOMER			f	5.00	2026-10-10 13:31:51.523624+05:30	2026-10-10 13:31:51.523662+05:30
+34		\N	f	test_p23_admin			t	t	2026-10-10 13:31:51.533555+05:30	admin_p23@test.io	ADMIN			f	5.00	2026-10-10 13:31:51.534018+05:30	2026-10-10 13:31:51.534031+05:30
+35		\N	f	test_p23_rest_owner			f	t	2026-10-10 13:31:51.537363+05:30	owner_p23@test.io	RESTAURANT			f	5.00	2026-10-10 13:31:51.537679+05:30	2026-10-10 13:31:51.537689+05:30
+36		\N	f	test_p23_rider_close			f	t	2026-10-10 13:31:51.555432+05:30	rider_close@test.io	DELIVERY			f	5.00	2026-10-10 13:31:51.555679+05:30	2026-10-10 13:31:51.555685+05:30
+37		\N	f	test_p23_rider_far			f	t	2026-10-10 13:32:32.126062+05:30	rider_far@test.io	DELIVERY			f	5.00	2026-10-10 13:32:32.126424+05:30	2026-10-10 13:32:32.126431+05:30
+38		\N	f	test_p23_rider_stale			f	t	2026-10-10 13:32:32.138842+05:30	rider_stale@test.io	DELIVERY			f	5.00	2026-10-10 13:32:32.139286+05:30	2026-10-10 13:32:32.139298+05:30
+42		\N	f	p24_other_owner			f	t	2026-10-10 13:59:06.607525+05:30	other_owner@example.com	RESTAURANT			f	5.00	2026-10-10 13:59:06.608034+05:30	2026-10-10 13:59:06.608048+05:30
+45		\N	f	test_p25_owner_a			f	t	2026-10-10 14:39:42.548568+05:30	owner_a@test.com	CUSTOMER			f	5.00	2026-10-10 14:39:42.549129+05:30	2026-10-10 14:39:42.549137+05:30
+46		\N	f	test_p25_owner_b			f	t	2026-10-10 14:39:42.562144+05:30	owner_b@test.com	CUSTOMER			f	5.00	2026-10-10 14:39:42.562564+05:30	2026-10-10 14:39:42.562573+05:30
+48		\N	f	test_p25_customer			f	t	2026-10-10 14:39:42.586981+05:30	cust@test.com	CUSTOMER			f	5.00	2026-10-10 14:39:42.587434+05:30	2026-10-10 14:39:42.587443+05:30
+39	pbkdf2_sha256$1500000$uT0wNbwlITsdu19pohV00u$QjcaRDwvAuzPD1k39Ww0BrJg0Yvr3BbbcQJsVsTC/KM=	\N	f	p24_cust_a			f	t	2026-10-10 13:58:31.25081+05:30	cust_a@example.com	CUSTOMER			f	5.00	2026-10-10 13:58:31.251415+05:30	2026-10-10 14:51:49.252253+05:30
+40	pbkdf2_sha256$1500000$Qod51Pn0LqlOmprIcFXjBF$XV3lQ2BKFtxBlB56BYWdjvufF+hhEB+zAawO1BzYuPc=	\N	f	p24_cust_b			f	t	2026-10-10 13:58:31.856233+05:30	cust_b@example.com	CUSTOMER			f	5.00	2026-10-10 13:58:31.857187+05:30	2026-10-10 14:51:49.832481+05:30
+41	pbkdf2_sha256$1500000$sBxhmnpbjuXtdB5YRU1fTz$HiH0Olq6+FvRA92ZXItl/24zOkbNr/KUDn8SGMgBcSc=	\N	f	p24_rest_owner			f	t	2026-10-10 13:58:32.442403+05:30	rest_owner@example.com	RESTAURANT			f	5.00	2026-10-10 13:58:32.442643+05:30	2026-10-10 14:51:50.420533+05:30
+43	pbkdf2_sha256$1500000$i1OXnCpQSa2KXPJXWEiYIK$5B+RTk4KklDShrdutJrzPOrhak2pxV3AiZsDvkxt/9w=	\N	f	p24_rider			f	t	2026-10-10 13:59:06.617258+05:30	rider@example.com	DELIVERY_PARTNER			f	5.00	2026-10-10 13:59:06.617536+05:30	2026-10-10 14:51:51.001653+05:30
+44	pbkdf2_sha256$1500000$6awU15x6xzhMSmuUIawpcF$EVir6uXmxXctL2KZgB6gjIbo5adfxrsRoYpaOSNb1ak=	\N	f	p24_admin			t	t	2026-10-10 13:59:36.301096+05:30	admin@example.com	ADMIN			f	5.00	2026-10-10 13:59:36.3014+05:30	2026-10-10 14:51:51.517775+05:30
+49		\N	f	p26_test_user			f	t	2026-10-10 16:48:42.587505+05:30	p26_test@example.com	CUSTOMER			f	5.00	2026-10-10 16:48:42.588788+05:30	2026-10-10 16:48:42.588803+05:30
+50		\N	f	p26_header_user			f	t	2026-10-10 17:03:30.366399+05:30	header@test.com	CUSTOMER			f	5.00	2026-10-10 17:03:30.367044+05:30	2026-10-10 17:03:30.367066+05:30
+47		\N	t	test_p25_admin			t	t	2026-10-10 14:39:42.566511+05:30	admin@test.com	CUSTOMER			f	5.00	2026-10-10 14:39:42.566766+05:30	2026-10-10 17:05:12.216944+05:30
+\.
+
+
+--
+-- Data for Name: accounts_user_groups; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: accounts_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: accounts_usersettings; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_usersettings (id, theme, language, push_notifications, email_notifications, sms_notifications, personalization, location_permission_preference, shift, preferred_start_time, preferred_end_time, available_days, break_start, break_end, preferred_zone, availability, order_alerts, business_status, created_at, updated_at, user_id) FROM stdin;
+5	dark	ta	f	t	t	f	t	AVAILABLE	09:00 AM	06:00 PM	["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]	01:00 PM	02:00 PM	Indiranagar 100ft Road Corridor	Available	t	OPEN	2026-10-08 17:34:34.723337+05:30	2026-10-08 17:34:34.744828+05:30	26
+6	system	en	t	t	t	t	t	AVAILABLE	09:00 AM	06:00 PM	["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]	01:00 PM	02:00 PM	Indiranagar 100ft Road Corridor	Available	f	CLOSED	2026-10-08 17:34:35.914111+05:30	2026-10-08 17:34:35.923852+05:30	27
+7	light	en	t	t	t	t	t	ON_SHIFT	08:30 AM	07:30 PM	["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]	01:30 PM	02:30 PM	Koramangala 4th Block	Available	t	OPEN	2026-10-08 17:34:37.081091+05:30	2026-10-08 17:34:37.097085+05:30	28
+8	light	en	t	t	t	t	t	AVAILABLE	09:00 AM	06:00 PM	[]	01:00 PM	02:00 PM	Indiranagar 100ft Road Corridor	Available	t	OPEN	2026-10-10 16:48:42.617363+05:30	2026-10-10 19:19:40.662174+05:30	49
+9	light		t	t	t	t	t	AVAILABLE	09:00 AM	06:00 PM	[]	01:00 PM	02:00 PM	Indiranagar 100ft Road Corridor	Available	t	OPEN	2026-10-10 17:03:30.375722+05:30	2026-10-10 17:03:30.375745+05:30	50
+\.
+
+
+--
+-- Data for Name: accounts_wallet; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_wallet (id, balance, currency, updated_at, user_id) FROM stdin;
+5	250.00	INR	2026-10-08 11:38:59.123913+05:30	12
+6	250.00	INR	2026-10-08 11:39:01.800738+05:30	13
+7	250.00	INR	2026-10-08 11:39:03.627955+05:30	14
+1	2600.00	INR	2026-10-10 19:18:51.267268+05:30	1
+\.
+
+
+--
+-- Data for Name: accounts_wallettransaction; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.accounts_wallettransaction (id, transaction_type, amount, description, reference_id, created_at, wallet_id) FROM stdin;
+1	REFUND	350.00	Refund for order #WS-T28-9B2091	REFUND-F13764407D	2026-10-10 19:12:52.307027+05:30	1
+2	REFUND	350.00	Refund for order #WS-T28-9B2091	REFUND-9ED2488C70	2026-10-10 19:13:30.665949+05:30	1
+3	REFUND	350.00	Refund for order #WS-T28-9B2091	REFUND-2280783774	2026-10-10 19:13:57.188886+05:30	1
+4	REFUND	350.00	Refund for order #WS-T28-9B2091	REFUND-9A17484A07	2026-10-10 19:15:21.932745+05:30	1
+5	REFUND	350.00	Refund for order #WS-T28-9B2091	REFUND-C82EB514E3	2026-10-10 19:18:51.2689+05:30	1
+\.
+
+
+--
+-- Data for Name: adminpanel_platformconfig; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.adminpanel_platformconfig (id, key, value, description, updated_at, updated_by_id) FROM stdin;
+1	system_settings	{"platform_commission_fixed_fee": 5.0, "platform_commission_percentage": 15.0}		2026-10-10 17:05:12.487691+05:30	47
+\.
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can view log entry	1	view_logentry
+5	Can add permission	3	add_permission
+6	Can change permission	3	change_permission
+7	Can delete permission	3	delete_permission
+8	Can view permission	3	view_permission
+9	Can add group	2	add_group
+10	Can change group	2	change_group
+11	Can delete group	2	delete_group
+12	Can view group	2	view_group
+13	Can add content type	4	add_contenttype
+14	Can change content type	4	change_contenttype
+15	Can delete content type	4	delete_contenttype
+16	Can view content type	4	view_contenttype
+17	Can add session	5	add_session
+18	Can change session	5	change_session
+19	Can delete session	5	delete_session
+20	Can view session	5	view_session
+21	Can add user	15	add_user
+22	Can change user	15	change_user
+23	Can delete user	15	delete_user
+24	Can view user	15	view_user
+25	Can add address	6	add_address
+26	Can change address	6	change_address
+27	Can delete address	6	delete_address
+28	Can view address	6	view_address
+29	Can add profile	11	add_profile
+30	Can change profile	11	change_profile
+31	Can delete profile	11	delete_profile
+32	Can view profile	11	view_profile
+33	Can add mobile otp	10	add_mobileotp
+34	Can change mobile otp	10	change_mobileotp
+35	Can delete mobile otp	10	delete_mobileotp
+36	Can view mobile otp	10	view_mobileotp
+37	Can add security alert	12	add_securityalert
+38	Can change security alert	12	change_securityalert
+39	Can delete security alert	12	delete_securityalert
+40	Can view security alert	12	view_securityalert
+41	Can add audit log	7	add_auditlog
+42	Can change audit log	7	change_auditlog
+43	Can delete audit log	7	delete_auditlog
+44	Can view audit log	7	view_auditlog
+45	Can add login activity	8	add_loginactivity
+46	Can change login activity	8	change_loginactivity
+47	Can delete login activity	8	delete_loginactivity
+48	Can view login activity	8	view_loginactivity
+49	Can add loyalty profile	9	add_loyaltyprofile
+50	Can change loyalty profile	9	change_loyaltyprofile
+51	Can delete loyalty profile	9	delete_loyaltyprofile
+52	Can view loyalty profile	9	view_loyaltyprofile
+53	Can add support ticket	13	add_supportticket
+54	Can change support ticket	13	change_supportticket
+55	Can delete support ticket	13	delete_supportticket
+56	Can view support ticket	13	view_supportticket
+57	Can add ticket message	14	add_ticketmessage
+58	Can change ticket message	14	change_ticketmessage
+59	Can delete ticket message	14	delete_ticketmessage
+60	Can view ticket message	14	view_ticketmessage
+61	Can add wallet	16	add_wallet
+62	Can change wallet	16	change_wallet
+63	Can delete wallet	16	delete_wallet
+64	Can view wallet	16	view_wallet
+65	Can add wallet transaction	17	add_wallettransaction
+66	Can change wallet transaction	17	change_wallettransaction
+67	Can delete wallet transaction	17	delete_wallettransaction
+68	Can view wallet transaction	17	view_wallettransaction
+69	Can add category	18	add_category
+70	Can change category	18	change_category
+71	Can delete category	18	delete_category
+72	Can view category	18	view_category
+73	Can add food item	20	add_fooditem
+74	Can change food item	20	change_fooditem
+75	Can delete food item	20	delete_fooditem
+76	Can view food item	20	view_fooditem
+77	Can add food addon	19	add_foodaddon
+78	Can change food addon	19	change_foodaddon
+79	Can delete food addon	19	delete_foodaddon
+80	Can view food addon	19	view_foodaddon
+81	Can add food variant	23	add_foodvariant
+82	Can change food variant	23	change_foodvariant
+83	Can delete food variant	23	delete_foodvariant
+84	Can view food variant	23	view_foodvariant
+85	Can add restaurant	24	add_restaurant
+86	Can change restaurant	24	change_restaurant
+87	Can delete restaurant	24	delete_restaurant
+88	Can view restaurant	24	view_restaurant
+89	Can add food reel	22	add_foodreel
+90	Can change food reel	22	change_foodreel
+91	Can delete food reel	22	delete_foodreel
+92	Can view food reel	22	view_foodreel
+93	Can add food post	21	add_foodpost
+94	Can change food post	21	change_foodpost
+95	Can delete food post	21	delete_foodpost
+96	Can view food post	21	view_foodpost
+97	Can add order	25	add_order
+98	Can change order	25	change_order
+99	Can delete order	25	delete_order
+100	Can view order	25	view_order
+101	Can add order item	26	add_orderitem
+102	Can change order item	26	change_orderitem
+103	Can delete order item	26	delete_orderitem
+104	Can view order item	26	view_orderitem
+105	Can add payment webhook	28	add_paymentwebhook
+106	Can change payment webhook	28	change_paymentwebhook
+107	Can delete payment webhook	28	delete_paymentwebhook
+108	Can view payment webhook	28	view_paymentwebhook
+109	Can add payment	27	add_payment
+110	Can change payment	27	change_payment
+111	Can delete payment	27	delete_payment
+112	Can view payment	27	view_payment
+113	Can add transaction	29	add_transaction
+114	Can change transaction	29	change_transaction
+115	Can delete transaction	29	delete_transaction
+116	Can view transaction	29	view_transaction
+117	Can add review	30	add_review
+118	Can change review	30	change_review
+119	Can delete review	30	delete_review
+120	Can view review	30	view_review
+121	Can add seller profile	31	add_sellerprofile
+122	Can change seller profile	31	change_sellerprofile
+123	Can delete seller profile	31	delete_sellerprofile
+124	Can view seller profile	31	view_sellerprofile
+125	Can add conversation	32	add_conversation
+126	Can change conversation	32	change_conversation
+127	Can delete conversation	32	delete_conversation
+128	Can view conversation	32	view_conversation
+129	Can add message	33	add_message
+130	Can change message	33	change_message
+131	Can delete message	33	delete_message
+132	Can view message	33	view_message
+133	Can add notification	34	add_notification
+134	Can change notification	34	change_notification
+135	Can delete notification	34	delete_notification
+136	Can view notification	34	view_notification
+137	Can add wishlist	35	add_wishlist
+138	Can change wishlist	35	change_wishlist
+139	Can delete wishlist	35	delete_wishlist
+140	Can view wishlist	35	view_wishlist
+141	Can add delivery partner	36	add_deliverypartner
+142	Can change delivery partner	36	change_deliverypartner
+143	Can delete delivery partner	36	delete_deliverypartner
+144	Can view delivery partner	36	view_deliverypartner
+145	Can add coupon	37	add_coupon
+146	Can change coupon	37	change_coupon
+147	Can delete coupon	37	delete_coupon
+148	Can view coupon	37	view_coupon
+149	Can add shift	40	add_shift
+150	Can change shift	40	change_shift
+151	Can delete shift	40	delete_shift
+152	Can view shift	40	view_shift
+153	Can add shift slot	43	add_shiftslot
+154	Can change shift slot	43	change_shiftslot
+155	Can delete shift slot	43	delete_shiftslot
+156	Can view shift slot	43	view_shiftslot
+157	Can add check in	39	add_checkin
+158	Can change check in	39	change_checkin
+159	Can delete check in	39	delete_checkin
+160	Can view check in	39	view_checkin
+161	Can add break log	38	add_breaklog
+162	Can change break log	38	change_breaklog
+163	Can delete break log	38	delete_breaklog
+164	Can view break log	38	view_breaklog
+165	Can add shift bonus	41	add_shiftbonus
+166	Can change shift bonus	41	change_shiftbonus
+167	Can delete shift bonus	41	delete_shiftbonus
+168	Can view shift bonus	41	view_shiftbonus
+169	Can add shift booking	42	add_shiftbooking
+170	Can change shift booking	42	change_shiftbooking
+171	Can delete shift booking	42	delete_shiftbooking
+172	Can view shift booking	42	view_shiftbooking
+173	Can add shift swap	44	add_shiftswap
+174	Can change shift swap	44	change_shiftswap
+175	Can delete shift swap	44	delete_shiftswap
+176	Can view shift swap	44	view_shiftswap
+177	Can add photo review	45	add_photoreview
+178	Can change photo review	45	change_photoreview
+179	Can delete photo review	45	delete_photoreview
+180	Can view photo review	45	view_photoreview
+181	Can add social post	50	add_socialpost
+182	Can change social post	50	change_socialpost
+183	Can delete social post	50	delete_socialpost
+184	Can view social post	50	view_socialpost
+185	Can add post comment	46	add_postcomment
+186	Can change post comment	46	change_postcomment
+187	Can delete post comment	46	delete_postcomment
+188	Can view post comment	46	view_postcomment
+189	Can add social reel	51	add_socialreel
+190	Can change social reel	51	change_socialreel
+191	Can delete social reel	51	delete_socialreel
+192	Can view social reel	51	view_socialreel
+193	Can add reel comment	48	add_reelcomment
+194	Can change reel comment	48	change_reelcomment
+195	Can delete reel comment	48	delete_reelcomment
+196	Can view reel comment	48	view_reelcomment
+197	Can add post like	47	add_postlike
+198	Can change post like	47	change_postlike
+199	Can delete post like	47	delete_postlike
+200	Can view post like	47	view_postlike
+201	Can add reel like	49	add_reellike
+202	Can change reel like	49	change_reellike
+203	Can delete reel like	49	delete_reellike
+204	Can view reel like	49	view_reellike
+205	Can add user follow	52	add_userfollow
+206	Can change user follow	52	change_userfollow
+207	Can delete user follow	52	delete_userfollow
+208	Can view user follow	52	view_userfollow
+209	Can add Blacklisted Token	53	add_blacklistedtoken
+210	Can change Blacklisted Token	53	change_blacklistedtoken
+211	Can delete Blacklisted Token	53	delete_blacklistedtoken
+212	Can view Blacklisted Token	53	view_blacklistedtoken
+213	Can add Outstanding Token	54	add_outstandingtoken
+214	Can change Outstanding Token	54	change_outstandingtoken
+215	Can delete Outstanding Token	54	delete_outstandingtoken
+216	Can view Outstanding Token	54	view_outstandingtoken
+217	Can add user settings	55	add_usersettings
+218	Can change user settings	55	change_usersettings
+219	Can delete user settings	55	delete_usersettings
+220	Can view user settings	55	view_usersettings
+221	Can add Menu Category	56	add_menucategory
+222	Can change Menu Category	56	change_menucategory
+223	Can delete Menu Category	56	delete_menucategory
+224	Can view Menu Category	56	view_menucategory
+225	Can add cart	57	add_cart
+226	Can change cart	57	change_cart
+227	Can delete cart	57	delete_cart
+228	Can view cart	57	view_cart
+229	Can add cart item	58	add_cartitem
+230	Can change cart item	58	change_cartitem
+231	Can delete cart item	58	delete_cartitem
+232	Can view cart item	58	view_cartitem
+233	Can add order status history	59	add_orderstatushistory
+234	Can change order status history	59	change_orderstatushistory
+235	Can delete order status history	59	delete_orderstatushistory
+236	Can view order status history	59	view_orderstatushistory
+237	Can add delivery assignment	60	add_deliveryassignment
+238	Can change delivery assignment	60	change_deliveryassignment
+239	Can delete delivery assignment	60	delete_deliveryassignment
+240	Can view delivery assignment	60	view_deliveryassignment
+241	Can add delivery assignment history	61	add_deliveryassignmenthistory
+242	Can change delivery assignment history	61	change_deliveryassignmenthistory
+243	Can delete delivery assignment history	61	delete_deliveryassignmenthistory
+244	Can view delivery assignment history	61	view_deliveryassignmenthistory
+245	Can add delivery otp	63	add_deliveryotp
+246	Can change delivery otp	63	change_deliveryotp
+247	Can delete delivery otp	63	delete_deliveryotp
+248	Can view delivery otp	63	view_deliveryotp
+249	Can add delivery issue report	62	add_deliveryissuereport
+250	Can change delivery issue report	62	change_deliveryissuereport
+251	Can delete delivery issue report	62	delete_deliveryissuereport
+252	Can view delivery issue report	62	view_deliveryissuereport
+253	Can add Platform Configuration	64	add_platformconfig
+254	Can change Platform Configuration	64	change_platformconfig
+255	Can delete Platform Configuration	64	delete_platformconfig
+256	Can view Platform Configuration	64	view_platformconfig
+257	Can add notification delivery attempt	65	add_notificationdeliveryattempt
+258	Can change notification delivery attempt	65	change_notificationdeliveryattempt
+259	Can delete notification delivery attempt	65	delete_notificationdeliveryattempt
+260	Can view notification delivery attempt	65	view_notificationdeliveryattempt
+261	Can add notification preference	66	add_notificationpreference
+262	Can change notification preference	66	change_notificationpreference
+263	Can delete notification preference	66	delete_notificationpreference
+264	Can view notification preference	66	view_notificationpreference
+265	Can add review moderation log	67	add_reviewmoderationlog
+266	Can change review moderation log	67	change_reviewmoderationlog
+267	Can delete review moderation log	67	delete_reviewmoderationlog
+268	Can view review moderation log	67	view_reviewmoderationlog
+269	Can add review report	68	add_reviewreport
+270	Can change review report	68	change_reviewreport
+271	Can delete review report	68	delete_reviewreport
+272	Can view review report	68	view_reviewreport
+273	Can add loyalty program config	71	add_loyaltyprogramconfig
+274	Can change loyalty program config	71	change_loyaltyprogramconfig
+275	Can delete loyalty program config	71	delete_loyaltyprogramconfig
+276	Can view loyalty program config	71	view_loyaltyprogramconfig
+277	Can add coupon redemption	69	add_couponredemption
+278	Can change coupon redemption	69	change_couponredemption
+279	Can delete coupon redemption	69	delete_couponredemption
+280	Can view coupon redemption	69	view_couponredemption
+281	Can add loyalty ledger entry	70	add_loyaltyledgerentry
+282	Can change loyalty ledger entry	70	change_loyaltyledgerentry
+283	Can delete loyalty ledger entry	70	delete_loyaltyledgerentry
+284	Can view loyalty ledger entry	70	view_loyaltyledgerentry
+285	Can add User Search History	72	add_usersearchhistory
+286	Can change User Search History	72	change_usersearchhistory
+287	Can delete User Search History	72	delete_usersearchhistory
+288	Can view User Search History	72	view_usersearchhistory
+289	Can add delivery offer	73	add_deliveryoffer
+290	Can change delivery offer	73	change_deliveryoffer
+291	Can delete delivery offer	73	delete_deliveryoffer
+292	Can view delivery offer	73	view_deliveryoffer
+293	Can add ticket attachment	74	add_ticketattachment
+294	Can change ticket attachment	74	change_ticketattachment
+295	Can delete ticket attachment	74	delete_ticketattachment
+296	Can view ticket attachment	74	view_ticketattachment
+297	Can add ticket audit log	75	add_ticketauditlog
+298	Can change ticket audit log	75	change_ticketauditlog
+299	Can delete ticket audit log	75	delete_ticketauditlog
+300	Can view ticket audit log	75	view_ticketauditlog
+301	Can add restaurant settlement	77	add_restaurantsettlement
+302	Can change restaurant settlement	77	change_restaurantsettlement
+303	Can delete restaurant settlement	77	delete_restaurantsettlement
+304	Can view restaurant settlement	77	view_restaurantsettlement
+305	Can add restaurant commission	76	add_restaurantcommission
+306	Can change restaurant commission	76	change_restaurantcommission
+307	Can delete restaurant commission	76	delete_restaurantcommission
+308	Can view restaurant commission	76	view_restaurantcommission
+309	Can add settlement adjustment	78	add_settlementadjustment
+310	Can change settlement adjustment	78	change_settlementadjustment
+311	Can delete settlement adjustment	78	delete_settlementadjustment
+312	Can view settlement adjustment	78	view_settlementadjustment
+\.
+
+
+--
+-- Data for Name: cart_cart; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.cart_cart (id, created_at, updated_at, restaurant_id, user_id) FROM stdin;
+1	2026-10-08 20:01:28.630128+05:30	2026-10-08 20:01:28.636872+05:30	17	31
+\.
+
+
+--
+-- Data for Name: cart_cartitem; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.cart_cartitem (id, selected_addons, special_instructions, unit_price, quantity, created_at, updated_at, cart_id, product_id, variant_id) FROM stdin;
+1	[{"id": 121, "name": "A1", "price": 25.0}, {"id": 122, "name": "A2", "price": 20.0}]		355.00	1	2026-10-08 20:01:28.650815+05:30	2026-10-08 20:01:28.65085+05:30	1	61	1
+\.
+
+
+--
+-- Data for Name: categories_category; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.categories_category (id, name, slug, description, icon, image, created_at) FROM stdin;
+1	Cyber Bowls	cyber-bowls	Nutritious kinetic power bowls loaded with high-protein grains and vibrant veggies	🍲	https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80	2026-10-08 11:22:49.130716+05:30
+2	Neon Burgers	neon-burgers	Smash-grilled wagyu and crispy plant protein with electrified smoky sauces	🍔	https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80	2026-10-08 11:22:49.137046+05:30
+3	Quantum Pizza	quantum-pizza	48-hour fermented kinetic dough topped with buffalo mozzarella and fiery toppings	🍕	https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80	2026-10-08 11:22:49.139869+05:30
+4	Kinetic Biryani	kinetic-biryani	Aromatic dum sealed basmati pots infused with saffron and slow-braised spices	🍛	https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80	2026-10-08 11:22:49.144732+05:30
+5	Chettinad Heritage	chettinad-specials	Hand-ground pepper masala curries, kothu parotta, and coastal coastal stews	🥘	https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?auto=format&fit=crop&w=600&q=80	2026-10-08 11:22:49.147617+05:30
+6	Madras Tiffin	madras-tiffin	Golden ghee roast dosas, steamed button idlis, and foaming degree filter coffee	🥞	https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80	2026-10-08 11:22:49.151587+05:30
+7	Nitro Drinks	nitro-drinks	Electrolyte cold brews, glowing matcha shots, and botanical fizz infusions	🥤	https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80	2026-10-08 11:22:49.155274+05:30
+8	Glitch Desserts	glitch-desserts	Molecular nitro cakes, molten cyber tarts, and chromatic puddings	🧁	https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80	2026-10-08 11:22:49.160157+05:30
+\.
+
+
+--
+-- Data for Name: chat_conversation; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.chat_conversation (id, created_at, updated_at, customer_id, seller_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: chat_message; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.chat_message (id, content, attachment, is_read, "timestamp", conversation_id, sender_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: coupons_coupon; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.coupons_coupon (id, code, description, discount_percentage, max_discount_amount, min_order_value, is_active, created_at, current_uses, discount_amount, discount_type, expiry_date, first_order_only, is_combinable, max_uses, max_uses_per_user, start_date, terms_and_conditions, title, updated_at) FROM stdin;
+1	CHENNAI50	50% Welcome Discount for Chennai Foodies	50	150.00	249.00	t	2026-10-08 11:22:50.56341+05:30	0	0.00	PERCENTAGE	\N	f	f	\N	1	2026-10-10 09:06:22.439732+05:30			2026-10-10 09:06:22.519431+05:30
+2	WSFREESHIP	Free Delivery on Orders Above ₹199	15	40.00	199.00	t	2026-10-08 11:22:50.569877+05:30	0	0.00	PERCENTAGE	\N	f	f	\N	1	2026-10-10 09:06:22.439732+05:30			2026-10-10 09:06:22.519431+05:30
+3	PEAKBOOST	Flat ₹75 OFF on Dinner Rush Orders	20	75.00	349.00	t	2026-10-08 11:22:50.573659+05:30	0	0.00	PERCENTAGE	\N	f	f	\N	1	2026-10-10 09:06:22.439732+05:30			2026-10-10 09:06:22.519431+05:30
+\.
+
+
+--
+-- Data for Name: coupons_coupon_applicable_restaurants; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.coupons_coupon_applicable_restaurants (id, coupon_id, restaurant_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: coupons_couponredemption; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.coupons_couponredemption (id, discount_amount, status, redeemed_at, coupon_id, order_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: coupons_loyaltyledgerentry; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.coupons_loyaltyledgerentry (id, transaction_type, points, balance_after, reference_amount, description, idempotency_key, created_at, order_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: coupons_loyaltyprogramconfig; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.coupons_loyaltyprogramconfig (id, points_earn_rate, earn_per_amount, points_to_inr_rate, min_points_to_redeem, max_discount_percentage_of_subtotal, is_active, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: delivery_deliveryassignment; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.delivery_deliveryassignment (id, status, cancellation_reason, assigned_at, accepted_at, reached_restaurant_at, picked_up_at, delivered_at, created_at, updated_at, delivery_partner_id, order_id, issue_notes, attempt_count, max_retries, offer_expires_at) FROM stdin;
+1	OFFERED		\N	\N	\N	\N	\N	2026-10-10 13:32:32.279358+05:30	2026-10-10 13:32:36.584882+05:30	7	24		2	3	2026-10-10 13:33:36.53401+05:30
+19	AWAITING_PARTNER		\N	\N	\N	\N	\N	2026-10-10 14:52:25.753682+05:30	2026-10-10 14:52:38.276834+05:30	6	58		3	3	2026-10-10 14:53:34.112407+05:30
+2	AWAITING_PARTNER		\N	\N	\N	\N	\N	2026-10-10 13:33:19.037668+05:30	2026-10-10 13:33:31.575788+05:30	6	27		3	3	2026-10-10 13:34:27.411355+05:30
+20	ACCEPTED		\N	2026-10-10 14:52:42.445124+05:30	\N	\N	\N	2026-10-10 14:52:38.298463+05:30	2026-10-10 14:52:42.456411+05:30	36	59		1	3	2026-10-10 14:53:38.301175+05:30
+21	OFFERED		\N	\N	\N	\N	\N	2026-10-10 14:52:46.579604+05:30	2026-10-10 14:52:46.644782+05:30	7	60		1	3	2026-10-10 14:53:46.59628+05:30
+4	OFFERED		\N	\N	\N	\N	\N	2026-10-10 13:33:39.934511+05:30	2026-10-10 13:33:40.020928+05:30	7	29		1	3	2026-10-10 13:34:39.961018+05:30
+22	ACCEPTED		2026-10-10 14:52:50.735633+05:30	2026-10-10 14:52:50.735633+05:30	\N	\N	\N	2026-10-10 14:52:50.731969+05:30	2026-10-10 14:52:50.746325+05:30	37	61		0	3	\N
+6	AWAITING_PARTNER		\N	\N	\N	\N	\N	2026-10-10 13:38:07.794052+05:30	2026-10-10 13:38:20.317002+05:30	6	33		3	3	2026-10-10 13:39:16.150062+05:30
+8	OFFERED		\N	\N	\N	\N	\N	2026-10-10 13:38:28.654712+05:30	2026-10-10 13:38:28.730542+05:30	7	35		1	3	2026-10-10 13:39:28.67513+05:30
+10	AWAITING_PARTNER		\N	\N	\N	\N	\N	2026-10-10 13:50:01.020442+05:30	2026-10-10 13:50:13.593604+05:30	6	39		3	3	2026-10-10 13:51:09.445667+05:30
+12	OFFERED		\N	\N	\N	\N	\N	2026-10-10 13:50:21.864745+05:30	2026-10-10 13:50:21.92849+05:30	7	41		1	3	2026-10-10 13:51:21.88164+05:30
+14	DELIVERED		\N	\N	\N	\N	\N	2026-10-10 14:03:04.26715+05:30	2026-10-10 14:03:04.26716+05:30	43	43		0	3	\N
+15	AWAITING_PARTNER		\N	\N	\N	\N	\N	2026-10-10 14:18:56.531936+05:30	2026-10-10 14:19:09.052476+05:30	6	47		3	3	2026-10-10 14:20:04.904337+05:30
+17	OFFERED		\N	\N	\N	\N	\N	2026-10-10 14:19:17.328261+05:30	2026-10-10 14:19:17.396307+05:30	7	49		1	3	2026-10-10 14:20:17.347184+05:30
+\.
+
+
+--
+-- Data for Name: delivery_deliveryassignmenthistory; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.delivery_deliveryassignmenthistory (id, from_status, to_status, notes, created_at, actor_id, assignment_id) FROM stdin;
+1	AVAILABLE	OFFERED	Offer #1 dispatched to test_p23_rider_close (score: 97.2, dist: 0.47km, payout: ₹85.0)	2026-10-10 13:32:32.351044+05:30	36	1
+2	OFFERED	AVAILABLE	Offer #1 expired after countdown timeout. Auto-progressing dispatch.	2026-10-10 13:32:36.524721+05:30	36	1
+3	AVAILABLE	OFFERED	Offer #2 dispatched to rider_dinesh (score: 80.0, dist: 3.50km, payout: ₹85.0)	2026-10-10 13:32:36.586894+05:30	7	1
+4	AVAILABLE	OFFERED	Offer #1 dispatched to test_p23_rider_close (score: 97.2, dist: 0.47km, payout: ₹85.0)	2026-10-10 13:33:19.101452+05:30	36	2
+5	OFFERED	AVAILABLE	Offer #1 expired after countdown timeout. Auto-progressing dispatch.	2026-10-10 13:33:23.221379+05:30	36	2
+6	AVAILABLE	OFFERED	Offer #2 dispatched to rider_dinesh (score: 80.0, dist: 3.50km, payout: ₹85.0)	2026-10-10 13:33:23.291564+05:30	7	2
+7	OFFERED	AVAILABLE	Offer #2 rejected by rider_dinesh. Reason: Too far away from current zone	2026-10-10 13:33:27.40139+05:30	7	2
+8	AVAILABLE	OFFERED	Offer #3 dispatched to rider_vignesh (score: 79.7, dist: 3.50km, payout: ₹85.0)	2026-10-10 13:33:27.465564+05:30	6	2
+9	OFFERED	AVAILABLE	Offer #3 rejected by rider_vignesh. Reason: Shift ending	2026-10-10 13:33:31.56315+05:30	6	2
+12	AVAILABLE	OFFERED	Offer #1 dispatched to rider_dinesh (score: 80.0, dist: 3.50km, payout: ₹80.0)	2026-10-10 13:33:40.023085+05:30	7	4
+14	AVAILABLE	OFFERED	Offer #1 dispatched to test_p23_rider_close (score: 97.2, dist: 0.47km, payout: ₹85.0)	2026-10-10 13:38:07.854097+05:30	36	6
+15	OFFERED	AVAILABLE	Offer #1 expired after countdown timeout. Auto-progressing dispatch.	2026-10-10 13:38:11.973231+05:30	36	6
+16	AVAILABLE	OFFERED	Offer #2 dispatched to rider_dinesh (score: 80.0, dist: 3.50km, payout: ₹85.0)	2026-10-10 13:38:12.045702+05:30	7	6
+17	OFFERED	AVAILABLE	Offer #2 rejected by rider_dinesh. Reason: Too far away from current zone	2026-10-10 13:38:16.136203+05:30	7	6
+18	AVAILABLE	OFFERED	Offer #3 dispatched to rider_vignesh (score: 79.7, dist: 3.50km, payout: ₹85.0)	2026-10-10 13:38:16.209923+05:30	6	6
+19	OFFERED	AVAILABLE	Offer #3 rejected by rider_vignesh. Reason: Shift ending	2026-10-10 13:38:20.30623+05:30	6	6
+22	AVAILABLE	OFFERED	Offer #1 dispatched to rider_dinesh (score: 80.0, dist: 3.50km, payout: ₹80.0)	2026-10-10 13:38:28.732293+05:30	7	8
+24	AVAILABLE	OFFERED	Offer #1 dispatched to test_p23_rider_close (score: 97.2, dist: 0.47km, payout: ₹85.0)	2026-10-10 13:50:01.091532+05:30	36	10
+25	OFFERED	AVAILABLE	Offer #1 expired after countdown timeout. Auto-progressing dispatch.	2026-10-10 13:50:05.240105+05:30	36	10
+26	AVAILABLE	OFFERED	Offer #2 dispatched to rider_dinesh (score: 80.0, dist: 3.50km, payout: ₹85.0)	2026-10-10 13:50:05.335687+05:30	7	10
+27	OFFERED	AVAILABLE	Offer #2 rejected by rider_dinesh. Reason: Too far away from current zone	2026-10-10 13:50:09.435864+05:30	7	10
+28	AVAILABLE	OFFERED	Offer #3 dispatched to rider_vignesh (score: 79.7, dist: 3.50km, payout: ₹85.0)	2026-10-10 13:50:09.493703+05:30	6	10
+29	OFFERED	AVAILABLE	Offer #3 rejected by rider_vignesh. Reason: Shift ending	2026-10-10 13:50:13.581903+05:30	6	10
+32	AVAILABLE	OFFERED	Offer #1 dispatched to rider_dinesh (score: 80.0, dist: 3.50km, payout: ₹80.0)	2026-10-10 13:50:21.930142+05:30	7	12
+34	AVAILABLE	OFFERED	Offer #1 dispatched to test_p23_rider_close (score: 97.2, dist: 0.47km, payout: ₹85.0)	2026-10-10 14:18:56.594742+05:30	36	15
+35	OFFERED	AVAILABLE	Offer #1 expired after countdown timeout. Auto-progressing dispatch.	2026-10-10 14:19:00.719561+05:30	36	15
+36	AVAILABLE	OFFERED	Offer #2 dispatched to rider_dinesh (score: 80.0, dist: 3.50km, payout: ₹85.0)	2026-10-10 14:19:00.789346+05:30	7	15
+37	OFFERED	AVAILABLE	Offer #2 rejected by rider_dinesh. Reason: Too far away from current zone	2026-10-10 14:19:04.894341+05:30	7	15
+38	AVAILABLE	OFFERED	Offer #3 dispatched to rider_vignesh (score: 79.7, dist: 3.50km, payout: ₹85.0)	2026-10-10 14:19:04.947046+05:30	6	15
+39	OFFERED	AVAILABLE	Offer #3 rejected by rider_vignesh. Reason: Shift ending	2026-10-10 14:19:09.040484+05:30	6	15
+42	AVAILABLE	OFFERED	Offer #1 dispatched to rider_dinesh (score: 80.0, dist: 3.50km, payout: ₹80.0)	2026-10-10 14:19:17.398257+05:30	7	17
+44	AVAILABLE	OFFERED	Offer #1 dispatched to test_p23_rider_close (score: 97.2, dist: 0.47km, payout: ₹85.0)	2026-10-10 14:52:25.823661+05:30	36	19
+45	OFFERED	AVAILABLE	Offer #1 expired after countdown timeout. Auto-progressing dispatch.	2026-10-10 14:52:29.948254+05:30	36	19
+46	AVAILABLE	OFFERED	Offer #2 dispatched to rider_dinesh (score: 80.0, dist: 3.50km, payout: ₹85.0)	2026-10-10 14:52:30.005094+05:30	7	19
+47	OFFERED	AVAILABLE	Offer #2 rejected by rider_dinesh. Reason: Too far away from current zone	2026-10-10 14:52:34.102896+05:30	7	19
+48	AVAILABLE	OFFERED	Offer #3 dispatched to rider_vignesh (score: 79.7, dist: 3.50km, payout: ₹85.0)	2026-10-10 14:52:34.160191+05:30	6	19
+49	OFFERED	AVAILABLE	Offer #3 rejected by rider_vignesh. Reason: Shift ending	2026-10-10 14:52:38.266104+05:30	6	19
+50	AVAILABLE	OFFERED	Offer #1 dispatched to test_p23_rider_close (score: 97.2, dist: 0.47km, payout: ₹80.0)	2026-10-10 14:52:38.360624+05:30	36	20
+51	OFFERED	ACCEPTED	Offer #1 accepted by delivery partner test_p23_rider_close	2026-10-10 14:52:42.471054+05:30	36	20
+52	AVAILABLE	OFFERED	Offer #1 dispatched to rider_dinesh (score: 80.0, dist: 3.50km, payout: ₹80.0)	2026-10-10 14:52:46.64672+05:30	7	21
+53	AWAITING_PARTNER	ACCEPTED	Manual reassignment by Admin test_p23_admin from Unassigned to test_p23_rider_far. Justification: Manual priority VIP dispatch	2026-10-10 14:52:50.757819+05:30	34	22
+\.
+
+
+--
+-- Data for Name: delivery_deliveryissuereport; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.delivery_deliveryissuereport (id, category, description, created_at, resolved, resolution_notes, assignment_id, order_id, reporter_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: delivery_deliveryoffer; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.delivery_deliveryoffer (id, status, attempt_number, distance_km, matching_score, estimated_payout, offered_at, expires_at, responded_at, rejection_reason, created_at, updated_at, assignment_id, delivery_partner_id) FROM stdin;
+1	EXPIRED	1	0.47	97.15	85.00	2026-10-10 13:32:32.343917+05:30	2026-10-10 13:32:26.509813+05:30	2026-10-10 13:32:36.511589+05:30		2026-10-10 13:32:32.343937+05:30	2026-10-10 13:32:36.513951+05:30	1	36
+2	OFFERED	2	3.50	80.00	85.00	2026-10-10 13:32:36.583475+05:30	2026-10-10 13:33:36.53401+05:30	\N		2026-10-10 13:32:36.583511+05:30	2026-10-10 13:32:36.583518+05:30	1	7
+3	EXPIRED	1	0.47	97.15	85.00	2026-10-10 13:33:19.097157+05:30	2026-10-10 13:33:13.209055+05:30	2026-10-10 13:33:23.21103+05:30		2026-10-10 13:33:19.09719+05:30	2026-10-10 13:33:23.213527+05:30	2	36
+4	REJECTED	2	3.50	80.00	85.00	2026-10-10 13:33:23.287254+05:30	2026-10-10 13:34:23.232728+05:30	2026-10-10 13:33:27.391436+05:30	Too far away from current zone	2026-10-10 13:33:23.287308+05:30	2026-10-10 13:33:27.39553+05:30	2	7
+5	REJECTED	3	3.50	79.70	85.00	2026-10-10 13:33:27.462506+05:30	2026-10-10 13:34:27.411355+05:30	2026-10-10 13:33:31.55331+05:30	Shift ending	2026-10-10 13:33:27.462537+05:30	2026-10-10 13:33:31.557363+05:30	2	6
+7	EXPIRED	1	2.00	45.00	75.00	2026-10-10 13:33:39.937645+05:30	2026-10-10 13:33:19.936944+05:30	2026-10-10 13:33:39.940698+05:30		2026-10-10 13:33:39.937715+05:30	2026-10-10 13:33:39.945694+05:30	4	37
+8	OFFERED	1	3.50	80.00	80.00	2026-10-10 13:33:40.019125+05:30	2026-10-10 13:34:39.961018+05:30	\N		2026-10-10 13:33:40.019155+05:30	2026-10-10 13:33:40.019162+05:30	4	7
+9	EXPIRED	1	0.47	97.15	85.00	2026-10-10 13:38:07.850152+05:30	2026-10-10 13:38:01.962465+05:30	2026-10-10 13:38:11.964339+05:30		2026-10-10 13:38:07.850178+05:30	2026-10-10 13:38:11.966573+05:30	6	36
+10	REJECTED	2	3.50	80.00	85.00	2026-10-10 13:38:12.04131+05:30	2026-10-10 13:39:11.982823+05:30	2026-10-10 13:38:16.126823+05:30	Too far away from current zone	2026-10-10 13:38:12.04135+05:30	2026-10-10 13:38:16.131022+05:30	6	7
+11	REJECTED	3	3.50	79.70	85.00	2026-10-10 13:38:16.206148+05:30	2026-10-10 13:39:16.150062+05:30	2026-10-10 13:38:20.297484+05:30	Shift ending	2026-10-10 13:38:16.206186+05:30	2026-10-10 13:38:20.301188+05:30	6	6
+13	EXPIRED	1	2.00	45.00	75.00	2026-10-10 13:38:28.657136+05:30	2026-10-10 13:38:08.656572+05:30	2026-10-10 13:38:28.659346+05:30		2026-10-10 13:38:28.657171+05:30	2026-10-10 13:38:28.663993+05:30	8	37
+14	OFFERED	1	3.50	80.00	80.00	2026-10-10 13:38:28.729049+05:30	2026-10-10 13:39:28.67513+05:30	\N		2026-10-10 13:38:28.729096+05:30	2026-10-10 13:38:28.729108+05:30	8	7
+15	EXPIRED	1	0.47	97.15	85.00	2026-10-10 13:50:01.079206+05:30	2026-10-10 13:49:55.227959+05:30	2026-10-10 13:50:05.229977+05:30		2026-10-10 13:50:01.079232+05:30	2026-10-10 13:50:05.232416+05:30	10	36
+16	REJECTED	2	3.50	80.00	85.00	2026-10-10 13:50:05.332305+05:30	2026-10-10 13:51:05.248259+05:30	2026-10-10 13:50:09.426762+05:30	Too far away from current zone	2026-10-10 13:50:05.332342+05:30	2026-10-10 13:50:09.43032+05:30	10	7
+17	REJECTED	3	3.50	79.70	85.00	2026-10-10 13:50:09.48981+05:30	2026-10-10 13:51:09.445667+05:30	2026-10-10 13:50:13.573031+05:30	Shift ending	2026-10-10 13:50:09.489834+05:30	2026-10-10 13:50:13.57675+05:30	10	6
+19	EXPIRED	1	2.00	45.00	75.00	2026-10-10 13:50:21.86668+05:30	2026-10-10 13:50:01.866335+05:30	2026-10-10 13:50:21.869072+05:30		2026-10-10 13:50:21.866707+05:30	2026-10-10 13:50:21.872433+05:30	12	37
+20	OFFERED	1	3.50	80.00	80.00	2026-10-10 13:50:21.927162+05:30	2026-10-10 13:51:21.88164+05:30	\N		2026-10-10 13:50:21.927189+05:30	2026-10-10 13:50:21.927194+05:30	12	7
+21	EXPIRED	1	0.47	97.15	85.00	2026-10-10 14:18:56.590669+05:30	2026-10-10 14:18:50.708011+05:30	2026-10-10 14:19:00.709897+05:30		2026-10-10 14:18:56.5907+05:30	2026-10-10 14:19:00.712422+05:30	15	36
+22	REJECTED	2	3.50	80.00	85.00	2026-10-10 14:19:00.786017+05:30	2026-10-10 14:20:00.728729+05:30	2026-10-10 14:19:04.88602+05:30	Too far away from current zone	2026-10-10 14:19:00.786046+05:30	2026-10-10 14:19:04.889724+05:30	15	7
+23	REJECTED	3	3.50	79.70	85.00	2026-10-10 14:19:04.944857+05:30	2026-10-10 14:20:04.904337+05:30	2026-10-10 14:19:09.031437+05:30	Shift ending	2026-10-10 14:19:04.944887+05:30	2026-10-10 14:19:09.035662+05:30	15	6
+25	EXPIRED	1	2.00	45.00	75.00	2026-10-10 14:19:17.330925+05:30	2026-10-10 14:18:57.330437+05:30	2026-10-10 14:19:17.332833+05:30		2026-10-10 14:19:17.330959+05:30	2026-10-10 14:19:17.336384+05:30	17	37
+26	OFFERED	1	3.50	80.00	80.00	2026-10-10 14:19:17.394897+05:30	2026-10-10 14:20:17.347184+05:30	\N		2026-10-10 14:19:17.394922+05:30	2026-10-10 14:19:17.394928+05:30	17	7
+27	EXPIRED	1	0.47	97.15	85.00	2026-10-10 14:52:25.819605+05:30	2026-10-10 14:52:19.93655+05:30	2026-10-10 14:52:29.938399+05:30		2026-10-10 14:52:25.819635+05:30	2026-10-10 14:52:29.940729+05:30	19	36
+28	REJECTED	2	3.50	80.00	85.00	2026-10-10 14:52:30.001774+05:30	2026-10-10 14:53:29.957162+05:30	2026-10-10 14:52:34.093987+05:30	Too far away from current zone	2026-10-10 14:52:30.001804+05:30	2026-10-10 14:52:34.097964+05:30	19	7
+29	REJECTED	3	3.50	79.70	85.00	2026-10-10 14:52:34.157603+05:30	2026-10-10 14:53:34.112407+05:30	2026-10-10 14:52:38.257469+05:30	Shift ending	2026-10-10 14:52:34.157625+05:30	2026-10-10 14:52:38.260894+05:30	19	6
+30	ACCEPTED	1	0.47	97.15	80.00	2026-10-10 14:52:38.355843+05:30	2026-10-10 14:53:38.301175+05:30	2026-10-10 14:52:42.445124+05:30		2026-10-10 14:52:38.355876+05:30	2026-10-10 14:52:42.45481+05:30	20	36
+31	EXPIRED	1	2.00	45.00	75.00	2026-10-10 14:52:46.581555+05:30	2026-10-10 14:52:26.581204+05:30	2026-10-10 14:52:46.583315+05:30		2026-10-10 14:52:46.581577+05:30	2026-10-10 14:52:46.58694+05:30	21	37
+32	OFFERED	1	3.50	80.00	80.00	2026-10-10 14:52:46.64273+05:30	2026-10-10 14:53:46.59628+05:30	\N		2026-10-10 14:52:46.642764+05:30	2026-10-10 14:52:46.64277+05:30	21	7
+\.
+
+
+--
+-- Data for Name: delivery_deliveryotp; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.delivery_deliveryotp (id, otp_hash, failed_attempts, max_attempts, locked_until, is_used, verified_at, expires_at, created_at, updated_at, assignment_id, order_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: delivery_deliverypartner; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.delivery_deliverypartner (id, vehicle_type, vehicle_number, driving_license, is_verified, is_online, current_latitude, current_longitude, battery_percentage, total_deliveries, rating, today_earnings, weekly_earnings, total_earnings, tips_earned, created_at, updated_at, active_order_id, user_id, profile_photo, vehicle_model, verification_status, heading, last_location_updated_at) FROM stdin;
+2	SCOOTER	TN-02-AK-4412	DL-TN-02-1144	t	t	13.085000	80.210000	88	194	4.88	1620.00	8940.00	42100.00	380.00	2026-10-08 11:22:47.122649+05:30	2026-10-08 11:22:47.122665+05:30	\N	5	\N	Standard Delivery Bike	PENDING	0.00	\N
+3	E_BIKE	TN-07-VS-9011	DL-TN-07-2288	t	t	13.041800	80.234100	88	240	4.92	1950.00	10200.00	52400.00	510.00	2026-10-08 11:22:47.801978+05:30	2026-10-08 11:22:47.802137+05:30	\N	6	\N	Standard Delivery Bike	PENDING	0.00	\N
+4	HOVER	TN-09-DK-7733	DL-TN-09-3399	t	t	13.001200	80.256500	88	178	4.95	1740.00	9150.00	39800.00	420.00	2026-10-08 11:22:48.473222+05:30	2026-10-08 11:22:48.473234+05:30	\N	7	\N	Standard Delivery Bike	PENDING	0.00	\N
+5	VAN	TN-10-MA-5566	DL-TN-10-4411	t	t	12.981500	80.218000	88	162	4.87	1580.00	8600.00	36500.00	340.00	2026-10-08 11:22:49.123193+05:30	2026-10-08 11:22:49.123205+05:30	\N	8	\N	Standard Delivery Bike	PENDING	0.00	\N
+1	E_BIKE	TN-01-CY-2099	DL-TN-01-9876	t	t	13.082700	80.270700	88	218	4.96	1850.00	9820.00	48200.00	460.00	2026-10-08 11:22:46.347303+05:30	2026-10-08 11:22:50.379797+05:30	1	3	\N	Standard Delivery Bike	PENDING	0.00	\N
+7	Electric Bike	KA-05-EM-9988	DL-IN-2026-887766	f	f	12.975000	77.598000	88	184	4.95	1840.00	9450.00	42800.00	460.00	2026-10-08 11:39:03.618474+05:30	2026-10-08 11:39:03.623444+05:30	\N	14	delivery/profiles/rider_BeF8E0C.jpg	Ather 450X Gen 3	PENDING	0.00	\N
+16	Bike	KA-03-P24-TEST	DL-IN-2026-887766	t	t	12.975000	77.598000	88	184	4.95	1840.00	9450.00	42800.00	460.00	2026-10-10 13:59:36.29424+05:30	2026-10-10 13:59:36.29425+05:30	\N	43		Standard Delivery Bike	PENDING	0.00	\N
+8	Bike	KA-01-P3-1111	DL-IN-2026-887766	t	f	12.975000	77.598000	88	184	4.95	1840.00	9450.00	42800.00	460.00	2026-10-08 14:23:27.526856+05:30	2026-10-08 14:35:55.918364+05:30	\N	19		Standard Delivery Bike	APPROVED	0.00	\N
+9	Bike	KA-01-P3-2222	DL-IN-2026-887766	f	f	12.975000	77.598000	88	184	4.95	1840.00	9450.00	42800.00	460.00	2026-10-08 14:23:28.093857+05:30	2026-10-08 14:35:56.466569+05:30	\N	20		Standard Delivery Bike	PENDING	0.00	\N
+10	Electric Scooter	TN-09-EV-4455	DL-IN-2026-887766	f	f	12.975000	77.598000	88	184	4.95	1840.00	9450.00	42800.00	460.00	2026-10-08 15:45:54.083492+05:30	2026-10-08 16:24:22.69851+05:30	\N	24	delivery/profiles/rider_face_U5oQSlM.png	Standard Delivery Bike	APPROVED	0.00	\N
+11	Bike	KA-03-CYBER-99	DL-IN-2026-887766	t	f	12.975000	77.598000	88	184	4.95	1840.00	9450.00	42800.00	460.00	2026-10-08 16:56:38.973525+05:30	2026-10-08 17:34:36.508188+05:30	\N	28		Standard Delivery Bike	APPROVED	0.00	\N
+15	Bike	KA-03-P23-03	DL-IN-2026-887766	t	t	0.000000	0.000000	88	184	4.70	1840.00	9450.00	42800.00	460.00	2026-10-10 13:32:32.14374+05:30	2026-10-10 14:52:25.628272+05:30	\N	38		Standard Delivery Bike	APPROVED	0.00	\N
+13	Bike	KA-03-P23-01	DL-IN-2026-887766	t	t	12.975000	77.598000	88	184	4.95	1840.00	9450.00	42800.00	460.00	2026-10-10 13:32:32.112192+05:30	2026-10-10 14:52:42.467617+05:30	59	36		Standard Delivery Bike	APPROVED	0.00	2026-10-10 14:52:25.613151+05:30
+14	Bike	KA-03-P23-02	DL-IN-2026-887766	t	t	12.940000	77.620000	88	184	4.80	1840.00	9450.00	42800.00	460.00	2026-10-10 13:32:32.132821+05:30	2026-10-10 14:52:50.756288+05:30	61	37		Standard Delivery Bike	APPROVED	0.00	2026-10-10 14:52:25.622501+05:30
+\.
+
+
+--
+-- Data for Name: discovery_usersearchhistory; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.discovery_usersearchhistory (id, query, results_count, created_at, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	group
+3	auth	permission
+4	contenttypes	contenttype
+5	sessions	session
+6	accounts	address
+7	accounts	auditlog
+8	accounts	loginactivity
+9	accounts	loyaltyprofile
+10	accounts	mobileotp
+11	accounts	profile
+12	accounts	securityalert
+13	accounts	supportticket
+14	accounts	ticketmessage
+15	accounts	user
+16	accounts	wallet
+17	accounts	wallettransaction
+18	categories	category
+19	products	foodaddon
+20	products	fooditem
+21	products	foodpost
+22	products	foodreel
+23	products	foodvariant
+24	products	restaurant
+25	orders	order
+26	orders	orderitem
+27	payments	payment
+28	payments	paymentwebhook
+29	payments	transaction
+30	reviews	review
+31	seller	sellerprofile
+32	chat	conversation
+33	chat	message
+34	notifications	notification
+35	wishlist	wishlist
+36	delivery	deliverypartner
+37	coupons	coupon
+38	shifts	breaklog
+39	shifts	checkin
+40	shifts	shift
+41	shifts	shiftbonus
+42	shifts	shiftbooking
+43	shifts	shiftslot
+44	shifts	shiftswap
+45	social	photoreview
+46	social	postcomment
+47	social	postlike
+48	social	reelcomment
+49	social	reellike
+50	social	socialpost
+51	social	socialreel
+52	social	userfollow
+53	token_blacklist	blacklistedtoken
+54	token_blacklist	outstandingtoken
+55	accounts	usersettings
+56	menu	menucategory
+57	cart	cart
+58	cart	cartitem
+59	orders	orderstatushistory
+60	delivery	deliveryassignment
+61	delivery	deliveryassignmenthistory
+62	delivery	deliveryissuereport
+63	delivery	deliveryotp
+64	adminpanel	platformconfig
+65	notifications	notificationdeliveryattempt
+66	notifications	notificationpreference
+67	reviews	reviewmoderationlog
+68	reviews	reviewreport
+69	coupons	couponredemption
+70	coupons	loyaltyledgerentry
+71	coupons	loyaltyprogramconfig
+72	discovery	usersearchhistory
+73	delivery	deliveryoffer
+74	accounts	ticketattachment
+75	accounts	ticketauditlog
+76	payments	restaurantcommission
+77	payments	restaurantsettlement
+78	payments	settlementadjustment
+\.
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2026-10-08 11:22:09.205181+05:30
+2	contenttypes	0002_remove_content_type_name	2026-10-08 11:22:09.231109+05:30
+3	auth	0001_initial	2026-10-08 11:22:09.35773+05:30
+4	auth	0002_alter_permission_name_max_length	2026-10-08 11:22:09.373481+05:30
+5	auth	0003_alter_user_email_max_length	2026-10-08 11:22:09.389726+05:30
+6	auth	0004_alter_user_username_opts	2026-10-08 11:22:09.408897+05:30
+7	auth	0005_alter_user_last_login_null	2026-10-08 11:22:09.422569+05:30
+8	auth	0006_require_contenttypes_0002	2026-10-08 11:22:09.427379+05:30
+9	auth	0007_alter_validators_add_error_messages	2026-10-08 11:22:09.441056+05:30
+10	auth	0008_alter_user_username_max_length	2026-10-08 11:22:09.45594+05:30
+11	auth	0009_alter_user_last_name_max_length	2026-10-08 11:22:09.469806+05:30
+12	auth	0010_alter_group_name_max_length	2026-10-08 11:22:09.487287+05:30
+13	auth	0011_update_proxy_permissions	2026-10-08 11:22:09.501634+05:30
+14	auth	0012_alter_user_first_name_max_length	2026-10-08 11:22:09.514974+05:30
+15	accounts	0001_initial	2026-10-08 11:22:09.736157+05:30
+16	accounts	0002_mobileotp_securityalert_alter_address_city_and_more	2026-10-08 11:22:10.44539+05:30
+17	admin	0001_initial	2026-10-08 11:22:10.514823+05:30
+18	admin	0002_logentry_remove_auto_add	2026-10-08 11:22:10.556512+05:30
+19	admin	0003_logentry_add_action_flag_choices	2026-10-08 11:22:10.59682+05:30
+20	categories	0001_initial	2026-10-08 11:22:10.633671+05:30
+21	chat	0001_initial	2026-10-08 11:22:10.789272+05:30
+22	coupons	0001_initial	2026-10-08 11:22:10.829574+05:30
+23	products	0001_initial	2026-10-08 11:22:11.279327+05:30
+24	orders	0001_initial	2026-10-08 11:22:11.499237+05:30
+25	delivery	0001_initial	2026-10-08 11:22:11.61893+05:30
+26	notifications	0001_initial	2026-10-08 11:22:11.690248+05:30
+27	orders	0002_order_orders_orde_status_c6dd84_idx_and_more	2026-10-08 11:22:12.031524+05:30
+28	payments	0001_initial	2026-10-08 11:22:12.26347+05:30
+29	payments	0002_payment_idempotency_key_payment_refund_amount_and_more	2026-10-08 11:22:12.577338+05:30
+30	reviews	0001_initial	2026-10-08 11:22:12.700338+05:30
+31	seller	0001_initial	2026-10-08 11:22:12.908502+05:30
+32	sessions	0001_initial	2026-10-08 11:22:12.939603+05:30
+33	shifts	0001_initial	2026-10-08 11:22:13.948003+05:30
+34	social	0001_initial	2026-10-08 11:22:15.089929+05:30
+35	wishlist	0001_initial	2026-10-08 11:22:15.293996+05:30
+36	accounts	0003_profile_address_profile_profile_photo_and_more	2026-10-08 11:27:52.885992+05:30
+37	delivery	0002_deliverypartner_profile_photo_and_more	2026-10-08 11:27:53.339508+05:30
+38	products	0002_alter_fooditem_options_alter_restaurant_options_and_more	2026-10-08 11:27:53.858622+05:30
+39	token_blacklist	0001_initial	2026-10-08 14:46:59.956877+05:30
+40	token_blacklist	0002_outstandingtoken_jti_hex	2026-10-08 14:47:00.001495+05:30
+41	token_blacklist	0003_auto_20171017_2007	2026-10-08 14:47:00.063465+05:30
+42	token_blacklist	0004_auto_20171017_2013	2026-10-08 14:47:00.116091+05:30
+43	token_blacklist	0005_remove_outstandingtoken_jti	2026-10-08 14:47:00.159865+05:30
+44	token_blacklist	0006_auto_20171017_2113	2026-10-08 14:47:00.200432+05:30
+45	token_blacklist	0007_auto_20171017_2214	2026-10-08 14:47:00.321839+05:30
+46	token_blacklist	0008_migrate_to_bigautofield	2026-10-08 14:47:00.426625+05:30
+47	token_blacklist	0010_fix_migrate_to_bigautofield	2026-10-08 14:47:00.48768+05:30
+48	token_blacklist	0011_linearizes_history	2026-10-08 14:47:00.490781+05:30
+49	token_blacklist	0012_alter_outstandingtoken_user	2026-10-08 14:47:00.57208+05:30
+50	token_blacklist	0013_alter_blacklistedtoken_options_and_more	2026-10-08 14:47:00.630061+05:30
+51	accounts	0004_usersettings	2026-10-08 16:29:32.742096+05:30
+52	menu	0001_initial	2026-10-08 19:01:16.362362+05:30
+53	products	0003_alter_fooditem_options_fooditem_dietary_type_and_more	2026-10-08 19:01:16.704058+05:30
+54	cart	0001_initial	2026-10-08 19:54:48.078919+05:30
+55	orders	0003_remove_order_orders_orde_status_c6dd84_idx_and_more	2026-10-08 20:41:13.45181+05:30
+56	orders	0004_order_cancellation_reason_order_cancelled_by_and_more	2026-10-09 06:45:59.57809+05:30
+57	delivery	0003_add_delivery_assignment_model	2026-10-09 07:13:58.421349+05:30
+58	delivery	0004_deliveryassignment_issue_notes_and_more	2026-10-09 07:25:30.051717+05:30
+59	delivery	0005_deliveryissuereport_deliveryotp	2026-10-09 07:54:59.211587+05:30
+60	orders	0005_alter_order_payment_status	2026-10-09 09:38:56.529914+05:30
+61	payments	0003_alter_payment_options_alter_paymentwebhook_options_and_more	2026-10-09 09:38:57.2068+05:30
+62	delivery	0006_deliverypartner_heading_and_more	2026-10-09 10:11:35.888541+05:30
+63	orders	0006_order_last_location_updated_at_order_rider_heading	2026-10-09 10:11:36.156021+05:30
+64	adminpanel	0001_initial	2026-10-10 06:16:20.450235+05:30
+65	notifications	0002_notificationdeliveryattempt_notificationpreference_and_more	2026-10-10 06:57:59.047537+05:30
+66	reviews	0002_reviewmoderationlog_reviewreport_and_more	2026-10-10 08:33:05.440476+05:30
+67	coupons	0002_loyaltyprogramconfig_alter_coupon_options_and_more	2026-10-10 09:06:22.847235+05:30
+68	orders	0007_order_coupon_order_coupon_code_snapshot_and_more	2026-10-10 09:06:23.133713+05:30
+69	discovery	0001_initial	2026-10-10 09:52:09.941437+05:30
+70	products	0004_fooditem_products_fo_restaur_fd3f59_idx_and_more	2026-10-10 09:52:10.655799+05:30
+71	products	0005_fooditem_available_from_time_and_more	2026-10-10 12:23:20.408123+05:30
+72	delivery	0007_deliveryoffer_deliveryassignment_attempt_count_and_more	2026-10-10 13:19:26.226456+05:30
+73	accounts	0005_supportticket_assigned_agent_and_more	2026-10-10 13:53:31.86511+05:30
+74	payments	0004_restaurantsettlement_restaurantcommission_and_more	2026-10-10 14:33:58.090522+05:30
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+\.
+
+
+--
+-- Data for Name: menu_menucategory; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.menu_menucategory (id, name, slug, description, is_active, display_order, created_at, updated_at, restaurant_id) FROM stdin;
+1	Neon Burgers	neon-burgers		t	0	2026-10-08 19:03:30.193395+05:30	2026-10-08 19:03:30.193424+05:30	1
+2	Nitro Drinks	nitro-drinks		t	0	2026-10-08 19:03:30.252534+05:30	2026-10-08 19:03:30.252564+05:30	1
+3	Kinetic Biryani	kinetic-biryani		t	0	2026-10-08 19:03:30.264794+05:30	2026-10-08 19:03:30.26481+05:30	2
+4	Chettinad Heritage	chettinad-specials		t	0	2026-10-08 19:03:30.287053+05:30	2026-10-08 19:03:30.287067+05:30	2
+5	Cyber Bowls	cyber-bowls		t	0	2026-10-08 19:03:30.326311+05:30	2026-10-08 19:03:30.326335+05:30	3
+6	Nitro Drinks	nitro-drinks		t	0	2026-10-08 19:03:30.373824+05:30	2026-10-08 19:03:30.373841+05:30	3
+7	Chettinad Heritage	chettinad-specials		t	0	2026-10-08 19:03:30.386168+05:30	2026-10-08 19:03:30.386184+05:30	4
+8	Madras Tiffin	madras-tiffin		t	0	2026-10-08 19:03:30.416008+05:30	2026-10-08 19:03:30.416025+05:30	4
+9	Nitro Drinks	nitro-drinks		t	0	2026-10-08 19:03:30.435613+05:30	2026-10-08 19:03:30.435629+05:30	4
+10	Chettinad Heritage	chettinad-specials		t	0	2026-10-08 19:03:30.445925+05:30	2026-10-08 19:03:30.44594+05:30	5
+11	Madras Tiffin	madras-tiffin		t	0	2026-10-08 19:03:30.483467+05:30	2026-10-08 19:03:30.48349+05:30	5
+12	Glitch Desserts	glitch-desserts		t	0	2026-10-08 19:03:30.494278+05:30	2026-10-08 19:03:30.494293+05:30	5
+13	Quantum Pizza	quantum-pizza		t	0	2026-10-08 19:03:30.503933+05:30	2026-10-08 19:03:30.503949+05:30	6
+14	Glitch Desserts	glitch-desserts		t	0	2026-10-08 19:03:30.548817+05:30	2026-10-08 19:03:30.548863+05:30	6
+15	Madras Tiffin	madras-tiffin		t	0	2026-10-08 19:03:30.562064+05:30	2026-10-08 19:03:30.562084+05:30	7
+16	Nitro Drinks	nitro-drinks		t	0	2026-10-08 19:03:30.606664+05:30	2026-10-08 19:03:30.606687+05:30	7
+17	Glitch Desserts	glitch-desserts		t	0	2026-10-08 19:03:30.626217+05:30	2026-10-08 19:03:30.626241+05:30	7
+18	Cyber Bowls	cyber-bowls		t	0	2026-10-08 19:03:30.63931+05:30	2026-10-08 19:03:30.639325+05:30	8
+19	Nitro Drinks	nitro-drinks		t	0	2026-10-08 19:03:30.679213+05:30	2026-10-08 19:03:30.679232+05:30	8
+20	Glitch Desserts	glitch-desserts		t	0	2026-10-08 19:03:30.694789+05:30	2026-10-08 19:03:30.694813+05:30	8
+21	Glitch Desserts	glitch-desserts		t	0	2026-10-08 19:03:30.717522+05:30	2026-10-08 19:03:30.717547+05:30	9
+22	Nitro Drinks	nitro-drinks		t	0	2026-10-08 19:03:30.745006+05:30	2026-10-08 19:03:30.745026+05:30	9
+23	Chettinad Heritage	chettinad-specials		t	0	2026-10-08 19:03:30.794516+05:30	2026-10-08 19:03:30.794534+05:30	10
+24	Nitro Drinks	nitro-drinks		t	0	2026-10-08 19:03:30.859415+05:30	2026-10-08 19:03:30.859431+05:30	10
+\.
+
+
+--
+-- Data for Name: notifications_notification; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.notifications_notification (id, title, message, notification_type, is_read, created_at, user_id, data, event_type, idempotency_key, is_dismissed, related_resource_id, related_resource_type) FROM stdin;
+1	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791619352 from Test P23 Cyber Bistro. Est. payout ₹85.00 (0.5 km).	DELIVERY	f	2026-10-10 13:32:32.393824+05:30	36	{"payout": "85.00", "distance_km": "0.5", "order_number": "TEST-P23-READY-1791619352", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_1	f	1	DeliveryOffer
+2	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791619352 from Test P23 Cyber Bistro. Est. payout ₹85.00 (3.5 km).	DELIVERY	f	2026-10-10 13:32:36.601683+05:30	7	{"payout": "85.00", "distance_km": "3.5", "order_number": "TEST-P23-READY-1791619352", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_2	f	2	DeliveryOffer
+3	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791619398 from Test P23 Cyber Bistro. Est. payout ₹85.00 (0.5 km).	DELIVERY	f	2026-10-10 13:33:19.125916+05:30	36	{"payout": "85.00", "distance_km": "0.5", "order_number": "TEST-P23-READY-1791619398", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_3	f	3	DeliveryOffer
+4	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791619398 from Test P23 Cyber Bistro. Est. payout ₹85.00 (3.5 km).	DELIVERY	f	2026-10-10 13:33:23.304075+05:30	7	{"payout": "85.00", "distance_km": "3.5", "order_number": "TEST-P23-READY-1791619398", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_4	f	4	DeliveryOffer
+5	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791619398 from Test P23 Cyber Bistro. Est. payout ₹85.00 (3.5 km).	DELIVERY	f	2026-10-10 13:33:27.481955+05:30	6	{"payout": "85.00", "distance_km": "3.5", "order_number": "TEST-P23-READY-1791619398", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_5	f	5	DeliveryOffer
+6	New Delivery Job Offer	New job offer for Order #TEST-P23-CONCUR-1791619411 from Test P23 Cyber Bistro. Est. payout ₹80.00 (0.5 km).	DELIVERY	f	2026-10-10 13:33:31.682431+05:30	36	{"payout": "80.00", "distance_km": "0.5", "order_number": "TEST-P23-CONCUR-1791619411", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_6	f	6	DeliveryOffer
+7	Delivery Partner Assigned	Courier test_p23_rider_close has been assigned to deliver order #TEST-P23-CONCUR-1791619411.	DELIVERY	f	2026-10-10 13:33:35.811188+05:30	33	{"rider_name": "test_p23_rider_close", "order_number": "TEST-P23-CONCUR-1791619411", "partner_name": "test_p23_rider_close"}	delivery.assigned	delivery_assigned_phase23_28	f	28	Order
+8	New Delivery Job Offer	New job offer for Order #TEST-P23-EXPIRED-1791619419 from Test P23 Cyber Bistro. Est. payout ₹80.00 (3.5 km).	DELIVERY	f	2026-10-10 13:33:40.034391+05:30	7	{"payout": "80.00", "distance_km": "3.5", "order_number": "TEST-P23-EXPIRED-1791619419", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_8	f	8	DeliveryOffer
+9	Delivery Order Reassigned	Order #TEST-P23-REASSIGN-1791619424 has been reassigned to delivery partner test_p23_rider_far.	DELIVERY	f	2026-10-10 13:33:44.149981+05:30	37	{"admin_name": "test_p23_admin", "order_number": "TEST-P23-REASSIGN-1791619424", "partner_name": "test_p23_rider_far"}	delivery.reassigned	manual_reassigned_5_1791619424.10802	f	30	Order
+10	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791619687 from Test P23 Cyber Bistro. Est. payout ₹85.00 (0.5 km).	DELIVERY	f	2026-10-10 13:38:07.872559+05:30	36	{"payout": "85.00", "distance_km": "0.5", "order_number": "TEST-P23-READY-1791619687", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_9	f	9	DeliveryOffer
+11	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791619687 from Test P23 Cyber Bistro. Est. payout ₹85.00 (3.5 km).	DELIVERY	f	2026-10-10 13:38:12.070986+05:30	7	{"payout": "85.00", "distance_km": "3.5", "order_number": "TEST-P23-READY-1791619687", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_10	f	10	DeliveryOffer
+12	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791619687 from Test P23 Cyber Bistro. Est. payout ₹85.00 (3.5 km).	DELIVERY	f	2026-10-10 13:38:16.222771+05:30	6	{"payout": "85.00", "distance_km": "3.5", "order_number": "TEST-P23-READY-1791619687", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_11	f	11	DeliveryOffer
+13	New Delivery Job Offer	New job offer for Order #TEST-P23-CONCUR-1791619700 from Test P23 Cyber Bistro. Est. payout ₹80.00 (0.5 km).	DELIVERY	f	2026-10-10 13:38:20.408119+05:30	36	{"payout": "80.00", "distance_km": "0.5", "order_number": "TEST-P23-CONCUR-1791619700", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_12	f	12	DeliveryOffer
+14	Delivery Partner Assigned	Courier test_p23_rider_close has been assigned to deliver order #TEST-P23-CONCUR-1791619700.	DELIVERY	f	2026-10-10 13:38:24.534839+05:30	33	{"rider_name": "test_p23_rider_close", "order_number": "TEST-P23-CONCUR-1791619700", "partner_name": "test_p23_rider_close"}	delivery.assigned	delivery_assigned_phase23_34	f	34	Order
+15	New Delivery Job Offer	New job offer for Order #TEST-P23-EXPIRED-1791619708 from Test P23 Cyber Bistro. Est. payout ₹80.00 (3.5 km).	DELIVERY	f	2026-10-10 13:38:28.744099+05:30	7	{"payout": "80.00", "distance_km": "3.5", "order_number": "TEST-P23-EXPIRED-1791619708", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_14	f	14	DeliveryOffer
+16	Delivery Order Reassigned	Order #TEST-P23-REASSIGN-1791619712 has been reassigned to delivery partner test_p23_rider_far.	DELIVERY	f	2026-10-10 13:38:32.85462+05:30	37	{"admin_name": "test_p23_admin", "order_number": "TEST-P23-REASSIGN-1791619712", "partner_name": "test_p23_rider_far"}	delivery.reassigned	manual_reassigned_9_1791619712.826038	f	36	Order
+17	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791620400 from Test P23 Cyber Bistro. Est. payout ₹85.00 (0.5 km).	DELIVERY	f	2026-10-10 13:50:01.111514+05:30	36	{"payout": "85.00", "distance_km": "0.5", "order_number": "TEST-P23-READY-1791620400", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_15	f	15	DeliveryOffer
+18	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791620400 from Test P23 Cyber Bistro. Est. payout ₹85.00 (3.5 km).	DELIVERY	f	2026-10-10 13:50:05.34935+05:30	7	{"payout": "85.00", "distance_km": "3.5", "order_number": "TEST-P23-READY-1791620400", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_16	f	16	DeliveryOffer
+19	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791620400 from Test P23 Cyber Bistro. Est. payout ₹85.00 (3.5 km).	DELIVERY	f	2026-10-10 13:50:09.506226+05:30	6	{"payout": "85.00", "distance_km": "3.5", "order_number": "TEST-P23-READY-1791620400", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_17	f	17	DeliveryOffer
+20	New Delivery Job Offer	New job offer for Order #TEST-P23-CONCUR-1791620413 from Test P23 Cyber Bistro. Est. payout ₹80.00 (0.5 km).	DELIVERY	f	2026-10-10 13:50:13.686472+05:30	36	{"payout": "80.00", "distance_km": "0.5", "order_number": "TEST-P23-CONCUR-1791620413", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_18	f	18	DeliveryOffer
+21	Delivery Partner Assigned	Courier test_p23_rider_close has been assigned to deliver order #TEST-P23-CONCUR-1791620413.	DELIVERY	f	2026-10-10 13:50:17.786+05:30	33	{"rider_name": "test_p23_rider_close", "order_number": "TEST-P23-CONCUR-1791620413", "partner_name": "test_p23_rider_close"}	delivery.assigned	delivery_assigned_phase23_40	f	40	Order
+22	New Delivery Job Offer	New job offer for Order #TEST-P23-EXPIRED-1791620421 from Test P23 Cyber Bistro. Est. payout ₹80.00 (3.5 km).	DELIVERY	f	2026-10-10 13:50:21.941491+05:30	7	{"payout": "80.00", "distance_km": "3.5", "order_number": "TEST-P23-EXPIRED-1791620421", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_20	f	20	DeliveryOffer
+23	Delivery Order Reassigned	Order #TEST-P23-REASSIGN-1791620426 has been reassigned to delivery partner test_p23_rider_far.	DELIVERY	f	2026-10-10 13:50:26.042705+05:30	37	{"admin_name": "test_p23_admin", "order_number": "TEST-P23-REASSIGN-1791620426", "partner_name": "test_p23_rider_far"}	delivery.reassigned	manual_reassigned_13_1791620426.01451	f	42	Order
+24	Support Ticket Created #TKT-20261010-6E12	Your support ticket #TKT-20261010-6E12 for 'Soup was completely spilled upon arrival' has been submitted.	SUPPORT	f	2026-10-10 14:03:04.309098+05:30	39	{"subject": "Soup was completely spilled upon arrival", "ticket_number": "TKT-20261010-6E12"}	support.ticket_created	\N	f	1	support_ticket
+25	Ticket Resolved #TKT-20261010-6E12	Your ticket #TKT-20261010-6E12 has been resolved: Merchant packaging reviewed; merchant will double-seal soup containers.	SUPPORT	f	2026-10-10 14:03:08.726994+05:30	39	{"ticket_number": "TKT-20261010-6E12", "resolution_summary": "Merchant packaging reviewed; merchant will double-seal soup containers."}	support.ticket_resolved	\N	f	1	support_ticket
+26	Ticket Closed #TKT-20261010-6E12	Support ticket #TKT-20261010-6E12 has been marked as closed.	SUPPORT	f	2026-10-10 14:03:12.889847+05:30	39	{"ticket_number": "TKT-20261010-6E12"}	support.ticket_closed	\N	f	1	support_ticket
+27	Support Ticket Created #TKT-20261010-1FCD	Your support ticket #TKT-20261010-1FCD for 'Soup was completely spilled upon arrival' has been submitted.	SUPPORT	f	2026-10-10 14:18:33.003181+05:30	39	{"subject": "Soup was completely spilled upon arrival", "ticket_number": "TKT-20261010-1FCD"}	support.ticket_created	\N	f	2	support_ticket
+28	Ticket Resolved #TKT-20261010-1FCD	Your ticket #TKT-20261010-1FCD has been resolved: Merchant packaging reviewed; merchant will double-seal soup containers.	SUPPORT	f	2026-10-10 14:18:37.406786+05:30	39	{"ticket_number": "TKT-20261010-1FCD", "resolution_summary": "Merchant packaging reviewed; merchant will double-seal soup containers."}	support.ticket_resolved	\N	f	2	support_ticket
+29	Ticket Closed #TKT-20261010-1FCD	Support ticket #TKT-20261010-1FCD has been marked as closed.	SUPPORT	f	2026-10-10 14:18:41.562882+05:30	39	{"ticket_number": "TKT-20261010-1FCD"}	support.ticket_closed	\N	f	2	support_ticket
+30	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791622136 from Test P23 Cyber Bistro. Est. payout ₹85.00 (0.5 km).	DELIVERY	f	2026-10-10 14:18:56.612869+05:30	36	{"payout": "85.00", "distance_km": "0.5", "order_number": "TEST-P23-READY-1791622136", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_21	f	21	DeliveryOffer
+31	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791622136 from Test P23 Cyber Bistro. Est. payout ₹85.00 (3.5 km).	DELIVERY	f	2026-10-10 14:19:00.800937+05:30	7	{"payout": "85.00", "distance_km": "3.5", "order_number": "TEST-P23-READY-1791622136", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_22	f	22	DeliveryOffer
+32	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791622136 from Test P23 Cyber Bistro. Est. payout ₹85.00 (3.5 km).	DELIVERY	f	2026-10-10 14:19:04.958994+05:30	6	{"payout": "85.00", "distance_km": "3.5", "order_number": "TEST-P23-READY-1791622136", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_23	f	23	DeliveryOffer
+33	New Delivery Job Offer	New job offer for Order #TEST-P23-CONCUR-1791622149 from Test P23 Cyber Bistro. Est. payout ₹80.00 (0.5 km).	DELIVERY	f	2026-10-10 14:19:09.136017+05:30	36	{"payout": "80.00", "distance_km": "0.5", "order_number": "TEST-P23-CONCUR-1791622149", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_24	f	24	DeliveryOffer
+34	Delivery Partner Assigned	Courier test_p23_rider_close has been assigned to deliver order #TEST-P23-CONCUR-1791622149.	DELIVERY	f	2026-10-10 14:19:13.252065+05:30	33	{"rider_name": "test_p23_rider_close", "order_number": "TEST-P23-CONCUR-1791622149", "partner_name": "test_p23_rider_close"}	delivery.assigned	delivery_assigned_phase23_48	f	48	Order
+35	New Delivery Job Offer	New job offer for Order #TEST-P23-EXPIRED-1791622157 from Test P23 Cyber Bistro. Est. payout ₹80.00 (3.5 km).	DELIVERY	f	2026-10-10 14:19:17.409386+05:30	7	{"payout": "80.00", "distance_km": "3.5", "order_number": "TEST-P23-EXPIRED-1791622157", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_26	f	26	DeliveryOffer
+36	Delivery Order Reassigned	Order #TEST-P23-REASSIGN-1791622161 has been reassigned to delivery partner test_p23_rider_far.	DELIVERY	f	2026-10-10 14:19:21.49968+05:30	37	{"admin_name": "test_p23_admin", "order_number": "TEST-P23-REASSIGN-1791622161", "partner_name": "test_p23_rider_far"}	delivery.reassigned	manual_reassigned_18_1791622161.476503	f	50	Order
+37	Support Ticket Created #TKT-20261010-8FC9	Your support ticket #TKT-20261010-8FC9 for 'Soup was completely spilled upon arrival' has been submitted.	SUPPORT	f	2026-10-10 14:51:51.577467+05:30	39	{"subject": "Soup was completely spilled upon arrival", "ticket_number": "TKT-20261010-8FC9"}	support.ticket_created	\N	f	3	support_ticket
+38	Ticket Resolved #TKT-20261010-8FC9	Your ticket #TKT-20261010-8FC9 has been resolved: Merchant packaging reviewed; merchant will double-seal soup containers.	SUPPORT	f	2026-10-10 14:51:55.995094+05:30	39	{"ticket_number": "TKT-20261010-8FC9", "resolution_summary": "Merchant packaging reviewed; merchant will double-seal soup containers."}	support.ticket_resolved	\N	f	3	support_ticket
+39	Ticket Closed #TKT-20261010-8FC9	Support ticket #TKT-20261010-8FC9 has been marked as closed.	SUPPORT	f	2026-10-10 14:52:00.164336+05:30	39	{"ticket_number": "TKT-20261010-8FC9"}	support.ticket_closed	\N	f	3	support_ticket
+40	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791624145 from Test P23 Cyber Bistro. Est. payout ₹85.00 (0.5 km).	DELIVERY	f	2026-10-10 14:52:25.847175+05:30	36	{"payout": "85.00", "distance_km": "0.5", "order_number": "TEST-P23-READY-1791624145", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_27	f	27	DeliveryOffer
+41	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791624145 from Test P23 Cyber Bistro. Est. payout ₹85.00 (3.5 km).	DELIVERY	f	2026-10-10 14:52:30.016094+05:30	7	{"payout": "85.00", "distance_km": "3.5", "order_number": "TEST-P23-READY-1791624145", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_28	f	28	DeliveryOffer
+42	New Delivery Job Offer	New job offer for Order #TEST-P23-READY-1791624145 from Test P23 Cyber Bistro. Est. payout ₹85.00 (3.5 km).	DELIVERY	f	2026-10-10 14:52:34.172559+05:30	6	{"payout": "85.00", "distance_km": "3.5", "order_number": "TEST-P23-READY-1791624145", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_29	f	29	DeliveryOffer
+43	New Delivery Job Offer	New job offer for Order #TEST-P23-CONCUR-1791624158 from Test P23 Cyber Bistro. Est. payout ₹80.00 (0.5 km).	DELIVERY	f	2026-10-10 14:52:38.371529+05:30	36	{"payout": "80.00", "distance_km": "0.5", "order_number": "TEST-P23-CONCUR-1791624158", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_30	f	30	DeliveryOffer
+44	Delivery Partner Assigned	Courier test_p23_rider_close has been assigned to deliver order #TEST-P23-CONCUR-1791624158.	DELIVERY	f	2026-10-10 14:52:42.483818+05:30	33	{"rider_name": "test_p23_rider_close", "order_number": "TEST-P23-CONCUR-1791624158", "partner_name": "test_p23_rider_close"}	delivery.assigned	delivery_assigned_phase23_59	f	59	Order
+45	New Delivery Job Offer	New job offer for Order #TEST-P23-EXPIRED-1791624166 from Test P23 Cyber Bistro. Est. payout ₹80.00 (3.5 km).	DELIVERY	f	2026-10-10 14:52:46.657041+05:30	7	{"payout": "80.00", "distance_km": "3.5", "order_number": "TEST-P23-EXPIRED-1791624166", "expiry_seconds": 60, "restaurant_name": "Test P23 Cyber Bistro"}	delivery.job_offered	offer_dispatched_32	f	32	DeliveryOffer
+46	Delivery Order Reassigned	Order #TEST-P23-REASSIGN-1791624170 has been reassigned to delivery partner test_p23_rider_far.	DELIVERY	f	2026-10-10 14:52:50.766067+05:30	37	{"admin_name": "test_p23_admin", "order_number": "TEST-P23-REASSIGN-1791624170", "partner_name": "test_p23_rider_far"}	delivery.reassigned	manual_reassigned_22_1791624170.735633	f	61	Order
+47	Delivery Partner Assigned	Courier Murugan has been assigned to deliver order #ORD-8801.	DELIVERY	f	2026-10-10 16:48:42.673081+05:30	49	{"rider_name": "Murugan", "order_number": "ORD-8801"}	delivery.assigned	\N	f		
+48	டெலிவரி பார்ட்னர் ஒதுக்கப்பட்டார்	உங்கள் ஆர்டர் #ORD-8801-ஐ டெலிவரி செய்ய Murugan நியமிக்கப்பட்டுள்ளார்.	DELIVERY	f	2026-10-10 16:51:26.886934+05:30	49	{"rider_name": "Murugan", "order_number": "ORD-8801"}	delivery.assigned	\N	f		
+49	டெலிவரி பார்ட்னர் ஒதுக்கப்பட்டார்	உங்கள் ஆர்டர் #ORD-8802-ஐ டெலிவரி செய்ய Ramesh நியமிக்கப்பட்டுள்ளார்.	DELIVERY	f	2026-10-10 16:51:30.97291+05:30	49	{"rider_name": "Ramesh", "order_number": "ORD-8802"}	delivery.assigned	\N	f		
+50	டெலிவரி பார்ட்னர் ஒதுக்கப்பட்டார்	உங்கள் ஆர்டர் #ORD-8801-ஐ டெலிவரி செய்ய Murugan நியமிக்கப்பட்டுள்ளார்.	DELIVERY	f	2026-10-10 17:03:22.209348+05:30	49	{"rider_name": "Murugan", "order_number": "ORD-8801"}	delivery.assigned	\N	f		
+51	Delivery Partner Assigned	Courier Ramesh has been assigned to deliver order #ORD-8802.	DELIVERY	f	2026-10-10 17:03:26.297223+05:30	49	{"rider_name": "Ramesh", "order_number": "ORD-8802"}	delivery.assigned	\N	f		
+52	டெலிவரி பார்ட்னர் ஒதுக்கப்பட்டார்	உங்கள் ஆர்டர் #ORD-8801-ஐ டெலிவரி செய்ய Murugan நியமிக்கப்பட்டுள்ளார்.	DELIVERY	f	2026-10-10 17:04:48.329645+05:30	49	{"rider_name": "Murugan", "order_number": "ORD-8801"}	delivery.assigned	\N	f		
+53	Delivery Partner Assigned	Courier Ramesh has been assigned to deliver order #ORD-8802.	DELIVERY	f	2026-10-10 17:04:52.458897+05:30	49	{"rider_name": "Ramesh", "order_number": "ORD-8802"}	delivery.assigned	\N	f		
+54	டெலிவரி பார்ட்னர் ஒதுக்கப்பட்டார்	உங்கள் ஆர்டர் #ORD-8801-ஐ டெலிவரி செய்ய Murugan நியமிக்கப்பட்டுள்ளார்.	DELIVERY	f	2026-10-10 17:06:06.047409+05:30	49	{"rider_name": "Murugan", "order_number": "ORD-8801"}	delivery.assigned	\N	f		
+55	Delivery Partner Assigned	Courier Ramesh has been assigned to deliver order #ORD-8802.	DELIVERY	f	2026-10-10 17:06:10.14325+05:30	49	{"rider_name": "Ramesh", "order_number": "ORD-8802"}	delivery.assigned	\N	f		
+56	டெலிவரி பார்ட்னர் ஒதுக்கப்பட்டார்	உங்கள் ஆர்டர் #ORD-8801-ஐ டெலிவரி செய்ய Murugan நியமிக்கப்பட்டுள்ளார்.	DELIVERY	f	2026-10-10 18:07:01.014277+05:30	49	{"rider_name": "Murugan", "order_number": "ORD-8801"}	delivery.assigned	\N	f		
+57	Delivery Partner Assigned	Courier Ramesh has been assigned to deliver order #ORD-8802.	DELIVERY	f	2026-10-10 18:07:05.126346+05:30	49	{"rider_name": "Ramesh", "order_number": "ORD-8802"}	delivery.assigned	\N	f		
+58	Food is Being Prepared	The kitchen at Test Kitchen has started preparing your order #WS-1024-NOTIF.	ORDER	f	2026-10-10 18:40:23.016058+05:30	1	{"order_number": "WS-1024-NOTIF", "restaurant_name": "Test Kitchen"}	order.preparing	test_notif_sync_22cea0fe	f		
+59	டெலிவரி பார்ட்னர் ஒதுக்கப்பட்டார்	உங்கள் ஆர்டர் #ORD-8801-ஐ டெலிவரி செய்ய Murugan நியமிக்கப்பட்டுள்ளார்.	DELIVERY	f	2026-10-10 18:41:21.980422+05:30	49	{"rider_name": "Murugan", "order_number": "ORD-8801"}	delivery.assigned	\N	f		
+60	Delivery Partner Assigned	Courier Ramesh has been assigned to deliver order #ORD-8802.	DELIVERY	f	2026-10-10 18:41:26.086247+05:30	49	{"rider_name": "Ramesh", "order_number": "ORD-8802"}	delivery.assigned	\N	f		
+61	Food is Being Prepared	The kitchen at Test Kitchen has started preparing your order #WS-1024-NOTIF.	ORDER	f	2026-10-10 19:19:09.855127+05:30	1	{"order_number": "WS-1024-NOTIF", "restaurant_name": "Test Kitchen"}	order.preparing	test_notif_sync_e862f9c4	f		
+62	டெலிவரி பார்ட்னர் ஒதுக்கப்பட்டார்	உங்கள் ஆர்டர் #ORD-8801-ஐ டெலிவரி செய்ய Murugan நியமிக்கப்பட்டுள்ளார்.	DELIVERY	f	2026-10-10 19:19:40.679538+05:30	49	{"rider_name": "Murugan", "order_number": "ORD-8801"}	delivery.assigned	\N	f		
+63	Delivery Partner Assigned	Courier Ramesh has been assigned to deliver order #ORD-8802.	DELIVERY	f	2026-10-10 19:19:44.754455+05:30	49	{"rider_name": "Ramesh", "order_number": "ORD-8802"}	delivery.assigned	\N	f		
+\.
+
+
+--
+-- Data for Name: notifications_notificationdeliveryattempt; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.notifications_notificationdeliveryattempt (id, channel, status, recipient_destination, attempt_count, provider, provider_response_id, error_message, created_at, updated_at, notification_id) FROM stdin;
+1	IN_APP	DELIVERED	user_36	1	DjangoChannels			2026-10-10 13:32:32.402625+05:30	2026-10-10 13:32:32.402636+05:30	1
+2	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:32:36.487048+05:30	2026-10-10 13:32:36.48706+05:30	1
+3	IN_APP	DELIVERED	user_7	1	DjangoChannels			2026-10-10 13:32:36.60541+05:30	2026-10-10 13:32:36.605422+05:30	2
+4	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:32:40.667719+05:30	2026-10-10 13:32:40.667734+05:30	2
+5	IN_APP	DELIVERED	user_36	1	DjangoChannels			2026-10-10 13:33:19.131976+05:30	2026-10-10 13:33:19.131994+05:30	3
+6	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:33:23.185019+05:30	2026-10-10 13:33:23.185041+05:30	3
+7	IN_APP	DELIVERED	user_7	1	DjangoChannels			2026-10-10 13:33:23.308988+05:30	2026-10-10 13:33:23.309004+05:30	4
+8	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:33:27.373508+05:30	2026-10-10 13:33:27.373525+05:30	4
+9	IN_APP	DELIVERED	user_6	1	DjangoChannels			2026-10-10 13:33:27.486766+05:30	2026-10-10 13:33:27.486781+05:30	5
+10	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:33:31.532496+05:30	2026-10-10 13:33:31.532519+05:30	5
+11	IN_APP	DELIVERED	user_36	1	DjangoChannels			2026-10-10 13:33:31.687137+05:30	2026-10-10 13:33:31.687161+05:30	6
+12	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:33:35.751087+05:30	2026-10-10 13:33:35.751127+05:30	6
+13	IN_APP	DELIVERED	user_33	1	DjangoChannels			2026-10-10 13:33:35.81903+05:30	2026-10-10 13:33:35.81905+05:30	7
+14	EMAIL	FAILED	c***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:33:39.897214+05:30	2026-10-10 13:33:39.89724+05:30	7
+15	IN_APP	DELIVERED	user_7	1	DjangoChannels			2026-10-10 13:33:40.039507+05:30	2026-10-10 13:33:40.039524+05:30	8
+16	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:33:44.086166+05:30	2026-10-10 13:33:44.086185+05:30	8
+17	IN_APP	DELIVERED	user_37	1	DjangoChannels			2026-10-10 13:33:44.156509+05:30	2026-10-10 13:33:44.15653+05:30	9
+18	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:33:48.252935+05:30	2026-10-10 13:33:48.252953+05:30	9
+19	IN_APP	DELIVERED	user_36	1	DjangoChannels			2026-10-10 13:38:07.877957+05:30	2026-10-10 13:38:07.877974+05:30	10
+20	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:38:11.94877+05:30	2026-10-10 13:38:11.948783+05:30	10
+21	IN_APP	DELIVERED	user_7	1	DjangoChannels			2026-10-10 13:38:12.075275+05:30	2026-10-10 13:38:12.075291+05:30	11
+22	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:38:16.114056+05:30	2026-10-10 13:38:16.114075+05:30	11
+23	IN_APP	DELIVERED	user_6	1	DjangoChannels			2026-10-10 13:38:16.226556+05:30	2026-10-10 13:38:16.226571+05:30	12
+24	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:38:20.279009+05:30	2026-10-10 13:38:20.279032+05:30	12
+25	IN_APP	DELIVERED	user_36	1	DjangoChannels			2026-10-10 13:38:20.41185+05:30	2026-10-10 13:38:20.411869+05:30	13
+26	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:38:24.499327+05:30	2026-10-10 13:38:24.499369+05:30	13
+27	IN_APP	DELIVERED	user_33	1	DjangoChannels			2026-10-10 13:38:24.539037+05:30	2026-10-10 13:38:24.539051+05:30	14
+28	EMAIL	FAILED	c***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:38:28.629328+05:30	2026-10-10 13:38:28.629353+05:30	14
+29	IN_APP	DELIVERED	user_7	1	DjangoChannels			2026-10-10 13:38:28.749+05:30	2026-10-10 13:38:28.749015+05:30	15
+30	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:38:32.80953+05:30	2026-10-10 13:38:32.809556+05:30	15
+31	IN_APP	DELIVERED	user_37	1	DjangoChannels			2026-10-10 13:38:32.858924+05:30	2026-10-10 13:38:32.858939+05:30	16
+32	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:38:36.922125+05:30	2026-10-10 13:38:36.922146+05:30	16
+33	IN_APP	DELIVERED	user_36	1	DjangoChannels			2026-10-10 13:50:01.117576+05:30	2026-10-10 13:50:01.117591+05:30	17
+34	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:50:05.20667+05:30	2026-10-10 13:50:05.206691+05:30	17
+35	IN_APP	DELIVERED	user_7	1	DjangoChannels			2026-10-10 13:50:05.357134+05:30	2026-10-10 13:50:05.357157+05:30	18
+36	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:50:09.410173+05:30	2026-10-10 13:50:09.410192+05:30	18
+37	IN_APP	DELIVERED	user_6	1	DjangoChannels			2026-10-10 13:50:09.511147+05:30	2026-10-10 13:50:09.511162+05:30	19
+38	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:50:13.554335+05:30	2026-10-10 13:50:13.554349+05:30	19
+39	IN_APP	DELIVERED	user_36	1	DjangoChannels			2026-10-10 13:50:13.693184+05:30	2026-10-10 13:50:13.693202+05:30	20
+40	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:50:17.74179+05:30	2026-10-10 13:50:17.741811+05:30	20
+41	IN_APP	DELIVERED	user_33	1	DjangoChannels			2026-10-10 13:50:17.790996+05:30	2026-10-10 13:50:17.791012+05:30	21
+42	EMAIL	FAILED	c***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:50:21.848132+05:30	2026-10-10 13:50:21.848144+05:30	21
+43	IN_APP	DELIVERED	user_7	1	DjangoChannels			2026-10-10 13:50:21.945736+05:30	2026-10-10 13:50:21.945748+05:30	22
+44	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:50:25.996178+05:30	2026-10-10 13:50:25.996193+05:30	22
+45	IN_APP	DELIVERED	user_37	1	DjangoChannels			2026-10-10 13:50:26.047236+05:30	2026-10-10 13:50:26.047251+05:30	23
+46	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 13:50:30.110101+05:30	2026-10-10 13:50:30.110126+05:30	23
+47	IN_APP	DELIVERED	user_39	1	DjangoChannels			2026-10-10 14:03:04.316571+05:30	2026-10-10 14:03:04.316584+05:30	24
+48	EMAIL	FAILED	c***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:03:08.388494+05:30	2026-10-10 14:03:08.388515+05:30	24
+49	IN_APP	DELIVERED	user_39	1	DjangoChannels			2026-10-10 14:03:08.731694+05:30	2026-10-10 14:03:08.731711+05:30	25
+50	EMAIL	FAILED	c***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:03:12.795179+05:30	2026-10-10 14:03:12.7952+05:30	25
+51	IN_APP	DELIVERED	user_39	1	DjangoChannels			2026-10-10 14:03:12.89415+05:30	2026-10-10 14:03:12.894161+05:30	26
+52	EMAIL	FAILED	c***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:03:16.960631+05:30	2026-10-10 14:03:16.960647+05:30	26
+53	IN_APP	DELIVERED	user_39	1	DjangoChannels			2026-10-10 14:18:33.01064+05:30	2026-10-10 14:18:33.010655+05:30	27
+54	EMAIL	FAILED	c***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:18:37.075563+05:30	2026-10-10 14:18:37.075596+05:30	27
+55	IN_APP	DELIVERED	user_39	1	DjangoChannels			2026-10-10 14:18:37.411576+05:30	2026-10-10 14:18:37.411589+05:30	28
+56	EMAIL	FAILED	c***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:18:41.458986+05:30	2026-10-10 14:18:41.459006+05:30	28
+57	IN_APP	DELIVERED	user_39	1	DjangoChannels			2026-10-10 14:18:41.566797+05:30	2026-10-10 14:18:41.566815+05:30	29
+58	EMAIL	FAILED	c***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:18:45.646534+05:30	2026-10-10 14:18:45.646552+05:30	29
+59	IN_APP	DELIVERED	user_36	1	DjangoChannels			2026-10-10 14:18:56.617588+05:30	2026-10-10 14:18:56.617601+05:30	30
+60	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:19:00.686008+05:30	2026-10-10 14:19:00.68604+05:30	30
+61	IN_APP	DELIVERED	user_7	1	DjangoChannels			2026-10-10 14:19:00.805521+05:30	2026-10-10 14:19:00.805535+05:30	31
+62	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:19:04.869803+05:30	2026-10-10 14:19:04.869823+05:30	31
+63	IN_APP	DELIVERED	user_6	1	DjangoChannels			2026-10-10 14:19:04.962711+05:30	2026-10-10 14:19:04.962726+05:30	32
+64	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:19:09.012935+05:30	2026-10-10 14:19:09.012955+05:30	32
+65	IN_APP	DELIVERED	user_36	1	DjangoChannels			2026-10-10 14:19:09.139809+05:30	2026-10-10 14:19:09.139834+05:30	33
+66	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:19:13.208389+05:30	2026-10-10 14:19:13.208405+05:30	33
+67	IN_APP	DELIVERED	user_33	1	DjangoChannels			2026-10-10 14:19:13.255858+05:30	2026-10-10 14:19:13.255876+05:30	34
+68	EMAIL	FAILED	c***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:19:17.305719+05:30	2026-10-10 14:19:17.305739+05:30	34
+69	IN_APP	DELIVERED	user_7	1	DjangoChannels			2026-10-10 14:19:17.413664+05:30	2026-10-10 14:19:17.413681+05:30	35
+70	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:19:21.460027+05:30	2026-10-10 14:19:21.460041+05:30	35
+71	IN_APP	DELIVERED	user_37	1	DjangoChannels			2026-10-10 14:19:21.503724+05:30	2026-10-10 14:19:21.503736+05:30	36
+72	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:19:25.572143+05:30	2026-10-10 14:19:25.572162+05:30	36
+73	IN_APP	DELIVERED	user_39	1	DjangoChannels			2026-10-10 14:51:51.584615+05:30	2026-10-10 14:51:51.584629+05:30	37
+74	EMAIL	FAILED	c***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:51:55.665018+05:30	2026-10-10 14:51:55.66504+05:30	37
+75	IN_APP	DELIVERED	user_39	1	DjangoChannels			2026-10-10 14:51:55.999997+05:30	2026-10-10 14:51:56.000011+05:30	38
+76	EMAIL	FAILED	c***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:52:00.059744+05:30	2026-10-10 14:52:00.059759+05:30	38
+77	IN_APP	DELIVERED	user_39	1	DjangoChannels			2026-10-10 14:52:00.169141+05:30	2026-10-10 14:52:00.169156+05:30	39
+78	EMAIL	FAILED	c***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:52:04.245816+05:30	2026-10-10 14:52:04.245836+05:30	39
+79	IN_APP	DELIVERED	user_36	1	DjangoChannels			2026-10-10 14:52:25.853829+05:30	2026-10-10 14:52:25.853846+05:30	40
+80	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:52:29.914388+05:30	2026-10-10 14:52:29.914405+05:30	40
+81	IN_APP	DELIVERED	user_7	1	DjangoChannels			2026-10-10 14:52:30.019901+05:30	2026-10-10 14:52:30.019916+05:30	41
+82	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:52:34.077057+05:30	2026-10-10 14:52:34.077093+05:30	41
+83	IN_APP	DELIVERED	user_6	1	DjangoChannels			2026-10-10 14:52:34.176459+05:30	2026-10-10 14:52:34.176472+05:30	42
+84	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:52:38.237141+05:30	2026-10-10 14:52:38.237162+05:30	42
+85	IN_APP	DELIVERED	user_36	1	DjangoChannels			2026-10-10 14:52:38.375884+05:30	2026-10-10 14:52:38.375897+05:30	43
+86	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:52:42.433149+05:30	2026-10-10 14:52:42.433162+05:30	43
+87	IN_APP	DELIVERED	user_33	1	DjangoChannels			2026-10-10 14:52:42.488234+05:30	2026-10-10 14:52:42.488254+05:30	44
+88	EMAIL	FAILED	c***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:52:46.550583+05:30	2026-10-10 14:52:46.550603+05:30	44
+89	IN_APP	DELIVERED	user_7	1	DjangoChannels			2026-10-10 14:52:46.66164+05:30	2026-10-10 14:52:46.661653+05:30	45
+90	EMAIL	FAILED	r***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:52:50.711664+05:30	2026-10-10 14:52:50.711699+05:30	45
+91	IN_APP	DELIVERED	user_37	1	DjangoChannels			2026-10-10 14:52:50.769544+05:30	2026-10-10 14:52:50.769557+05:30	46
+92	EMAIL	FAILED	r***@test.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 14:52:54.819613+05:30	2026-10-10 14:52:54.819631+05:30	46
+93	IN_APP	DELIVERED	user_49	1	DjangoChannels			2026-10-10 16:48:42.687384+05:30	2026-10-10 16:48:42.687401+05:30	47
+94	EMAIL	FAILED	p***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 16:48:46.773293+05:30	2026-10-10 16:48:46.77333+05:30	47
+95	IN_APP	DELIVERED	user_49	1	DjangoChannels			2026-10-10 16:51:26.894777+05:30	2026-10-10 16:51:26.894788+05:30	48
+96	EMAIL	FAILED	p***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 16:51:30.959808+05:30	2026-10-10 16:51:30.959828+05:30	48
+97	IN_APP	DELIVERED	user_49	1	DjangoChannels			2026-10-10 16:51:30.979294+05:30	2026-10-10 16:51:30.979307+05:30	49
+98	EMAIL	FAILED	p***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 16:51:35.034355+05:30	2026-10-10 16:51:35.034372+05:30	49
+99	IN_APP	DELIVERED	user_49	1	DjangoChannels			2026-10-10 17:03:22.217544+05:30	2026-10-10 17:03:22.217556+05:30	50
+100	EMAIL	FAILED	p***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 17:03:26.281396+05:30	2026-10-10 17:03:26.281416+05:30	50
+101	IN_APP	DELIVERED	user_49	1	DjangoChannels			2026-10-10 17:03:26.302045+05:30	2026-10-10 17:03:26.302068+05:30	51
+102	EMAIL	FAILED	p***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 17:03:30.355095+05:30	2026-10-10 17:03:30.355117+05:30	51
+103	IN_APP	DELIVERED	user_49	1	DjangoChannels			2026-10-10 17:04:48.339287+05:30	2026-10-10 17:04:48.339303+05:30	52
+104	EMAIL	FAILED	p***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 17:04:52.441234+05:30	2026-10-10 17:04:52.441263+05:30	52
+105	IN_APP	DELIVERED	user_49	1	DjangoChannels			2026-10-10 17:04:52.463586+05:30	2026-10-10 17:04:52.463603+05:30	53
+106	EMAIL	FAILED	p***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 17:04:56.5279+05:30	2026-10-10 17:04:56.527917+05:30	53
+107	IN_APP	DELIVERED	user_49	1	DjangoChannels			2026-10-10 17:06:06.055089+05:30	2026-10-10 17:06:06.055102+05:30	54
+108	EMAIL	FAILED	p***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 17:06:10.126975+05:30	2026-10-10 17:06:10.126994+05:30	54
+109	IN_APP	DELIVERED	user_49	1	DjangoChannels			2026-10-10 17:06:10.147735+05:30	2026-10-10 17:06:10.147748+05:30	55
+110	EMAIL	FAILED	p***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 17:06:14.175723+05:30	2026-10-10 17:06:14.175743+05:30	55
+111	IN_APP	DELIVERED	user_49	1	DjangoChannels			2026-10-10 18:07:01.027852+05:30	2026-10-10 18:07:01.027869+05:30	56
+112	EMAIL	FAILED	p***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 18:07:05.11768+05:30	2026-10-10 18:07:05.117693+05:30	56
+113	IN_APP	DELIVERED	user_49	1	DjangoChannels			2026-10-10 18:07:05.129989+05:30	2026-10-10 18:07:05.130007+05:30	57
+114	EMAIL	FAILED	p***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 18:07:09.189189+05:30	2026-10-10 18:07:09.189207+05:30	57
+115	IN_APP	DELIVERED	user_1	1	DjangoChannels			2026-10-10 18:40:23.02311+05:30	2026-10-10 18:40:23.023122+05:30	58
+116	EMAIL	FAILED	c***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 18:40:27.10947+05:30	2026-10-10 18:40:27.109484+05:30	58
+117	IN_APP	DELIVERED	user_49	1	DjangoChannels			2026-10-10 18:41:21.99034+05:30	2026-10-10 18:41:21.990358+05:30	59
+118	EMAIL	FAILED	p***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 18:41:26.07824+05:30	2026-10-10 18:41:26.078257+05:30	59
+119	IN_APP	DELIVERED	user_49	1	DjangoChannels			2026-10-10 18:41:26.091714+05:30	2026-10-10 18:41:26.091727+05:30	60
+120	EMAIL	FAILED	p***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 18:41:30.186406+05:30	2026-10-10 18:41:30.186421+05:30	60
+121	IN_APP	DELIVERED	user_1	1	DjangoChannels			2026-10-10 19:19:09.863859+05:30	2026-10-10 19:19:09.863871+05:30	61
+122	EMAIL	FAILED	c***@wsfood.io	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 19:19:13.968151+05:30	2026-10-10 19:19:13.968175+05:30	61
+123	IN_APP	DELIVERED	user_49	1	DjangoChannels			2026-10-10 19:19:40.692633+05:30	2026-10-10 19:19:40.692656+05:30	62
+124	EMAIL	FAILED	p***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 19:19:44.74601+05:30	2026-10-10 19:19:44.746024+05:30	62
+125	IN_APP	DELIVERED	user_49	1	DjangoChannels			2026-10-10 19:19:44.760581+05:30	2026-10-10 19:19:44.760596+05:30	63
+126	EMAIL	FAILED	p***@example.com	1	DjangoMail		Email delivery error: [WinError 10061] No connection could be made because the target machine actively refused it	2026-10-10 19:19:48.835065+05:30	2026-10-10 19:19:48.835088+05:30	63
+\.
+
+
+--
+-- Data for Name: notifications_notificationpreference; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.notifications_notificationpreference (id, in_app_enabled, email_enabled, sms_enabled, push_enabled, order_updates, payment_updates, promotional_updates, language, created_at, updated_at, user_id) FROM stdin;
+1	t	t	f	f	t	t	f	en	2026-10-10 13:32:32.389864+05:30	2026-10-10 13:32:32.389886+05:30	36
+2	t	t	f	f	t	t	f	en	2026-10-10 13:32:36.598835+05:30	2026-10-10 13:32:36.59885+05:30	7
+3	t	t	f	f	t	t	f	en	2026-10-10 13:33:27.479092+05:30	2026-10-10 13:33:27.479109+05:30	6
+4	t	t	f	f	t	t	f	en	2026-10-10 13:33:35.806894+05:30	2026-10-10 13:33:35.806919+05:30	33
+5	t	t	f	f	t	t	f	en	2026-10-10 13:33:44.145885+05:30	2026-10-10 13:33:44.145902+05:30	37
+6	t	t	f	f	t	t	f	en	2026-10-10 14:03:04.30564+05:30	2026-10-10 14:03:04.305659+05:30	39
+7	t	t	f	f	t	t	f	en	2026-10-10 16:48:42.669513+05:30	2026-10-10 16:48:42.669529+05:30	49
+9	t	t	f	f	t	t	f	en	2026-10-10 18:40:23.00934+05:30	2026-10-10 18:40:23.009351+05:30	1
+8	t	t	f	f	t	t	f		2026-10-10 17:03:30.38449+05:30	2026-10-10 17:03:30.384517+05:30	50
+\.
+
+
+--
+-- Data for Name: orders_order; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.orders_order (id, order_number, delivery_address_text, status, otp, item_total, delivery_fee, taxes, platform_fee, discount, grand_total, payment_method, payment_status, cooking_instructions, customer_lat, customer_lng, restaurant_lat, restaurant_lng, rider_lat, rider_lng, eta_minutes, created_at, updated_at, customer_id, restaurant_id, rider_id, shipping_address_id, delivery_address_snapshot, packaging_fee, subtotal, total, cancellation_reason, cancelled_by_id, rejection_reason, last_location_updated_at, rider_heading, coupon_id, coupon_code_snapshot, loyalty_discount, loyalty_points_used) FROM stdin;
+1	WS-CHN-1001	Flat 1A, Cyber Residency, Chennai Metro	ON_THE_WAY	7000	648.00	35.00	20.00	10.00	40.00	673.00	UPI (Google Pay / PhonePe)	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.041800	80.234100	13.085000	80.210000	13.089000	80.213000	14	2026-10-08 11:22:50.182718+05:30	2026-10-08 11:22:50.182748+05:30	1	1	3	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+2	WS-CHN-1002	Flat 2A, Cyber Residency, Chennai Metro	PREPARING	7001	728.00	35.00	20.00	10.00	40.00	753.00	WS Food Balance Wallet	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.044800	80.236100	13.036800	80.267600	13.040800	80.270600	15	2026-10-08 11:22:50.203044+05:30	2026-10-08 11:22:50.203068+05:30	1	2	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+3	WS-CHN-1003	Flat 3A, Cyber Residency, Chennai Metro	READY	7002	748.00	35.00	20.00	10.00	40.00	773.00	UPI (Google Pay / PhonePe)	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.047800	80.238100	13.060400	80.241500	13.064400	80.244500	16	2026-10-08 11:22:50.213671+05:30	2026-10-08 11:22:50.213684+05:30	1	3	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+4	WS-CHN-1004	Flat 4A, Cyber Residency, Chennai Metro	ACCEPTED	7003	870.00	35.00	20.00	10.00	40.00	895.00	WS Food Balance Wallet	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.050800	80.240100	12.998200	80.269000	13.002200	80.272000	17	2026-10-08 11:22:50.222975+05:30	2026-10-08 11:22:50.222988+05:30	1	4	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+5	WS-CHN-1005	Flat 5A, Cyber Residency, Chennai Metro	ARRIVING	7004	569.00	35.00	20.00	10.00	40.00	594.00	UPI (Google Pay / PhonePe)	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.053800	80.242100	13.041800	80.234100	13.045800	80.237100	18	2026-10-08 11:22:50.232197+05:30	2026-10-08 11:22:50.232214+05:30	1	5	8	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+6	WS-CHN-1006	Flat 6A, Cyber Residency, Chennai Metro	DELIVERED	7005	948.00	35.00	20.00	10.00	40.00	973.00	WS Food Balance Wallet	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.056800	80.244100	13.033600	80.251000	13.037600	80.254000	19	2026-10-08 11:22:50.242447+05:30	2026-10-08 11:22:50.242471+05:30	1	6	3	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+7	WS-CHN-1007	Flat 7A, Cyber Residency, Chennai Metro	DELIVERED	7006	300.00	35.00	20.00	10.00	40.00	325.00	UPI (Google Pay / PhonePe)	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.059800	80.246100	13.078400	80.241300	13.082400	80.244300	20	2026-10-08 11:22:50.25226+05:30	2026-10-08 11:22:50.252275+05:30	1	7	5	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+8	WS-CHN-1008	Flat 8A, Cyber Residency, Chennai Metro	DELIVERED	7007	660.00	35.00	20.00	10.00	40.00	685.00	WS Food Balance Wallet	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.062800	80.248100	12.935200	80.233700	12.939200	80.236700	21	2026-10-08 11:22:50.260791+05:30	2026-10-08 11:22:50.260812+05:30	1	8	6	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+9	WS-CHN-1009	Flat 9A, Cyber Residency, Chennai Metro	PLACED	7008	500.00	35.00	20.00	10.00	40.00	525.00	UPI (Google Pay / PhonePe)	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.065800	80.250100	12.981500	80.218000	12.985500	80.221000	22	2026-10-08 11:22:50.269982+05:30	2026-10-08 11:22:50.269998+05:30	1	9	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+10	WS-CHN-1010	Flat 10A, Cyber Residency, Chennai Metro	ON_THE_WAY	7009	700.00	35.00	20.00	10.00	40.00	725.00	WS Food Balance Wallet	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.068800	80.252100	13.082700	80.270700	13.086700	80.273700	23	2026-10-08 11:22:50.278613+05:30	2026-10-08 11:22:50.278631+05:30	1	10	8	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+11	WS-CHN-1011	Flat 11A, Cyber Residency, Chennai Metro	PREPARING	7010	648.00	35.00	20.00	10.00	40.00	673.00	UPI (Google Pay / PhonePe)	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.071800	80.254100	13.085000	80.210000	13.089000	80.213000	24	2026-10-08 11:22:50.287743+05:30	2026-10-08 11:22:50.287757+05:30	1	1	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+12	WS-CHN-1012	Flat 12A, Cyber Residency, Chennai Metro	DELIVERED	7011	728.00	35.00	20.00	10.00	40.00	753.00	WS Food Balance Wallet	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.074800	80.256100	13.036800	80.267600	13.040800	80.270600	25	2026-10-08 11:22:50.297105+05:30	2026-10-08 11:22:50.297119+05:30	1	2	5	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+13	WS-CHN-1013	Flat 13A, Cyber Residency, Chennai Metro	READY	7012	748.00	35.00	20.00	10.00	40.00	773.00	UPI (Google Pay / PhonePe)	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.077800	80.258100	13.060400	80.241500	13.064400	80.244500	26	2026-10-08 11:22:50.309076+05:30	2026-10-08 11:22:50.309105+05:30	1	3	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+14	WS-CHN-1014	Flat 14A, Cyber Residency, Chennai Metro	ON_THE_WAY	7013	870.00	35.00	20.00	10.00	40.00	895.00	WS Food Balance Wallet	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.080800	80.260100	12.998200	80.269000	13.002200	80.272000	27	2026-10-08 11:22:50.318802+05:30	2026-10-08 11:22:50.318829+05:30	1	4	7	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+15	WS-CHN-1015	Flat 15A, Cyber Residency, Chennai Metro	DELIVERED	7014	569.00	35.00	20.00	10.00	40.00	594.00	UPI (Google Pay / PhonePe)	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.083800	80.262100	13.041800	80.234100	13.045800	80.237100	28	2026-10-08 11:22:50.329138+05:30	2026-10-08 11:22:50.329156+05:30	1	5	8	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+16	WS-CHN-1016	Flat 16A, Cyber Residency, Chennai Metro	ACCEPTED	7015	948.00	35.00	20.00	10.00	40.00	973.00	WS Food Balance Wallet	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.086800	80.264100	13.033600	80.251000	13.037600	80.254000	14	2026-10-08 11:22:50.337865+05:30	2026-10-08 11:22:50.337879+05:30	1	6	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+17	WS-CHN-1017	Flat 17A, Cyber Residency, Chennai Metro	ARRIVING	7016	300.00	35.00	20.00	10.00	40.00	325.00	UPI (Google Pay / PhonePe)	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.089800	80.266100	13.078400	80.241300	13.082400	80.244300	15	2026-10-08 11:22:50.346239+05:30	2026-10-08 11:22:50.346251+05:30	1	7	5	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+18	WS-CHN-1018	Flat 18A, Cyber Residency, Chennai Metro	DELIVERED	7017	660.00	35.00	20.00	10.00	40.00	685.00	WS Food Balance Wallet	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.092800	80.268100	12.935200	80.233700	12.939200	80.236700	16	2026-10-08 11:22:50.354805+05:30	2026-10-08 11:22:50.354819+05:30	1	8	6	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+19	WS-CHN-1019	Flat 19A, Cyber Residency, Chennai Metro	PLACED	7018	500.00	35.00	20.00	10.00	40.00	525.00	UPI (Google Pay / PhonePe)	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.095800	80.270100	12.981500	80.218000	12.985500	80.221000	17	2026-10-08 11:22:50.363601+05:30	2026-10-08 11:22:50.363616+05:30	1	9	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+20	WS-CHN-1020	Flat 20A, Cyber Residency, Chennai Metro	ON_THE_WAY	7019	700.00	35.00	20.00	10.00	40.00	725.00	WS Food Balance Wallet	VERIFIED_PAID	Contact-free delivery, extra mint dip	13.098800	80.272100	13.082700	80.270700	13.086700	80.273700	18	2026-10-08 11:22:50.372422+05:30	2026-10-08 11:22:50.372439+05:30	1	10	8	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+21	WS-7036-19AD	Cyber Pod 42, Neo Bengaluru Grid	PLACED	5659	379.00	35.00	18.95	10.00	0.00	442.95	UPI	VERIFIED_PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-08 14:15:31.949553+05:30	2026-10-08 14:15:32.007236+05:30	1	1	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+22	TEST-P23-INELIGIBLE-1791619352	Sector 7, Cyber Heights, Neo Bengaluru	PREPARING	8492	0.00	35.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:32:32.158455+05:30	2026-10-10 13:32:32.158472+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+23	TEST-P23-UNPAID-1791619352	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	35.00	0.00	15.00	0.00	0.00	UPI (Instant)	FAILED		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:32:32.182723+05:30	2026-10-10 13:32:32.182743+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+24	TEST-P23-READY-1791619352	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	45.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:32:32.188905+05:30	2026-10-10 13:32:32.188926+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+25	TEST-P23-INELIGIBLE-1791619398	Sector 7, Cyber Heights, Neo Bengaluru	PREPARING	8492	0.00	35.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:33:18.956395+05:30	2026-10-10 13:33:18.956418+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+26	TEST-P23-UNPAID-1791619398	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	35.00	0.00	15.00	0.00	0.00	UPI (Instant)	FAILED		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:33:18.967671+05:30	2026-10-10 13:33:18.967683+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+27	TEST-P23-READY-1791619398	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	45.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:33:18.974495+05:30	2026-10-10 13:33:18.974515+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+28	TEST-P23-CONCUR-1791619411	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	40.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:33:31.580814+05:30	2026-10-10 13:33:35.778552+05:30	33	20	36	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+29	TEST-P23-EXPIRED-1791619419	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	40.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:33:39.925541+05:30	2026-10-10 13:33:39.925557+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+30	TEST-P23-REASSIGN-1791619424	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	50.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:33:44.097818+05:30	2026-10-10 13:33:44.129318+05:30	33	20	37	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+31	TEST-P23-INELIGIBLE-1791619687	Sector 7, Cyber Heights, Neo Bengaluru	PREPARING	8492	0.00	35.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:38:07.712487+05:30	2026-10-10 13:38:07.712497+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+32	TEST-P23-UNPAID-1791619687	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	35.00	0.00	15.00	0.00	0.00	UPI (Instant)	FAILED		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:38:07.72184+05:30	2026-10-10 13:38:07.72185+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+33	TEST-P23-READY-1791619687	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	45.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:38:07.728148+05:30	2026-10-10 13:38:07.728158+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+34	TEST-P23-CONCUR-1791619700	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	40.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:38:20.321757+05:30	2026-10-10 13:38:24.518161+05:30	33	20	36	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+35	TEST-P23-EXPIRED-1791619708	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	40.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:38:28.648615+05:30	2026-10-10 13:38:28.648628+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+36	TEST-P23-REASSIGN-1791619712	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	50.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:38:32.818885+05:30	2026-10-10 13:38:32.842039+05:30	33	20	37	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+37	TEST-P23-INELIGIBLE-1791620400	Sector 7, Cyber Heights, Neo Bengaluru	PREPARING	8492	0.00	35.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:50:00.922531+05:30	2026-10-10 13:50:00.922547+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+38	TEST-P23-UNPAID-1791620400	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	35.00	0.00	15.00	0.00	0.00	UPI (Instant)	FAILED		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:50:00.936046+05:30	2026-10-10 13:50:00.936064+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+39	TEST-P23-READY-1791620400	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	45.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:50:00.945138+05:30	2026-10-10 13:50:00.945156+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+40	TEST-P23-CONCUR-1791620413	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	40.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:50:13.598402+05:30	2026-10-10 13:50:17.768527+05:30	33	20	36	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+41	TEST-P23-EXPIRED-1791620421	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	40.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:50:21.860396+05:30	2026-10-10 13:50:21.860418+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+42	TEST-P23-REASSIGN-1791620426	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	50.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 13:50:26.006043+05:30	2026-10-10 13:50:26.029938+05:30	33	20	37	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+43	ORD-P24-TEST-001	Sector 7, Cyber Heights, Neo Bengaluru	DELIVERED	8492	0.00	30.00	0.00	15.00	0.00	450.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:01:33.749377+05:30	2026-10-10 14:01:33.749387+05:30	39	21	\N	\N	{}	15.00	0.00	450.00		\N		\N	0.00	\N		0.00	0
+44	ORD-P24-TEST-002	Sector 7, Cyber Heights, Neo Bengaluru	PREPARING	8492	0.00	30.00	0.00	15.00	0.00	600.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:01:33.757214+05:30	2026-10-10 14:01:33.757225+05:30	40	22	\N	\N	{}	15.00	0.00	600.00		\N		\N	0.00	\N		0.00	0
+45	TEST-P23-INELIGIBLE-1791622136	Sector 7, Cyber Heights, Neo Bengaluru	PREPARING	8492	0.00	35.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:18:56.451498+05:30	2026-10-10 14:18:56.451508+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+46	TEST-P23-UNPAID-1791622136	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	35.00	0.00	15.00	0.00	0.00	UPI (Instant)	FAILED		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:18:56.461047+05:30	2026-10-10 14:18:56.461072+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+47	TEST-P23-READY-1791622136	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	45.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:18:56.466831+05:30	2026-10-10 14:18:56.466842+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+48	TEST-P23-CONCUR-1791622149	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	40.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:19:09.057459+05:30	2026-10-10 14:19:13.234485+05:30	33	20	36	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+49	TEST-P23-EXPIRED-1791622157	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	40.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:19:17.323653+05:30	2026-10-10 14:19:17.323663+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+50	TEST-P23-REASSIGN-1791622161	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	50.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:19:21.469404+05:30	2026-10-10 14:19:21.488313+05:30	33	20	37	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+51	ORD-P25-TEST-001	Sector 7, Cyber Heights, Neo Bengaluru	DELIVERED	8492	400.00	40.00	20.00	15.00	0.00	490.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:39:42.604665+05:30	2026-10-10 14:39:42.604677+05:30	48	23	\N	\N	{}	15.00	400.00	490.00		\N		\N	0.00	\N		0.00	0
+52	ORD-P25-TEST-002	Sector 7, Cyber Heights, Neo Bengaluru	DELIVERED	8492	383.50	30.00	0.00	15.00	0.00	428.50	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:39:42.63114+05:30	2026-10-10 14:39:42.631156+05:30	48	23	\N	\N	{}	10.00	383.50	428.50		\N		\N	0.00	\N		0.00	0
+53	ORD-P25-UNPAID-001	Sector 7, Cyber Heights, Neo Bengaluru	PLACED	8492	500.00	30.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAYMENT_PENDING		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:39:42.650509+05:30	2026-10-10 14:39:42.650518+05:30	48	23	\N	\N	{}	15.00	500.00	0.00		\N		\N	0.00	\N		0.00	0
+54	ORD-P25-CANCEL-001	Sector 7, Cyber Heights, Neo Bengaluru	CANCELLED	8492	500.00	30.00	0.00	15.00	0.00	0.00	UPI (Instant)	CANCELLED		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:39:42.657376+05:30	2026-10-10 14:39:42.657386+05:30	48	23	\N	\N	{}	15.00	500.00	0.00		\N		\N	0.00	\N		0.00	0
+55	ORD-P25-STORE-B-001	Sector 7, Cyber Heights, Neo Bengaluru	DELIVERED	8492	1000.00	30.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:39:42.678098+05:30	2026-10-10 14:39:42.678119+05:30	48	24	\N	\N	{}	15.00	1000.00	0.00		\N		\N	0.00	\N		0.00	0
+56	TEST-P23-INELIGIBLE-1791624145	Sector 7, Cyber Heights, Neo Bengaluru	PREPARING	8492	0.00	35.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:52:25.653019+05:30	2026-10-10 14:52:25.653035+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+57	TEST-P23-UNPAID-1791624145	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	35.00	0.00	15.00	0.00	0.00	UPI (Instant)	FAILED		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:52:25.677496+05:30	2026-10-10 14:52:25.677517+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+58	TEST-P23-READY-1791624145	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	45.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:52:25.683666+05:30	2026-10-10 14:52:25.683676+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+59	TEST-P23-CONCUR-1791624158	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	40.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:52:38.280981+05:30	2026-10-10 14:52:42.457802+05:30	33	20	36	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+60	TEST-P23-EXPIRED-1791624166	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	40.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:52:46.568743+05:30	2026-10-10 14:52:46.568752+05:30	33	20	\N	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+61	TEST-P23-REASSIGN-1791624170	Sector 7, Cyber Heights, Neo Bengaluru	READY_FOR_PICKUP	8492	0.00	50.00	0.00	15.00	0.00	0.00	UPI (Instant)	PAID		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 14:52:50.722422+05:30	2026-10-10 14:52:50.748277+05:30	33	20	37	\N	{}	15.00	0.00	0.00		\N		\N	0.00	\N		0.00	0
+62	WS-T28-9B2091	Sector 7, Cyber Heights, Neo Bengaluru	CANCELLED	8492	0.00	30.00	0.00	15.00	0.00	350.00	UPI (Instant)	REFUNDED		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 18:40:22.914048+05:30	2026-10-10 19:18:51.271494+05:30	1	1	\N	\N	{}	15.00	0.00	350.00		\N		\N	0.00	\N		0.00	0
+63	WS-T28-EF8C41	Sector 7, Cyber Heights, Neo Bengaluru	CONFIRMED	8492	0.00	30.00	0.00	15.00	0.00	350.00	UPI (Instant)	PAYMENT_PENDING		12.971600	77.594600	12.978000	77.601000	12.975000	77.598000	22	2026-10-10 19:19:09.813343+05:30	2026-10-10 19:19:09.819958+05:30	1	1	\N	\N	{}	15.00	0.00	350.00		\N		\N	0.00	\N		0.00	0
+\.
+
+
+--
+-- Data for Name: orders_orderitem; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.orders_orderitem (id, quantity, price, selected_addons, food_item_id, order_id, customization_snapshot, food_name_snapshot, item_total, unit_price_snapshot) FROM stdin;
+1	1	349.00	[]	1	1	{}		0.00	0.00
+2	1	299.00	[]	2	1	{}		0.00	0.00
+3	1	399.00	[]	7	2	{}		0.00	0.00
+4	1	329.00	[]	8	2	{}		0.00	0.00
+5	1	399.00	[]	13	3	{}		0.00	0.00
+6	1	349.00	[]	14	3	{}		0.00	0.00
+7	1	450.00	[]	19	4	{}		0.00	0.00
+8	1	420.00	[]	20	4	{}		0.00	0.00
+9	1	249.00	[]	25	5	{}		0.00	0.00
+10	1	320.00	[]	26	5	{}		0.00	0.00
+11	1	449.00	[]	31	6	{}		0.00	0.00
+12	1	499.00	[]	32	6	{}		0.00	0.00
+13	1	160.00	[]	37	7	{}		0.00	0.00
+14	1	140.00	[]	38	7	{}		0.00	0.00
+15	1	320.00	[]	43	8	{}		0.00	0.00
+16	1	340.00	[]	44	8	{}		0.00	0.00
+17	1	240.00	[]	49	9	{}		0.00	0.00
+18	1	260.00	[]	50	9	{}		0.00	0.00
+19	1	340.00	[]	55	10	{}		0.00	0.00
+20	1	360.00	[]	56	10	{}		0.00	0.00
+21	1	349.00	[]	1	11	{}		0.00	0.00
+22	1	299.00	[]	2	11	{}		0.00	0.00
+23	1	399.00	[]	7	12	{}		0.00	0.00
+24	1	329.00	[]	8	12	{}		0.00	0.00
+25	1	399.00	[]	13	13	{}		0.00	0.00
+26	1	349.00	[]	14	13	{}		0.00	0.00
+27	1	450.00	[]	19	14	{}		0.00	0.00
+28	1	420.00	[]	20	14	{}		0.00	0.00
+29	1	249.00	[]	25	15	{}		0.00	0.00
+30	1	320.00	[]	26	15	{}		0.00	0.00
+31	1	449.00	[]	31	16	{}		0.00	0.00
+32	1	499.00	[]	32	16	{}		0.00	0.00
+33	1	160.00	[]	37	17	{}		0.00	0.00
+34	1	140.00	[]	38	17	{}		0.00	0.00
+35	1	320.00	[]	43	18	{}		0.00	0.00
+36	1	340.00	[]	44	18	{}		0.00	0.00
+37	1	240.00	[]	49	19	{}		0.00	0.00
+38	1	260.00	[]	50	19	{}		0.00	0.00
+39	1	340.00	[]	55	20	{}		0.00	0.00
+40	1	360.00	[]	56	20	{}		0.00	0.00
+41	1	379.00	[]	5	21	{}		0.00	0.00
+\.
+
+
+--
+-- Data for Name: orders_orderstatushistory; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.orders_orderstatushistory (id, from_status, to_status, actor_role, reason, created_at, actor_id, order_id) FROM stdin;
+1	READY_FOR_PICKUP	READY_FOR_PICKUP	DELIVERY	Assigned and accepted by delivery partner test_p23_rider_close	2026-10-10 13:33:35.789647+05:30	36	28
+2	READY_FOR_PICKUP	READY_FOR_PICKUP	ADMIN	Manual reassignment by Admin test_p23_admin from Unassigned to test_p23_rider_far. Justification: Manual priority VIP dispatch	2026-10-10 13:33:44.136148+05:30	34	30
+3	READY_FOR_PICKUP	READY_FOR_PICKUP	DELIVERY	Assigned and accepted by delivery partner test_p23_rider_close	2026-10-10 13:38:24.524144+05:30	36	34
+4	READY_FOR_PICKUP	READY_FOR_PICKUP	ADMIN	Manual reassignment by Admin test_p23_admin from Unassigned to test_p23_rider_far. Justification: Manual priority VIP dispatch	2026-10-10 13:38:32.846847+05:30	34	36
+5	READY_FOR_PICKUP	READY_FOR_PICKUP	DELIVERY	Assigned and accepted by delivery partner test_p23_rider_close	2026-10-10 13:50:17.775872+05:30	36	40
+6	READY_FOR_PICKUP	READY_FOR_PICKUP	ADMIN	Manual reassignment by Admin test_p23_admin from Unassigned to test_p23_rider_far. Justification: Manual priority VIP dispatch	2026-10-10 13:50:26.034981+05:30	34	42
+7	READY_FOR_PICKUP	READY_FOR_PICKUP	DELIVERY	Assigned and accepted by delivery partner test_p23_rider_close	2026-10-10 14:19:13.241565+05:30	36	48
+8	READY_FOR_PICKUP	READY_FOR_PICKUP	ADMIN	Manual reassignment by Admin test_p23_admin from Unassigned to test_p23_rider_far. Justification: Manual priority VIP dispatch	2026-10-10 14:19:21.492686+05:30	34	50
+9	READY_FOR_PICKUP	READY_FOR_PICKUP	DELIVERY	Assigned and accepted by delivery partner test_p23_rider_close	2026-10-10 14:52:42.473398+05:30	36	59
+10	READY_FOR_PICKUP	READY_FOR_PICKUP	ADMIN	Manual reassignment by Admin test_p23_admin from Unassigned to test_p23_rider_far. Justification: Manual priority VIP dispatch	2026-10-10 14:52:50.759065+05:30	34	61
+11	PLACED	CONFIRMED		Confirmed in test	2026-10-10 18:40:22.948873+05:30	1	62
+12	PLACED	CONFIRMED		Confirmed in test	2026-10-10 19:19:09.823861+05:30	1	63
+\.
+
+
+--
+-- Data for Name: payments_payment; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.payments_payment (id, amount, currency, status, payment_method, gateway_session_id, created_at, updated_at, order_id, idempotency_key, refund_amount, refund_reason, refunded_at, amount_minor_units, failure_code, failure_description, payment_provider, provider_order_id, provider_payment_id, provider_refund_id, provider_signature, verified_at) FROM stdin;
+1	350.00	INR	REFUNDED	UPI		2026-10-10 19:12:25.058909+05:30	2026-10-10 19:18:51.2468+05:30	62	\N	350.00	Security Audit Test Refund	2026-10-10 19:18:51.246594+05:30	35000			RAZORPAY					\N
+\.
+
+
+--
+-- Data for Name: payments_paymentwebhook; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.payments_paymentwebhook (id, event_type, payload, is_verified, processed_at, signature, created_at, event_id, is_processed, provider) FROM stdin;
+\.
+
+
+--
+-- Data for Name: payments_restaurantcommission; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.payments_restaurantcommission (id, order_number, calculation_base, packaging_fee, rate_percentage, fixed_fee, commission_amount, tax_on_commission, net_restaurant_amount, refund_deduction, status, created_at, updated_at, order_id, restaurant_id, settlement_id) FROM stdin;
+11	ORD-P24-TEST-001	0.00	15.00	15.00	5.00	5.00	0.00	10.00	0.00	ACCRUED	2026-10-10 14:42:53.079628+05:30	2026-10-10 14:42:53.079639+05:30	43	21	\N
+12	WS-CHN-1018	660.00	15.00	15.00	5.00	104.00	0.00	571.00	0.00	ACCRUED	2026-10-10 14:42:53.088629+05:30	2026-10-10 14:42:53.088645+05:30	18	8	\N
+13	WS-CHN-1015	569.00	15.00	15.00	5.00	90.35	0.00	493.65	0.00	ACCRUED	2026-10-10 14:42:53.096457+05:30	2026-10-10 14:42:53.096472+05:30	15	5	\N
+14	WS-CHN-1012	728.00	15.00	15.00	5.00	114.20	0.00	628.80	0.00	ACCRUED	2026-10-10 14:42:53.104334+05:30	2026-10-10 14:42:53.104348+05:30	12	2	\N
+15	WS-CHN-1008	660.00	15.00	15.00	5.00	104.00	0.00	571.00	0.00	ACCRUED	2026-10-10 14:42:53.111713+05:30	2026-10-10 14:42:53.111724+05:30	8	8	\N
+16	WS-CHN-1007	300.00	15.00	15.00	5.00	50.00	0.00	265.00	0.00	ACCRUED	2026-10-10 14:42:53.119587+05:30	2026-10-10 14:42:53.119603+05:30	7	7	\N
+17	WS-CHN-1006	948.00	15.00	15.00	5.00	147.20	0.00	815.80	0.00	ACCRUED	2026-10-10 14:42:53.126841+05:30	2026-10-10 14:42:53.126854+05:30	6	6	\N
+22	TEST-P23-INELIGIBLE-1791624145	0.00	15.00	15.00	5.00	5.00	0.00	10.00	0.00	ACCRUED	2026-10-10 14:52:25.667686+05:30	2026-10-10 14:52:25.667698+05:30	56	20	\N
+23	TEST-P23-READY-1791624145	0.00	15.00	15.00	5.00	5.00	0.00	10.00	0.00	ACCRUED	2026-10-10 14:52:25.689982+05:30	2026-10-10 14:52:25.689994+05:30	58	20	\N
+24	TEST-P23-CONCUR-1791624158	0.00	15.00	15.00	5.00	5.00	0.00	10.00	0.00	ACCRUED	2026-10-10 14:52:38.286778+05:30	2026-10-10 14:52:42.466009+05:30	59	20	\N
+25	TEST-P23-EXPIRED-1791624166	0.00	15.00	15.00	5.00	5.00	0.00	10.00	0.00	ACCRUED	2026-10-10 14:52:46.574928+05:30	2026-10-10 14:52:46.574945+05:30	60	20	\N
+26	TEST-P23-REASSIGN-1791624170	0.00	15.00	15.00	5.00	5.00	0.00	10.00	0.00	ACCRUED	2026-10-10 14:52:50.728206+05:30	2026-10-10 14:52:50.754698+05:30	61	20	\N
+30	ORD-P25-TEST-002	383.50	10.00	18.00	0.00	69.03	0.00	324.47	0.00	SETTLED	2026-10-10 17:05:12.287852+05:30	2026-10-10 17:05:12.378723+05:30	52	23	8
+31	ORD-P25-TEST-001	400.00	15.00	18.00	0.00	72.00	0.00	343.00	0.00	SETTLED	2026-10-10 17:05:12.30802+05:30	2026-10-10 17:05:12.378723+05:30	51	23	8
+32	ORD-P25-STORE-B-001	1000.00	15.00	18.00	0.00	180.00	0.00	835.00	0.00	SETTLED	2026-10-10 17:05:12.320933+05:30	2026-10-10 17:05:12.461086+05:30	55	24	9
+33	WS-T28-9B2091	0.00	15.00	15.00	5.00	0.00	0.00	0.00	0.00	CANCELLED	2026-10-10 19:12:25.084995+05:30	2026-10-10 19:18:51.276769+05:30	62	1	\N
+\.
+
+
+--
+-- Data for Name: payments_restaurantsettlement; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.payments_restaurantsettlement (id, settlement_reference, period_start, period_end, currency, order_count, gross_sales_amount, total_packaging_fees, total_commission_deducted, total_adjustments, net_payout_amount, status, payout_provider, provider_reference, provider_utr, failure_reason, notes, payout_initiated_at, payout_completed_at, created_at, updated_at, approved_by_id, created_by_id, restaurant_id, verified_by_id) FROM stdin;
+8	SET-20261010-508614	2026-10-10	2026-10-10	INR	2	783.50	25.00	141.03	0.00	667.47	PAID	INTERNAL_LEDGER	RZP_BATCH_9901	UTR_HDFC_20261010_9981		Automated Daily Settlement Batch	2026-10-10 17:05:12.431423+05:30	2026-10-10 17:05:12.441891+05:30	2026-10-10 17:05:12.37701+05:30	2026-10-10 17:05:12.442025+05:30	47	47	23	47
+9	SET-20261010-55C2E4	2026-10-10	2026-10-10	INR	1	1000.00	15.00	180.00	50.00	885.00	PAID	INTERNAL_LEDGER		UTR_B_1234			2026-10-10 17:05:12.494697+05:30	2026-10-10 17:05:12.500683+05:30	2026-10-10 17:05:12.459916+05:30	2026-10-10 17:05:12.500807+05:30	47	47	24	47
+\.
+
+
+--
+-- Data for Name: payments_settlementadjustment; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.payments_settlementadjustment (id, adjustment_type, amount, reason, created_at, authorized_by_id, restaurant_id, settlement_id) FROM stdin;
+4	PROMOTION_CREDIT	50.00	Diwali festival marketing promotional subsidy	2026-10-10 17:05:12.475607+05:30	47	24	9
+\.
+
+
+--
+-- Data for Name: payments_transaction; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.payments_transaction (id, transaction_id, amount, is_success, raw_response, "timestamp", payment_id, idempotency_key, transaction_type) FROM stdin;
+2	REFUND-F13764407D	350.00	t	{"reason": "Security Audit Test Refund", "channel": "AUTO_REFUND"}	2026-10-10 19:12:52.296218+05:30	1	\N	REFUND
+3	REFUND-9ED2488C70	350.00	t	{"reason": "Security Audit Test Refund", "channel": "AUTO_REFUND"}	2026-10-10 19:13:30.658168+05:30	1	\N	REFUND
+4	REFUND-2280783774	350.00	t	{"reason": "Security Audit Test Refund", "channel": "AUTO_REFUND"}	2026-10-10 19:13:57.181306+05:30	1	\N	REFUND
+5	REFUND-9A17484A07	350.00	t	{"reason": "Security Audit Test Refund", "channel": "AUTO_REFUND"}	2026-10-10 19:15:21.924887+05:30	1	\N	REFUND
+6	REFUND-C82EB514E3	350.00	t	{"reason": "Security Audit Test Refund", "channel": "AUTO_REFUND"}	2026-10-10 19:18:51.261592+05:30	1	\N	REFUND
+\.
+
+
+--
+-- Data for Name: products_foodaddon; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.products_foodaddon (id, name, price, is_available, food_id) FROM stdin;
+1	Extra Truffle Melt	45.00	t	1
+2	Spiced Crispy Dip	30.00	t	1
+3	Extra Truffle Melt	45.00	t	2
+4	Spiced Crispy Dip	30.00	t	2
+5	Extra Truffle Melt	45.00	t	3
+6	Spiced Crispy Dip	30.00	t	3
+7	Extra Truffle Melt	45.00	t	4
+8	Spiced Crispy Dip	30.00	t	4
+9	Extra Truffle Melt	45.00	t	5
+10	Spiced Crispy Dip	30.00	t	5
+11	Extra Truffle Melt	45.00	t	6
+12	Spiced Crispy Dip	30.00	t	6
+13	Extra Truffle Melt	45.00	t	7
+14	Spiced Crispy Dip	30.00	t	7
+15	Extra Truffle Melt	45.00	t	8
+16	Spiced Crispy Dip	30.00	t	8
+17	Extra Truffle Melt	45.00	t	9
+18	Spiced Crispy Dip	30.00	t	9
+19	Extra Truffle Melt	45.00	t	10
+20	Spiced Crispy Dip	30.00	t	10
+21	Extra Truffle Melt	45.00	t	11
+22	Spiced Crispy Dip	30.00	t	11
+23	Extra Truffle Melt	45.00	t	12
+24	Spiced Crispy Dip	30.00	t	12
+25	Extra Truffle Melt	45.00	t	13
+26	Spiced Crispy Dip	30.00	t	13
+27	Extra Truffle Melt	45.00	t	14
+28	Spiced Crispy Dip	30.00	t	14
+29	Extra Truffle Melt	45.00	t	15
+30	Spiced Crispy Dip	30.00	t	15
+31	Extra Truffle Melt	45.00	t	16
+32	Spiced Crispy Dip	30.00	t	16
+33	Extra Truffle Melt	45.00	t	17
+34	Spiced Crispy Dip	30.00	t	17
+35	Extra Truffle Melt	45.00	t	18
+36	Spiced Crispy Dip	30.00	t	18
+37	Extra Truffle Melt	45.00	t	19
+38	Spiced Crispy Dip	30.00	t	19
+39	Extra Truffle Melt	45.00	t	20
+40	Spiced Crispy Dip	30.00	t	20
+41	Extra Truffle Melt	45.00	t	21
+42	Spiced Crispy Dip	30.00	t	21
+43	Extra Truffle Melt	45.00	t	22
+44	Spiced Crispy Dip	30.00	t	22
+45	Extra Truffle Melt	45.00	t	23
+46	Spiced Crispy Dip	30.00	t	23
+47	Extra Truffle Melt	45.00	t	24
+48	Spiced Crispy Dip	30.00	t	24
+49	Extra Truffle Melt	45.00	t	25
+50	Spiced Crispy Dip	30.00	t	25
+51	Extra Truffle Melt	45.00	t	26
+52	Spiced Crispy Dip	30.00	t	26
+53	Extra Truffle Melt	45.00	t	27
+54	Spiced Crispy Dip	30.00	t	27
+55	Extra Truffle Melt	45.00	t	28
+56	Spiced Crispy Dip	30.00	t	28
+57	Extra Truffle Melt	45.00	t	29
+58	Spiced Crispy Dip	30.00	t	29
+59	Extra Truffle Melt	45.00	t	30
+60	Spiced Crispy Dip	30.00	t	30
+61	Extra Truffle Melt	45.00	t	31
+62	Spiced Crispy Dip	30.00	t	31
+63	Extra Truffle Melt	45.00	t	32
+64	Spiced Crispy Dip	30.00	t	32
+65	Extra Truffle Melt	45.00	t	33
+66	Spiced Crispy Dip	30.00	t	33
+67	Extra Truffle Melt	45.00	t	34
+68	Spiced Crispy Dip	30.00	t	34
+69	Extra Truffle Melt	45.00	t	35
+70	Spiced Crispy Dip	30.00	t	35
+71	Extra Truffle Melt	45.00	t	36
+72	Spiced Crispy Dip	30.00	t	36
+73	Extra Truffle Melt	45.00	t	37
+74	Spiced Crispy Dip	30.00	t	37
+75	Extra Truffle Melt	45.00	t	38
+76	Spiced Crispy Dip	30.00	t	38
+77	Extra Truffle Melt	45.00	t	39
+78	Spiced Crispy Dip	30.00	t	39
+79	Extra Truffle Melt	45.00	t	40
+80	Spiced Crispy Dip	30.00	t	40
+81	Extra Truffle Melt	45.00	t	41
+82	Spiced Crispy Dip	30.00	t	41
+83	Extra Truffle Melt	45.00	t	42
+84	Spiced Crispy Dip	30.00	t	42
+85	Extra Truffle Melt	45.00	t	43
+86	Spiced Crispy Dip	30.00	t	43
+87	Extra Truffle Melt	45.00	t	44
+88	Spiced Crispy Dip	30.00	t	44
+89	Extra Truffle Melt	45.00	t	45
+90	Spiced Crispy Dip	30.00	t	45
+91	Extra Truffle Melt	45.00	t	46
+92	Spiced Crispy Dip	30.00	t	46
+93	Extra Truffle Melt	45.00	t	47
+94	Spiced Crispy Dip	30.00	t	47
+95	Extra Truffle Melt	45.00	t	48
+96	Spiced Crispy Dip	30.00	t	48
+97	Extra Truffle Melt	45.00	t	49
+98	Spiced Crispy Dip	30.00	t	49
+99	Extra Truffle Melt	45.00	t	50
+100	Spiced Crispy Dip	30.00	t	50
+101	Extra Truffle Melt	45.00	t	51
+102	Spiced Crispy Dip	30.00	t	51
+103	Extra Truffle Melt	45.00	t	52
+104	Spiced Crispy Dip	30.00	t	52
+105	Extra Truffle Melt	45.00	t	53
+106	Spiced Crispy Dip	30.00	t	53
+107	Extra Truffle Melt	45.00	t	54
+108	Spiced Crispy Dip	30.00	t	54
+109	Extra Truffle Melt	45.00	t	55
+110	Spiced Crispy Dip	30.00	t	55
+111	Extra Truffle Melt	45.00	t	56
+112	Spiced Crispy Dip	30.00	t	56
+113	Extra Truffle Melt	45.00	t	57
+114	Spiced Crispy Dip	30.00	t	57
+115	Extra Truffle Melt	45.00	t	58
+116	Spiced Crispy Dip	30.00	t	58
+117	Extra Truffle Melt	45.00	t	59
+118	Spiced Crispy Dip	30.00	t	59
+119	Extra Truffle Melt	45.00	t	60
+120	Spiced Crispy Dip	30.00	t	60
+121	A1	25.00	t	61
+122	A2	20.00	t	61
+\.
+
+
+--
+-- Data for Name: products_fooditem; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.products_fooditem (id, name, slug, short_description, full_description, price, original_price, discount, is_veg, spice_level, prep_time_minutes, ingredients, allergens, image, video_url, rating, review_count, is_available, is_featured, stock, created_at, updated_at, category_id, restaurant_id, dietary_type, display_order, food_image, menu_category_id, available_from_time, available_to_time, is_sold_out, meal_periods) FROM stdin;
+1	Quantum Double Glaze Burger	quantum-double-glaze-burger	Double wagyu smashed patties, smoked chipotle glaze, cheddar melt.	Double wagyu smashed patties, smoked chipotle glaze, cheddar melt. Prepared fresh to order with certified premium ingredients.	349.00	399.00	12% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.229299+05:30	2026-10-08 19:03:30.200496+05:30	2	1	NON_VEG	0		1	\N	\N	f	[]
+2	Crispy Truffle Shroom Burger	crispy-truffle-shroom-burger	Crisp panko portobello with black truffle aioli, fontina melt.	Crisp panko portobello with black truffle aioli, fontina melt. Prepared fresh to order with certified premium ingredients.	299.00	349.00	15% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.247689+05:30	2026-10-08 19:03:30.216344+05:30	2	1	VEG	0		1	\N	\N	f	[]
+3	Nitro Electric Smash Wings	nitro-electric-smash-wings	Glazed crispy chicken wings tossed in fiery scotch bonnet sauce.	Glazed crispy chicken wings tossed in fiery scotch bonnet sauce. Prepared fresh to order with certified premium ingredients.	269.00	310.00	10% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1527477378406-444a5b1215ea?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.262583+05:30	2026-10-08 19:03:30.225387+05:30	2	1	NON_VEG	0		1	\N	\N	f	[]
+4	Cyber Fries with Melted Fontina	cyber-fries-melted-fontina	Double-fried russet cut fries smothered in smoked cheese drizzle.	Double-fried russet cut fries smothered in smoked cheese drizzle. Prepared fresh to order with certified premium ingredients.	179.00	210.00	15% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.275669+05:30	2026-10-08 19:03:30.234068+05:30	2	1	VEG	0		1	\N	\N	f	[]
+6	Electric Mango Habanero Shake	electric-mango-habanero-shake	Creamy alphonso mango shake with mild habanero tingle and whipped froth.	Creamy alphonso mango shake with mild habanero tingle and whipped froth. Prepared fresh to order with certified premium ingredients.	189.00	220.00	14% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.305192+05:30	2026-10-08 19:03:30.255397+05:30	7	1	VEG	0		2	\N	\N	f	[]
+7	Royal Mutton Seeraga Samba Dum	royal-mutton-seeraga-samba-dum	Fragrant short-grain samba simmered with tender mutton & ghee.	Fragrant short-grain samba simmered with tender mutton & ghee. Prepared fresh to order with certified premium ingredients.	399.00	450.00	12% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.320227+05:30	2026-10-08 19:03:30.269369+05:30	4	2	NON_VEG	0		3	\N	\N	f	[]
+8	Nawabi Saffron Chicken Dum Biryani	nawabi-saffron-chicken-dum	Slow-cooked aged basmati layered with farm chicken and saffron ghee.	Slow-cooked aged basmati layered with farm chicken and saffron ghee. Prepared fresh to order with certified premium ingredients.	329.00	370.00	10% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.334324+05:30	2026-10-08 19:03:30.277976+05:30	4	2	NON_VEG	0		3	\N	\N	f	[]
+9	Chettinad Spicy Mutton Sukka	chettinad-spicy-mutton-sukka	Dry-roasted mutton chunks with shallots, crushed pepper, curry leaves.	Dry-roasted mutton chunks with shallots, crushed pepper, curry leaves. Prepared fresh to order with certified premium ingredients.	349.00	390.00	10% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.348152+05:30	2026-10-08 19:03:30.289917+05:30	5	2	NON_VEG	0		4	\N	\N	f	[]
+10	Charcoal Paneer Tikka Dum Pot	charcoal-paneer-tikka-dum-pot	Marinated charcoal cottage cheese cubes with mint-infused rice.	Marinated charcoal cottage cheese cubes with mint-infused rice. Prepared fresh to order with certified premium ingredients.	289.00	320.00	10% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.364135+05:30	2026-10-08 19:03:30.300209+05:30	4	2	VEG	0		3	\N	\N	f	[]
+11	Madras Chicken 65 Boneless	madras-chicken-65-boneless	Crispy spiced chicken bites tossed with fried green chilies & garlic.	Crispy spiced chicken bites tossed with fried green chilies & garlic. Prepared fresh to order with certified premium ingredients.	249.00	280.00	12% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.379817+05:30	2026-10-08 19:03:30.308127+05:30	5	2	NON_VEG	0		4	\N	\N	f	[]
+12	Mirchi Ka Salan & Onion Raitha	mirchi-ka-salan-onion-raitha	Traditional roasted peanut-sesame curry served with chilled curd raitha.	Traditional roasted peanut-sesame curry served with chilled curd raitha. Prepared fresh to order with certified premium ingredients.	120.00	140.00	15% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.394937+05:30	2026-10-08 19:03:30.316006+05:30	4	2	VEG	0		3	\N	\N	f	[]
+13	Tokyo Nitro Black Garlic Ramen	tokyo-nitro-black-garlic-ramen	16hr pork broth, roasted black garlic oil, ajitsuke tamago egg.	16hr pork broth, roasted black garlic oil, ajitsuke tamago egg. Prepared fresh to order with certified premium ingredients.	399.00	440.00	10% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.413706+05:30	2026-10-08 19:03:30.32917+05:30	1	3	NON_VEG	0		5	\N	\N	f	[]
+14	Spicy Miso Tofu Kinetic Ramen	spicy-miso-tofu-kinetic-ramen	Rich fermented red miso broth, springy noodles, silken tofu, nori.	Rich fermented red miso broth, springy noodles, silken tofu, nori. Prepared fresh to order with certified premium ingredients.	349.00	390.00	10% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.431319+05:30	2026-10-08 19:03:30.33736+05:30	1	3	VEG	0		5	\N	\N	f	[]
+16	Steamed Chashu Pork Bao Buns	steamed-chashu-pork-bao-buns	Fluffy cloud buns with glazed pork belly, scallions, hoisin mist.	Fluffy cloud buns with glazed pork belly, scallions, hoisin mist. Prepared fresh to order with certified premium ingredients.	289.00	320.00	10% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.463862+05:30	2026-10-08 19:03:30.356387+05:30	1	3	NON_VEG	0		5	\N	\N	f	[]
+17	Edamame Sea Salt & Togarashi	edamame-sea-salt-togarashi	Steamed green soybean pods dusted with flaky salt and Japanese spice.	Steamed green soybean pods dusted with flaky salt and Japanese spice. Prepared fresh to order with certified premium ingredients.	180.00	200.00	10% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.477187+05:30	2026-10-08 19:03:30.365939+05:30	1	3	VEG	0		5	\N	\N	f	[]
+18	Ceremonial Uji Iced Matcha Latte	ceremonial-uji-iced-matcha-latte	Stone-ground Kyoto green tea whipped over oat milk and ice.	Stone-ground Kyoto green tea whipped over oat milk and ice. Prepared fresh to order with certified premium ingredients.	210.00	240.00	12% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.490608+05:30	2026-10-08 19:03:30.37787+05:30	7	3	VEG	0		6	\N	\N	f	[]
+19	Marina Tawa Pomfret Fry	marina-tawa-pomfret-fry	Whole silver pomfret crusted with fiery red chili masala on hot iron.	Whole silver pomfret crusted with fiery red chili masala on hot iron. Prepared fresh to order with certified premium ingredients.	450.00	520.00	14% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.505486+05:30	2026-10-08 19:03:30.388377+05:30	5	4	NON_VEG	0		7	\N	\N	f	[]
+20	Tiger Prawn Ghee Roast Roast	tiger-prawn-ghee-roast	Jumbo sea prawns slow-roasted with Byadgi chilies and cultured ghee.	Jumbo sea prawns slow-roasted with Byadgi chilies and cultured ghee. Prepared fresh to order with certified premium ingredients.	420.00	480.00	12% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1559742811-822863cb4cb7?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.520009+05:30	2026-10-08 19:03:30.397102+05:30	5	4	NON_VEG	0		7	\N	\N	f	[]
+21	Spicy Bay Crab Masala Bowl	spicy-bay-crab-masala-bowl	Fresh coastal blue crab simmered in roasted coconut & shallot gravy.	Fresh coastal blue crab simmered in roasted coconut & shallot gravy. Prepared fresh to order with certified premium ingredients.	410.00	460.00	11% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1551248429-40975aa4de74?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.538453+05:30	2026-10-08 19:03:30.407739+05:30	5	4	NON_VEG	0		7	\N	\N	f	[]
+22	Fluffy Soft Appams with Stew (3pcs)	fluffy-soft-appams-with-stew	Lacy fermented rice crepes with creamy aromatic coconut milk stew.	Lacy fermented rice crepes with creamy aromatic coconut milk stew. Prepared fresh to order with certified premium ingredients.	199.00	230.00	15% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.559677+05:30	2026-10-08 19:03:30.418621+05:30	6	4	VEG	0		8	\N	\N	f	[]
+23	Squid Butter Garlic Calamari	squid-butter-garlic-calamari	Tender squid rings tossed in cracked pepper, golden butter and garlic.	Tender squid rings tossed in cracked pepper, golden butter and garlic. Prepared fresh to order with certified premium ingredients.	340.00	380.00	10% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.580133+05:30	2026-10-08 19:03:30.427295+05:30	5	4	NON_VEG	0		7	\N	\N	f	[]
+24	Tender Coconut Kinetic Cooler	tender-coconut-kinetic-cooler	Fresh coastal elaneer blended with mint, lemon zest and crushed ice.	Fresh coastal elaneer blended with mint, lemon zest and crushed ice. Prepared fresh to order with certified premium ingredients.	140.00	160.00	12% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.60077+05:30	2026-10-08 19:03:30.437577+05:30	7	4	VEG	0		9	\N	\N	f	[]
+25	Signature Chicken Kothu Parotta	signature-chicken-kothu-parotta	Flaky shredded parotta beaten on hot griddle with egg, chicken salna.	Flaky shredded parotta beaten on hot griddle with egg, chicken salna. Prepared fresh to order with certified premium ingredients.	249.00	280.00	11% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.622432+05:30	2026-10-08 19:03:30.448663+05:30	5	5	NON_VEG	0		10	\N	\N	f	[]
+26	Nattu Kozhi Peppery Milagu Roast	nattu-kozhi-peppery-milagu-roast	Country chicken braised with stone-ground black pepper and shallots.	Country chicken braised with stone-ground black pepper and shallots. Prepared fresh to order with certified premium ingredients.	320.00	360.00	11% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.63947+05:30	2026-10-08 19:03:30.458582+05:30	5	5	NON_VEG	0		10	\N	\N	f	[]
+27	Flaky Ceylon Egg Parotta (2pcs)	flaky-ceylon-egg-parotta	Multi-layered buttery parottas served with rich aromatic salna gravy.	Multi-layered buttery parottas served with rich aromatic salna gravy. Prepared fresh to order with certified premium ingredients.	160.00	180.00	10% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.655496+05:30	2026-10-08 19:03:30.467318+05:30	5	5	NON_VEG	0		10	\N	\N	f	[]
+28	Chettinad Mushroom Chukka	chettinad-mushroom-chukka	Fresh button mushrooms dry-roasted with fennel, curry leaves and chili.	Fresh button mushrooms dry-roasted with fennel, curry leaves and chili. Prepared fresh to order with certified premium ingredients.	210.00	240.00	12% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.672258+05:30	2026-10-08 19:03:30.475556+05:30	5	5	VEG	0		10	\N	\N	f	[]
+30	Jigarthanda Madurai Special	jigarthanda-madurai-special	Chilled almond gum milk, nannari syrup, topped with rich basundi scoop.	Chilled almond gum milk, nannari syrup, topped with rich basundi scoop. Prepared fresh to order with certified premium ingredients.	160.00	180.00	11% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.70554+05:30	2026-10-08 19:03:30.496079+05:30	8	5	VEG	0		12	\N	\N	f	[]
+31	Diavola Fiery Calabrese Pizza	diavola-fiery-calabrese-pizza	48hr kinetic dough, San Marzano sauce, spicy pepperoni, fresh basil.	48hr kinetic dough, San Marzano sauce, spicy pepperoni, fresh basil. Prepared fresh to order with certified premium ingredients.	449.00	499.00	10% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.720505+05:30	2026-10-08 19:03:30.50584+05:30	3	6	NON_VEG	0		13	\N	\N	f	[]
+32	Truffle Wild Mushroom Burrata Pizza	truffle-wild-mushroom-burrata-pizza	Black truffle paste, portobello mushrooms, fresh creamy burrata ball.	Black truffle paste, portobello mushrooms, fresh creamy burrata ball. Prepared fresh to order with certified premium ingredients.	499.00	560.00	11% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.733104+05:30	2026-10-08 19:03:30.514189+05:30	3	6	VEG	0		13	\N	\N	f	[]
+33	Margherita D.O.P Buffalo Mozzarella	margherita-dop-buffalo-mozzarella	Crushed Italian tomatoes, buffalo mozzarella, fresh basil, olive oil.	Crushed Italian tomatoes, buffalo mozzarella, fresh basil, olive oil. Prepared fresh to order with certified premium ingredients.	369.00	410.00	10% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1604382355076-af4b0eb60143?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.747324+05:30	2026-10-08 19:03:30.523725+05:30	3	6	VEG	0		13	\N	\N	f	[]
+34	Creamy Pesto Genovese Penne	creamy-pesto-genovese-penne	Artisanal bronze-die pasta tossed in basil-pine nut pesto and cream.	Artisanal bronze-die pasta tossed in basil-pine nut pesto and cream. Prepared fresh to order with certified premium ingredients.	340.00	380.00	10% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1621996346565-e3d5d6281781?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.760889+05:30	2026-10-08 19:03:30.532201+05:30	3	6	VEG	0		13	\N	\N	f	[]
+35	Crispy Garlic Pull-Apart Bread	crispy-garlic-pull-apart-bread	Fresh baked dough knot loaded with garlic butter and melted mozzarella.	Fresh baked dough knot loaded with garlic butter and melted mozzarella. Prepared fresh to order with certified premium ingredients.	199.00	220.00	10% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1619895092538-128341789043?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.774433+05:30	2026-10-08 19:03:30.540381+05:30	3	6	VEG	0		13	\N	\N	f	[]
+36	Classic Venetian Tiramisu Jar	classic-venetian-tiramisu-jar	Espresso-soaked savoiardi biscuits layered with mascarpone cream.	Espresso-soaked savoiardi biscuits layered with mascarpone cream. Prepared fresh to order with certified premium ingredients.	240.00	270.00	11% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.789452+05:30	2026-10-08 19:03:30.551791+05:30	8	6	VEG	0		14	\N	\N	f	[]
+37	Madras Ghee Podi Crisp Roast	madras-ghee-podi-crisp-roast	Extra thin golden dosa smeared with spicy gun-powder podi and butter.	Extra thin golden dosa smeared with spicy gun-powder podi and butter. Prepared fresh to order with certified premium ingredients.	160.00	180.00	11% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.804578+05:30	2026-10-08 19:03:30.564276+05:30	6	7	VEG	0		15	\N	\N	f	[]
+38	14-Mini Button Ghee Sambar Idli	14-mini-button-ghee-sambar-idli	14 bite-sized fluffy idlis submerged in piping hot shallot sambar.	14 bite-sized fluffy idlis submerged in piping hot shallot sambar. Prepared fresh to order with certified premium ingredients.	140.00	160.00	12% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.818406+05:30	2026-10-08 19:03:30.573324+05:30	6	7	VEG	0		15	\N	\N	f	[]
+39	Chettinad Onion Rava Masala Dosa	chettinad-onion-rava-masala-dosa	Semolina batter crisp lace dosa stuffed with spiced potato masala.	Semolina batter crisp lace dosa stuffed with spiced potato masala. Prepared fresh to order with certified premium ingredients.	175.00	195.00	10% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.832055+05:30	2026-10-08 19:03:30.583369+05:30	6	7	VEG	0		15	\N	\N	f	[]
+40	Crispy Medu Vada Duo (2pcs)	crispy-medu-vada-duo	Crisp fried urad dal donuts served with coconut and tomato chutneys.	Crisp fried urad dal donuts served with coconut and tomato chutneys. Prepared fresh to order with certified premium ingredients.	90.00	110.00	18% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.846939+05:30	2026-10-08 19:03:30.594458+05:30	6	7	VEG	0		15	\N	\N	f	[]
+41	Kumbakonam Degree Filter Coffee	kumbakonam-degree-filter-coffee	Strong chicory drip coffee frothed with thick cows milk in brass davarah.	Strong chicory drip coffee frothed with thick cows milk in brass davarah. Prepared fresh to order with certified premium ingredients.	60.00	75.00	20% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.860143+05:30	2026-10-08 19:03:30.612401+05:30	7	7	VEG	0		16	\N	\N	f	[]
+42	Melt-in-Mouth Ghee Mysore Pak	melt-in-mouth-ghee-mysore-pak	Velvety gram flour confectionery soaked in pure fragrant desi ghee.	Velvety gram flour confectionery soaked in pure fragrant desi ghee. Prepared fresh to order with certified premium ingredients.	120.00	140.00	14% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1599785209707-a456fc1337bb?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.872709+05:30	2026-10-08 19:03:30.630218+05:30	8	7	VEG	0		17	\N	\N	f	[]
+44	Grilled Teriyaki Chicken Macro Bowl	grilled-teriyaki-chicken-macro-bowl	Lean grilled chicken breast, brown rice, broccoli florets, sesame seeds.	Lean grilled chicken breast, brown rice, broccoli florets, sesame seeds. Prepared fresh to order with certified premium ingredients.	340.00	380.00	10% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.903717+05:30	2026-10-08 19:03:30.651109+05:30	1	8	NON_VEG	0		18	\N	\N	f	[]
+45	Crispy Tofu & Peanut Satay Bowl	crispy-tofu-peanut-satay-bowl	Glazed tofu cubes, zucchini noodles, peanut dressing, crushed cashews.	Glazed tofu cubes, zucchini noodles, peanut dressing, crushed cashews. Prepared fresh to order with certified premium ingredients.	290.00	320.00	10% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.915293+05:30	2026-10-08 19:03:30.660067+05:30	1	8	VEG	0		18	\N	\N	f	[]
+46	Citrus Salmon Omega Power Bowl	citrus-salmon-omega-power-bowl	Pan-seared Norwegian salmon, wild greens, avocado, ponzu vinaigrette.	Pan-seared Norwegian salmon, wild greens, avocado, ponzu vinaigrette. Prepared fresh to order with certified premium ingredients.	480.00	540.00	11% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.964804+05:30	2026-10-08 19:03:30.669825+05:30	1	8	NON_VEG	0		18	\N	\N	f	[]
+47	Blue Spirulina Electrolyte Cooler	blue-spirulina-electrolyte-cooler	Cold pressed coconut water, blue majik spirulina, lime, pink salt.	Cold pressed coconut water, blue majik spirulina, lime, pink salt. Prepared fresh to order with certified premium ingredients.	160.00	190.00	15% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.989581+05:30	2026-10-08 19:03:30.681765+05:30	7	8	VEG	0		19	\N	\N	f	[]
+48	Raw Chia Seed Berry Pudding Pot	raw-chia-seed-berry-pudding-pot	Coconut milk chia pudding layered with organic strawberry compote.	Coconut milk chia pudding layered with organic strawberry compote. Prepared fresh to order with certified premium ingredients.	180.00	210.00	14% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:50.007025+05:30	2026-10-08 19:03:30.699112+05:30	8	8	VEG	0		20	\N	\N	f	[]
+49	Molten Belgian Dark Chocolate Tart	molten-belgian-dark-chocolate-tart	70% Valrhona dark chocolate lava cake encased in buttery shortcrust.	70% Valrhona dark chocolate lava cake encased in buttery shortcrust. Prepared fresh to order with certified premium ingredients.	240.00	280.00	14% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:50.020337+05:30	2026-10-08 19:03:30.721211+05:30	8	9	VEG	0		21	\N	\N	f	[]
+50	Japanese Fluffy Souffle Pancake	japanese-fluffy-souffle-pancake	Cloud-soft souffles with pure maple syrup, cultured butter and berries.	Cloud-soft souffles with pure maple syrup, cultured butter and berries. Prepared fresh to order with certified premium ingredients.	260.00	299.00	13% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:50.032143+05:30	2026-10-08 19:03:30.73189+05:30	8	9	VEG	0		21	\N	\N	f	[]
+51	Nitro Cold Brew Tiramisu Shake	nitro-cold-brew-tiramisu-shake	Cold drip concentrate blended with mascarpone cream and cocoa dust.	Cold drip concentrate blended with mascarpone cream and cocoa dust. Prepared fresh to order with certified premium ingredients.	210.00	240.00	12% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:50.046695+05:30	2026-10-08 19:03:30.748022+05:30	7	9	VEG	0		22	\N	\N	f	[]
+52	Basque Burnt Caramel Cheesecake	basque-burnt-caramel-cheesecake	Caramelized top cheesecake with an ultra-creamy molten center.	Caramelized top cheesecake with an ultra-creamy molten center. Prepared fresh to order with certified premium ingredients.	260.00	290.00	10% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:50.05957+05:30	2026-10-08 19:03:30.762146+05:30	8	9	VEG	0		21	\N	\N	f	[]
+53	Chromatic Rainbow Macaron Box (5pcs)	chromatic-rainbow-macaron-box	Assorted Parisian almond shells: passionfruit, pistachio, raspberry, mocha.	Assorted Parisian almond shells: passionfruit, pistachio, raspberry, mocha. Prepared fresh to order with certified premium ingredients.	280.00	320.00	12% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:50.072658+05:30	2026-10-08 19:03:30.771971+05:30	8	9	VEG	0		21	\N	\N	f	[]
+54	Nitro Red Berry Sparkling Hibiscus	nitro-red-berry-sparkling-hibiscus	Cold steeped hibiscus flowers with carbonated strawberry fizz.	Cold steeped hibiscus flowers with carbonated strawberry fizz. Prepared fresh to order with certified premium ingredients.	160.00	180.00	11% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:50.086765+05:30	2026-10-08 19:03:30.781522+05:30	7	9	VEG	0		22	\N	\N	f	[]
+55	Smoked Murgh Tikka Angara Platter	smoked-murgh-tikka-angara-platter	Succulent boneless chicken skewers smoked over charcoal and spices.	Succulent boneless chicken skewers smoked over charcoal and spices. Prepared fresh to order with certified premium ingredients.	340.00	380.00	10% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:50.098301+05:30	2026-10-08 19:03:30.799152+05:30	5	10	NON_VEG	0		23	\N	\N	f	[]
+5	Smoked Bacon & Cheddar Stack	smoked-bacon-cheddar-stack	Charred beef patty, applewood smoked bacon, caramelized onion relish.	Charred beef patty, applewood smoked bacon, caramelized onion relish. Prepared fresh to order with certified premium ingredients.	379.00	420.00	10% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=600&q=80		4.90	120	f	t	40	2026-10-08 11:22:49.289955+05:30	2026-10-08 19:03:30.242967+05:30	2	1	NON_VEG	0		1	\N	\N	f	[]
+15	Crisp Pan-Fried Pork Gyoza (6pcs)	crisp-pan-fried-pork-gyoza	Crispy bottom dumplings with juicy pork filling & soy-chili dip.	Crispy bottom dumplings with juicy pork filling & soy-chili dip. Prepared fresh to order with certified premium ingredients.	269.00	299.00	10% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.447607+05:30	2026-10-08 19:03:30.345786+05:30	1	3	NON_VEG	0		5	\N	\N	f	[]
+29	Vazhaipoo Banana Blossom Vadai	vazhaipoo-banana-blossom-vadai	Crunchy lentil fritters infused with finely chopped banana blossom.	Crunchy lentil fritters infused with finely chopped banana blossom. Prepared fresh to order with certified premium ingredients.	140.00	160.00	12% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.687881+05:30	2026-10-08 19:03:30.485897+05:30	6	5	VEG	0		11	\N	\N	f	[]
+43	Avocado & Edamame Kinetic Glow Bowl	avocado-edamame-kinetic-glow-bowl	Hass avocado, purple quinoa, edamame, pomegranate, tahini drizzle.	Hass avocado, purple quinoa, edamame, pomegranate, tahini drizzle. Prepared fresh to order with certified premium ingredients.	320.00	360.00	11% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:49.88859+05:30	2026-10-08 19:03:30.641932+05:30	1	8	VEG	0		18	\N	\N	f	[]
+56	Old Delhi Velvety Butter Chicken	old-delhi-velvety-butter-chicken	Tandoor grilled chicken simmered in rich tomato, butter & cashew gravy.	Tandoor grilled chicken simmered in rich tomato, butter & cashew gravy. Prepared fresh to order with certified premium ingredients.	360.00	410.00	12% OFF	f	2	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Gluten", "Dairy"]	https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:50.112146+05:30	2026-10-08 19:03:30.812271+05:30	5	10	NON_VEG	0		23	\N	\N	f	[]
+57	Smoky Paneer Tikka Masala Pot	smoky-paneer-tikka-masala-pot	Charred cottage cheese cubes cooked in spicy spiced capsicum gravy.	Charred cottage cheese cubes cooked in spicy spiced capsicum gravy. Prepared fresh to order with certified premium ingredients.	310.00	350.00	11% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:50.123745+05:30	2026-10-08 19:03:30.825224+05:30	5	10	VEG	0		23	\N	\N	f	[]
+58	Slow-Simmered Dal Makhani Vault	slow-simmered-dal-makhani-vault	Black urad lentils cooked overnight on tandoor with fresh churned butter.	Black urad lentils cooked overnight on tandoor with fresh churned butter. Prepared fresh to order with certified premium ingredients.	260.00	290.00	10% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:50.139327+05:30	2026-10-08 19:03:30.836412+05:30	5	10	VEG	0		23	\N	\N	f	[]
+59	Butter Garlic Naan Bread (2pcs)	butter-garlic-naan-bread	Clay oven charred leavened flatbreads brushed with butter and garlic.	Clay oven charred leavened flatbreads brushed with butter and garlic. Prepared fresh to order with certified premium ingredients.	120.00	140.00	14% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:50.153023+05:30	2026-10-08 19:03:30.848654+05:30	5	10	VEG	0		23	\N	\N	f	[]
+60	Smoky Spiced Chaas Buttermilk	smoky-spiced-chaas-buttermilk	Churned curd tempered with roasted cumin, green chili, and black salt.	Churned curd tempered with roasted cumin, green chili, and black salt. Prepared fresh to order with certified premium ingredients.	80.00	99.00	19% OFF	t	1	15	["Chef Secret Spices", "Organic Butter", "Himalayan Salt"]	["Dairy"]	https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80		4.90	120	t	t	40	2026-10-08 11:22:50.165537+05:30	2026-10-08 19:03:30.861989+05:30	7	10	VEG	0		24	\N	\N	f	[]
+61	F_Test	f_test-75a44751			250.00	\N		t	1	15	[]	[]			4.90	89	t	f	50	2026-10-08 20:01:28.331721+05:30	2026-10-08 20:01:28.331757+05:30	\N	17	VEG	0		\N	\N	\N	f	[]
+62	Double Truffle Beef Burger	double-truffle-beef-burger-215db095			100.00	\N		t	1	15	[]	[]			4.90	89	t	f	50	2026-10-10 09:58:21.151559+05:30	2026-10-10 09:58:21.151574+05:30	\N	18	VEG	0		\N	\N	\N	f	[]
+63	Phase 22 Test Specialty Biryani	phase-22-test-specialty-biryani-a53fc3c6			250.00	\N		t	1	15	[]	[]			4.90	89	t	f	10	2026-10-10 12:59:25.636374+05:30	2026-10-10 14:53:15.616145+05:30	\N	19	VEG	0		\N	08:00:00	12:00:00	f	["BREAKFAST"]
+\.
+
+
+--
+-- Data for Name: products_foodpost; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.products_foodpost (id, title, caption, image, likes_count, comments_count, created_at, food_item_id, restaurant_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: products_foodreel; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.products_foodreel (id, title, caption, video_url, thumbnail, likes_count, comments_count, views_count, audio_title, created_at, food_item_id, restaurant_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: products_foodvariant; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.products_foodvariant (id, name, price_modifier, food_id) FROM stdin;
+1	V1	60.00	61
+\.
+
+
+--
+-- Data for Name: products_restaurant; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.products_restaurant (id, name, tagline, description, cuisines, rating, review_count, address, latitude, longitude, delivery_time_text, delivery_radius_km, price_for_two, hero_image, avatar, is_open, is_verified, revenue_today, revenue_weekly, revenue_monthly, total_orders, created_at, updated_at, owner_id, owner_name, restaurant_logo, verification_status, avg_prep_time_minutes, closing_time, exceptional_closures, opening_time, operating_hours, orders_paused, pause_reason, timezone) FROM stdin;
+12	Spice Route Kitchen			[]	4.80	142	104 Food Street, Koramangala 4th Block, Bengaluru	12.971600	77.594600	18-24 min	12.0	₹450 for two			t	f	14850.00	98400.00	384000.00	340	2026-10-08 11:39:01.787581+05:30	2026-10-08 11:39:01.794643+05:30	13	Kavita Menon	restaurants/logos/kitchen_logo_N7ND84A.png	PENDING	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+14	P3 Pending Kitchen			[]	4.80	142	Neo Bengaluru Food Grid 404	12.971600	77.594600	18-24 min	12.0	₹450 for two			t	f	14850.00	98400.00	384000.00	340	2026-10-08 14:23:26.964548+05:30	2026-10-08 14:35:55.34921+05:30	18			PENDING	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+13	P3 Mario Bistro			[]	4.80	142	Neo Bengaluru Food Grid 404	12.971600	77.594600	18-24 min	12.0	₹450 for two			t	t	14850.00	98400.00	384000.00	340	2026-10-08 14:23:26.355011+05:30	2026-10-08 14:35:54.729471+05:30	17			APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+15	FD Imperial Smokehouse			[]	4.80	142	88 North Boag Rd, T Nagar	12.971600	77.594600	18-24 min	12.0	₹450 for two			t	f	14850.00	98400.00	384000.00	340	2026-10-08 15:45:52.850247+05:30	2026-10-08 16:24:21.467133+05:30	23	Chef Marcus Vance	restaurants/logos/restaurant_logo_By0Xydq.png	APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+16				[]	4.80	142	Neo Bengaluru Food Grid 404	12.971600	77.594600	18-24 min	12.0	₹450 for two			t	t	14850.00	98400.00	384000.00	340	2026-10-08 16:56:37.642089+05:30	2026-10-08 17:34:35.316269+05:30	27			APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+1	CYBER SMASH BURGERS 2099	Charcoal-Brioche Gourmet Smash Engineering	Charcoal-Brioche Gourmet Smash Engineering. Highest culinary standards with kinetic speed delivery.	["Smash Burgers", "Truffle Fries", "Shakes"]	4.90	382	2nd Avenue, Anna Nagar Roundtana, Chennai	13.085000	80.210000	18-24 min	12.0	₹450 for two	https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80	https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=200&q=80	f	t	18500.00	112000.00	480000.00	420	2026-10-08 11:22:49.165723+05:30	2026-10-08 21:30:25.504619+05:30	2		\N	APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+2	MADRAS DUM BIRYANI VAULT	Authentic Saffron-Infused Seeraga Samba & Basmati	Authentic Saffron-Infused Seeraga Samba & Basmati. Highest culinary standards with kinetic speed delivery.	["Chettinad Biryani", "Mutton Sukka", "Kebabs"]	4.94	612	RK Mutt Road, Mylapore Tank, Chennai	13.036800	80.267600	22-28 min	12.0	₹450 for two	https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80	https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=200&q=80	t	t	18500.00	112000.00	480000.00	420	2026-10-08 11:22:49.173629+05:30	2026-10-08 11:22:49.17364+05:30	2		\N	APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+3	NEO TOKYO NOODLE LAB	16-Hour Simmered Broths & Kinetic Ramen	16-Hour Simmered Broths & Kinetic Ramen. Highest culinary standards with kinetic speed delivery.	["Artisanal Ramen", "Gyoza", "Bao", "Matcha"]	4.88	294	Khadar Nawaz Khan Road, Nungambakkam, Chennai	13.060400	80.241500	20-25 min	12.0	₹450 for two	https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80	https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=200&q=80	t	t	18500.00	112000.00	480000.00	420	2026-10-08 11:22:49.180979+05:30	2026-10-08 11:22:49.180992+05:30	2		\N	APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+4	MARINA COASTAL CATCH	Fresh Bay Catch & Peppery Crab Roasts	Fresh Bay Catch & Peppery Crab Roasts. Highest culinary standards with kinetic speed delivery.	["Seafood", "Prawn Masala", "Fish Fry", "Appam"]	4.92	480	Beach Road, Besant Nagar Promenade, Chennai	12.998200	80.269000	25-30 min	12.0	₹450 for two	https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=800&q=80	https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=200&q=80	t	t	18500.00	112000.00	480000.00	420	2026-10-08 11:22:49.187247+05:30	2026-10-08 11:22:49.187267+05:30	2		\N	APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+5	CHETTINAD HERITAGE MESS	Hand-Ground Masala Roasts & Kothu Parotta	Hand-Ground Masala Roasts & Kothu Parotta. Highest culinary standards with kinetic speed delivery.	["Chettinad Curries", "Kothu Parotta", "Nattu Kozhi"]	4.86	340	Usman Road, T. Nagar Shopping Hub, Chennai	13.041800	80.234100	15-20 min	12.0	₹450 for two	https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?auto=format&fit=crop&w=800&q=80	https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=200&q=80	t	t	18500.00	112000.00	480000.00	420	2026-10-08 11:22:49.193527+05:30	2026-10-08 11:22:49.193545+05:30	2		\N	APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+6	QUANTUM PIZZA ALCHEMISTS	48-Hr Fermented Dough & San Marzano Melts	48-Hr Fermented Dough & San Marzano Melts. Highest culinary standards with kinetic speed delivery.	["Woodfired Pizza", "Truffle Burrata", "Tiramisu"]	4.91	275	TTK Road, Alwarpet Cultural Corridor, Chennai	13.033600	80.251000	22-26 min	12.0	₹450 for two	https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80	https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=200&q=80	t	t	18500.00	112000.00	480000.00	420	2026-10-08 11:22:49.19894+05:30	2026-10-08 11:22:49.199212+05:30	2		\N	APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+7	FILTER COFFEE & TIFFIN REPUBLIC	Ghee Podi Crisps & Pure Arabica Brews	Ghee Podi Crisps & Pure Arabica Brews. Highest culinary standards with kinetic speed delivery.	["Ghee Roast", "Button Idli", "Filter Coffee", "Vada"]	4.95	820	Poonamallee High Road, Kilpauk, Chennai	13.078400	80.241300	14-18 min	12.0	₹450 for two	https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80	https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=200&q=80	t	t	18500.00	112000.00	480000.00	420	2026-10-08 11:22:49.205327+05:30	2026-10-08 11:22:49.20534+05:30	2		\N	APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+8	OMR TECH BOWL LAB	Macro-Optimized Superfood Bowls & Salads	Macro-Optimized Superfood Bowls & Salads. Highest culinary standards with kinetic speed delivery.	["High Protein Bowls", "Keto Salads", "Smoothies"]	4.84	190	OMR Cyber Gateway, Thoraipakkam, Chennai	12.935200	80.233700	18-22 min	12.0	₹450 for two	https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80	https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=200&q=80	t	t	18500.00	112000.00	480000.00	420	2026-10-08 11:22:49.210847+05:30	2026-10-08 11:22:49.210863+05:30	2		\N	APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+9	THE SWEET GLITCH BAKERY	Molecular Nitro Desserts & Chromatic Crepes	Molecular Nitro Desserts & Chromatic Crepes. Highest culinary standards with kinetic speed delivery.	["Molten Lava Tarts", "Matcha Cheesecakes", "Macarons"]	4.93	310	100 Feet Bypass Road, Velachery, Chennai	12.981500	80.218000	20-25 min	12.0	₹450 for two	https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80	https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=200&q=80	t	t	18500.00	112000.00	480000.00	420	2026-10-08 11:22:49.215989+05:30	2026-10-08 11:22:49.21602+05:30	2		\N	APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+10	MADRAS SPICE VAULT	Smoky Tandoor Roasts & Peshawari Rotis	Smoky Tandoor Roasts & Peshawari Rotis. Highest culinary standards with kinetic speed delivery.	["Tandoori Platters", "Butter Chicken", "Dal Makhani"]	4.89	420	EVR Periyar Salai, Chennai Central District, Chennai	13.082700	80.270700	20-28 min	12.0	₹450 for two	https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80	https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=200&q=80	t	t	18500.00	112000.00	480000.00	420	2026-10-08 11:22:49.221595+05:30	2026-10-08 11:22:49.221609+05:30	2		\N	APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+17	R_Test			[]	4.80	142	Neo Bengaluru Food Grid 404	12.971600	77.594600	18-24 min	12.0	₹450 for two			t	f	14850.00	98400.00	384000.00	340	2026-10-08 20:01:28.295183+05:30	2026-10-08 20:01:28.295232+05:30	31			APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+18	Test Rest			[]	4.80	142	Neo Bengaluru Food Grid 404	12.971600	77.594600	18-24 min	12.0	₹450 for two			t	f	14850.00	98400.00	384000.00	340	2026-10-10 09:58:21.130857+05:30	2026-10-10 09:58:21.130882+05:30	1			APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+23	Phase 25 Test Kitchen A			[]	4.80	142	Neo Bengaluru Food Grid 404	12.971600	77.594600	18-24 min	12.0	₹450 for two			t	f	14850.00	98400.00	384000.00	340	2026-10-10 14:39:42.576526+05:30	2026-10-10 14:39:42.57654+05:30	45			PENDING	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+20	Test P23 Cyber Bistro			[]	4.80	142	Indiranagar 100ft Road	12.978000	77.601000	18-24 min	12.0	₹450 for two			t	f	14850.00	98400.00	384000.00	340	2026-10-10 13:31:51.545685+05:30	2026-10-10 13:31:51.545697+05:30	35			APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+21	Phase 24 Spicy Kitchen			[]	4.80	142	12 Support Blvd, Food City	12.971600	77.594600	18-24 min	12.0	₹450 for two			t	f	14850.00	98400.00	384000.00	340	2026-10-10 13:59:06.598733+05:30	2026-10-10 13:59:06.59876+05:30	41			APPROVED	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+22	Unrelated Cafe			[]	4.80	142	99 Far Away	12.971600	77.594600	18-24 min	12.0	₹450 for two			t	f	14850.00	98400.00	384000.00	340	2026-10-10 13:59:06.612919+05:30	2026-10-10 13:59:06.612929+05:30	42			PENDING	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+24	Phase 25 Test Kitchen B			[]	4.50	142	Neo Bengaluru Food Grid 404	12.971600	77.594600	18-24 min	12.0	₹450 for two			t	f	14850.00	98400.00	384000.00	340	2026-10-10 14:39:42.582883+05:30	2026-10-10 14:39:42.582896+05:30	46			PENDING	20	23:00:00	[]	08:00:00	{}	f		Asia/Kolkata
+19	Phase 22 Test Kitchen			[]	4.80	142	Neo Bengaluru Food Grid 404	12.971600	77.594600	18-24 min	12.0	₹450 for two			t	f	14850.00	98400.00	384000.00	340	2026-10-10 12:58:07.45422+05:30	2026-10-10 14:53:15.576115+05:30	32			PENDING	30	22:30:00	[]	10:00:00	{}	f		Asia/Kolkata
+\.
+
+
+--
+-- Data for Name: reviews_review; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.reviews_review (id, rating, comment, is_verified_purchase, created_at, product_id, user_id, delivery_partner_id, delivery_rating, food_quality_rating, language, moderated_at, moderated_by_id, moderation_reason, moderation_status, order_id, packaging_rating, restaurant_id, target_type, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: reviews_reviewmoderationlog; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.reviews_reviewmoderationlog (id, action, reason, previous_status, new_status, created_at, moderator_id, review_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: reviews_reviewreport; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.reviews_reviewreport (id, reason, explanation, status, admin_notes, resolved_at, created_at, reported_by_id, resolved_by_id, review_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: seller_sellerprofile; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.seller_sellerprofile (id, store_name, slug, description, banner, is_verified, total_sales, rating, created_at, restaurant_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: shifts_breaklog; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.shifts_breaklog (id, break_number, break_start, break_end, duration_minutes, status, rider_id, check_in_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: shifts_checkin; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.shifts_checkin (id, check_in_time, check_out_time, check_in_lat, check_in_lng, check_out_lat, check_out_lng, is_late, late_minutes, penalty_applied, status, orders_delivered, shift_earnings, created_at, updated_at, rider_id, booking_id) FROM stdin;
+1	2026-10-08 11:22:50.520933+05:30	\N	13.082700	80.270700	\N	\N	f	0	0.00	ACTIVE	6	840.00	2026-10-08 11:22:50.521018+05:30	2026-10-08 11:22:50.521024+05:30	3	1
+\.
+
+
+--
+-- Data for Name: shifts_shift; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.shifts_shift (id, date, zone, capacity, booked_count, waitlist_count, is_active, slot_id) FROM stdin;
+1	2026-10-08	Chennai Central	8	3	0	t	2
+\.
+
+
+--
+-- Data for Name: shifts_shiftbonus; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.shifts_shiftbonus (id, streak_count, bonus_amount, reason, is_claimed, created_at, rider_id) FROM stdin;
+1	5	500.00	5 Completed Shifts Streak Bonus!	f	2026-10-08 11:22:50.529664+05:30	3
+\.
+
+
+--
+-- Data for Name: shifts_shiftbooking; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.shifts_shiftbooking (id, date, status, waitlist_position, created_at, updated_at, rider_id, shift_id) FROM stdin;
+1	2026-10-08	CHECKED_IN	0	2026-10-08 11:22:50.51298+05:30	2026-10-08 11:22:50.51299+05:30	3	1
+\.
+
+
+--
+-- Data for Name: shifts_shiftslot; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.shifts_shiftslot (id, name, slot_type, start_time, end_time, multiplier, is_peak, zone, zone_lat, zone_lng, geofence_radius_km, max_capacity, created_at, updated_at) FROM stdin;
+1	Morning Rush (6 AM - 11 AM) - Chennai Central	MORNING	06:00:00	11:00:00	1.0	f	Chennai Central	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.387147+05:30	2026-10-08 11:22:50.387159+05:30
+2	Lunch Rush (11 AM - 3 PM) - Chennai Central	LUNCH	11:00:00	15:00:00	1.2	t	Chennai Central	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.39247+05:30	2026-10-08 11:22:50.392508+05:30
+3	Evening Slot (3 PM - 7 PM) - Chennai Central	EVENING	15:00:00	19:00:00	1.0	f	Chennai Central	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.396983+05:30	2026-10-08 11:22:50.396993+05:30
+4	Dinner Rush (7 PM - 11 PM) - Chennai Central	DINNER	19:00:00	23:00:00	1.5	t	Chennai Central	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.401249+05:30	2026-10-08 11:22:50.401269+05:30
+5	Late Night (11 PM - 2 AM) - Chennai Central	LATE_NIGHT	23:00:00	02:00:00	1.2	t	Chennai Central	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.405288+05:30	2026-10-08 11:22:50.405299+05:30
+6	Morning Rush (6 AM - 11 AM) - Anna Nagar	MORNING	06:00:00	11:00:00	1.0	f	Anna Nagar	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.408703+05:30	2026-10-08 11:22:50.408728+05:30
+7	Lunch Rush (11 AM - 3 PM) - Anna Nagar	LUNCH	11:00:00	15:00:00	1.2	t	Anna Nagar	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.413568+05:30	2026-10-08 11:22:50.413579+05:30
+8	Evening Slot (3 PM - 7 PM) - Anna Nagar	EVENING	15:00:00	19:00:00	1.0	f	Anna Nagar	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.418598+05:30	2026-10-08 11:22:50.418618+05:30
+9	Dinner Rush (7 PM - 11 PM) - Anna Nagar	DINNER	19:00:00	23:00:00	1.5	t	Anna Nagar	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.422487+05:30	2026-10-08 11:22:50.422497+05:30
+10	Late Night (11 PM - 2 AM) - Anna Nagar	LATE_NIGHT	23:00:00	02:00:00	1.2	t	Anna Nagar	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.427055+05:30	2026-10-08 11:22:50.427073+05:30
+11	Morning Rush (6 AM - 11 AM) - T. Nagar	MORNING	06:00:00	11:00:00	1.0	f	T. Nagar	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.430795+05:30	2026-10-08 11:22:50.430809+05:30
+12	Lunch Rush (11 AM - 3 PM) - T. Nagar	LUNCH	11:00:00	15:00:00	1.2	t	T. Nagar	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.435624+05:30	2026-10-08 11:22:50.435651+05:30
+13	Evening Slot (3 PM - 7 PM) - T. Nagar	EVENING	15:00:00	19:00:00	1.0	f	T. Nagar	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.439237+05:30	2026-10-08 11:22:50.439251+05:30
+14	Dinner Rush (7 PM - 11 PM) - T. Nagar	DINNER	19:00:00	23:00:00	1.5	t	T. Nagar	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.443804+05:30	2026-10-08 11:22:50.443821+05:30
+15	Late Night (11 PM - 2 AM) - T. Nagar	LATE_NIGHT	23:00:00	02:00:00	1.2	t	T. Nagar	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.447568+05:30	2026-10-08 11:22:50.447579+05:30
+16	Morning Rush (6 AM - 11 AM) - Adyar - Besant Nagar	MORNING	06:00:00	11:00:00	1.0	f	Adyar - Besant Nagar	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.452298+05:30	2026-10-08 11:22:50.452316+05:30
+17	Lunch Rush (11 AM - 3 PM) - Adyar - Besant Nagar	LUNCH	11:00:00	15:00:00	1.2	t	Adyar - Besant Nagar	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.45688+05:30	2026-10-08 11:22:50.456894+05:30
+18	Evening Slot (3 PM - 7 PM) - Adyar - Besant Nagar	EVENING	15:00:00	19:00:00	1.0	f	Adyar - Besant Nagar	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.462802+05:30	2026-10-08 11:22:50.462815+05:30
+19	Dinner Rush (7 PM - 11 PM) - Adyar - Besant Nagar	DINNER	19:00:00	23:00:00	1.5	t	Adyar - Besant Nagar	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.467315+05:30	2026-10-08 11:22:50.467339+05:30
+20	Late Night (11 PM - 2 AM) - Adyar - Besant Nagar	LATE_NIGHT	23:00:00	02:00:00	1.2	t	Adyar - Besant Nagar	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.472269+05:30	2026-10-08 11:22:50.472335+05:30
+21	Morning Rush (6 AM - 11 AM) - OMR Cyber Corridor	MORNING	06:00:00	11:00:00	1.0	f	OMR Cyber Corridor	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.477618+05:30	2026-10-08 11:22:50.477641+05:30
+22	Lunch Rush (11 AM - 3 PM) - OMR Cyber Corridor	LUNCH	11:00:00	15:00:00	1.2	t	OMR Cyber Corridor	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.481934+05:30	2026-10-08 11:22:50.481947+05:30
+23	Evening Slot (3 PM - 7 PM) - OMR Cyber Corridor	EVENING	15:00:00	19:00:00	1.0	f	OMR Cyber Corridor	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.487604+05:30	2026-10-08 11:22:50.487615+05:30
+24	Dinner Rush (7 PM - 11 PM) - OMR Cyber Corridor	DINNER	19:00:00	23:00:00	1.5	t	OMR Cyber Corridor	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.491993+05:30	2026-10-08 11:22:50.492012+05:30
+25	Late Night (11 PM - 2 AM) - OMR Cyber Corridor	LATE_NIGHT	23:00:00	02:00:00	1.2	t	OMR Cyber Corridor	13.082700	80.270700	5.0	8	2026-10-08 11:22:50.496849+05:30	2026-10-08 11:22:50.496861+05:30
+\.
+
+
+--
+-- Data for Name: shifts_shiftswap; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.shifts_shiftswap (id, reason, status, admin_approved, created_at, updated_at, booking_id, receiver_id, requester_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: social_photoreview; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.social_photoreview (id, rating, comment, photos, likes_count, reply, replied_at, created_at, order_id, restaurant_id, user_id) FROM stdin;
+1	5.0	Best smashed wagyu in Chennai! Arrived boiling hot in 18 minutes. The truffle aioli is incredible.	["https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80"]	0	Thank you Priya! Our kitchen team is thrilled you enjoyed the kinetic crisp.	2026-10-08 11:22:50.55072+05:30	2026-10-08 11:22:50.555035+05:30	\N	1	1
+\.
+
+
+--
+-- Data for Name: social_postcomment; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.social_postcomment (id, text, created_at, user_id, post_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: social_postlike; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.social_postlike (id, created_at, user_id, post_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: social_reelcomment; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.social_reelcomment (id, text, created_at, user_id, reel_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: social_reellike; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.social_reellike (id, created_at, user_id, reel_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: social_socialpost; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.social_socialpost (id, title, caption, image, likes_count, comments_count, created_at, author_id, food_item_id, restaurant_id) FROM stdin;
+1	Madras Dum Biryani Special Weekend	Our royal dum sealed claypot biryani is ready! Order now to taste authentic saffron bliss 🔥	https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80	420	32	2026-10-08 11:22:50.537671+05:30	2	\N	2
+\.
+
+
+--
+-- Data for Name: social_socialreel; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.social_socialreel (id, title, caption, video_url, thumbnail, likes_count, comments_count, views_count, audio_title, created_at, author_id, food_item_id, restaurant_id) FROM stdin;
+1	Sizzling Smash Wagyu at 500°F	Pure kinetic flavor! Crispy edges, melted triple fontina 🍔	https://assets.mixkit.co/videos/preview/mixkit-top-view-of-a-burger-with-french-fries-40893-large.mp4	https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80	1240	89	8400	WS Food Sizzle • Original Soundtrack	2026-10-08 11:22:50.546519+05:30	2	\N	1
+\.
+
+
+--
+-- Data for Name: social_userfollow; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.social_userfollow (id, created_at, follower_id, following_restaurant_id, following_user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: token_blacklist_blacklistedtoken; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.token_blacklist_blacklistedtoken (id, blacklisted_at, token_id) FROM stdin;
+1	2026-10-08 14:47:55.087752+05:30	1
+2	2026-10-08 14:49:15.759337+05:30	2
+3	2026-10-08 15:24:52.86436+05:30	3
+4	2026-10-08 15:24:52.88635+05:30	4
+5	2026-10-08 15:24:53.517489+05:30	5
+6	2026-10-10 07:55:49.044811+05:30	31
+7	2026-10-10 07:55:54.612089+05:30	33
+\.
+
+
+--
+-- Data for Name: token_blacklist_outstandingtoken; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.token_blacklist_outstandingtoken (id, token, created_at, expires_at, user_id, jti) FROM stdin;
+1	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA1NTg3NSwiaWF0IjoxNzkxNDUxMDc1LCJqdGkiOiJlZWNmODY2NTU0YzU0OTg4OWE5YmQyMGI1NmIwMzY4NSIsInVzZXJfaWQiOiIxIn0.tUr6B8qDDzWdtatSJsblhRJi-xoHkgvopfs1mYHv54U	2026-10-08 14:47:55.02753+05:30	2026-10-15 14:47:55+05:30	1	eecf866554c549889a9bd20b56b03685
+2	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA1NTk1NSwiaWF0IjoxNzkxNDUxMTU1LCJqdGkiOiJlZDgyZmI5ODIyN2E0NjEwODc2MjFlYmE3NWUyMzBiZSIsInVzZXJfaWQiOiIxIn0.uru1Oi2P4UzEohO3RwqjkZRWovx8Qw7xN7_4eLRXO9U	2026-10-08 14:49:15.684074+05:30	2026-10-15 14:49:15+05:30	1	ed82fb98227a461087621eba75e230be
+3	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA1ODA5MiwiaWF0IjoxNzkxNDUzMjkyLCJqdGkiOiIwZmE5YTUzZDQyYjc0MjVmYTNlM2EyZGJlY2ZkMGFlYiIsInVzZXJfaWQiOiIyMSJ9.c7f1dlORwWRAKd-brygZuJ8TIuD1DV0g3JUvjhNiL7k	2026-10-08 15:24:52.778119+05:30	2026-10-15 15:24:52+05:30	21	0fa9a53d42b7425fa3e3a2dbecfd0aeb
+4	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA1ODA5MiwiaWF0IjoxNzkxNDUzMjkyLCJqdGkiOiJiZmFhY2FkNWYwMzU0ODZhYTEzNDdmNWE2YWVlMzMzMyIsInVzZXJfaWQiOjIxLCJyb2xlIjoiQ1VTVE9NRVIiLCJhY2NvdW50X3N0YXR1cyI6IkFDVElWRSIsImVtYWlsIjoicGhhc2U0X3Rlc3RlckBleGFtcGxlLmNvbSJ9.Sl7eltZ5ZNaxEF68qpzQDJq0pN42t7nTvWjCa-l0u-s	2026-10-08 15:24:52.851132+05:30	2026-10-15 15:24:52+05:30	21	bfaacad5f035486aa1347f5a6aee3333
+5	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA1ODA5MywiaWF0IjoxNzkxNDUzMjkzLCJqdGkiOiIxNzc0NTg5MGJhZmE0MzcyODkzMDYxYTUzYWZhN2ZkZSIsInVzZXJfaWQiOiIyMSJ9.OXcYHUgAG_0omqFOj18xrEZ5v0Qpr6K9Apu4i0sxIjY	2026-10-08 15:24:53.50035+05:30	2026-10-15 15:24:53+05:30	21	17745890bafa4372893061a53afa7fde
+6	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA1ODk1NCwiaWF0IjoxNzkxNDU0MTU0LCJqdGkiOiI3YTkxNmNiMDhlYzI0YWIwYWRhYzk3NDkzOTQwY2E0YSIsInVzZXJfaWQiOiIyMiJ9.-Wr2N-po0tIiAJyHkECPnoHCepnSDUyJKu8tAAJprCw	2026-10-08 15:39:14.858994+05:30	2026-10-15 15:39:14+05:30	22	7a916cb08ec24ab0adac97493940ca4a
+7	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA1ODk4NiwiaWF0IjoxNzkxNDU0MTg2LCJqdGkiOiIyYTNkNWIwYmRlNzE0ZmIxYWNhN2I3N2IwMDI0ZDdlMiIsInVzZXJfaWQiOiIyMiJ9.202xICAgGbzCp6WBRSQLmqTwyoBZF3ersXQF_93VozE	2026-10-08 15:39:46.190927+05:30	2026-10-15 15:39:46+05:30	22	2a3d5b0bde714fb1aca7b77b0024d7e2
+8	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA1OTE2MCwiaWF0IjoxNzkxNDU0MzYwLCJqdGkiOiIwMDc0MzliYWJiOGE0ZWE0OWE4YmMxNmQ2MDFkOGE4MiIsInVzZXJfaWQiOiIyMiJ9.98avxyfL7sSjx71NW1FOjIIdq6xZx-dYAA7vQWd6Dmo	2026-10-08 15:42:40.463372+05:30	2026-10-15 15:42:40+05:30	22	007439babb8a4ea49a8bc16d601d8a82
+9	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA1OTIwMSwiaWF0IjoxNzkxNDU0NDAxLCJqdGkiOiJiM2M3NTJlYzZhZTE0YTBhYjA3NzRkNTdlYTRhMWQyYyIsInVzZXJfaWQiOiIyMiJ9.XyuE3PZnJk1j7c9Fu7Q_ArfmTdOrNKuoS_hJy4AYIYU	2026-10-08 15:43:21.052683+05:30	2026-10-15 15:43:21+05:30	22	b3c752ec6ae14a0ab0774d57ea4a1d2c
+10	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA1OTIyNiwiaWF0IjoxNzkxNDU0NDI2LCJqdGkiOiIxMDkzMmIwYWUzYzg0YTkwYjdmYjA3NTQ4MTBjMzE1NSIsInVzZXJfaWQiOiIyMiJ9.BSkVIgoDYC_9gzcZa9Lx6CsSuMwfzqnWVlw3g_IO1io	2026-10-08 15:43:46.951987+05:30	2026-10-15 15:43:46+05:30	22	10932b0ae3c84a90b7fb0754810c3155
+11	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA1OTI1MCwiaWF0IjoxNzkxNDU0NDUwLCJqdGkiOiJhMzMwNGIzNjhjYmU0YzE3OTJjNDNmZDQyMWIzMWQ4MyIsInVzZXJfaWQiOiIyMiJ9.LrwN8-aQOCMRl-AF-ArhcnSVCEb9jliL05M1W--Yams	2026-10-08 15:44:10.125979+05:30	2026-10-15 15:44:10+05:30	22	a3304b368cbe4c1792c43fd421b31d83
+12	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA1OTM1MSwiaWF0IjoxNzkxNDU0NTUxLCJqdGkiOiI2ZTZkMzgyMGZjZTc0ZGY5OWJhYzA3OTExYWI0YzVkMCIsInVzZXJfaWQiOiIyMiJ9.zYzSYKXZyFQcoSy5CsuInWZ0Sh7ApXtfXP6RdOSdFjE	2026-10-08 15:45:51.968527+05:30	2026-10-15 15:45:51+05:30	22	6e6d3820fce74df99bac07911ab4c5d0
+13	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA1OTM1MywiaWF0IjoxNzkxNDU0NTUzLCJqdGkiOiIwNzk0YzExZmJlM2U0YmFmYWU1ZmZhNDdjZDBkOWQzYyIsInVzZXJfaWQiOiIyMyJ9.gUtEsAghDPnsnZmoXhSuGahYzLh_z-fOWY-UJf6A09Q	2026-10-08 15:45:53.443078+05:30	2026-10-15 15:45:53+05:30	23	0794c11fbe3e4bafae5ffa47cd0d9d3c
+14	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA1OTM1NCwiaWF0IjoxNzkxNDU0NTU0LCJqdGkiOiJkYWY5OGViZTU2MDc0NjMyYjFkNzc4ZDYwNzA1ZDkzZCIsInVzZXJfaWQiOiIyNCJ9.DTf2rEhQGlCI76zpQKpD3VSKSZFdhYkHZc066lgFDzs	2026-10-08 15:45:54.680337+05:30	2026-10-15 15:45:54+05:30	24	daf98ebe56074632b1d778d60705d93d
+15	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2MTQ0NCwiaWF0IjoxNzkxNDU2NjQ0LCJqdGkiOiI4NTgyZjM4MmMxMTg0NzM1OGI4M2I1MGI5NWZjYTQ3NCIsInVzZXJfaWQiOiIyMiJ9._Fg85r0Z_LemeY-WpKxiI2--EpCD2GB56lBz_bTHF8Q	2026-10-08 16:20:44.507553+05:30	2026-10-15 16:20:44+05:30	22	8582f382c11847358b83b50b95fca474
+16	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2MTQ0NSwiaWF0IjoxNzkxNDU2NjQ1LCJqdGkiOiI1ZjVmZDAwMDRjNWM0ZTRlYTA4NDQ0NmQzMjZmOTkyYyIsInVzZXJfaWQiOiIyMyJ9.PLjjcGF--pPz45TmnBVmzhMJqgl6bafQfcvwTDXNe8k	2026-10-08 16:20:45.944753+05:30	2026-10-15 16:20:45+05:30	23	5f5fd0004c5c4e4ea084446d326f992c
+17	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2MTU5MCwiaWF0IjoxNzkxNDU2NzkwLCJqdGkiOiJjNzA1Y2NiYTNiZjc0ZjhlOWU1ZTk2MjM5NDAxNTJmMSIsInVzZXJfaWQiOiIyMiJ9.wMEI4lGZCRI2GZ7Igeng9EpbZWIv8yKUdbTs1G8UKFs	2026-10-08 16:23:10.689224+05:30	2026-10-15 16:23:10+05:30	22	c705ccba3bf74f8e9e5e9623940152f1
+18	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2MTU5MiwiaWF0IjoxNzkxNDU2NzkyLCJqdGkiOiI3OWY5Mzk4YzkxY2E0MzhjODc4N2JhOTJlYmU4YTM1MyIsInVzZXJfaWQiOiIyMyJ9.CwbawB1Tr5BV9xBajipZvlCqeBxBeTOuGU5XZNLfvfw	2026-10-08 16:23:12.055528+05:30	2026-10-15 16:23:12+05:30	23	79f9398c91ca438c8787ba92ebe8a353
+19	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2MTU5MywiaWF0IjoxNzkxNDU2NzkzLCJqdGkiOiJkZjVjZjdkMjRiMTM0YzZhYmFkZTBlYTAyMTY5Y2YwZCIsInVzZXJfaWQiOiIyNCJ9.eycxRynmmiAzX8xookEFStE07j9wZaZiV4048TRAlcQ	2026-10-08 16:23:13.274896+05:30	2026-10-15 16:23:13+05:30	24	df5cf7d24b134c6abade0ea02169cf0d
+20	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2MTY2MCwiaWF0IjoxNzkxNDU2ODYwLCJqdGkiOiI2MGZkMDdkZmEwZGY0Yjg5OTVmNzI1Yzc5ZTdkZTcyMSIsInVzZXJfaWQiOiIyMiJ9.OLlniXvZ5du2BBQDyNUk6N8ugx-6G1hGZ7mrfc0y7Cw	2026-10-08 16:24:20.004936+05:30	2026-10-15 16:24:20+05:30	22	60fd07dfa0df4b8995f725c79e7de721
+21	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2MTY2MSwiaWF0IjoxNzkxNDU2ODYxLCJqdGkiOiJhNGMyMTEwNGMzZTA0MWYwYmE3NmNiYzI5MmEzNmNmNiIsInVzZXJfaWQiOiIyMyJ9.Jw2zBREP9cQ3eTL9fRPa6Yk2h4n1rQOAfr8B4mrY5Ec	2026-10-08 16:24:21.418047+05:30	2026-10-15 16:24:21+05:30	23	a4c21104c3e041f0ba76cbc292a36cf6
+22	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2MTY2MiwiaWF0IjoxNzkxNDU2ODYyLCJqdGkiOiJiYmM0NmZhNWU1YjE0ZTlhOTcyYmI3ZWM5MTI5ZjI3ZCIsInVzZXJfaWQiOiIyNCJ9.sfFS7y62xYRaD-HGw8fhyW6HB_xfgNhoHfDuc9Z36tM	2026-10-08 16:24:22.650019+05:30	2026-10-15 16:24:22+05:30	24	bbc46fa5e5b14e9a972bb7ec9129f27d
+23	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2MTY2MywiaWF0IjoxNzkxNDU2ODYzLCJqdGkiOiJhYWFmNmI2MTY5ZjA0MjBiYWU1YWNmZWMxYWYwNTI2NiIsInVzZXJfaWQiOiIyNSJ9.slqpbzsyJujfik70m80UxwlDMadsyrxoo3g8qvmltCk	2026-10-08 16:24:23.847812+05:30	2026-10-15 16:24:23+05:30	25	aaaf6b6169f0420bae5acfec1af05266
+24	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2MjYxNSwiaWF0IjoxNzkxNDU3ODE1LCJqdGkiOiJiYjMyM2U3MGU3MWM0YWYyODc5M2U1NDM0ODQyYTEyOSIsInVzZXJfaWQiOiIyNiJ9.BJJh7nUT3H-Tn9g5LxqqgO8gvnT7ldUBxcBGesr5knw	2026-10-08 16:40:15.307406+05:30	2026-10-15 16:40:15+05:30	26	bb323e70e71c4af28793e5434842a129
+25	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2MzU5NiwiaWF0IjoxNzkxNDU4Nzk2LCJqdGkiOiI5YjIyYzg1NjAxOGU0NjM4YTRkZDJmNjQzYjFlMzUwMCIsInVzZXJfaWQiOiIyNiJ9.ZCrsbslXepkWmxX50mYKRvrZXP8skxH3qZsd_LWSHjY	2026-10-08 16:56:36.915269+05:30	2026-10-15 16:56:36+05:30	26	9b22c856018e4638a4dd2f643b1e3500
+26	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2MzU5OCwiaWF0IjoxNzkxNDU4Nzk4LCJqdGkiOiIxZDBhNTg2NTBmYTM0YjhjYTRhY2Q3NWY3NTY4NzQyZSIsInVzZXJfaWQiOiIyNyJ9.P_XrLr7ySFBDcYZ9LcQkMuUKKgh1WRQDje5T2yBxY6Q	2026-10-08 16:56:38.268458+05:30	2026-10-15 16:56:38+05:30	27	1d0a58650fa34b8ca4acd75f7568742e
+27	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2MzU5OSwiaWF0IjoxNzkxNDU4Nzk5LCJqdGkiOiI2ZjU1ZGQ4YTMzYTU0N2I1YTYxNTI3NDkzZWU1NThmOSIsInVzZXJfaWQiOiIyOCJ9.Cvulmq_YD0rjMjMTJXqe0Z7uDPIVezzLenWfhouekGI	2026-10-08 16:56:39.583057+05:30	2026-10-15 16:56:39+05:30	28	6f55dd8a33a547b5a61527493ee558f9
+28	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2NTg3NCwiaWF0IjoxNzkxNDYxMDc0LCJqdGkiOiI3YzU5NGRjMGRlYWE0ODdiOTA0MzgwMzhjNjIzYzYzYiIsInVzZXJfaWQiOiIyNiJ9.GcNXhtThqWgF25nLa6N0aq-QbtaDlf2TR3CRp8wg5yI	2026-10-08 17:34:34.659973+05:30	2026-10-15 17:34:34+05:30	26	7c594dc0deaa487b90438038c623c63b
+29	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2NTg3NSwiaWF0IjoxNzkxNDYxMDc1LCJqdGkiOiJlNWZhNDY0MWZiZmU0YThlOGNmZGI5MWZlOWU3MmYwZSIsInVzZXJfaWQiOiIyNyJ9.Vj49QmMa-f8-b6XxkfufkDdDkQktc4KS5_B3d1YCR0M	2026-10-08 17:34:35.891522+05:30	2026-10-15 17:34:35+05:30	27	e5fa4641fbfe4a8e8cfdb91fe9e72f0e
+30	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA2NTg3NywiaWF0IjoxNzkxNDYxMDc3LCJqdGkiOiI2ODUzMzQyMDdmNTQ0YWI0OGI1OGM2NDk2NTM2N2QzMyIsInVzZXJfaWQiOiIyOCJ9.sPKQkleLQ4rCV1S6HrNxGy81hcaWLV2uRMmrXf88B2M	2026-10-08 17:34:37.063889+05:30	2026-10-15 17:34:37+05:30	28	685334207f544ab48b58c64965367d33
+31	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA4MDAxMiwiaWF0IjoxNzkxNDc1MjEyLCJqdGkiOiI0NGExNGZkMzc4OTQ0YWQ2YWJiMjY2NzJiYzU2ZjA5YiIsInVzZXJfaWQiOiIyIn0.UbIPfKTj9KN541uHCpZOjHzvj4MvkdDOXmHDcS8Ng0I	2026-10-08 21:30:12.323203+05:30	2026-10-15 21:30:12+05:30	2	44a14fd378944ad6abb26672bc56f09b
+32	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA4MDA1MCwiaWF0IjoxNzkxNDc1MjUwLCJqdGkiOiIzNWViMzU4MTA3NzQ0ZDI1YjBhNDlmM2VjYzZhOTgyMyIsInVzZXJfaWQiOiIzIn0.A6RaWRcAqGQf88ro4SOC2KKit_rdzZSM_Uvdf0PP-TA	2026-10-08 21:30:50.711494+05:30	2026-10-15 21:30:50+05:30	3	35eb358107744d25b0a49f3ecc6a9823
+33	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjA4MDE0OCwiaWF0IjoxNzkxNDc1MzQ4LCJqdGkiOiIyOTBiNTk0NmEwYWY0NjU3YTI0ZGE5ZGExMmYxZTM2MCIsInVzZXJfaWQiOiI0In0.VWOndJTnP_UPXJ64v6Hco972z9k44_Y02ayCk6rBcUk	2026-10-08 21:32:28.441389+05:30	2026-10-15 21:32:28+05:30	4	290b5946a0af4657a24da9da12f1e360
+34	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjIwMzk0OCwiaWF0IjoxNzkxNTk5MTQ4LCJqdGkiOiI4OGVjZTBkYjhkZWE0MGNkYTZmZWUwNDY1Nzc3MTRlNiIsInVzZXJfaWQiOjIsInJvbGUiOiJSRVNUQVVSQU5UIiwiYWNjb3VudF9zdGF0dXMiOiJBQ1RJVkUiLCJlbWFpbCI6InNob3BAd3Nmb29kLmlvIn0.qBUjehrAHBD7ncpkWfjY7J0iQXwHGdayiv2KtCqdics	2026-10-10 07:55:48.850045+05:30	2026-10-17 07:55:48+05:30	2	88ece0db8dea40cda6fee046577714e6
+35	eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc5MjIwMzk1NCwiaWF0IjoxNzkxNTk5MTU0LCJqdGkiOiIzZTc1NTFhYWQ5OWY0ZDVhYjdlMTdhM2Y3MWE0Y2I2NSIsInVzZXJfaWQiOjQsInJvbGUiOiJBRE1JTiIsImFjY291bnRfc3RhdHVzIjoiQUNUSVZFIiwiZW1haWwiOiJhZG1pbkB3c2Zvb2QuaW8ifQ.NH6inp0incitB67WtWeQZhuZW6TYYCN159mkKLukTts	2026-10-10 07:55:54.383983+05:30	2026-10-17 07:55:54+05:30	4	3e7551aad99f4d5ab7e17a3f71a4cb65
+\.
+
+
+--
+-- Data for Name: wishlist_wishlist; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.wishlist_wishlist (id, created_at, product_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Name: accounts_address_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_address_id_seq', 3, true);
+
+
+--
+-- Name: accounts_auditlog_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_auditlog_id_seq', 38, true);
+
+
+--
+-- Name: accounts_loginactivity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_loginactivity_id_seq', 61, true);
+
+
+--
+-- Name: accounts_loyaltyprofile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_loyaltyprofile_id_seq', 3, true);
+
+
+--
+-- Name: accounts_mobileotp_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_mobileotp_id_seq', 1, false);
+
+
+--
+-- Name: accounts_profile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_profile_id_seq', 24, true);
+
+
+--
+-- Name: accounts_securityalert_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_securityalert_id_seq', 1, true);
+
+
+--
+-- Name: accounts_supportticket_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_supportticket_id_seq', 3, true);
+
+
+--
+-- Name: accounts_ticketattachment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_ticketattachment_id_seq', 3, true);
+
+
+--
+-- Name: accounts_ticketauditlog_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_ticketauditlog_id_seq', 18, true);
+
+
+--
+-- Name: accounts_ticketmessage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_ticketmessage_id_seq', 15, true);
+
+
+--
+-- Name: accounts_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: accounts_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_user_id_seq', 50, true);
+
+
+--
+-- Name: accounts_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: accounts_usersettings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_usersettings_id_seq', 9, true);
+
+
+--
+-- Name: accounts_wallet_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_wallet_id_seq', 7, true);
+
+
+--
+-- Name: accounts_wallettransaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.accounts_wallettransaction_id_seq', 5, true);
+
+
+--
+-- Name: adminpanel_platformconfig_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.adminpanel_platformconfig_id_seq', 1, true);
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 312, true);
+
+
+--
+-- Name: cart_cart_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.cart_cart_id_seq', 1, true);
+
+
+--
+-- Name: cart_cartitem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.cart_cartitem_id_seq', 1, true);
+
+
+--
+-- Name: categories_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.categories_category_id_seq', 8, true);
+
+
+--
+-- Name: chat_conversation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.chat_conversation_id_seq', 1, false);
+
+
+--
+-- Name: chat_message_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.chat_message_id_seq', 1, false);
+
+
+--
+-- Name: coupons_coupon_applicable_restaurants_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.coupons_coupon_applicable_restaurants_id_seq', 1, false);
+
+
+--
+-- Name: coupons_coupon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.coupons_coupon_id_seq', 3, true);
+
+
+--
+-- Name: coupons_couponredemption_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.coupons_couponredemption_id_seq', 1, false);
+
+
+--
+-- Name: coupons_loyaltyledgerentry_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.coupons_loyaltyledgerentry_id_seq', 1, false);
+
+
+--
+-- Name: coupons_loyaltyprogramconfig_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.coupons_loyaltyprogramconfig_id_seq', 1, false);
+
+
+--
+-- Name: delivery_deliveryassignment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.delivery_deliveryassignment_id_seq', 22, true);
+
+
+--
+-- Name: delivery_deliveryassignmenthistory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.delivery_deliveryassignmenthistory_id_seq', 53, true);
+
+
+--
+-- Name: delivery_deliveryissuereport_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.delivery_deliveryissuereport_id_seq', 1, false);
+
+
+--
+-- Name: delivery_deliveryoffer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.delivery_deliveryoffer_id_seq', 32, true);
+
+
+--
+-- Name: delivery_deliveryotp_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.delivery_deliveryotp_id_seq', 1, false);
+
+
+--
+-- Name: delivery_deliverypartner_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.delivery_deliverypartner_id_seq', 16, true);
+
+
+--
+-- Name: discovery_usersearchhistory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.discovery_usersearchhistory_id_seq', 1, false);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 78, true);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 74, true);
+
+
+--
+-- Name: menu_menucategory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.menu_menucategory_id_seq', 24, true);
+
+
+--
+-- Name: notifications_notification_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.notifications_notification_id_seq', 63, true);
+
+
+--
+-- Name: notifications_notificationdeliveryattempt_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.notifications_notificationdeliveryattempt_id_seq', 126, true);
+
+
+--
+-- Name: notifications_notificationpreference_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.notifications_notificationpreference_id_seq', 9, true);
+
+
+--
+-- Name: orders_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.orders_order_id_seq', 63, true);
+
+
+--
+-- Name: orders_orderitem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.orders_orderitem_id_seq', 41, true);
+
+
+--
+-- Name: orders_orderstatushistory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.orders_orderstatushistory_id_seq', 12, true);
+
+
+--
+-- Name: payments_payment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.payments_payment_id_seq', 1, true);
+
+
+--
+-- Name: payments_paymentwebhook_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.payments_paymentwebhook_id_seq', 1, false);
+
+
+--
+-- Name: payments_restaurantcommission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.payments_restaurantcommission_id_seq', 33, true);
+
+
+--
+-- Name: payments_restaurantsettlement_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.payments_restaurantsettlement_id_seq', 9, true);
+
+
+--
+-- Name: payments_settlementadjustment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.payments_settlementadjustment_id_seq', 4, true);
+
+
+--
+-- Name: payments_transaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.payments_transaction_id_seq', 6, true);
+
+
+--
+-- Name: products_foodaddon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.products_foodaddon_id_seq', 122, true);
+
+
+--
+-- Name: products_fooditem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.products_fooditem_id_seq', 63, true);
+
+
+--
+-- Name: products_foodpost_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.products_foodpost_id_seq', 1, false);
+
+
+--
+-- Name: products_foodreel_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.products_foodreel_id_seq', 1, false);
+
+
+--
+-- Name: products_foodvariant_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.products_foodvariant_id_seq', 1, true);
+
+
+--
+-- Name: products_restaurant_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.products_restaurant_id_seq', 24, true);
+
+
+--
+-- Name: reviews_review_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.reviews_review_id_seq', 1, true);
+
+
+--
+-- Name: reviews_reviewmoderationlog_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.reviews_reviewmoderationlog_id_seq', 1, false);
+
+
+--
+-- Name: reviews_reviewreport_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.reviews_reviewreport_id_seq', 1, false);
+
+
+--
+-- Name: seller_sellerprofile_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.seller_sellerprofile_id_seq', 1, false);
+
+
+--
+-- Name: shifts_breaklog_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.shifts_breaklog_id_seq', 1, false);
+
+
+--
+-- Name: shifts_checkin_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.shifts_checkin_id_seq', 1, true);
+
+
+--
+-- Name: shifts_shift_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.shifts_shift_id_seq', 1, true);
+
+
+--
+-- Name: shifts_shiftbonus_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.shifts_shiftbonus_id_seq', 1, true);
+
+
+--
+-- Name: shifts_shiftbooking_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.shifts_shiftbooking_id_seq', 1, true);
+
+
+--
+-- Name: shifts_shiftslot_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.shifts_shiftslot_id_seq', 25, true);
+
+
+--
+-- Name: shifts_shiftswap_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.shifts_shiftswap_id_seq', 1, false);
+
+
+--
+-- Name: social_photoreview_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.social_photoreview_id_seq', 1, true);
+
+
+--
+-- Name: social_postcomment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.social_postcomment_id_seq', 1, false);
+
+
+--
+-- Name: social_postlike_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.social_postlike_id_seq', 1, false);
+
+
+--
+-- Name: social_reelcomment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.social_reelcomment_id_seq', 1, false);
+
+
+--
+-- Name: social_reellike_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.social_reellike_id_seq', 1, false);
+
+
+--
+-- Name: social_socialpost_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.social_socialpost_id_seq', 1, true);
+
+
+--
+-- Name: social_socialreel_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.social_socialreel_id_seq', 1, true);
+
+
+--
+-- Name: social_userfollow_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.social_userfollow_id_seq', 1, false);
+
+
+--
+-- Name: token_blacklist_blacklistedtoken_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.token_blacklist_blacklistedtoken_id_seq', 7, true);
+
+
+--
+-- Name: token_blacklist_outstandingtoken_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.token_blacklist_outstandingtoken_id_seq', 35, true);
+
+
+--
+-- Name: wishlist_wishlist_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.wishlist_wishlist_id_seq', 1, false);
+
+
+--
+-- Name: accounts_address accounts_address_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_address
+    ADD CONSTRAINT accounts_address_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_auditlog accounts_auditlog_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_auditlog
+    ADD CONSTRAINT accounts_auditlog_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_loginactivity accounts_loginactivity_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_loginactivity
+    ADD CONSTRAINT accounts_loginactivity_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_loyaltyprofile accounts_loyaltyprofile_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_loyaltyprofile
+    ADD CONSTRAINT accounts_loyaltyprofile_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_loyaltyprofile accounts_loyaltyprofile_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_loyaltyprofile
+    ADD CONSTRAINT accounts_loyaltyprofile_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: accounts_mobileotp accounts_mobileotp_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_mobileotp
+    ADD CONSTRAINT accounts_mobileotp_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_profile accounts_profile_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_profile
+    ADD CONSTRAINT accounts_profile_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_profile accounts_profile_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_profile
+    ADD CONSTRAINT accounts_profile_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: accounts_securityalert accounts_securityalert_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_securityalert
+    ADD CONSTRAINT accounts_securityalert_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_supportticket accounts_supportticket_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_supportticket
+    ADD CONSTRAINT accounts_supportticket_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_supportticket accounts_supportticket_ticket_number_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_supportticket
+    ADD CONSTRAINT accounts_supportticket_ticket_number_key UNIQUE (ticket_number);
+
+
+--
+-- Name: accounts_ticketattachment accounts_ticketattachment_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_ticketattachment
+    ADD CONSTRAINT accounts_ticketattachment_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_ticketauditlog accounts_ticketauditlog_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_ticketauditlog
+    ADD CONSTRAINT accounts_ticketauditlog_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_ticketmessage accounts_ticketmessage_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_ticketmessage
+    ADD CONSTRAINT accounts_ticketmessage_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_user accounts_user_email_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_user
+    ADD CONSTRAINT accounts_user_email_key UNIQUE (email);
+
+
+--
+-- Name: accounts_user_groups accounts_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_user_groups
+    ADD CONSTRAINT accounts_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_user_groups accounts_user_groups_user_id_group_id_59c0b32f_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_user_groups
+    ADD CONSTRAINT accounts_user_groups_user_id_group_id_59c0b32f_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: accounts_user accounts_user_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_user
+    ADD CONSTRAINT accounts_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_user_user_permissions accounts_user_user_permi_user_id_permission_id_2ab516c2_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_user_user_permissions
+    ADD CONSTRAINT accounts_user_user_permi_user_id_permission_id_2ab516c2_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: accounts_user_user_permissions accounts_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_user_user_permissions
+    ADD CONSTRAINT accounts_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_user accounts_user_username_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_user
+    ADD CONSTRAINT accounts_user_username_key UNIQUE (username);
+
+
+--
+-- Name: accounts_usersettings accounts_usersettings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_usersettings
+    ADD CONSTRAINT accounts_usersettings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_usersettings accounts_usersettings_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_usersettings
+    ADD CONSTRAINT accounts_usersettings_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: accounts_wallet accounts_wallet_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_wallet
+    ADD CONSTRAINT accounts_wallet_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: accounts_wallet accounts_wallet_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_wallet
+    ADD CONSTRAINT accounts_wallet_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: accounts_wallettransaction accounts_wallettransaction_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_wallettransaction
+    ADD CONSTRAINT accounts_wallettransaction_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: adminpanel_platformconfig adminpanel_platformconfig_key_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.adminpanel_platformconfig
+    ADD CONSTRAINT adminpanel_platformconfig_key_key UNIQUE (key);
+
+
+--
+-- Name: adminpanel_platformconfig adminpanel_platformconfig_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.adminpanel_platformconfig
+    ADD CONSTRAINT adminpanel_platformconfig_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cart_cart cart_cart_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cart_cart
+    ADD CONSTRAINT cart_cart_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cart_cart cart_cart_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cart_cart
+    ADD CONSTRAINT cart_cart_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: cart_cartitem cart_cartitem_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cart_cartitem
+    ADD CONSTRAINT cart_cartitem_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: categories_category categories_category_name_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.categories_category
+    ADD CONSTRAINT categories_category_name_key UNIQUE (name);
+
+
+--
+-- Name: categories_category categories_category_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.categories_category
+    ADD CONSTRAINT categories_category_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: categories_category categories_category_slug_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.categories_category
+    ADD CONSTRAINT categories_category_slug_key UNIQUE (slug);
+
+
+--
+-- Name: chat_conversation chat_conversation_customer_id_seller_id_ceb153eb_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.chat_conversation
+    ADD CONSTRAINT chat_conversation_customer_id_seller_id_ceb153eb_uniq UNIQUE (customer_id, seller_id);
+
+
+--
+-- Name: chat_conversation chat_conversation_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.chat_conversation
+    ADD CONSTRAINT chat_conversation_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: chat_message chat_message_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.chat_message
+    ADD CONSTRAINT chat_message_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: coupons_coupon_applicable_restaurants coupons_coupon_applicabl_coupon_id_restaurant_id_dab9084b_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons_coupon_applicable_restaurants
+    ADD CONSTRAINT coupons_coupon_applicabl_coupon_id_restaurant_id_dab9084b_uniq UNIQUE (coupon_id, restaurant_id);
+
+
+--
+-- Name: coupons_coupon_applicable_restaurants coupons_coupon_applicable_restaurants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons_coupon_applicable_restaurants
+    ADD CONSTRAINT coupons_coupon_applicable_restaurants_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: coupons_coupon coupons_coupon_code_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons_coupon
+    ADD CONSTRAINT coupons_coupon_code_key UNIQUE (code);
+
+
+--
+-- Name: coupons_coupon coupons_coupon_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons_coupon
+    ADD CONSTRAINT coupons_coupon_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: coupons_couponredemption coupons_couponredemption_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons_couponredemption
+    ADD CONSTRAINT coupons_couponredemption_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: coupons_loyaltyledgerentry coupons_loyaltyledgerentry_idempotency_key_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons_loyaltyledgerentry
+    ADD CONSTRAINT coupons_loyaltyledgerentry_idempotency_key_key UNIQUE (idempotency_key);
+
+
+--
+-- Name: coupons_loyaltyledgerentry coupons_loyaltyledgerentry_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons_loyaltyledgerentry
+    ADD CONSTRAINT coupons_loyaltyledgerentry_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: coupons_loyaltyprogramconfig coupons_loyaltyprogramconfig_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons_loyaltyprogramconfig
+    ADD CONSTRAINT coupons_loyaltyprogramconfig_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: delivery_deliveryassignment delivery_deliveryassignment_order_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryassignment
+    ADD CONSTRAINT delivery_deliveryassignment_order_id_key UNIQUE (order_id);
+
+
+--
+-- Name: delivery_deliveryassignment delivery_deliveryassignment_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryassignment
+    ADD CONSTRAINT delivery_deliveryassignment_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: delivery_deliveryassignmenthistory delivery_deliveryassignmenthistory_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryassignmenthistory
+    ADD CONSTRAINT delivery_deliveryassignmenthistory_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: delivery_deliveryissuereport delivery_deliveryissuereport_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryissuereport
+    ADD CONSTRAINT delivery_deliveryissuereport_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: delivery_deliveryoffer delivery_deliveryoffer_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryoffer
+    ADD CONSTRAINT delivery_deliveryoffer_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: delivery_deliveryotp delivery_deliveryotp_order_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryotp
+    ADD CONSTRAINT delivery_deliveryotp_order_id_key UNIQUE (order_id);
+
+
+--
+-- Name: delivery_deliveryotp delivery_deliveryotp_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryotp
+    ADD CONSTRAINT delivery_deliveryotp_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: delivery_deliverypartner delivery_deliverypartner_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliverypartner
+    ADD CONSTRAINT delivery_deliverypartner_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: delivery_deliverypartner delivery_deliverypartner_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliverypartner
+    ADD CONSTRAINT delivery_deliverypartner_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: delivery_deliverypartner delivery_deliverypartner_vehicle_number_904042cb_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliverypartner
+    ADD CONSTRAINT delivery_deliverypartner_vehicle_number_904042cb_uniq UNIQUE (vehicle_number);
+
+
+--
+-- Name: discovery_usersearchhistory discovery_usersearchhistory_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.discovery_usersearchhistory
+    ADD CONSTRAINT discovery_usersearchhistory_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: menu_menucategory menu_menucategory_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.menu_menucategory
+    ADD CONSTRAINT menu_menucategory_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: menu_menucategory menu_menucategory_restaurant_id_name_eab7ad9c_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.menu_menucategory
+    ADD CONSTRAINT menu_menucategory_restaurant_id_name_eab7ad9c_uniq UNIQUE (restaurant_id, name);
+
+
+--
+-- Name: notifications_notification notifications_notification_idempotency_key_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notifications_notification
+    ADD CONSTRAINT notifications_notification_idempotency_key_key UNIQUE (idempotency_key);
+
+
+--
+-- Name: notifications_notification notifications_notification_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notifications_notification
+    ADD CONSTRAINT notifications_notification_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notifications_notificationdeliveryattempt notifications_notificationdeliveryattempt_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notifications_notificationdeliveryattempt
+    ADD CONSTRAINT notifications_notificationdeliveryattempt_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notifications_notificationpreference notifications_notificationpreference_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notifications_notificationpreference
+    ADD CONSTRAINT notifications_notificationpreference_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notifications_notificationpreference notifications_notificationpreference_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notifications_notificationpreference
+    ADD CONSTRAINT notifications_notificationpreference_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: orders_order orders_order_order_number_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders_order
+    ADD CONSTRAINT orders_order_order_number_key UNIQUE (order_number);
+
+
+--
+-- Name: orders_order orders_order_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders_order
+    ADD CONSTRAINT orders_order_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: orders_orderitem orders_orderitem_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders_orderitem
+    ADD CONSTRAINT orders_orderitem_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: orders_orderstatushistory orders_orderstatushistory_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders_orderstatushistory
+    ADD CONSTRAINT orders_orderstatushistory_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payments_payment payments_payment_idempotency_key_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_payment
+    ADD CONSTRAINT payments_payment_idempotency_key_key UNIQUE (idempotency_key);
+
+
+--
+-- Name: payments_payment payments_payment_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_payment
+    ADD CONSTRAINT payments_payment_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payments_paymentwebhook payments_paymentwebhook_event_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_paymentwebhook
+    ADD CONSTRAINT payments_paymentwebhook_event_id_key UNIQUE (event_id);
+
+
+--
+-- Name: payments_paymentwebhook payments_paymentwebhook_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_paymentwebhook
+    ADD CONSTRAINT payments_paymentwebhook_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payments_restaurantcommission payments_restaurantcommission_order_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_restaurantcommission
+    ADD CONSTRAINT payments_restaurantcommission_order_id_key UNIQUE (order_id);
+
+
+--
+-- Name: payments_restaurantcommission payments_restaurantcommission_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_restaurantcommission
+    ADD CONSTRAINT payments_restaurantcommission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payments_restaurantsettlement payments_restaurantsettlement_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_restaurantsettlement
+    ADD CONSTRAINT payments_restaurantsettlement_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payments_restaurantsettlement payments_restaurantsettlement_settlement_reference_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_restaurantsettlement
+    ADD CONSTRAINT payments_restaurantsettlement_settlement_reference_key UNIQUE (settlement_reference);
+
+
+--
+-- Name: payments_settlementadjustment payments_settlementadjustment_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_settlementadjustment
+    ADD CONSTRAINT payments_settlementadjustment_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payments_transaction payments_transaction_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_transaction
+    ADD CONSTRAINT payments_transaction_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payments_transaction payments_transaction_transaction_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_transaction
+    ADD CONSTRAINT payments_transaction_transaction_id_key UNIQUE (transaction_id);
+
+
+--
+-- Name: products_foodaddon products_foodaddon_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_foodaddon
+    ADD CONSTRAINT products_foodaddon_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: products_fooditem products_fooditem_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_fooditem
+    ADD CONSTRAINT products_fooditem_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: products_fooditem products_fooditem_slug_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_fooditem
+    ADD CONSTRAINT products_fooditem_slug_key UNIQUE (slug);
+
+
+--
+-- Name: products_foodpost products_foodpost_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_foodpost
+    ADD CONSTRAINT products_foodpost_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: products_foodreel products_foodreel_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_foodreel
+    ADD CONSTRAINT products_foodreel_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: products_foodvariant products_foodvariant_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_foodvariant
+    ADD CONSTRAINT products_foodvariant_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: products_restaurant products_restaurant_name_d1924249_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_restaurant
+    ADD CONSTRAINT products_restaurant_name_d1924249_uniq UNIQUE (name);
+
+
+--
+-- Name: products_restaurant products_restaurant_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_restaurant
+    ADD CONSTRAINT products_restaurant_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: reviews_review reviews_review_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reviews_review
+    ADD CONSTRAINT reviews_review_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: reviews_reviewmoderationlog reviews_reviewmoderationlog_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reviews_reviewmoderationlog
+    ADD CONSTRAINT reviews_reviewmoderationlog_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: reviews_reviewreport reviews_reviewreport_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reviews_reviewreport
+    ADD CONSTRAINT reviews_reviewreport_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: seller_sellerprofile seller_sellerprofile_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.seller_sellerprofile
+    ADD CONSTRAINT seller_sellerprofile_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: seller_sellerprofile seller_sellerprofile_restaurant_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.seller_sellerprofile
+    ADD CONSTRAINT seller_sellerprofile_restaurant_id_key UNIQUE (restaurant_id);
+
+
+--
+-- Name: seller_sellerprofile seller_sellerprofile_slug_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.seller_sellerprofile
+    ADD CONSTRAINT seller_sellerprofile_slug_key UNIQUE (slug);
+
+
+--
+-- Name: seller_sellerprofile seller_sellerprofile_user_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.seller_sellerprofile
+    ADD CONSTRAINT seller_sellerprofile_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: shifts_breaklog shifts_breaklog_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_breaklog
+    ADD CONSTRAINT shifts_breaklog_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shifts_checkin shifts_checkin_booking_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_checkin
+    ADD CONSTRAINT shifts_checkin_booking_id_key UNIQUE (booking_id);
+
+
+--
+-- Name: shifts_checkin shifts_checkin_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_checkin
+    ADD CONSTRAINT shifts_checkin_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shifts_shift shifts_shift_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_shift
+    ADD CONSTRAINT shifts_shift_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shifts_shift shifts_shift_slot_id_date_zone_b2d9ce84_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_shift
+    ADD CONSTRAINT shifts_shift_slot_id_date_zone_b2d9ce84_uniq UNIQUE (slot_id, date, zone);
+
+
+--
+-- Name: shifts_shiftbonus shifts_shiftbonus_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_shiftbonus
+    ADD CONSTRAINT shifts_shiftbonus_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shifts_shiftbooking shifts_shiftbooking_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_shiftbooking
+    ADD CONSTRAINT shifts_shiftbooking_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shifts_shiftbooking shifts_shiftbooking_shift_id_rider_id_8535cc62_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_shiftbooking
+    ADD CONSTRAINT shifts_shiftbooking_shift_id_rider_id_8535cc62_uniq UNIQUE (shift_id, rider_id);
+
+
+--
+-- Name: shifts_shiftslot shifts_shiftslot_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_shiftslot
+    ADD CONSTRAINT shifts_shiftslot_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: shifts_shiftswap shifts_shiftswap_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_shiftswap
+    ADD CONSTRAINT shifts_shiftswap_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: social_photoreview social_photoreview_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_photoreview
+    ADD CONSTRAINT social_photoreview_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: social_postcomment social_postcomment_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_postcomment
+    ADD CONSTRAINT social_postcomment_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: social_postlike social_postlike_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_postlike
+    ADD CONSTRAINT social_postlike_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: social_postlike social_postlike_post_id_user_id_8d67496a_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_postlike
+    ADD CONSTRAINT social_postlike_post_id_user_id_8d67496a_uniq UNIQUE (post_id, user_id);
+
+
+--
+-- Name: social_reelcomment social_reelcomment_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_reelcomment
+    ADD CONSTRAINT social_reelcomment_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: social_reellike social_reellike_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_reellike
+    ADD CONSTRAINT social_reellike_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: social_reellike social_reellike_reel_id_user_id_80403a20_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_reellike
+    ADD CONSTRAINT social_reellike_reel_id_user_id_80403a20_uniq UNIQUE (reel_id, user_id);
+
+
+--
+-- Name: social_socialpost social_socialpost_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_socialpost
+    ADD CONSTRAINT social_socialpost_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: social_socialreel social_socialreel_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_socialreel
+    ADD CONSTRAINT social_socialreel_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: social_userfollow social_userfollow_follower_id_following_re_10986163_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_userfollow
+    ADD CONSTRAINT social_userfollow_follower_id_following_re_10986163_uniq UNIQUE (follower_id, following_restaurant_id);
+
+
+--
+-- Name: social_userfollow social_userfollow_follower_id_following_user_id_c2e51280_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_userfollow
+    ADD CONSTRAINT social_userfollow_follower_id_following_user_id_c2e51280_uniq UNIQUE (follower_id, following_user_id);
+
+
+--
+-- Name: social_userfollow social_userfollow_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_userfollow
+    ADD CONSTRAINT social_userfollow_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: token_blacklist_blacklistedtoken token_blacklist_blacklistedtoken_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.token_blacklist_blacklistedtoken
+    ADD CONSTRAINT token_blacklist_blacklistedtoken_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: token_blacklist_blacklistedtoken token_blacklist_blacklistedtoken_token_id_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.token_blacklist_blacklistedtoken
+    ADD CONSTRAINT token_blacklist_blacklistedtoken_token_id_key UNIQUE (token_id);
+
+
+--
+-- Name: token_blacklist_outstandingtoken token_blacklist_outstandingtoken_jti_hex_d9bdf6f7_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.token_blacklist_outstandingtoken
+    ADD CONSTRAINT token_blacklist_outstandingtoken_jti_hex_d9bdf6f7_uniq UNIQUE (jti);
+
+
+--
+-- Name: token_blacklist_outstandingtoken token_blacklist_outstandingtoken_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.token_blacklist_outstandingtoken
+    ADD CONSTRAINT token_blacklist_outstandingtoken_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: reviews_reviewreport unique_review_report_per_user; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reviews_reviewreport
+    ADD CONSTRAINT unique_review_report_per_user UNIQUE (review_id, reported_by_id);
+
+
+--
+-- Name: wishlist_wishlist wishlist_wishlist_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wishlist_wishlist
+    ADD CONSTRAINT wishlist_wishlist_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: wishlist_wishlist wishlist_wishlist_user_id_product_id_57695ed7_uniq; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wishlist_wishlist
+    ADD CONSTRAINT wishlist_wishlist_user_id_product_id_57695ed7_uniq UNIQUE (user_id, product_id);
+
+
+--
+-- Name: accounts_address_user_id_c8c74ddf; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_address_user_id_c8c74ddf ON public.accounts_address USING btree (user_id);
+
+
+--
+-- Name: accounts_auditlog_actor_id_f3348b18; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_auditlog_actor_id_f3348b18 ON public.accounts_auditlog USING btree (actor_id);
+
+
+--
+-- Name: accounts_loginactivity_user_id_e23ed239; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_loginactivity_user_id_e23ed239 ON public.accounts_loginactivity USING btree (user_id);
+
+
+--
+-- Name: accounts_mobileotp_phone_003504a8; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_mobileotp_phone_003504a8 ON public.accounts_mobileotp USING btree (phone);
+
+
+--
+-- Name: accounts_mobileotp_phone_003504a8_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_mobileotp_phone_003504a8_like ON public.accounts_mobileotp USING btree (phone varchar_pattern_ops);
+
+
+--
+-- Name: accounts_supportticket_assigned_agent_id_0061b5fd; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_supportticket_assigned_agent_id_0061b5fd ON public.accounts_supportticket USING btree (assigned_agent_id);
+
+
+--
+-- Name: accounts_supportticket_delivery_partner_id_03e17c70; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_supportticket_delivery_partner_id_03e17c70 ON public.accounts_supportticket USING btree (delivery_partner_id);
+
+
+--
+-- Name: accounts_supportticket_escalated_by_id_af1b7f4a; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_supportticket_escalated_by_id_af1b7f4a ON public.accounts_supportticket USING btree (escalated_by_id);
+
+
+--
+-- Name: accounts_supportticket_idempotency_key_a91a2a51; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_supportticket_idempotency_key_a91a2a51 ON public.accounts_supportticket USING btree (idempotency_key);
+
+
+--
+-- Name: accounts_supportticket_idempotency_key_a91a2a51_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_supportticket_idempotency_key_a91a2a51_like ON public.accounts_supportticket USING btree (idempotency_key varchar_pattern_ops);
+
+
+--
+-- Name: accounts_supportticket_linked_order_id_1689ef10; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_supportticket_linked_order_id_1689ef10 ON public.accounts_supportticket USING btree (linked_order_id);
+
+
+--
+-- Name: accounts_supportticket_restaurant_id_cdf12494; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_supportticket_restaurant_id_cdf12494 ON public.accounts_supportticket USING btree (restaurant_id);
+
+
+--
+-- Name: accounts_supportticket_ticket_number_3af128bf_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_supportticket_ticket_number_3af128bf_like ON public.accounts_supportticket USING btree (ticket_number varchar_pattern_ops);
+
+
+--
+-- Name: accounts_supportticket_user_id_6e311941; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_supportticket_user_id_6e311941 ON public.accounts_supportticket USING btree (user_id);
+
+
+--
+-- Name: accounts_ticketattachment_message_id_05357a9a; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_ticketattachment_message_id_05357a9a ON public.accounts_ticketattachment USING btree (message_id);
+
+
+--
+-- Name: accounts_ticketattachment_ticket_id_0177000f; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_ticketattachment_ticket_id_0177000f ON public.accounts_ticketattachment USING btree (ticket_id);
+
+
+--
+-- Name: accounts_ticketattachment_uploaded_by_id_e0774b4e; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_ticketattachment_uploaded_by_id_e0774b4e ON public.accounts_ticketattachment USING btree (uploaded_by_id);
+
+
+--
+-- Name: accounts_ticketauditlog_actor_id_9a4eb106; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_ticketauditlog_actor_id_9a4eb106 ON public.accounts_ticketauditlog USING btree (actor_id);
+
+
+--
+-- Name: accounts_ticketauditlog_ticket_id_f2a2d291; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_ticketauditlog_ticket_id_f2a2d291 ON public.accounts_ticketauditlog USING btree (ticket_id);
+
+
+--
+-- Name: accounts_ticketmessage_sender_id_e65746c8; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_ticketmessage_sender_id_e65746c8 ON public.accounts_ticketmessage USING btree (sender_id);
+
+
+--
+-- Name: accounts_ticketmessage_ticket_id_2045adb8; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_ticketmessage_ticket_id_2045adb8 ON public.accounts_ticketmessage USING btree (ticket_id);
+
+
+--
+-- Name: accounts_user_email_b2644a56_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_user_email_b2644a56_like ON public.accounts_user USING btree (email varchar_pattern_ops);
+
+
+--
+-- Name: accounts_user_groups_group_id_bd11a704; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_user_groups_group_id_bd11a704 ON public.accounts_user_groups USING btree (group_id);
+
+
+--
+-- Name: accounts_user_groups_user_id_52b62117; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_user_groups_user_id_52b62117 ON public.accounts_user_groups USING btree (user_id);
+
+
+--
+-- Name: accounts_user_user_permissions_permission_id_113bb443; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_user_user_permissions_permission_id_113bb443 ON public.accounts_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: accounts_user_user_permissions_user_id_e4f0a161; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_user_user_permissions_user_id_e4f0a161 ON public.accounts_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: accounts_user_username_6088629e_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_user_username_6088629e_like ON public.accounts_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: accounts_wallettransaction_wallet_id_d18b5a92; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX accounts_wallettransaction_wallet_id_d18b5a92 ON public.accounts_wallettransaction USING btree (wallet_id);
+
+
+--
+-- Name: adminpanel_platformconfig_key_d292d71c_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX adminpanel_platformconfig_key_d292d71c_like ON public.adminpanel_platformconfig USING btree (key varchar_pattern_ops);
+
+
+--
+-- Name: adminpanel_platformconfig_updated_by_id_d0ba052b; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX adminpanel_platformconfig_updated_by_id_d0ba052b ON public.adminpanel_platformconfig USING btree (updated_by_id);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: cart_cart_restaurant_id_335a7ef9; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX cart_cart_restaurant_id_335a7ef9 ON public.cart_cart USING btree (restaurant_id);
+
+
+--
+-- Name: cart_cartitem_cart_id_370ad265; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX cart_cartitem_cart_id_370ad265 ON public.cart_cartitem USING btree (cart_id);
+
+
+--
+-- Name: cart_cartitem_product_id_b24e265a; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX cart_cartitem_product_id_b24e265a ON public.cart_cartitem USING btree (product_id);
+
+
+--
+-- Name: cart_cartitem_variant_id_69f5d8c8; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX cart_cartitem_variant_id_69f5d8c8 ON public.cart_cartitem USING btree (variant_id);
+
+
+--
+-- Name: categories_category_name_debcfc14_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX categories_category_name_debcfc14_like ON public.categories_category USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: categories_category_slug_6fddebb1_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX categories_category_slug_6fddebb1_like ON public.categories_category USING btree (slug varchar_pattern_ops);
+
+
+--
+-- Name: chat_conversation_customer_id_9b2323d3; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX chat_conversation_customer_id_9b2323d3 ON public.chat_conversation USING btree (customer_id);
+
+
+--
+-- Name: chat_conversation_seller_id_40c5e079; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX chat_conversation_seller_id_40c5e079 ON public.chat_conversation USING btree (seller_id);
+
+
+--
+-- Name: chat_message_conversation_id_a1207bf4; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX chat_message_conversation_id_a1207bf4 ON public.chat_message USING btree (conversation_id);
+
+
+--
+-- Name: chat_message_sender_id_991c686c; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX chat_message_sender_id_991c686c ON public.chat_message USING btree (sender_id);
+
+
+--
+-- Name: coupons_coupon_applicable_restaurants_coupon_id_02ff6c8c; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX coupons_coupon_applicable_restaurants_coupon_id_02ff6c8c ON public.coupons_coupon_applicable_restaurants USING btree (coupon_id);
+
+
+--
+-- Name: coupons_coupon_applicable_restaurants_restaurant_id_608099fe; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX coupons_coupon_applicable_restaurants_restaurant_id_608099fe ON public.coupons_coupon_applicable_restaurants USING btree (restaurant_id);
+
+
+--
+-- Name: coupons_coupon_code_40174643_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX coupons_coupon_code_40174643_like ON public.coupons_coupon USING btree (code varchar_pattern_ops);
+
+
+--
+-- Name: coupons_coupon_is_active_9e7ec5c3; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX coupons_coupon_is_active_9e7ec5c3 ON public.coupons_coupon USING btree (is_active);
+
+
+--
+-- Name: coupons_couponredemption_coupon_id_bff37705; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX coupons_couponredemption_coupon_id_bff37705 ON public.coupons_couponredemption USING btree (coupon_id);
+
+
+--
+-- Name: coupons_couponredemption_order_id_5c57d679; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX coupons_couponredemption_order_id_5c57d679 ON public.coupons_couponredemption USING btree (order_id);
+
+
+--
+-- Name: coupons_couponredemption_user_id_4f014db1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX coupons_couponredemption_user_id_4f014db1 ON public.coupons_couponredemption USING btree (user_id);
+
+
+--
+-- Name: coupons_loy_transac_ee0438_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX coupons_loy_transac_ee0438_idx ON public.coupons_loyaltyledgerentry USING btree (transaction_type);
+
+
+--
+-- Name: coupons_loy_user_id_4d8b8a_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX coupons_loy_user_id_4d8b8a_idx ON public.coupons_loyaltyledgerentry USING btree (user_id, created_at DESC);
+
+
+--
+-- Name: coupons_loyaltyledgerentry_idempotency_key_70aad76d_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX coupons_loyaltyledgerentry_idempotency_key_70aad76d_like ON public.coupons_loyaltyledgerentry USING btree (idempotency_key varchar_pattern_ops);
+
+
+--
+-- Name: coupons_loyaltyledgerentry_order_id_f1f690c9; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX coupons_loyaltyledgerentry_order_id_f1f690c9 ON public.coupons_loyaltyledgerentry USING btree (order_id);
+
+
+--
+-- Name: coupons_loyaltyledgerentry_user_id_6970d243; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX coupons_loyaltyledgerentry_user_id_6970d243 ON public.coupons_loyaltyledgerentry USING btree (user_id);
+
+
+--
+-- Name: delivery_de_assignm_027a95_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_de_assignm_027a95_idx ON public.delivery_deliveryissuereport USING btree (assignment_id, category);
+
+
+--
+-- Name: delivery_de_assignm_0845e6_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_de_assignm_0845e6_idx ON public.delivery_deliveryoffer USING btree (assignment_id, status);
+
+
+--
+-- Name: delivery_de_assignm_54e0c4_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_de_assignm_54e0c4_idx ON public.delivery_deliveryotp USING btree (assignment_id, is_used);
+
+
+--
+-- Name: delivery_de_deliver_064518_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_de_deliver_064518_idx ON public.delivery_deliveryoffer USING btree (delivery_partner_id, status);
+
+
+--
+-- Name: delivery_de_deliver_892491_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_de_deliver_892491_idx ON public.delivery_deliveryassignment USING btree (delivery_partner_id, status);
+
+
+--
+-- Name: delivery_de_order_i_e155c3_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_de_order_i_e155c3_idx ON public.delivery_deliveryissuereport USING btree (order_id, created_at);
+
+
+--
+-- Name: delivery_de_order_i_e87c3d_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_de_order_i_e87c3d_idx ON public.delivery_deliveryotp USING btree (order_id, is_used);
+
+
+--
+-- Name: delivery_de_status_1cb66b_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_de_status_1cb66b_idx ON public.delivery_deliveryassignment USING btree (status, offer_expires_at);
+
+
+--
+-- Name: delivery_de_status_598725_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_de_status_598725_idx ON public.delivery_deliveryoffer USING btree (status, expires_at);
+
+
+--
+-- Name: delivery_de_status_9f12d4_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_de_status_9f12d4_idx ON public.delivery_deliveryassignment USING btree (status, created_at);
+
+
+--
+-- Name: delivery_deliveryassignment_delivery_partner_id_bb9ad758; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryassignment_delivery_partner_id_bb9ad758 ON public.delivery_deliveryassignment USING btree (delivery_partner_id);
+
+
+--
+-- Name: delivery_deliveryassignment_status_6db2db74; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryassignment_status_6db2db74 ON public.delivery_deliveryassignment USING btree (status);
+
+
+--
+-- Name: delivery_deliveryassignment_status_6db2db74_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryassignment_status_6db2db74_like ON public.delivery_deliveryassignment USING btree (status varchar_pattern_ops);
+
+
+--
+-- Name: delivery_deliveryassignmenthistory_actor_id_927b9793; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryassignmenthistory_actor_id_927b9793 ON public.delivery_deliveryassignmenthistory USING btree (actor_id);
+
+
+--
+-- Name: delivery_deliveryassignmenthistory_assignment_id_174fff61; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryassignmenthistory_assignment_id_174fff61 ON public.delivery_deliveryassignmenthistory USING btree (assignment_id);
+
+
+--
+-- Name: delivery_deliveryassignmenthistory_created_at_c34f49a8; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryassignmenthistory_created_at_c34f49a8 ON public.delivery_deliveryassignmenthistory USING btree (created_at);
+
+
+--
+-- Name: delivery_deliveryissuereport_assignment_id_0d8f79b1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryissuereport_assignment_id_0d8f79b1 ON public.delivery_deliveryissuereport USING btree (assignment_id);
+
+
+--
+-- Name: delivery_deliveryissuereport_category_445fd1d9; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryissuereport_category_445fd1d9 ON public.delivery_deliveryissuereport USING btree (category);
+
+
+--
+-- Name: delivery_deliveryissuereport_category_445fd1d9_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryissuereport_category_445fd1d9_like ON public.delivery_deliveryissuereport USING btree (category varchar_pattern_ops);
+
+
+--
+-- Name: delivery_deliveryissuereport_created_at_22349b3e; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryissuereport_created_at_22349b3e ON public.delivery_deliveryissuereport USING btree (created_at);
+
+
+--
+-- Name: delivery_deliveryissuereport_order_id_961c0a0a; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryissuereport_order_id_961c0a0a ON public.delivery_deliveryissuereport USING btree (order_id);
+
+
+--
+-- Name: delivery_deliveryissuereport_reporter_id_50f2106f; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryissuereport_reporter_id_50f2106f ON public.delivery_deliveryissuereport USING btree (reporter_id);
+
+
+--
+-- Name: delivery_deliveryoffer_assignment_id_13ea9775; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryoffer_assignment_id_13ea9775 ON public.delivery_deliveryoffer USING btree (assignment_id);
+
+
+--
+-- Name: delivery_deliveryoffer_delivery_partner_id_e3a5c287; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryoffer_delivery_partner_id_e3a5c287 ON public.delivery_deliveryoffer USING btree (delivery_partner_id);
+
+
+--
+-- Name: delivery_deliveryoffer_expires_at_0d8a7964; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryoffer_expires_at_0d8a7964 ON public.delivery_deliveryoffer USING btree (expires_at);
+
+
+--
+-- Name: delivery_deliveryoffer_offered_at_27b05524; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryoffer_offered_at_27b05524 ON public.delivery_deliveryoffer USING btree (offered_at);
+
+
+--
+-- Name: delivery_deliveryoffer_status_55dfe0a2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryoffer_status_55dfe0a2 ON public.delivery_deliveryoffer USING btree (status);
+
+
+--
+-- Name: delivery_deliveryoffer_status_55dfe0a2_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryoffer_status_55dfe0a2_like ON public.delivery_deliveryoffer USING btree (status varchar_pattern_ops);
+
+
+--
+-- Name: delivery_deliveryotp_assignment_id_f189f2cc; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliveryotp_assignment_id_f189f2cc ON public.delivery_deliveryotp USING btree (assignment_id);
+
+
+--
+-- Name: delivery_deliverypartner_active_order_id_116b1e1c; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliverypartner_active_order_id_116b1e1c ON public.delivery_deliverypartner USING btree (active_order_id);
+
+
+--
+-- Name: delivery_deliverypartner_vehicle_number_904042cb_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX delivery_deliverypartner_vehicle_number_904042cb_like ON public.delivery_deliverypartner USING btree (vehicle_number varchar_pattern_ops);
+
+
+--
+-- Name: discovery_u_user_id_120977_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX discovery_u_user_id_120977_idx ON public.discovery_usersearchhistory USING btree (user_id, created_at DESC);
+
+
+--
+-- Name: discovery_usersearchhistory_created_at_f0e6fef2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX discovery_usersearchhistory_created_at_f0e6fef2 ON public.discovery_usersearchhistory USING btree (created_at);
+
+
+--
+-- Name: discovery_usersearchhistory_query_76a632e7; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX discovery_usersearchhistory_query_76a632e7 ON public.discovery_usersearchhistory USING btree (query);
+
+
+--
+-- Name: discovery_usersearchhistory_query_76a632e7_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX discovery_usersearchhistory_query_76a632e7_like ON public.discovery_usersearchhistory USING btree (query varchar_pattern_ops);
+
+
+--
+-- Name: discovery_usersearchhistory_user_id_3cdcc00b; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX discovery_usersearchhistory_user_id_3cdcc00b ON public.discovery_usersearchhistory USING btree (user_id);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: menu_menucategory_restaurant_id_4cdb2a55; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX menu_menucategory_restaurant_id_4cdb2a55 ON public.menu_menucategory USING btree (restaurant_id);
+
+
+--
+-- Name: menu_menucategory_slug_8660493f; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX menu_menucategory_slug_8660493f ON public.menu_menucategory USING btree (slug);
+
+
+--
+-- Name: menu_menucategory_slug_8660493f_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX menu_menucategory_slug_8660493f_like ON public.menu_menucategory USING btree (slug varchar_pattern_ops);
+
+
+--
+-- Name: notificatio_user_id_427e4b_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX notificatio_user_id_427e4b_idx ON public.notifications_notification USING btree (user_id, is_read);
+
+
+--
+-- Name: notificatio_user_id_c37c69_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX notificatio_user_id_c37c69_idx ON public.notifications_notification USING btree (user_id, is_dismissed);
+
+
+--
+-- Name: notificatio_user_id_c62b26_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX notificatio_user_id_c62b26_idx ON public.notifications_notification USING btree (user_id, created_at);
+
+
+--
+-- Name: notifications_notification_created_at_10160fdd; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX notifications_notification_created_at_10160fdd ON public.notifications_notification USING btree (created_at);
+
+
+--
+-- Name: notifications_notification_event_type_822981c8; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX notifications_notification_event_type_822981c8 ON public.notifications_notification USING btree (event_type);
+
+
+--
+-- Name: notifications_notification_event_type_822981c8_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX notifications_notification_event_type_822981c8_like ON public.notifications_notification USING btree (event_type varchar_pattern_ops);
+
+
+--
+-- Name: notifications_notification_idempotency_key_0aab04ad_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX notifications_notification_idempotency_key_0aab04ad_like ON public.notifications_notification USING btree (idempotency_key varchar_pattern_ops);
+
+
+--
+-- Name: notifications_notification_is_dismissed_544ecb5d; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX notifications_notification_is_dismissed_544ecb5d ON public.notifications_notification USING btree (is_dismissed);
+
+
+--
+-- Name: notifications_notification_is_read_21b215ac; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX notifications_notification_is_read_21b215ac ON public.notifications_notification USING btree (is_read);
+
+
+--
+-- Name: notifications_notification_notification_id_3c948329; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX notifications_notification_notification_id_3c948329 ON public.notifications_notificationdeliveryattempt USING btree (notification_id);
+
+
+--
+-- Name: notifications_notification_user_id_b5e8c0ff; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX notifications_notification_user_id_b5e8c0ff ON public.notifications_notification USING btree (user_id);
+
+
+--
+-- Name: orders_orde_created_0e92de_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_orde_created_0e92de_idx ON public.orders_order USING btree (created_at);
+
+
+--
+-- Name: orders_orde_custome_89bd7e_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_orde_custome_89bd7e_idx ON public.orders_order USING btree (customer_lat, customer_lng);
+
+
+--
+-- Name: orders_orde_custome_c9b64a_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_orde_custome_c9b64a_idx ON public.orders_order USING btree (customer_id, status);
+
+
+--
+-- Name: orders_orde_order_i_1de1d7_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_orde_order_i_1de1d7_idx ON public.orders_orderstatushistory USING btree (order_id, created_at);
+
+
+--
+-- Name: orders_orde_restaur_17016b_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_orde_restaur_17016b_idx ON public.orders_order USING btree (restaurant_id, status);
+
+
+--
+-- Name: orders_orde_restaur_52dee8_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_orde_restaur_52dee8_idx ON public.orders_order USING btree (restaurant_lat, restaurant_lng);
+
+
+--
+-- Name: orders_orde_rider_l_936324_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_orde_rider_l_936324_idx ON public.orders_order USING btree (rider_lat, rider_lng);
+
+
+--
+-- Name: orders_order_cancelled_by_id_b6528c6d; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_order_cancelled_by_id_b6528c6d ON public.orders_order USING btree (cancelled_by_id);
+
+
+--
+-- Name: orders_order_coupon_id_5bddb887; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_order_coupon_id_5bddb887 ON public.orders_order USING btree (coupon_id);
+
+
+--
+-- Name: orders_order_created_at_20b8d253; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_order_created_at_20b8d253 ON public.orders_order USING btree (created_at);
+
+
+--
+-- Name: orders_order_customer_id_0b76f6a4; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_order_customer_id_0b76f6a4 ON public.orders_order USING btree (customer_id);
+
+
+--
+-- Name: orders_order_order_number_4e985f70_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_order_order_number_4e985f70_like ON public.orders_order USING btree (order_number varchar_pattern_ops);
+
+
+--
+-- Name: orders_order_restaurant_id_a38fbfc0; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_order_restaurant_id_a38fbfc0 ON public.orders_order USING btree (restaurant_id);
+
+
+--
+-- Name: orders_order_rider_id_92a8fa73; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_order_rider_id_92a8fa73 ON public.orders_order USING btree (rider_id);
+
+
+--
+-- Name: orders_order_shipping_address_id_c4f8227a; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_order_shipping_address_id_c4f8227a ON public.orders_order USING btree (shipping_address_id);
+
+
+--
+-- Name: orders_order_status_445594e5; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_order_status_445594e5 ON public.orders_order USING btree (status);
+
+
+--
+-- Name: orders_order_status_445594e5_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_order_status_445594e5_like ON public.orders_order USING btree (status varchar_pattern_ops);
+
+
+--
+-- Name: orders_orderitem_food_item_id_a906ceae; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_orderitem_food_item_id_a906ceae ON public.orders_orderitem USING btree (food_item_id);
+
+
+--
+-- Name: orders_orderitem_order_id_fe61a34d; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_orderitem_order_id_fe61a34d ON public.orders_orderitem USING btree (order_id);
+
+
+--
+-- Name: orders_orderstatushistory_actor_id_f3060964; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_orderstatushistory_actor_id_f3060964 ON public.orders_orderstatushistory USING btree (actor_id);
+
+
+--
+-- Name: orders_orderstatushistory_created_at_535f9788; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_orderstatushistory_created_at_535f9788 ON public.orders_orderstatushistory USING btree (created_at);
+
+
+--
+-- Name: orders_orderstatushistory_order_id_bf09a0e1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX orders_orderstatushistory_order_id_bf09a0e1 ON public.orders_orderstatushistory USING btree (order_id);
+
+
+--
+-- Name: payments_pa_order_i_a76289_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_pa_order_i_a76289_idx ON public.payments_payment USING btree (order_id, status);
+
+
+--
+-- Name: payments_pa_provide_adf74c_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_pa_provide_adf74c_idx ON public.payments_payment USING btree (provider_payment_id);
+
+
+--
+-- Name: payments_pa_provide_c37514_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_pa_provide_c37514_idx ON public.payments_payment USING btree (provider_order_id);
+
+
+--
+-- Name: payments_payment_created_at_149046d5; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_payment_created_at_149046d5 ON public.payments_payment USING btree (created_at);
+
+
+--
+-- Name: payments_payment_idempotency_key_d254539e_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_payment_idempotency_key_d254539e_like ON public.payments_payment USING btree (idempotency_key varchar_pattern_ops);
+
+
+--
+-- Name: payments_payment_order_id_22c479b7; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_payment_order_id_22c479b7 ON public.payments_payment USING btree (order_id);
+
+
+--
+-- Name: payments_payment_provider_order_id_d1e01640; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_payment_provider_order_id_d1e01640 ON public.payments_payment USING btree (provider_order_id);
+
+
+--
+-- Name: payments_payment_provider_order_id_d1e01640_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_payment_provider_order_id_d1e01640_like ON public.payments_payment USING btree (provider_order_id varchar_pattern_ops);
+
+
+--
+-- Name: payments_payment_provider_payment_id_6e8e6ad7; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_payment_provider_payment_id_6e8e6ad7 ON public.payments_payment USING btree (provider_payment_id);
+
+
+--
+-- Name: payments_payment_provider_payment_id_6e8e6ad7_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_payment_provider_payment_id_6e8e6ad7_like ON public.payments_payment USING btree (provider_payment_id varchar_pattern_ops);
+
+
+--
+-- Name: payments_payment_status_fc8cbda2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_payment_status_fc8cbda2 ON public.payments_payment USING btree (status);
+
+
+--
+-- Name: payments_payment_status_fc8cbda2_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_payment_status_fc8cbda2_like ON public.payments_payment USING btree (status varchar_pattern_ops);
+
+
+--
+-- Name: payments_paymentwebhook_event_id_8fe95b4f_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_paymentwebhook_event_id_8fe95b4f_like ON public.payments_paymentwebhook USING btree (event_id varchar_pattern_ops);
+
+
+--
+-- Name: payments_paymentwebhook_event_type_21cd6452; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_paymentwebhook_event_type_21cd6452 ON public.payments_paymentwebhook USING btree (event_type);
+
+
+--
+-- Name: payments_paymentwebhook_event_type_21cd6452_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_paymentwebhook_event_type_21cd6452_like ON public.payments_paymentwebhook USING btree (event_type varchar_pattern_ops);
+
+
+--
+-- Name: payments_re_order_n_e6328a_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_re_order_n_e6328a_idx ON public.payments_restaurantcommission USING btree (order_number);
+
+
+--
+-- Name: payments_re_period__d7ac24_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_re_period__d7ac24_idx ON public.payments_restaurantsettlement USING btree (period_start, period_end);
+
+
+--
+-- Name: payments_re_restaur_3364a7_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_re_restaur_3364a7_idx ON public.payments_restaurantsettlement USING btree (restaurant_id, status);
+
+
+--
+-- Name: payments_re_restaur_c3fe0d_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_re_restaur_c3fe0d_idx ON public.payments_restaurantcommission USING btree (restaurant_id, status);
+
+
+--
+-- Name: payments_re_status_4e62c8_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_re_status_4e62c8_idx ON public.payments_restaurantcommission USING btree (status, created_at);
+
+
+--
+-- Name: payments_re_status_a49203_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_re_status_a49203_idx ON public.payments_restaurantsettlement USING btree (status, created_at);
+
+
+--
+-- Name: payments_restaurantcommission_created_at_d0a15424; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantcommission_created_at_d0a15424 ON public.payments_restaurantcommission USING btree (created_at);
+
+
+--
+-- Name: payments_restaurantcommission_order_number_1d66c455; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantcommission_order_number_1d66c455 ON public.payments_restaurantcommission USING btree (order_number);
+
+
+--
+-- Name: payments_restaurantcommission_order_number_1d66c455_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantcommission_order_number_1d66c455_like ON public.payments_restaurantcommission USING btree (order_number varchar_pattern_ops);
+
+
+--
+-- Name: payments_restaurantcommission_restaurant_id_7070c276; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantcommission_restaurant_id_7070c276 ON public.payments_restaurantcommission USING btree (restaurant_id);
+
+
+--
+-- Name: payments_restaurantcommission_settlement_id_8da2d17b; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantcommission_settlement_id_8da2d17b ON public.payments_restaurantcommission USING btree (settlement_id);
+
+
+--
+-- Name: payments_restaurantcommission_status_914e6f96; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantcommission_status_914e6f96 ON public.payments_restaurantcommission USING btree (status);
+
+
+--
+-- Name: payments_restaurantcommission_status_914e6f96_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantcommission_status_914e6f96_like ON public.payments_restaurantcommission USING btree (status varchar_pattern_ops);
+
+
+--
+-- Name: payments_restaurantsettl_settlement_reference_f7520b3b_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantsettl_settlement_reference_f7520b3b_like ON public.payments_restaurantsettlement USING btree (settlement_reference varchar_pattern_ops);
+
+
+--
+-- Name: payments_restaurantsettlement_approved_by_id_43912464; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantsettlement_approved_by_id_43912464 ON public.payments_restaurantsettlement USING btree (approved_by_id);
+
+
+--
+-- Name: payments_restaurantsettlement_created_at_b264bbf2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantsettlement_created_at_b264bbf2 ON public.payments_restaurantsettlement USING btree (created_at);
+
+
+--
+-- Name: payments_restaurantsettlement_created_by_id_00e34e4d; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantsettlement_created_by_id_00e34e4d ON public.payments_restaurantsettlement USING btree (created_by_id);
+
+
+--
+-- Name: payments_restaurantsettlement_period_end_43cccc7b; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantsettlement_period_end_43cccc7b ON public.payments_restaurantsettlement USING btree (period_end);
+
+
+--
+-- Name: payments_restaurantsettlement_period_start_f6b4f173; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantsettlement_period_start_f6b4f173 ON public.payments_restaurantsettlement USING btree (period_start);
+
+
+--
+-- Name: payments_restaurantsettlement_provider_reference_f213b6bf; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantsettlement_provider_reference_f213b6bf ON public.payments_restaurantsettlement USING btree (provider_reference);
+
+
+--
+-- Name: payments_restaurantsettlement_provider_reference_f213b6bf_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantsettlement_provider_reference_f213b6bf_like ON public.payments_restaurantsettlement USING btree (provider_reference varchar_pattern_ops);
+
+
+--
+-- Name: payments_restaurantsettlement_restaurant_id_0782852b; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantsettlement_restaurant_id_0782852b ON public.payments_restaurantsettlement USING btree (restaurant_id);
+
+
+--
+-- Name: payments_restaurantsettlement_status_caa0e802; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantsettlement_status_caa0e802 ON public.payments_restaurantsettlement USING btree (status);
+
+
+--
+-- Name: payments_restaurantsettlement_status_caa0e802_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantsettlement_status_caa0e802_like ON public.payments_restaurantsettlement USING btree (status varchar_pattern_ops);
+
+
+--
+-- Name: payments_restaurantsettlement_verified_by_id_d621f147; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_restaurantsettlement_verified_by_id_d621f147 ON public.payments_restaurantsettlement USING btree (verified_by_id);
+
+
+--
+-- Name: payments_settlementadjustment_authorized_by_id_1efa616b; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_settlementadjustment_authorized_by_id_1efa616b ON public.payments_settlementadjustment USING btree (authorized_by_id);
+
+
+--
+-- Name: payments_settlementadjustment_restaurant_id_e9a92f8a; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_settlementadjustment_restaurant_id_e9a92f8a ON public.payments_settlementadjustment USING btree (restaurant_id);
+
+
+--
+-- Name: payments_settlementadjustment_settlement_id_24cf377f; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_settlementadjustment_settlement_id_24cf377f ON public.payments_settlementadjustment USING btree (settlement_id);
+
+
+--
+-- Name: payments_transaction_idempotency_key_b68ab6d2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_transaction_idempotency_key_b68ab6d2 ON public.payments_transaction USING btree (idempotency_key);
+
+
+--
+-- Name: payments_transaction_idempotency_key_b68ab6d2_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_transaction_idempotency_key_b68ab6d2_like ON public.payments_transaction USING btree (idempotency_key varchar_pattern_ops);
+
+
+--
+-- Name: payments_transaction_payment_id_2f6b2801; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_transaction_payment_id_2f6b2801 ON public.payments_transaction USING btree (payment_id);
+
+
+--
+-- Name: payments_transaction_transaction_id_32594f01_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX payments_transaction_transaction_id_32594f01_like ON public.payments_transaction USING btree (transaction_id varchar_pattern_ops);
+
+
+--
+-- Name: products_fo_categor_6a1c4f_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_fo_categor_6a1c4f_idx ON public.products_fooditem USING btree (category_id, is_available);
+
+
+--
+-- Name: products_fo_created_073672_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_fo_created_073672_idx ON public.products_fooditem USING btree (created_at);
+
+
+--
+-- Name: products_fo_is_veg_6c98f1_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_fo_is_veg_6c98f1_idx ON public.products_fooditem USING btree (is_veg, price);
+
+
+--
+-- Name: products_fo_rating_86a682_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_fo_rating_86a682_idx ON public.products_fooditem USING btree (rating);
+
+
+--
+-- Name: products_fo_restaur_fd3f59_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_fo_restaur_fd3f59_idx ON public.products_fooditem USING btree (restaurant_id, is_available);
+
+
+--
+-- Name: products_foodaddon_food_id_190540be; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_foodaddon_food_id_190540be ON public.products_foodaddon USING btree (food_id);
+
+
+--
+-- Name: products_fooditem_category_id_3932dd55; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_fooditem_category_id_3932dd55 ON public.products_fooditem USING btree (category_id);
+
+
+--
+-- Name: products_fooditem_menu_category_id_08cf9b6f; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_fooditem_menu_category_id_08cf9b6f ON public.products_fooditem USING btree (menu_category_id);
+
+
+--
+-- Name: products_fooditem_restaurant_id_142f8e07; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_fooditem_restaurant_id_142f8e07 ON public.products_fooditem USING btree (restaurant_id);
+
+
+--
+-- Name: products_fooditem_slug_69ab38f3_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_fooditem_slug_69ab38f3_like ON public.products_fooditem USING btree (slug varchar_pattern_ops);
+
+
+--
+-- Name: products_foodpost_food_item_id_b489df82; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_foodpost_food_item_id_b489df82 ON public.products_foodpost USING btree (food_item_id);
+
+
+--
+-- Name: products_foodpost_restaurant_id_dfd7a5af; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_foodpost_restaurant_id_dfd7a5af ON public.products_foodpost USING btree (restaurant_id);
+
+
+--
+-- Name: products_foodreel_food_item_id_78489992; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_foodreel_food_item_id_78489992 ON public.products_foodreel USING btree (food_item_id);
+
+
+--
+-- Name: products_foodreel_restaurant_id_9d61be43; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_foodreel_restaurant_id_9d61be43 ON public.products_foodreel USING btree (restaurant_id);
+
+
+--
+-- Name: products_foodvariant_food_id_fb238833; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_foodvariant_food_id_fb238833 ON public.products_foodvariant USING btree (food_id);
+
+
+--
+-- Name: products_re_created_aacbf1_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_re_created_aacbf1_idx ON public.products_restaurant USING btree (created_at);
+
+
+--
+-- Name: products_re_rating_daa4bb_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_re_rating_daa4bb_idx ON public.products_restaurant USING btree (rating);
+
+
+--
+-- Name: products_re_verific_4b5cc4_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_re_verific_4b5cc4_idx ON public.products_restaurant USING btree (verification_status, is_open);
+
+
+--
+-- Name: products_restaurant_name_d1924249_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_restaurant_name_d1924249_like ON public.products_restaurant USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: products_restaurant_owner_id_792efc20; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX products_restaurant_owner_id_792efc20 ON public.products_restaurant USING btree (owner_id);
+
+
+--
+-- Name: reviews_rev_deliver_5f674e_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_rev_deliver_5f674e_idx ON public.reviews_review USING btree (delivery_partner_id, moderation_status);
+
+
+--
+-- Name: reviews_rev_order_i_a06ef5_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_rev_order_i_a06ef5_idx ON public.reviews_review USING btree (order_id, target_type);
+
+
+--
+-- Name: reviews_rev_product_786cb2_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_rev_product_786cb2_idx ON public.reviews_review USING btree (product_id, moderation_status);
+
+
+--
+-- Name: reviews_rev_restaur_bb2d56_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_rev_restaur_bb2d56_idx ON public.reviews_review USING btree (restaurant_id, moderation_status);
+
+
+--
+-- Name: reviews_rev_review__e01069_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_rev_review__e01069_idx ON public.reviews_reviewreport USING btree (review_id, reported_by_id);
+
+
+--
+-- Name: reviews_rev_status_90cf38_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_rev_status_90cf38_idx ON public.reviews_reviewreport USING btree (status, created_at DESC);
+
+
+--
+-- Name: reviews_rev_target__624db6_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_rev_target__624db6_idx ON public.reviews_review USING btree (target_type, moderation_status, created_at DESC);
+
+
+--
+-- Name: reviews_rev_user_id_eeecea_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_rev_user_id_eeecea_idx ON public.reviews_review USING btree (user_id, created_at DESC);
+
+
+--
+-- Name: reviews_review_created_at_3e4e7d2e; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_review_created_at_3e4e7d2e ON public.reviews_review USING btree (created_at);
+
+
+--
+-- Name: reviews_review_delivery_partner_id_51ada68a; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_review_delivery_partner_id_51ada68a ON public.reviews_review USING btree (delivery_partner_id);
+
+
+--
+-- Name: reviews_review_moderated_by_id_a5dc38a3; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_review_moderated_by_id_a5dc38a3 ON public.reviews_review USING btree (moderated_by_id);
+
+
+--
+-- Name: reviews_review_moderation_status_2e0208b6; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_review_moderation_status_2e0208b6 ON public.reviews_review USING btree (moderation_status);
+
+
+--
+-- Name: reviews_review_moderation_status_2e0208b6_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_review_moderation_status_2e0208b6_like ON public.reviews_review USING btree (moderation_status varchar_pattern_ops);
+
+
+--
+-- Name: reviews_review_order_id_5b59ebd8; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_review_order_id_5b59ebd8 ON public.reviews_review USING btree (order_id);
+
+
+--
+-- Name: reviews_review_product_id_ce2fa4c6; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_review_product_id_ce2fa4c6 ON public.reviews_review USING btree (product_id);
+
+
+--
+-- Name: reviews_review_restaurant_id_c4709367; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_review_restaurant_id_c4709367 ON public.reviews_review USING btree (restaurant_id);
+
+
+--
+-- Name: reviews_review_target_type_4f6a44b6; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_review_target_type_4f6a44b6 ON public.reviews_review USING btree (target_type);
+
+
+--
+-- Name: reviews_review_target_type_4f6a44b6_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_review_target_type_4f6a44b6_like ON public.reviews_review USING btree (target_type varchar_pattern_ops);
+
+
+--
+-- Name: reviews_review_user_id_875caff2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_review_user_id_875caff2 ON public.reviews_review USING btree (user_id);
+
+
+--
+-- Name: reviews_reviewmoderationlog_created_at_b36951d0; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_reviewmoderationlog_created_at_b36951d0 ON public.reviews_reviewmoderationlog USING btree (created_at);
+
+
+--
+-- Name: reviews_reviewmoderationlog_moderator_id_43fb81ee; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_reviewmoderationlog_moderator_id_43fb81ee ON public.reviews_reviewmoderationlog USING btree (moderator_id);
+
+
+--
+-- Name: reviews_reviewmoderationlog_review_id_28a29b93; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_reviewmoderationlog_review_id_28a29b93 ON public.reviews_reviewmoderationlog USING btree (review_id);
+
+
+--
+-- Name: reviews_reviewreport_created_at_1fc6c133; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_reviewreport_created_at_1fc6c133 ON public.reviews_reviewreport USING btree (created_at);
+
+
+--
+-- Name: reviews_reviewreport_reported_by_id_5c6b60f8; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_reviewreport_reported_by_id_5c6b60f8 ON public.reviews_reviewreport USING btree (reported_by_id);
+
+
+--
+-- Name: reviews_reviewreport_resolved_by_id_a6a79622; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_reviewreport_resolved_by_id_a6a79622 ON public.reviews_reviewreport USING btree (resolved_by_id);
+
+
+--
+-- Name: reviews_reviewreport_review_id_b7dfcfca; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_reviewreport_review_id_b7dfcfca ON public.reviews_reviewreport USING btree (review_id);
+
+
+--
+-- Name: reviews_reviewreport_status_40e86bac; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_reviewreport_status_40e86bac ON public.reviews_reviewreport USING btree (status);
+
+
+--
+-- Name: reviews_reviewreport_status_40e86bac_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX reviews_reviewreport_status_40e86bac_like ON public.reviews_reviewreport USING btree (status varchar_pattern_ops);
+
+
+--
+-- Name: seller_sellerprofile_slug_05316edf_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX seller_sellerprofile_slug_05316edf_like ON public.seller_sellerprofile USING btree (slug varchar_pattern_ops);
+
+
+--
+-- Name: shifts_breaklog_check_in_id_f4a988f5; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX shifts_breaklog_check_in_id_f4a988f5 ON public.shifts_breaklog USING btree (check_in_id);
+
+
+--
+-- Name: shifts_breaklog_rider_id_140167fb; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX shifts_breaklog_rider_id_140167fb ON public.shifts_breaklog USING btree (rider_id);
+
+
+--
+-- Name: shifts_checkin_rider_id_dfd3e692; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX shifts_checkin_rider_id_dfd3e692 ON public.shifts_checkin USING btree (rider_id);
+
+
+--
+-- Name: shifts_shift_date_2e61b0a9; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX shifts_shift_date_2e61b0a9 ON public.shifts_shift USING btree (date);
+
+
+--
+-- Name: shifts_shift_slot_id_0b9385a8; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX shifts_shift_slot_id_0b9385a8 ON public.shifts_shift USING btree (slot_id);
+
+
+--
+-- Name: shifts_shiftbonus_rider_id_35ab78d9; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX shifts_shiftbonus_rider_id_35ab78d9 ON public.shifts_shiftbonus USING btree (rider_id);
+
+
+--
+-- Name: shifts_shiftbooking_date_2bade7f9; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX shifts_shiftbooking_date_2bade7f9 ON public.shifts_shiftbooking USING btree (date);
+
+
+--
+-- Name: shifts_shiftbooking_rider_id_540aecfe; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX shifts_shiftbooking_rider_id_540aecfe ON public.shifts_shiftbooking USING btree (rider_id);
+
+
+--
+-- Name: shifts_shiftbooking_shift_id_3a8c7d00; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX shifts_shiftbooking_shift_id_3a8c7d00 ON public.shifts_shiftbooking USING btree (shift_id);
+
+
+--
+-- Name: shifts_shiftswap_booking_id_a8ebc295; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX shifts_shiftswap_booking_id_a8ebc295 ON public.shifts_shiftswap USING btree (booking_id);
+
+
+--
+-- Name: shifts_shiftswap_receiver_id_5daafef2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX shifts_shiftswap_receiver_id_5daafef2 ON public.shifts_shiftswap USING btree (receiver_id);
+
+
+--
+-- Name: shifts_shiftswap_requester_id_26236876; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX shifts_shiftswap_requester_id_26236876 ON public.shifts_shiftswap USING btree (requester_id);
+
+
+--
+-- Name: social_photoreview_order_id_fac00517; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_photoreview_order_id_fac00517 ON public.social_photoreview USING btree (order_id);
+
+
+--
+-- Name: social_photoreview_restaurant_id_7213154f; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_photoreview_restaurant_id_7213154f ON public.social_photoreview USING btree (restaurant_id);
+
+
+--
+-- Name: social_photoreview_user_id_0adae011; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_photoreview_user_id_0adae011 ON public.social_photoreview USING btree (user_id);
+
+
+--
+-- Name: social_postcomment_post_id_06abad83; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_postcomment_post_id_06abad83 ON public.social_postcomment USING btree (post_id);
+
+
+--
+-- Name: social_postcomment_user_id_a3cca7e5; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_postcomment_user_id_a3cca7e5 ON public.social_postcomment USING btree (user_id);
+
+
+--
+-- Name: social_postlike_post_id_2e49b122; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_postlike_post_id_2e49b122 ON public.social_postlike USING btree (post_id);
+
+
+--
+-- Name: social_postlike_user_id_5b69509e; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_postlike_user_id_5b69509e ON public.social_postlike USING btree (user_id);
+
+
+--
+-- Name: social_reelcomment_reel_id_63ab8a78; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_reelcomment_reel_id_63ab8a78 ON public.social_reelcomment USING btree (reel_id);
+
+
+--
+-- Name: social_reelcomment_user_id_e4cf5a1c; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_reelcomment_user_id_e4cf5a1c ON public.social_reelcomment USING btree (user_id);
+
+
+--
+-- Name: social_reellike_reel_id_c7d73dcc; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_reellike_reel_id_c7d73dcc ON public.social_reellike USING btree (reel_id);
+
+
+--
+-- Name: social_reellike_user_id_5b7dfde5; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_reellike_user_id_5b7dfde5 ON public.social_reellike USING btree (user_id);
+
+
+--
+-- Name: social_socialpost_author_id_df2324ff; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_socialpost_author_id_df2324ff ON public.social_socialpost USING btree (author_id);
+
+
+--
+-- Name: social_socialpost_food_item_id_3e6592ee; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_socialpost_food_item_id_3e6592ee ON public.social_socialpost USING btree (food_item_id);
+
+
+--
+-- Name: social_socialpost_restaurant_id_0a5da66d; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_socialpost_restaurant_id_0a5da66d ON public.social_socialpost USING btree (restaurant_id);
+
+
+--
+-- Name: social_socialreel_author_id_e8728a55; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_socialreel_author_id_e8728a55 ON public.social_socialreel USING btree (author_id);
+
+
+--
+-- Name: social_socialreel_food_item_id_74b16c96; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_socialreel_food_item_id_74b16c96 ON public.social_socialreel USING btree (food_item_id);
+
+
+--
+-- Name: social_socialreel_restaurant_id_04a06659; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_socialreel_restaurant_id_04a06659 ON public.social_socialreel USING btree (restaurant_id);
+
+
+--
+-- Name: social_userfollow_follower_id_10e05253; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_userfollow_follower_id_10e05253 ON public.social_userfollow USING btree (follower_id);
+
+
+--
+-- Name: social_userfollow_following_restaurant_id_3b9a8f96; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_userfollow_following_restaurant_id_3b9a8f96 ON public.social_userfollow USING btree (following_restaurant_id);
+
+
+--
+-- Name: social_userfollow_following_user_id_ae739b4e; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX social_userfollow_following_user_id_ae739b4e ON public.social_userfollow USING btree (following_user_id);
+
+
+--
+-- Name: token_blacklist_outstandingtoken_jti_hex_d9bdf6f7_like; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX token_blacklist_outstandingtoken_jti_hex_d9bdf6f7_like ON public.token_blacklist_outstandingtoken USING btree (jti varchar_pattern_ops);
+
+
+--
+-- Name: token_blacklist_outstandingtoken_user_id_83bc629a; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX token_blacklist_outstandingtoken_user_id_83bc629a ON public.token_blacklist_outstandingtoken USING btree (user_id);
+
+
+--
+-- Name: unique_committed_coupon_per_order; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_committed_coupon_per_order ON public.coupons_couponredemption USING btree (coupon_id, order_id) WHERE ((status)::text = 'COMMITTED'::text);
+
+
+--
+-- Name: unique_order_product_review; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_order_product_review ON public.reviews_review USING btree (user_id, order_id, product_id) WHERE ((target_type)::text = 'FOOD_ITEM'::text);
+
+
+--
+-- Name: unique_order_target_review; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_order_target_review ON public.reviews_review USING btree (user_id, order_id, target_type) WHERE ((target_type)::text = ANY ((ARRAY['RESTAURANT'::character varying, 'DELIVERY_PARTNER'::character varying])::text[]));
+
+
+--
+-- Name: wishlist_wishlist_product_id_2d08b75d; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX wishlist_wishlist_product_id_2d08b75d ON public.wishlist_wishlist USING btree (product_id);
+
+
+--
+-- Name: wishlist_wishlist_user_id_13f28b16; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX wishlist_wishlist_user_id_13f28b16 ON public.wishlist_wishlist USING btree (user_id);
+
+
+--
+-- Name: accounts_address accounts_address_user_id_c8c74ddf_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_address
+    ADD CONSTRAINT accounts_address_user_id_c8c74ddf_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_auditlog accounts_auditlog_actor_id_f3348b18_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_auditlog
+    ADD CONSTRAINT accounts_auditlog_actor_id_f3348b18_fk_accounts_user_id FOREIGN KEY (actor_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_loginactivity accounts_loginactivity_user_id_e23ed239_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_loginactivity
+    ADD CONSTRAINT accounts_loginactivity_user_id_e23ed239_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_loyaltyprofile accounts_loyaltyprofile_user_id_17e0c83b_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_loyaltyprofile
+    ADD CONSTRAINT accounts_loyaltyprofile_user_id_17e0c83b_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_profile accounts_profile_user_id_49a85d32_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_profile
+    ADD CONSTRAINT accounts_profile_user_id_49a85d32_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_supportticket accounts_supporttick_assigned_agent_id_0061b5fd_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_supportticket
+    ADD CONSTRAINT accounts_supporttick_assigned_agent_id_0061b5fd_fk_accounts_ FOREIGN KEY (assigned_agent_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_supportticket accounts_supporttick_delivery_partner_id_03e17c70_fk_delivery_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_supportticket
+    ADD CONSTRAINT accounts_supporttick_delivery_partner_id_03e17c70_fk_delivery_ FOREIGN KEY (delivery_partner_id) REFERENCES public.delivery_deliverypartner(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_supportticket accounts_supporttick_escalated_by_id_af1b7f4a_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_supportticket
+    ADD CONSTRAINT accounts_supporttick_escalated_by_id_af1b7f4a_fk_accounts_ FOREIGN KEY (escalated_by_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_supportticket accounts_supporttick_linked_order_id_1689ef10_fk_orders_or; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_supportticket
+    ADD CONSTRAINT accounts_supporttick_linked_order_id_1689ef10_fk_orders_or FOREIGN KEY (linked_order_id) REFERENCES public.orders_order(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_supportticket accounts_supporttick_restaurant_id_cdf12494_fk_products_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_supportticket
+    ADD CONSTRAINT accounts_supporttick_restaurant_id_cdf12494_fk_products_ FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_supportticket accounts_supportticket_user_id_6e311941_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_supportticket
+    ADD CONSTRAINT accounts_supportticket_user_id_6e311941_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_ticketattachment accounts_ticketattac_message_id_05357a9a_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_ticketattachment
+    ADD CONSTRAINT accounts_ticketattac_message_id_05357a9a_fk_accounts_ FOREIGN KEY (message_id) REFERENCES public.accounts_ticketmessage(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_ticketattachment accounts_ticketattac_ticket_id_0177000f_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_ticketattachment
+    ADD CONSTRAINT accounts_ticketattac_ticket_id_0177000f_fk_accounts_ FOREIGN KEY (ticket_id) REFERENCES public.accounts_supportticket(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_ticketattachment accounts_ticketattac_uploaded_by_id_e0774b4e_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_ticketattachment
+    ADD CONSTRAINT accounts_ticketattac_uploaded_by_id_e0774b4e_fk_accounts_ FOREIGN KEY (uploaded_by_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_ticketauditlog accounts_ticketaudit_ticket_id_f2a2d291_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_ticketauditlog
+    ADD CONSTRAINT accounts_ticketaudit_ticket_id_f2a2d291_fk_accounts_ FOREIGN KEY (ticket_id) REFERENCES public.accounts_supportticket(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_ticketauditlog accounts_ticketauditlog_actor_id_9a4eb106_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_ticketauditlog
+    ADD CONSTRAINT accounts_ticketauditlog_actor_id_9a4eb106_fk_accounts_user_id FOREIGN KEY (actor_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_ticketmessage accounts_ticketmessa_ticket_id_2045adb8_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_ticketmessage
+    ADD CONSTRAINT accounts_ticketmessa_ticket_id_2045adb8_fk_accounts_ FOREIGN KEY (ticket_id) REFERENCES public.accounts_supportticket(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_ticketmessage accounts_ticketmessage_sender_id_e65746c8_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_ticketmessage
+    ADD CONSTRAINT accounts_ticketmessage_sender_id_e65746c8_fk_accounts_user_id FOREIGN KEY (sender_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_user_groups accounts_user_groups_group_id_bd11a704_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_user_groups
+    ADD CONSTRAINT accounts_user_groups_group_id_bd11a704_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_user_groups accounts_user_groups_user_id_52b62117_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_user_groups
+    ADD CONSTRAINT accounts_user_groups_user_id_52b62117_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_user_user_permissions accounts_user_user_p_permission_id_113bb443_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_user_user_permissions
+    ADD CONSTRAINT accounts_user_user_p_permission_id_113bb443_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_user_user_permissions accounts_user_user_p_user_id_e4f0a161_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_user_user_permissions
+    ADD CONSTRAINT accounts_user_user_p_user_id_e4f0a161_fk_accounts_ FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_usersettings accounts_usersettings_user_id_3952da55_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_usersettings
+    ADD CONSTRAINT accounts_usersettings_user_id_3952da55_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_wallet accounts_wallet_user_id_e646a316_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_wallet
+    ADD CONSTRAINT accounts_wallet_user_id_e646a316_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: accounts_wallettransaction accounts_wallettrans_wallet_id_d18b5a92_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.accounts_wallettransaction
+    ADD CONSTRAINT accounts_wallettrans_wallet_id_d18b5a92_fk_accounts_ FOREIGN KEY (wallet_id) REFERENCES public.accounts_wallet(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: adminpanel_platformconfig adminpanel_platformc_updated_by_id_d0ba052b_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.adminpanel_platformconfig
+    ADD CONSTRAINT adminpanel_platformc_updated_by_id_d0ba052b_fk_accounts_ FOREIGN KEY (updated_by_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: cart_cart cart_cart_restaurant_id_335a7ef9_fk_products_restaurant_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cart_cart
+    ADD CONSTRAINT cart_cart_restaurant_id_335a7ef9_fk_products_restaurant_id FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: cart_cart cart_cart_user_id_9b4220b9_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cart_cart
+    ADD CONSTRAINT cart_cart_user_id_9b4220b9_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: cart_cartitem cart_cartitem_cart_id_370ad265_fk_cart_cart_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cart_cartitem
+    ADD CONSTRAINT cart_cartitem_cart_id_370ad265_fk_cart_cart_id FOREIGN KEY (cart_id) REFERENCES public.cart_cart(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: cart_cartitem cart_cartitem_product_id_b24e265a_fk_products_fooditem_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cart_cartitem
+    ADD CONSTRAINT cart_cartitem_product_id_b24e265a_fk_products_fooditem_id FOREIGN KEY (product_id) REFERENCES public.products_fooditem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: cart_cartitem cart_cartitem_variant_id_69f5d8c8_fk_products_foodvariant_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cart_cartitem
+    ADD CONSTRAINT cart_cartitem_variant_id_69f5d8c8_fk_products_foodvariant_id FOREIGN KEY (variant_id) REFERENCES public.products_foodvariant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: chat_conversation chat_conversation_customer_id_9b2323d3_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.chat_conversation
+    ADD CONSTRAINT chat_conversation_customer_id_9b2323d3_fk_accounts_user_id FOREIGN KEY (customer_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: chat_conversation chat_conversation_seller_id_40c5e079_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.chat_conversation
+    ADD CONSTRAINT chat_conversation_seller_id_40c5e079_fk_accounts_user_id FOREIGN KEY (seller_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: chat_message chat_message_conversation_id_a1207bf4_fk_chat_conversation_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.chat_message
+    ADD CONSTRAINT chat_message_conversation_id_a1207bf4_fk_chat_conversation_id FOREIGN KEY (conversation_id) REFERENCES public.chat_conversation(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: chat_message chat_message_sender_id_991c686c_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.chat_message
+    ADD CONSTRAINT chat_message_sender_id_991c686c_fk_accounts_user_id FOREIGN KEY (sender_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: coupons_coupon_applicable_restaurants coupons_coupon_appli_coupon_id_02ff6c8c_fk_coupons_c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons_coupon_applicable_restaurants
+    ADD CONSTRAINT coupons_coupon_appli_coupon_id_02ff6c8c_fk_coupons_c FOREIGN KEY (coupon_id) REFERENCES public.coupons_coupon(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: coupons_coupon_applicable_restaurants coupons_coupon_appli_restaurant_id_608099fe_fk_products_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons_coupon_applicable_restaurants
+    ADD CONSTRAINT coupons_coupon_appli_restaurant_id_608099fe_fk_products_ FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: coupons_couponredemption coupons_couponredemp_coupon_id_bff37705_fk_coupons_c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons_couponredemption
+    ADD CONSTRAINT coupons_couponredemp_coupon_id_bff37705_fk_coupons_c FOREIGN KEY (coupon_id) REFERENCES public.coupons_coupon(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: coupons_couponredemption coupons_couponredemption_order_id_5c57d679_fk_orders_order_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons_couponredemption
+    ADD CONSTRAINT coupons_couponredemption_order_id_5c57d679_fk_orders_order_id FOREIGN KEY (order_id) REFERENCES public.orders_order(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: coupons_couponredemption coupons_couponredemption_user_id_4f014db1_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons_couponredemption
+    ADD CONSTRAINT coupons_couponredemption_user_id_4f014db1_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: coupons_loyaltyledgerentry coupons_loyaltyledgerentry_order_id_f1f690c9_fk_orders_order_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons_loyaltyledgerentry
+    ADD CONSTRAINT coupons_loyaltyledgerentry_order_id_f1f690c9_fk_orders_order_id FOREIGN KEY (order_id) REFERENCES public.orders_order(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: coupons_loyaltyledgerentry coupons_loyaltyledgerentry_user_id_6970d243_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons_loyaltyledgerentry
+    ADD CONSTRAINT coupons_loyaltyledgerentry_user_id_6970d243_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: delivery_deliveryassignmenthistory delivery_deliveryass_actor_id_927b9793_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryassignmenthistory
+    ADD CONSTRAINT delivery_deliveryass_actor_id_927b9793_fk_accounts_ FOREIGN KEY (actor_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: delivery_deliveryassignmenthistory delivery_deliveryass_assignment_id_174fff61_fk_delivery_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryassignmenthistory
+    ADD CONSTRAINT delivery_deliveryass_assignment_id_174fff61_fk_delivery_ FOREIGN KEY (assignment_id) REFERENCES public.delivery_deliveryassignment(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: delivery_deliveryassignment delivery_deliveryass_delivery_partner_id_bb9ad758_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryassignment
+    ADD CONSTRAINT delivery_deliveryass_delivery_partner_id_bb9ad758_fk_accounts_ FOREIGN KEY (delivery_partner_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: delivery_deliveryassignment delivery_deliveryass_order_id_a7f3b67d_fk_orders_or; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryassignment
+    ADD CONSTRAINT delivery_deliveryass_order_id_a7f3b67d_fk_orders_or FOREIGN KEY (order_id) REFERENCES public.orders_order(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: delivery_deliveryissuereport delivery_deliveryiss_assignment_id_0d8f79b1_fk_delivery_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryissuereport
+    ADD CONSTRAINT delivery_deliveryiss_assignment_id_0d8f79b1_fk_delivery_ FOREIGN KEY (assignment_id) REFERENCES public.delivery_deliveryassignment(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: delivery_deliveryissuereport delivery_deliveryiss_order_id_961c0a0a_fk_orders_or; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryissuereport
+    ADD CONSTRAINT delivery_deliveryiss_order_id_961c0a0a_fk_orders_or FOREIGN KEY (order_id) REFERENCES public.orders_order(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: delivery_deliveryissuereport delivery_deliveryiss_reporter_id_50f2106f_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryissuereport
+    ADD CONSTRAINT delivery_deliveryiss_reporter_id_50f2106f_fk_accounts_ FOREIGN KEY (reporter_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: delivery_deliveryoffer delivery_deliveryoff_assignment_id_13ea9775_fk_delivery_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryoffer
+    ADD CONSTRAINT delivery_deliveryoff_assignment_id_13ea9775_fk_delivery_ FOREIGN KEY (assignment_id) REFERENCES public.delivery_deliveryassignment(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: delivery_deliveryoffer delivery_deliveryoff_delivery_partner_id_e3a5c287_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryoffer
+    ADD CONSTRAINT delivery_deliveryoff_delivery_partner_id_e3a5c287_fk_accounts_ FOREIGN KEY (delivery_partner_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: delivery_deliveryotp delivery_deliveryotp_assignment_id_f189f2cc_fk_delivery_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryotp
+    ADD CONSTRAINT delivery_deliveryotp_assignment_id_f189f2cc_fk_delivery_ FOREIGN KEY (assignment_id) REFERENCES public.delivery_deliveryassignment(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: delivery_deliveryotp delivery_deliveryotp_order_id_2bc198ac_fk_orders_order_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliveryotp
+    ADD CONSTRAINT delivery_deliveryotp_order_id_2bc198ac_fk_orders_order_id FOREIGN KEY (order_id) REFERENCES public.orders_order(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: delivery_deliverypartner delivery_deliverypar_active_order_id_116b1e1c_fk_orders_or; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliverypartner
+    ADD CONSTRAINT delivery_deliverypar_active_order_id_116b1e1c_fk_orders_or FOREIGN KEY (active_order_id) REFERENCES public.orders_order(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: delivery_deliverypartner delivery_deliverypartner_user_id_87df5982_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.delivery_deliverypartner
+    ADD CONSTRAINT delivery_deliverypartner_user_id_87df5982_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: discovery_usersearchhistory discovery_usersearch_user_id_3cdcc00b_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.discovery_usersearchhistory
+    ADD CONSTRAINT discovery_usersearch_user_id_3cdcc00b_fk_accounts_ FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: menu_menucategory menu_menucategory_restaurant_id_4cdb2a55_fk_products_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.menu_menucategory
+    ADD CONSTRAINT menu_menucategory_restaurant_id_4cdb2a55_fk_products_ FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: notifications_notificationdeliveryattempt notifications_notifi_notification_id_3c948329_fk_notificat; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notifications_notificationdeliveryattempt
+    ADD CONSTRAINT notifications_notifi_notification_id_3c948329_fk_notificat FOREIGN KEY (notification_id) REFERENCES public.notifications_notification(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: notifications_notificationpreference notifications_notifi_user_id_7cfb3d3a_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notifications_notificationpreference
+    ADD CONSTRAINT notifications_notifi_user_id_7cfb3d3a_fk_accounts_ FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: notifications_notification notifications_notification_user_id_b5e8c0ff_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notifications_notification
+    ADD CONSTRAINT notifications_notification_user_id_b5e8c0ff_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: orders_order orders_order_cancelled_by_id_b6528c6d_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders_order
+    ADD CONSTRAINT orders_order_cancelled_by_id_b6528c6d_fk_accounts_user_id FOREIGN KEY (cancelled_by_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: orders_order orders_order_coupon_id_5bddb887_fk_coupons_coupon_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders_order
+    ADD CONSTRAINT orders_order_coupon_id_5bddb887_fk_coupons_coupon_id FOREIGN KEY (coupon_id) REFERENCES public.coupons_coupon(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: orders_order orders_order_customer_id_0b76f6a4_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders_order
+    ADD CONSTRAINT orders_order_customer_id_0b76f6a4_fk_accounts_user_id FOREIGN KEY (customer_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: orders_order orders_order_restaurant_id_a38fbfc0_fk_products_restaurant_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders_order
+    ADD CONSTRAINT orders_order_restaurant_id_a38fbfc0_fk_products_restaurant_id FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: orders_order orders_order_rider_id_92a8fa73_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders_order
+    ADD CONSTRAINT orders_order_rider_id_92a8fa73_fk_accounts_user_id FOREIGN KEY (rider_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: orders_order orders_order_shipping_address_id_c4f8227a_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders_order
+    ADD CONSTRAINT orders_order_shipping_address_id_c4f8227a_fk_accounts_ FOREIGN KEY (shipping_address_id) REFERENCES public.accounts_address(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: orders_orderitem orders_orderitem_food_item_id_a906ceae_fk_products_fooditem_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders_orderitem
+    ADD CONSTRAINT orders_orderitem_food_item_id_a906ceae_fk_products_fooditem_id FOREIGN KEY (food_item_id) REFERENCES public.products_fooditem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: orders_orderitem orders_orderitem_order_id_fe61a34d_fk_orders_order_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders_orderitem
+    ADD CONSTRAINT orders_orderitem_order_id_fe61a34d_fk_orders_order_id FOREIGN KEY (order_id) REFERENCES public.orders_order(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: orders_orderstatushistory orders_orderstatushistory_actor_id_f3060964_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders_orderstatushistory
+    ADD CONSTRAINT orders_orderstatushistory_actor_id_f3060964_fk_accounts_user_id FOREIGN KEY (actor_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: orders_orderstatushistory orders_orderstatushistory_order_id_bf09a0e1_fk_orders_order_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.orders_orderstatushistory
+    ADD CONSTRAINT orders_orderstatushistory_order_id_bf09a0e1_fk_orders_order_id FOREIGN KEY (order_id) REFERENCES public.orders_order(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: payments_payment payments_payment_order_id_22c479b7_fk_orders_order_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_payment
+    ADD CONSTRAINT payments_payment_order_id_22c479b7_fk_orders_order_id FOREIGN KEY (order_id) REFERENCES public.orders_order(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: payments_restaurantcommission payments_restaurantc_order_id_79e08e00_fk_orders_or; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_restaurantcommission
+    ADD CONSTRAINT payments_restaurantc_order_id_79e08e00_fk_orders_or FOREIGN KEY (order_id) REFERENCES public.orders_order(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: payments_restaurantcommission payments_restaurantc_restaurant_id_7070c276_fk_products_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_restaurantcommission
+    ADD CONSTRAINT payments_restaurantc_restaurant_id_7070c276_fk_products_ FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: payments_restaurantcommission payments_restaurantc_settlement_id_8da2d17b_fk_payments_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_restaurantcommission
+    ADD CONSTRAINT payments_restaurantc_settlement_id_8da2d17b_fk_payments_ FOREIGN KEY (settlement_id) REFERENCES public.payments_restaurantsettlement(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: payments_restaurantsettlement payments_restaurants_approved_by_id_43912464_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_restaurantsettlement
+    ADD CONSTRAINT payments_restaurants_approved_by_id_43912464_fk_accounts_ FOREIGN KEY (approved_by_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: payments_restaurantsettlement payments_restaurants_created_by_id_00e34e4d_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_restaurantsettlement
+    ADD CONSTRAINT payments_restaurants_created_by_id_00e34e4d_fk_accounts_ FOREIGN KEY (created_by_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: payments_restaurantsettlement payments_restaurants_restaurant_id_0782852b_fk_products_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_restaurantsettlement
+    ADD CONSTRAINT payments_restaurants_restaurant_id_0782852b_fk_products_ FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: payments_restaurantsettlement payments_restaurants_verified_by_id_d621f147_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_restaurantsettlement
+    ADD CONSTRAINT payments_restaurants_verified_by_id_d621f147_fk_accounts_ FOREIGN KEY (verified_by_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: payments_settlementadjustment payments_settlementa_authorized_by_id_1efa616b_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_settlementadjustment
+    ADD CONSTRAINT payments_settlementa_authorized_by_id_1efa616b_fk_accounts_ FOREIGN KEY (authorized_by_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: payments_settlementadjustment payments_settlementa_restaurant_id_e9a92f8a_fk_products_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_settlementadjustment
+    ADD CONSTRAINT payments_settlementa_restaurant_id_e9a92f8a_fk_products_ FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: payments_settlementadjustment payments_settlementa_settlement_id_24cf377f_fk_payments_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_settlementadjustment
+    ADD CONSTRAINT payments_settlementa_settlement_id_24cf377f_fk_payments_ FOREIGN KEY (settlement_id) REFERENCES public.payments_restaurantsettlement(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: payments_transaction payments_transaction_payment_id_2f6b2801_fk_payments_payment_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.payments_transaction
+    ADD CONSTRAINT payments_transaction_payment_id_2f6b2801_fk_payments_payment_id FOREIGN KEY (payment_id) REFERENCES public.payments_payment(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: products_foodaddon products_foodaddon_food_id_190540be_fk_products_fooditem_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_foodaddon
+    ADD CONSTRAINT products_foodaddon_food_id_190540be_fk_products_fooditem_id FOREIGN KEY (food_id) REFERENCES public.products_fooditem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: products_fooditem products_fooditem_category_id_3932dd55_fk_categorie; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_fooditem
+    ADD CONSTRAINT products_fooditem_category_id_3932dd55_fk_categorie FOREIGN KEY (category_id) REFERENCES public.categories_category(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: products_fooditem products_fooditem_menu_category_id_08cf9b6f_fk_menu_menu; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_fooditem
+    ADD CONSTRAINT products_fooditem_menu_category_id_08cf9b6f_fk_menu_menu FOREIGN KEY (menu_category_id) REFERENCES public.menu_menucategory(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: products_fooditem products_fooditem_restaurant_id_142f8e07_fk_products_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_fooditem
+    ADD CONSTRAINT products_fooditem_restaurant_id_142f8e07_fk_products_ FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: products_foodpost products_foodpost_food_item_id_b489df82_fk_products_fooditem_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_foodpost
+    ADD CONSTRAINT products_foodpost_food_item_id_b489df82_fk_products_fooditem_id FOREIGN KEY (food_item_id) REFERENCES public.products_fooditem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: products_foodpost products_foodpost_restaurant_id_dfd7a5af_fk_products_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_foodpost
+    ADD CONSTRAINT products_foodpost_restaurant_id_dfd7a5af_fk_products_ FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: products_foodreel products_foodreel_food_item_id_78489992_fk_products_fooditem_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_foodreel
+    ADD CONSTRAINT products_foodreel_food_item_id_78489992_fk_products_fooditem_id FOREIGN KEY (food_item_id) REFERENCES public.products_fooditem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: products_foodreel products_foodreel_restaurant_id_9d61be43_fk_products_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_foodreel
+    ADD CONSTRAINT products_foodreel_restaurant_id_9d61be43_fk_products_ FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: products_foodvariant products_foodvariant_food_id_fb238833_fk_products_fooditem_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_foodvariant
+    ADD CONSTRAINT products_foodvariant_food_id_fb238833_fk_products_fooditem_id FOREIGN KEY (food_id) REFERENCES public.products_fooditem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: products_restaurant products_restaurant_owner_id_792efc20_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products_restaurant
+    ADD CONSTRAINT products_restaurant_owner_id_792efc20_fk_accounts_user_id FOREIGN KEY (owner_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: reviews_review reviews_review_delivery_partner_id_51ada68a_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reviews_review
+    ADD CONSTRAINT reviews_review_delivery_partner_id_51ada68a_fk_accounts_user_id FOREIGN KEY (delivery_partner_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: reviews_review reviews_review_moderated_by_id_a5dc38a3_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reviews_review
+    ADD CONSTRAINT reviews_review_moderated_by_id_a5dc38a3_fk_accounts_user_id FOREIGN KEY (moderated_by_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: reviews_review reviews_review_order_id_5b59ebd8_fk_orders_order_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reviews_review
+    ADD CONSTRAINT reviews_review_order_id_5b59ebd8_fk_orders_order_id FOREIGN KEY (order_id) REFERENCES public.orders_order(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: reviews_review reviews_review_product_id_ce2fa4c6_fk_products_fooditem_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reviews_review
+    ADD CONSTRAINT reviews_review_product_id_ce2fa4c6_fk_products_fooditem_id FOREIGN KEY (product_id) REFERENCES public.products_fooditem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: reviews_review reviews_review_restaurant_id_c4709367_fk_products_restaurant_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reviews_review
+    ADD CONSTRAINT reviews_review_restaurant_id_c4709367_fk_products_restaurant_id FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: reviews_review reviews_review_user_id_875caff2_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reviews_review
+    ADD CONSTRAINT reviews_review_user_id_875caff2_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: reviews_reviewmoderationlog reviews_reviewmodera_moderator_id_43fb81ee_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reviews_reviewmoderationlog
+    ADD CONSTRAINT reviews_reviewmodera_moderator_id_43fb81ee_fk_accounts_ FOREIGN KEY (moderator_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: reviews_reviewmoderationlog reviews_reviewmodera_review_id_28a29b93_fk_reviews_r; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reviews_reviewmoderationlog
+    ADD CONSTRAINT reviews_reviewmodera_review_id_28a29b93_fk_reviews_r FOREIGN KEY (review_id) REFERENCES public.reviews_review(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: reviews_reviewreport reviews_reviewreport_reported_by_id_5c6b60f8_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reviews_reviewreport
+    ADD CONSTRAINT reviews_reviewreport_reported_by_id_5c6b60f8_fk_accounts_ FOREIGN KEY (reported_by_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: reviews_reviewreport reviews_reviewreport_resolved_by_id_a6a79622_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reviews_reviewreport
+    ADD CONSTRAINT reviews_reviewreport_resolved_by_id_a6a79622_fk_accounts_ FOREIGN KEY (resolved_by_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: reviews_reviewreport reviews_reviewreport_review_id_b7dfcfca_fk_reviews_review_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.reviews_reviewreport
+    ADD CONSTRAINT reviews_reviewreport_review_id_b7dfcfca_fk_reviews_review_id FOREIGN KEY (review_id) REFERENCES public.reviews_review(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: seller_sellerprofile seller_sellerprofile_restaurant_id_8d577880_fk_products_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.seller_sellerprofile
+    ADD CONSTRAINT seller_sellerprofile_restaurant_id_8d577880_fk_products_ FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: seller_sellerprofile seller_sellerprofile_user_id_545a8b13_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.seller_sellerprofile
+    ADD CONSTRAINT seller_sellerprofile_user_id_545a8b13_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shifts_breaklog shifts_breaklog_check_in_id_f4a988f5_fk_shifts_checkin_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_breaklog
+    ADD CONSTRAINT shifts_breaklog_check_in_id_f4a988f5_fk_shifts_checkin_id FOREIGN KEY (check_in_id) REFERENCES public.shifts_checkin(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shifts_breaklog shifts_breaklog_rider_id_140167fb_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_breaklog
+    ADD CONSTRAINT shifts_breaklog_rider_id_140167fb_fk_accounts_user_id FOREIGN KEY (rider_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shifts_checkin shifts_checkin_booking_id_7db5ef4a_fk_shifts_shiftbooking_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_checkin
+    ADD CONSTRAINT shifts_checkin_booking_id_7db5ef4a_fk_shifts_shiftbooking_id FOREIGN KEY (booking_id) REFERENCES public.shifts_shiftbooking(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shifts_checkin shifts_checkin_rider_id_dfd3e692_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_checkin
+    ADD CONSTRAINT shifts_checkin_rider_id_dfd3e692_fk_accounts_user_id FOREIGN KEY (rider_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shifts_shift shifts_shift_slot_id_0b9385a8_fk_shifts_shiftslot_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_shift
+    ADD CONSTRAINT shifts_shift_slot_id_0b9385a8_fk_shifts_shiftslot_id FOREIGN KEY (slot_id) REFERENCES public.shifts_shiftslot(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shifts_shiftbonus shifts_shiftbonus_rider_id_35ab78d9_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_shiftbonus
+    ADD CONSTRAINT shifts_shiftbonus_rider_id_35ab78d9_fk_accounts_user_id FOREIGN KEY (rider_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shifts_shiftbooking shifts_shiftbooking_rider_id_540aecfe_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_shiftbooking
+    ADD CONSTRAINT shifts_shiftbooking_rider_id_540aecfe_fk_accounts_user_id FOREIGN KEY (rider_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shifts_shiftbooking shifts_shiftbooking_shift_id_3a8c7d00_fk_shifts_shift_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_shiftbooking
+    ADD CONSTRAINT shifts_shiftbooking_shift_id_3a8c7d00_fk_shifts_shift_id FOREIGN KEY (shift_id) REFERENCES public.shifts_shift(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shifts_shiftswap shifts_shiftswap_booking_id_a8ebc295_fk_shifts_shiftbooking_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_shiftswap
+    ADD CONSTRAINT shifts_shiftswap_booking_id_a8ebc295_fk_shifts_shiftbooking_id FOREIGN KEY (booking_id) REFERENCES public.shifts_shiftbooking(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shifts_shiftswap shifts_shiftswap_receiver_id_5daafef2_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_shiftswap
+    ADD CONSTRAINT shifts_shiftswap_receiver_id_5daafef2_fk_accounts_user_id FOREIGN KEY (receiver_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: shifts_shiftswap shifts_shiftswap_requester_id_26236876_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.shifts_shiftswap
+    ADD CONSTRAINT shifts_shiftswap_requester_id_26236876_fk_accounts_user_id FOREIGN KEY (requester_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_photoreview social_photoreview_order_id_fac00517_fk_orders_order_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_photoreview
+    ADD CONSTRAINT social_photoreview_order_id_fac00517_fk_orders_order_id FOREIGN KEY (order_id) REFERENCES public.orders_order(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_photoreview social_photoreview_restaurant_id_7213154f_fk_products_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_photoreview
+    ADD CONSTRAINT social_photoreview_restaurant_id_7213154f_fk_products_ FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_photoreview social_photoreview_user_id_0adae011_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_photoreview
+    ADD CONSTRAINT social_photoreview_user_id_0adae011_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_postcomment social_postcomment_post_id_06abad83_fk_social_socialpost_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_postcomment
+    ADD CONSTRAINT social_postcomment_post_id_06abad83_fk_social_socialpost_id FOREIGN KEY (post_id) REFERENCES public.social_socialpost(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_postcomment social_postcomment_user_id_a3cca7e5_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_postcomment
+    ADD CONSTRAINT social_postcomment_user_id_a3cca7e5_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_postlike social_postlike_post_id_2e49b122_fk_social_socialpost_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_postlike
+    ADD CONSTRAINT social_postlike_post_id_2e49b122_fk_social_socialpost_id FOREIGN KEY (post_id) REFERENCES public.social_socialpost(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_postlike social_postlike_user_id_5b69509e_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_postlike
+    ADD CONSTRAINT social_postlike_user_id_5b69509e_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_reelcomment social_reelcomment_reel_id_63ab8a78_fk_social_socialreel_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_reelcomment
+    ADD CONSTRAINT social_reelcomment_reel_id_63ab8a78_fk_social_socialreel_id FOREIGN KEY (reel_id) REFERENCES public.social_socialreel(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_reelcomment social_reelcomment_user_id_e4cf5a1c_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_reelcomment
+    ADD CONSTRAINT social_reelcomment_user_id_e4cf5a1c_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_reellike social_reellike_reel_id_c7d73dcc_fk_social_socialreel_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_reellike
+    ADD CONSTRAINT social_reellike_reel_id_c7d73dcc_fk_social_socialreel_id FOREIGN KEY (reel_id) REFERENCES public.social_socialreel(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_reellike social_reellike_user_id_5b7dfde5_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_reellike
+    ADD CONSTRAINT social_reellike_user_id_5b7dfde5_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_socialpost social_socialpost_author_id_df2324ff_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_socialpost
+    ADD CONSTRAINT social_socialpost_author_id_df2324ff_fk_accounts_user_id FOREIGN KEY (author_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_socialpost social_socialpost_food_item_id_3e6592ee_fk_products_fooditem_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_socialpost
+    ADD CONSTRAINT social_socialpost_food_item_id_3e6592ee_fk_products_fooditem_id FOREIGN KEY (food_item_id) REFERENCES public.products_fooditem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_socialpost social_socialpost_restaurant_id_0a5da66d_fk_products_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_socialpost
+    ADD CONSTRAINT social_socialpost_restaurant_id_0a5da66d_fk_products_ FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_socialreel social_socialreel_author_id_e8728a55_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_socialreel
+    ADD CONSTRAINT social_socialreel_author_id_e8728a55_fk_accounts_user_id FOREIGN KEY (author_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_socialreel social_socialreel_food_item_id_74b16c96_fk_products_fooditem_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_socialreel
+    ADD CONSTRAINT social_socialreel_food_item_id_74b16c96_fk_products_fooditem_id FOREIGN KEY (food_item_id) REFERENCES public.products_fooditem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_socialreel social_socialreel_restaurant_id_04a06659_fk_products_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_socialreel
+    ADD CONSTRAINT social_socialreel_restaurant_id_04a06659_fk_products_ FOREIGN KEY (restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_userfollow social_userfollow_follower_id_10e05253_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_userfollow
+    ADD CONSTRAINT social_userfollow_follower_id_10e05253_fk_accounts_user_id FOREIGN KEY (follower_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_userfollow social_userfollow_following_restaurant_3b9a8f96_fk_products_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_userfollow
+    ADD CONSTRAINT social_userfollow_following_restaurant_3b9a8f96_fk_products_ FOREIGN KEY (following_restaurant_id) REFERENCES public.products_restaurant(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_userfollow social_userfollow_following_user_id_ae739b4e_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.social_userfollow
+    ADD CONSTRAINT social_userfollow_following_user_id_ae739b4e_fk_accounts_ FOREIGN KEY (following_user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: token_blacklist_blacklistedtoken token_blacklist_blacklistedtoken_token_id_3cc7fe56_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.token_blacklist_blacklistedtoken
+    ADD CONSTRAINT token_blacklist_blacklistedtoken_token_id_3cc7fe56_fk FOREIGN KEY (token_id) REFERENCES public.token_blacklist_outstandingtoken(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: token_blacklist_outstandingtoken token_blacklist_outs_user_id_83bc629a_fk_accounts_; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.token_blacklist_outstandingtoken
+    ADD CONSTRAINT token_blacklist_outs_user_id_83bc629a_fk_accounts_ FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: wishlist_wishlist wishlist_wishlist_product_id_2d08b75d_fk_products_fooditem_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wishlist_wishlist
+    ADD CONSTRAINT wishlist_wishlist_product_id_2d08b75d_fk_products_fooditem_id FOREIGN KEY (product_id) REFERENCES public.products_fooditem(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: wishlist_wishlist wishlist_wishlist_user_id_13f28b16_fk_accounts_user_id; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.wishlist_wishlist
+    ADD CONSTRAINT wishlist_wishlist_user_id_13f28b16_fk_accounts_user_id FOREIGN KEY (user_id) REFERENCES public.accounts_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict BeQOID5k4Vu3rKSpe1x381d6BSj9b1QfYksVk6qbFhPzO7leWaISfFRnhJrJln1
+

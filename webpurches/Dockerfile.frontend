@@ -1,0 +1,52 @@
+# ==============================================================================
+# Fast Delivery (FD) - Multi-Stage Frontend Production Dockerfile
+# Compiles Customer, Restaurant, Delivery Partner, and Admin React Apps
+# ==============================================================================
+
+# --- STAGE 1: Build Stage ---
+FROM node:20-alpine AS builder
+
+WORKDIR /build
+
+# Copy root workspace and application package manifests
+COPY package.json package-lock.json* ./
+COPY customer-app/package.json ./customer-app/
+COPY restaurant-app/package.json ./restaurant-app/
+COPY delivery-partner-app/package.json ./delivery-partner-app/
+COPY admin-app/package.json ./admin-app/
+
+# Install build dependencies
+RUN npm install
+
+# Copy application source codes
+COPY vite.config.js ./
+COPY customer-app ./customer-app
+COPY restaurant-app ./restaurant-app
+COPY delivery-partner-app ./delivery-partner-app
+COPY admin-app ./admin-app
+
+# Build all four React production bundles
+RUN npm run build
+
+# --- STAGE 2: Web Server Stage (Nginx Alpine) ---
+FROM nginx:1.27-alpine AS runner
+
+# Remove default nginx welcome page
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy compiled static assets into distinct portal directories
+COPY --from=builder /build/customer-app/dist /usr/share/nginx/html/customer
+COPY --from=builder /build/restaurant-app/dist /usr/share/nginx/html/restaurant
+COPY --from=builder /build/delivery-partner-app/dist /usr/share/nginx/html/delivery
+COPY --from=builder /build/admin-app/dist /usr/share/nginx/html/admin
+
+# Copy custom Nginx configuration
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/conf.d/fastdelivery.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80 443
+
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
+    CMD wget -qO- http://localhost/health || exit 1
+
+CMD ["nginx", "-g", "daemon off;"]

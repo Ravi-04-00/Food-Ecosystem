@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offline • Fast Delivery Partner</title>
+  <style>
+    :root {
+      --primary: #062817;
+      --accent: #22c55e;
+      --bg: #f7faf5;
+      --text: #0a2e1b;
+      --muted: #4b6354;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Mukta Malar", sans-serif;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      max-width: 440px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: var(--primary);
+      color: var(--accent);
+      font-size: 28px;
+      font-weight: 900;
+      font-style: italic;
+      margin-bottom: 1.25rem;
+    }
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: 1.45rem;
+      font-weight: 800;
+    }
+    p {
+      margin: 0 0 1.5rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .tamil-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: -0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 0.85rem 1.5rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      box-sizing: border-box;
+      transition: opacity 0.2s;
+    }
+    .btn:hover {
+      opacity: 0.9;
+    }
+    .notice {
+      margin-top: 1.25rem;
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="badge">FD</div>
+    <h1>Kitchen Hub Offline</h1>
+    <p>Live kitchen orders, menu toggle changes, and settlement updates require an active network connection.</p>
+    <p class="tamil-text">நேரடி சமையலறை ஆர்டர்கள் மற்றும் நிலவரங்களுக்கு இணைய இணைப்பு தேவை.</p>
+    <button class="btn" onclick="window.location.reload()">Reconnect • மீண்டும் முயற்சிக்கவும்</button>
+    <div class="notice">Order status transitions cannot be performed while offline.</div>
+  </div>
+</body>
+</html>

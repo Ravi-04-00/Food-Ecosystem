@@ -1,0 +1,36 @@
+# ==============================================================================
+# Fast Delivery (FD) - Systemd Service for Daphne ASGI Production Server
+# Location: /etc/systemd/system/fastdelivery-daphne.service
+# ==============================================================================
+
+[Unit]
+Description=Fast Delivery (FD) Daphne ASGI Server (HTTP & WebSockets)
+After=network.target postgresql.service redis.service
+Wants=postgresql.service redis.service
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/fastdelivery/backend
+EnvironmentFile=/var/www/fastdelivery/backend/.env
+ExecStart=/var/www/fastdelivery/backend/venv/bin/daphne \
+    -b 127.0.0.1 \
+    -p 8000 \
+    config.asgi:application
+
+Restart=always
+RestartSec=5s
+LimitNOFILE=65535
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=fd-daphne
+
+# Security Sandboxing
+ProtectSystem=full
+ProtectHome=true
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

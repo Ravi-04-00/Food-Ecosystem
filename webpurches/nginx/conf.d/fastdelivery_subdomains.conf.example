@@ -1,0 +1,84 @@
+# ==============================================================================
+# Fast Delivery (FD) - Subdomain Production Deployment Example
+# For deployments with discrete subdomains per portal
+# ==============================================================================
+
+upstream django_backend_subdomain {
+    server backend:8000;
+}
+
+# 1. API & Real-time WebSockets Subdomain: api.fastdelivery.com
+server {
+    listen 80;
+    server_name api.fastdelivery.com;
+
+    location /api/ {
+        proxy_pass http://django_backend_subdomain;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /FD/ {
+        proxy_pass http://django_backend_subdomain;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 3600s;
+    }
+
+    location /static/ {
+        alias /app/staticfiles/;
+        expires 30d;
+    }
+
+    location /media/ {
+        alias /app/media/;
+        expires 7d;
+    }
+}
+
+# 2. Customer Portal: app.fastdelivery.com / fastdelivery.com
+server {
+    listen 80;
+    server_name app.fastdelivery.com fastdelivery.com;
+    root /usr/share/nginx/html/customer;
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
+
+# 3. Restaurant Hub: partner.fastdelivery.com
+server {
+    listen 80;
+    server_name partner.fastdelivery.com;
+    root /usr/share/nginx/html/restaurant;
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
+
+# 4. Delivery Partner Fleet: courier.fastdelivery.com
+server {
+    listen 80;
+    server_name courier.fastdelivery.com;
+    root /usr/share/nginx/html/delivery;
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
+
+# 5. Admin Mission Control: admin.fastdelivery.com
+server {
+    listen 80;
+    server_name admin.fastdelivery.com;
+    root /usr/share/nginx/html/admin;
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
