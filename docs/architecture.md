@@ -45,7 +45,45 @@ flowchart TD
 
 ---
 
-## 2. Micro-Frontend App Boundaries
+## 2. Repository Folder Structure & Modular Architecture
+
+```
+FD-Foods/
+├── frontend/
+│   ├── customer-app/          # Port 3000: Customer food ordering, wallet & tracking portal
+│   ├── restaurant-app/        # Port 3001: Kitchen operations, live KDS & analytics
+│   ├── delivery-partner-app/  # Port 3002: Rider dispatch, turn-by-turn routing & OTP verification
+│   └── admin-app/             # Port 3003: Platform command center, fleet radar & KYC review
+├── backend/
+│   ├── manage.py              # Django execution entry point
+│   ├── requirements.txt       # Pinned Python dependencies
+│   ├── config/                # settings.py, asgi.py, wsgi.py, urls.py
+│   ├── apps/                  # 20 Modular Django domain applications
+│   │   ├── accounts/          # User authentication, profiles, KYC documents & RBAC
+│   │   ├── restaurants/       # Restaurant profiles, working hours & availability
+│   │   ├── products/ & menu/  # Food catalog, categories & variant pricing
+│   │   ├── orders/ & cart/    # Cart state, checkout, OTP creation & status transitions
+│   │   ├── delivery/          # Rider telemetry, assignment, shifts & handover
+│   │   ├── payments/          # Razorpay payment gateway & signature verification
+│   │   ├── chat/              # In-app messaging between customers, riders & support
+│   │   ├── analytics/         # Sales metrics, dish performance & revenue stats
+│   │   └── core_tests/        # Comprehensive automated backend test suite
+│   ├── scripts/               # Python database backup and restoration utilities
+│   └── media/                 # Mock catalog imagery and upload storage
+├── docs/                      # Technical architecture, setup and reports
+├── tests/                     # 75 Automated frontend unit, viewport & security tests
+├── scripts/                   # Shell and Batch launcher and database scripts
+├── deploy/ & nginx/           # Production container orchestration and Nginx reverse proxy
+├── .github/                   # GitHub Actions CI/CD workflows and issue templates
+├── .env.example               # Sanitized environment configuration template
+├── .gitignore                 # Exclusion rules for secrets, caches, databases and dist
+├── package.json               # Root workspace orchestrator (dev:all, build:all, test)
+└── start_all.ps1              # Port-conflict-safe unified ecosystem launcher
+```
+
+---
+
+## 3. Micro-Frontend App Boundaries
 
 | Application | Port | Framework | Primary Domain Responsibilities |
 | :--- | :--- | :--- | :--- |
@@ -56,7 +94,7 @@ flowchart TD
 
 ---
 
-## 3. Order Lifecycle State Machine
+## 4. Order Lifecycle State Machine
 
 Every order transitions through a strictly validated state machine enforced by backend DRF views:
 
@@ -79,7 +117,7 @@ stateDiagram-v2
 
 ---
 
-## 4. Real-Time Telemetry & WebSocket Protocol
+## 5. Real-Time Telemetry & WebSocket Protocol
 
 Real-time location and status updates are powered by **Django Channels** and backed by **Redis**:
 
@@ -102,8 +140,33 @@ Real-time location and status updates are powered by **Django Channels** and bac
 
 ---
 
-## 5. Security Architecture & RBAC
+## 6. Security Architecture & RBAC
 
 - **Authentication**: Stateless JSON Web Tokens (JWT) using `rest_framework_simplejwt`. Access tokens expire in 1 day; refresh tokens expire in 7 days and are rotated on every refresh.
 - **Role-Based Access Control (RBAC)**: Custom DRF permission classes (`IsCustomerUser`, `IsRestaurantStaff`, `IsDeliveryPartner`, `IsAdminRole`) guard domain-specific endpoints.
 - **Sensitive Data Isolation**: Database passwords, payment gateway secrets, and cryptographic keys are loaded exclusively from server environment variables and never bundled into frontend assets.
+
+---
+
+## 7. Database Responsibilities & Model Domains
+
+The authoritative PostgreSQL database (`fdfood_db`) isolates domain entities cleanly:
+- **`accounts`**: Custom User model with polymorphic roles, UserProfile, Address records, and PartnerKYC verification documents.
+- **`restaurants`**: Restaurant metadata, operating status, geo-coordinates, cuisine tags, and bank settlement details.
+- **`products` & `menu`**: Dish catalog, variants, addons, dietary tags (Veg/Halal), and dynamic category trees.
+- **`orders` & `cart`**: Ephemeral cart sessions, immutable completed order items, unique OTP tokens, and timeline logs.
+- **`delivery`**: Courier shift logs, vehicle registration, and historical waypoint routes.
+- **`payments`**: Payment transaction logs, webhook signatures, refund records, and FD Wallet ledgers.
+
+---
+
+## 8. Payment & Map Integrations
+
+### Payment Gateway (Razorpay)
+- **Client Flow**: Customers initiate payments via the frontend checkout module.
+- **Server Verification**: The backend validates Razorpay HMAC-SHA256 signatures (`razorpay_signature`) before transitioning payment records from `PENDING` to `SUCCESS`.
+- **Sandbox Mode**: Test mode simulation supports instant mock verification (`rzp_test_*` credentials).
+
+### Geolocation & Map Display
+- **Dual Engine**: All map modules (`LiveDeliveryMap`, `LiveControlMap`, `OperationalMapCanvas`) load the Google Maps JavaScript API when `GOOGLE_MAPS_API_KEY` is present.
+- **Resilient Fallback**: If offline or if no API key is provided, maps automatically switch to high-performance vector SVG rendering without blank canvases.

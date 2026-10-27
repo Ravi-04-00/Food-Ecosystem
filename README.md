@@ -86,37 +86,39 @@ flowchart TD
 ## 4. Repository Structure
 
 ```
-Food-Ecosystem/
+FD-Foods/
 ├── .github/                                # GitHub Actions CI & Issue Templates
 │   ├── workflows/ci.yml                    # Automated tests & multi-app build pipeline
 │   ├── ISSUE_TEMPLATE/                     # Bug & Feature issue templates
 │   └── PULL_REQUEST_TEMPLATE.md            # PR checklist and guidelines
-├── docs/                                   # In-depth architectural & API specifications
-│   ├── architecture.md                     # Deep technical architecture
-│   └── PHASE_1_GITHUB_AUDIT_REPORT.md      # Comprehensive audit report
-├── scripts/                                # Database backup and restore scripts
-├── fd_/                                    # Active Application Workspace
+├── frontend/                               # Independent React 19 / Vite Applications
 │   ├── customer-app/                       # Port 3000: Consumer ordering & tracking portal
 │   ├── restaurant-app/                     # Port 3001: Kitchen operations & SVG analytics
 │   ├── delivery-partner-app/               # Port 3002: Courier dispatch & GPS telemetry
-│   ├── admin-app/                          # Port 3003: Mission control & ecosystem radar
-│   ├── backend/                            # Port 8000: Django 5.x REST API & Channels
-│   │   ├── apps/                           # 21 modular domain apps (accounts, orders, etc.)
-│   │   │   └── core_tests/                 # 76 automated Django tests
-│   │   ├── config/                         # settings.py, asgi.py, wsgi.py, urls.py
-│   │   ├── media/                          # Mock catalog logos and food images
-│   │   ├── requirements.txt                # 12 pinned Python dependencies
-│   │   └── simulate_e2e_order_journey.py   # Multi-actor order simulation utility
-│   ├── src/                                # Unified Dev Launcher Preview Hub
-│   ├── tests/                              # 75 automated frontend unit & QA tests
-│   ├── package.json                        # Root workspace orchestration
-│   └── package-lock.json                   # Verified package lockfile
+│   └── admin-app/                          # Port 3003: Mission control & ecosystem radar
+├── backend/                                # Port 8000: Django 5.x REST API & Channels
+│   ├── apps/                               # 20 modular domain apps (accounts, orders, etc.)
+│   │   └── core_tests/                     # Automated Django test suites
+│   ├── config/                             # settings.py, asgi.py, wsgi.py, urls.py
+│   ├── media/                              # Mock catalog logos and food images
+│   ├── requirements.txt                    # Pinned Python dependencies
+│   ├── scripts/                            # Database backup and restore utilities
+│   └── simulate_e2e_order_journey.py       # Multi-actor order simulation utility
+├── docs/                                   # In-depth architectural & API specifications
+│   ├── architecture.md                     # Deep technical architecture
+│   └── reports/                            # Historical QA & audit reports
+├── tests/                                  # 75 automated frontend unit & QA tests
+├── scripts/                                # Database backup and restore shell/batch scripts
+├── deploy/ & nginx/                        # Production Nginx reverse proxy & Systemd services
+├── package.json                            # Root workspace orchestration
+├── package-lock.json                       # Verified package lockfile
 ├── .env.example                            # Clean, sanitized environment template
 ├── .gitignore                              # Comprehensive protection (secrets, SQL, media)
 ├── CONTRIBUTING.md                         # Contribution and development guidelines
 ├── LICENSE                                 # Proprietary & Confidential license notice
 ├── README.md                               # Project documentation (this file)
 ├── SECURITY.md                             # Vulnerability disclosure & secrets policy
+├── start.bat                               # Windows 1-click batch launcher
 └── start_all.ps1                           # Port-conflict-safe ecosystem launcher
 ```
 
@@ -147,14 +149,13 @@ Food-Ecosystem/
 
 3. **Install Dependencies:**
    ```bash
-   # Install all frontend packages
-   cd fd_
+   # Install frontend orchestration and dependencies
    npm install
 
    # Install backend Python requirements
    cd backend
    pip install -r requirements.txt
-   cd ../..
+   cd ..
    ```
 
 4. **Launch All Services (1-Click Orchestrator):**
@@ -162,7 +163,19 @@ Food-Ecosystem/
    # Windows PowerShell
    .\start_all.ps1
    ```
-   *The launcher starts the Django ASGI server and all 4 React applications concurrently.*
+   *The launcher detects port availability, starts the Django ASGI server, and launches all 4 React applications concurrently.*
+
+   **Or Launch Applications Individually:**
+   ```bash
+   # Individual frontend apps:
+   npm run dev:customer     # http://localhost:3000
+   npm run dev:restaurant   # http://localhost:3001
+   npm run dev:delivery     # http://localhost:3002
+   npm run dev:admin        # http://localhost:3003
+
+   # Backend API:
+   python backend/manage.py runserver 127.0.0.1:8000
+   ```
 
 ---
 
@@ -175,6 +188,7 @@ Food-Ecosystem/
 | **Delivery Partner** | [http://localhost:3002](http://localhost:3002) | Turn-by-turn routing, GPS telemetry, OTP verification | `rider@wsfood.io` / `wsfood123` |
 | **Admin Command Center**| [http://localhost:3003](http://localhost:3003) | Fleet live radar, partner KYC approvals, dispute mediation | `admin@wsfood.io` / `wsfood123` |
 | **Backend REST & WS** | [http://127.0.0.1:8000/api/](http://127.0.0.1:8000/api/) | Central REST API & Channels WebSocket consumers | Superuser: `admin` |
+| **Swagger / OpenAPI Docs** | [http://127.0.0.1:8000/api/docs/](http://127.0.0.1:8000/api/docs/) | Interactive REST API Documentation | Any authenticated user |
 
 ---
 
@@ -184,13 +198,12 @@ Every component is validated by automated test suites:
 
 ```bash
 # 1. Frontend Test Suite (75 Tests: auth, cart isolation, error handling, PWA, 14 viewports)
-cd fd_
 npm run test:frontend
 
-# 2. Production Vite Build (Verifies zero bundle or module syntax errors across all 4 apps)
+# 2. Production Multi-App Build (Verifies zero bundle or module syntax errors across all 4 apps)
 npm run build:all
 
-# 3. Backend Test Suite (76 Tests: models, RBAC, checkout, refunds, OTP, Channels)
+# 3. Backend Test Suite (Models, RBAC, checkout, refunds, OTP, Channels)
 cd backend
 python manage.py check
 python manage.py test apps.core_tests --keepdb

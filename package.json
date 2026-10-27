@@ -1,0 +1,35 @@
+{
+  "name": "fd-foods-ecosystem",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev:all": "concurrently -n customer,restaurant,delivery,admin -c green,blue,magenta,cyan \"npm run dev --prefix frontend/customer-app\" \"npm run dev --prefix frontend/restaurant-app\" \"npm run dev --prefix frontend/delivery-partner-app\" \"npm run dev --prefix frontend/admin-app\"",
+    "build:all": "npm run build --prefix frontend/customer-app && npm run build --prefix frontend/restaurant-app && npm run build --prefix frontend/delivery-partner-app && npm run build --prefix frontend/admin-app",
+    "build": "npm run build:all",
+    "build:customer": "npm run build --prefix frontend/customer-app",
+    "build:restaurant": "npm run build --prefix frontend/restaurant-app",
+    "build:delivery": "npm run build --prefix frontend/delivery-partner-app",
+    "build:admin": "npm run build --prefix frontend/admin-app",
+    "dev:customer": "npm run dev --prefix frontend/customer-app",
+    "dev:restaurant": "npm run dev --prefix frontend/restaurant-app",
+    "dev:delivery": "npm run dev --prefix frontend/delivery-partner-app",
+    "dev:admin": "npm run dev --prefix frontend/admin-app",
+    "test:frontend": "node --test tests/frontend_quality.test.mjs tests/responsive_viewport_qa.test.mjs tests/phase3_architecture.test.mjs tests/phase4_e2e_security_qa.test.mjs",
+    "test:backend": "python backend/manage.py test apps.core_tests --keepdb"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.52.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwind-merge": "^3.7.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^6.1.1",
+    "concurrently": "^9.2.5",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.0"
+  }
+}

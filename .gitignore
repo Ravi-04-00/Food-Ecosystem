@@ -2,11 +2,13 @@
 node_modules/
 */node_modules/
 */*/node_modules/
+frontend/*/node_modules/
 
 # Production build outputs
 dist/
 */dist/
 */*/dist/
+frontend/*/dist/
 build/
 */build/
 

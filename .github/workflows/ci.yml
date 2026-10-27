@@ -48,17 +48,17 @@ jobs:
         with:
           python-version: '3.12'
           cache: 'pip'
-          cache-dependency-path: 'fd_/backend/requirements.txt'
+          cache-dependency-path: 'backend/requirements.txt'
 
       - name: Install Backend Dependencies
-        working-directory: ./fd_/backend
+        working-directory: ./backend
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install daphne
 
       - name: Django Configuration & System Checks
-        working-directory: ./fd_/backend
+        working-directory: ./backend
         env:
           POSTGRES_DB: fdfood_db
           POSTGRES_USER: postgres
@@ -74,7 +74,7 @@ jobs:
           python manage.py collectstatic --noinput
 
       - name: Run Backend Automated Tests
-        working-directory: ./fd_/backend
+        working-directory: ./backend
         env:
           POSTGRES_DB: fdfood_db
           POSTGRES_USER: postgres
@@ -103,27 +103,27 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: 'fd_/package-lock.json'
+          cache-dependency-path: 'package-lock.json'
 
       - name: Install Root & Workspace Dependencies
-        working-directory: ./fd_
+        working-directory: .
         run: npm install
 
       - name: Run Frontend Quality, Viewport & Security Suites
-        working-directory: ./fd_
+        working-directory: .
         run: npm run test:frontend
 
       - name: Build All 4 React Applications
-        working-directory: ./fd_
+        working-directory: .
         env:
           VITE_API_BASE_URL: "/api"
         run: npm run build:all
 
       - name: Verify Build Output Assets
-        working-directory: ./fd_
+        working-directory: .
         run: |
-          test -f customer-app/dist/index.html || exit 1
-          test -f restaurant-app/dist/index.html || exit 1
-          test -f delivery-partner-app/dist/index.html || exit 1
-          test -f admin-app/dist/index.html || exit 1
+          test -f frontend/customer-app/dist/index.html || exit 1
+          test -f frontend/restaurant-app/dist/index.html || exit 1
+          test -f frontend/delivery-partner-app/dist/index.html || exit 1
+          test -f frontend/admin-app/dist/index.html || exit 1
           echo "All 4 React production bundles successfully verified."

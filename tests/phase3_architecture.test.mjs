@@ -19,6 +19,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
+const resolvePath = (relPath) => {
+  const inFrontend = path.join(rootDir, 'frontend', relPath);
+  if (fs.existsSync(inFrontend)) return inFrontend;
+  return path.join(rootDir, relPath);
+};
+
 const APPS = ['customer-app', 'restaurant-app', 'delivery-partner-app', 'admin-app'];
 
 describe('Phase 3 - 1. Dead Code Eradication & Clean Repository Architecture', () => {
@@ -42,7 +48,7 @@ describe('Phase 3 - 1. Dead Code Eradication & Clean Repository Architecture', (
 
   test('All 15 obsolete unreferenced files remain deleted with zero zombie file regressions', () => {
     verifiedDeadFiles.forEach(relPath => {
-      const fullPath = path.join(rootDir, relPath);
+      const fullPath = resolvePath(relPath);
       assert.strictEqual(
         fs.existsSync(fullPath),
         false,
@@ -70,7 +76,7 @@ describe('Phase 3 - 1. Dead Code Eradication & Clean Repository Architecture', (
     ];
 
     requiredFiles.forEach(relPath => {
-      const fullPath = path.join(rootDir, relPath);
+      const fullPath = resolvePath(relPath);
       assert.strictEqual(
         fs.existsSync(fullPath),
         true,
@@ -83,7 +89,7 @@ describe('Phase 3 - 1. Dead Code Eradication & Clean Repository Architecture', (
 describe('Phase 3 - 2. Standardized API Error Envelope & DRF Parsing Suite', () => {
   APPS.forEach(app => {
     test(`${app}: Contains standardized apiErrors.js export module`, () => {
-      const modulePath = path.join(rootDir, app, 'src', 'services', 'apiErrors.js');
+      const modulePath = resolvePath(path.join(app, 'src', 'services', 'apiErrors.js'));
       assert.strictEqual(fs.existsSync(modulePath), true, `${app} must have apiErrors.js`);
       
       const content = fs.readFileSync(modulePath, 'utf8');
@@ -94,7 +100,7 @@ describe('Phase 3 - 2. Standardized API Error Envelope & DRF Parsing Suite', () 
     });
 
     test(`${app}: api.js re-exports standardized error handlers`, () => {
-      const apiPath = path.join(rootDir, app, 'src', 'services', 'api.js');
+      const apiPath = resolvePath(path.join(app, 'src', 'services', 'api.js'));
       const content = fs.readFileSync(apiPath, 'utf8');
       assert.ok(content.includes('ApiError'), 'api.js re-exports ApiError');
       assert.ok(content.includes('safeFetchWithRetry'), 'api.js re-exports safeFetchWithRetry');
@@ -103,7 +109,7 @@ describe('Phase 3 - 2. Standardized API Error Envelope & DRF Parsing Suite', () 
 
   test('Extracts Django DRF error shapes cleanly into user-friendly messages', async () => {
     const { extractErrorMessage, ApiError } = await import(
-      `file:///${path.join(rootDir, 'customer-app', 'src', 'services', 'apiErrors.js').replace(/\\/g, '/')}`
+      `file:///${resolvePath('customer-app/src/services/apiErrors.js').replace(/\\/g, '/')}`
     );
 
     // 1. DRF standard { detail: '...' }
@@ -170,7 +176,7 @@ describe('Phase 3 - 3. Safe Idempotency & Retry Contract', () => {
 
 describe('Phase 3 - 4. Bundle Optimization & Component Integration', () => {
   test('customer-app code-splits Three.js 3D viewer using React.lazy in FoodDetailsModal', () => {
-    const modalPath = path.join(rootDir, 'customer-app', 'src', 'components', 'FoodDetailsModal.jsx');
+    const modalPath = resolvePath('customer-app/src/components/FoodDetailsModal.jsx');
     const content = fs.readFileSync(modalPath, 'utf8');
     
     assert.ok(
@@ -188,7 +194,7 @@ describe('Phase 3 - 4. Bundle Optimization & Component Integration', () => {
   });
 
   test('restaurant-app mounts modernized OrderAlertModal in App.jsx', () => {
-    const appPath = path.join(rootDir, 'restaurant-app', 'src', 'App.jsx');
+    const appPath = resolvePath('restaurant-app/src/App.jsx');
     const content = fs.readFileSync(appPath, 'utf8');
 
     assert.ok(

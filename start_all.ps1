@@ -8,7 +8,9 @@ Write-Host "       FD FOODS - FRESH CHOICES. ROYAL EXPERIENCES." -ForegroundColo
 Write-Host "       Unified Ecosystem Launcher (Port Conflict-Safe)" -ForegroundColor DarkGreen
 Write-Host "=====================================================================" -ForegroundColor Green
 
-if (Test-Path "$PSScriptRoot\fd_") {
+if (Test-Path "$PSScriptRoot\backend") {
+    $projectRoot = "$PSScriptRoot"
+} elseif (Test-Path "$PSScriptRoot\fd_") {
     $projectRoot = "$PSScriptRoot\fd_"
 } else {
     $projectRoot = "$PSScriptRoot\webpurches"

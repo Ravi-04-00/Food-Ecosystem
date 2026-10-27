@@ -14,6 +14,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
+const resolvePath = (relPath) => {
+  const inFrontend = path.join(rootDir, 'frontend', relPath);
+  if (fs.existsSync(inFrontend)) return inFrontend;
+  return path.join(rootDir, relPath);
+};
+
 const APPS = [
   { name: 'Customer App', dir: 'customer-app', devPort: '3000' },
   { name: 'Restaurant App', dir: 'restaurant-app', devPort: '3001' },
@@ -120,7 +126,7 @@ describe('2. WebSocket URL & Real-Time Envelope Validation', () => {
 describe('3. Multilingual (i18n) Completeness & Tamil Translation Parity', () => {
   for (const app of APPS) {
     test(`${app.name}: Translation file exists with en and ta language dictionaries`, () => {
-      const i18nPath = path.join(rootDir, app.dir, 'src', 'utils', 'i18n.js');
+      const i18nPath = resolvePath(path.join(app.dir, 'src', 'utils', 'i18n.js'));
       assert.ok(fs.existsSync(i18nPath), `Missing i18n.js in ${app.dir}`);
 
       const content = fs.readFileSync(i18nPath, 'utf-8');
@@ -129,7 +135,7 @@ describe('3. Multilingual (i18n) Completeness & Tamil Translation Parity', () =>
     });
 
     test(`${app.name}: Essential terminology is localized into authentic Tamil`, () => {
-      const i18nPath = path.join(rootDir, app.dir, 'src', 'utils', 'i18n.js');
+      const i18nPath = resolvePath(path.join(app.dir, 'src', 'utils', 'i18n.js'));
       const content = fs.readFileSync(i18nPath, 'utf-8');
 
       // Check common platform words in Tamil Unicode
@@ -142,7 +148,7 @@ describe('3. Multilingual (i18n) Completeness & Tamil Translation Parity', () =>
 describe('4. Progressive Web App (PWA) Manifest & Service Worker Verification', () => {
   for (const app of APPS) {
     test(`${app.name}: Valid manifest.json with required PWA criteria exists`, () => {
-      const manifestPath = path.join(rootDir, app.dir, 'public', 'manifest.json');
+      const manifestPath = resolvePath(path.join(app.dir, 'public', 'manifest.json'));
       assert.ok(fs.existsSync(manifestPath), `Missing manifest.json in ${app.dir}/public`);
 
       const raw = fs.readFileSync(manifestPath, 'utf-8');
@@ -158,7 +164,7 @@ describe('4. Progressive Web App (PWA) Manifest & Service Worker Verification', 
     });
 
     test(`${app.name}: Service worker script exists for offline caching and push events`, () => {
-      const swPath = path.join(rootDir, app.dir, 'public', 'sw.js');
+      const swPath = resolvePath(path.join(app.dir, 'public', 'sw.js'));
       assert.ok(fs.existsSync(swPath), `Missing sw.js in ${app.dir}/public`);
 
       const swContent = fs.readFileSync(swPath, 'utf-8');
@@ -171,7 +177,7 @@ describe('4. Progressive Web App (PWA) Manifest & Service Worker Verification', 
 describe('5. Application Dependency & Build Scripts Health', () => {
   for (const app of APPS) {
     test(`${app.name}: package.json defines dev and build scripts`, () => {
-      const pkgPath = path.join(rootDir, app.dir, 'package.json');
+      const pkgPath = resolvePath(path.join(app.dir, 'package.json'));
       assert.ok(fs.existsSync(pkgPath), `Missing package.json in ${app.dir}`);
 
       const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
@@ -192,7 +198,7 @@ describe('6. Phase 2 Multi-Viewport Responsive & Navigation Architecture Suite',
     ];
 
     for (const item of sidebars) {
-      const fullPath = path.join(rootDir, item.file);
+      const fullPath = resolvePath(item.file);
       assert.ok(fs.existsSync(fullPath), `Sidebar missing at ${item.file}`);
       const content = fs.readFileSync(fullPath, 'utf-8');
       assert.ok(content.includes('1024px'), `${item.file} must declare @media (min-width: 1024px) for desktop persistence`);
@@ -208,7 +214,7 @@ describe('6. Phase 2 Multi-Viewport Responsive & Navigation Architecture Suite',
     ];
 
     for (const relPath of headers) {
-      const fullPath = path.join(rootDir, relPath);
+      const fullPath = resolvePath(relPath);
       assert.ok(fs.existsSync(fullPath), `Header missing at ${relPath}`);
       const content = fs.readFileSync(fullPath, 'utf-8');
       assert.ok(content.includes('lg:hidden'), `${relPath} must apply lg:hidden to sidebar toggle`);
@@ -223,7 +229,7 @@ describe('6. Phase 2 Multi-Viewport Responsive & Navigation Architecture Suite',
     ];
 
     for (const relPath of mainViewports) {
-      const fullPath = path.join(rootDir, relPath);
+      const fullPath = resolvePath(relPath);
       const content = fs.readFileSync(fullPath, 'utf-8');
       assert.ok(
         content.includes('env(safe-area-inset-bottom') || content.includes('padding: 16px 14px calc('),
@@ -233,14 +239,14 @@ describe('6. Phase 2 Multi-Viewport Responsive & Navigation Architecture Suite',
   });
 
   test('Customer App: Hero featured section strictly bounds featured items to 2–3 items', () => {
-    const heroPath = path.join(rootDir, 'customer-app/src/components/FDReferenceHero.jsx');
+    const heroPath = resolvePath('customer-app/src/components/FDReferenceHero.jsx');
     assert.ok(fs.existsSync(heroPath), 'FDReferenceHero.jsx missing');
     const content = fs.readFileSync(heroPath, 'utf-8');
     assert.ok(content.includes('.slice(0, 3)'), 'FDReferenceHero must bound featured dishes to at most 3 items');
   });
 
   test('Customer App: Responsive food listing grid defines 2 cols on mobile, 3 on tablet, and 4 on desktop', () => {
-    const cssPath = path.join(rootDir, 'customer-app/src/styles/app.css');
+    const cssPath = resolvePath('customer-app/src/styles/app.css');
     assert.ok(fs.existsSync(cssPath), 'app.css missing in customer-app');
     const css = fs.readFileSync(cssPath, 'utf-8');
     assert.ok(css.includes('.fd-food-grid'), 'app.css must define .fd-food-grid');

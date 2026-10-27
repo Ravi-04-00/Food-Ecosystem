@@ -21,12 +21,18 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
+const resolvePath = (relPath) => {
+  const inFrontend = path.join(rootDir, 'frontend', relPath);
+  if (fs.existsSync(inFrontend)) return inFrontend;
+  return path.join(rootDir, relPath);
+};
+
 const APPS = ['customer-app', 'restaurant-app', 'delivery-partner-app', 'admin-app'];
 
 describe('Phase 4 - Flow 1: Customer Auth, Menu Browsing & Cart State Isolation', () => {
   test('Customer Cart enforces single-restaurant isolation and conflict resolution modal', () => {
     // Check CartPage / CustomerContext cart conflict logic
-    const contextPath = path.join(rootDir, 'customer-app/src/context/CustomerContext.jsx');
+    const contextPath = resolvePath('customer-app/src/context/CustomerContext.jsx');
     const content = fs.readFileSync(contextPath, 'utf8');
 
     assert.ok(
@@ -40,7 +46,7 @@ describe('Phase 4 - Flow 1: Customer Auth, Menu Browsing & Cart State Isolation'
   });
 
   test('Customer details modal handles dish spice level, addons, and dietary indicators', () => {
-    const modalPath = path.join(rootDir, 'customer-app/src/components/FoodDetailsModal.jsx');
+    const modalPath = resolvePath('customer-app/src/components/FoodDetailsModal.jsx');
     const content = fs.readFileSync(modalPath, 'utf8');
 
     assert.ok(content.includes('selectedSpice'), 'Tracks customer spice preferences');
@@ -51,7 +57,7 @@ describe('Phase 4 - Flow 1: Customer Auth, Menu Browsing & Cart State Isolation'
 
 describe('Phase 4 - Flow 2: Checkout Validation & Duplicate-Submit Prevention', () => {
   test('Checkout validates delivery address selection and prevents duplicate order submission', () => {
-    const checkoutPath = path.join(rootDir, 'customer-app/src/pages/CheckoutPage.jsx');
+    const checkoutPath = resolvePath('customer-app/src/pages/CheckoutPage.jsx');
     const content = fs.readFileSync(checkoutPath, 'utf8');
 
     assert.ok(
@@ -88,7 +94,7 @@ describe('Phase 4 - Flow 3: Restaurant Operations & State Machine Transitions', 
   });
 
   test('Restaurant app wires live OrderAlertModal and accepts incoming dispatch requests', () => {
-    const alertModalPath = path.join(rootDir, 'restaurant-app/src/components/OrderAlertModal.jsx');
+    const alertModalPath = resolvePath('restaurant-app/src/components/OrderAlertModal.jsx');
     const content = fs.readFileSync(alertModalPath, 'utf8');
 
     assert.ok(content.includes('handleAcceptOrder'), 'Provides instant order accept handler');
@@ -99,7 +105,7 @@ describe('Phase 4 - Flow 3: Restaurant Operations & State Machine Transitions', 
 
 describe('Phase 4 - Flow 4: Delivery Partner Operations & OTP Verification', () => {
   test('Delivery Dashboard provides instant 1-tap workflow for Reached, Pickup, and OTP', () => {
-    const dashboardPath = path.join(rootDir, 'delivery-partner-app/src/pages/DashboardPage.jsx');
+    const dashboardPath = resolvePath('delivery-partner-app/src/pages/DashboardPage.jsx');
     const content = fs.readFileSync(dashboardPath, 'utf8');
 
     assert.ok(content.includes('handleReachedRestaurant'), 'Provides quick status update dispatcher for Reached');
@@ -121,7 +127,7 @@ describe('Phase 4 - Flow 4: Delivery Partner Operations & OTP Verification', () 
 describe('Phase 4 - Flow 5: Real-Time Tracking & Telemetry Envelope Safety', () => {
   test('Realtime WebSocket client calculates reconnection backoff and validates envelopes', () => {
     APPS.forEach(app => {
-      const rtPath = path.join(rootDir, app, 'src', 'utils', 'realtime.js');
+      const rtPath = resolvePath(path.join(app, 'src', 'utils', 'realtime.js'));
       if (fs.existsSync(rtPath)) {
         const content = fs.readFileSync(rtPath, 'utf8');
         assert.ok(content.includes('retryTimer') || content.includes('reconnect') || content.includes('backoff'), `${app} realtime handles backoff`);
@@ -140,7 +146,7 @@ describe('Phase 4 - Flow 6: Security, Role-Based Access Control & Secret Protect
     ];
 
     APPS.forEach(app => {
-      const srcDir = path.join(rootDir, app, 'src');
+      const srcDir = resolvePath(path.join(app, 'src'));
       function scanDir(dir) {
         fs.readdirSync(dir).forEach(file => {
           const full = path.join(dir, file);
@@ -170,7 +176,7 @@ describe('Phase 4 - Flow 6: Security, Role-Based Access Control & Secret Protect
 describe('Phase 4 - Flow 7: Session Expiry, Offline Resilience & Safe Transport', () => {
   test('All apps include session expired and logout confirmation dialogs', () => {
     APPS.forEach(app => {
-      const appFile = path.join(rootDir, app, 'src', 'App.jsx');
+      const appFile = resolvePath(path.join(app, 'src', 'App.jsx'));
       const content = fs.readFileSync(appFile, 'utf8');
 
       assert.ok(
@@ -186,7 +192,7 @@ describe('Phase 4 - Flow 7: Session Expiry, Offline Resilience & Safe Transport'
 
   test('API client safe retry logic strictly avoids auto-retrying non-idempotent mutations', () => {
     APPS.forEach(app => {
-      const errPath = path.join(rootDir, app, 'src', 'services', 'apiErrors.js');
+      const errPath = resolvePath(path.join(app, 'src', 'services', 'apiErrors.js'));
       const content = fs.readFileSync(errPath, 'utf8');
 
       assert.ok(
