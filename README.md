@@ -228,3 +228,5 @@ For reporting security vulnerabilities, refer to [SECURITY.md](SECURITY.md).
 
 This project is proprietary and confidential. See [LICENSE](LICENSE) for full legal terms.
 Copyright &copy; 2026 FD Foods. All rights reserved.
+#   F o o d - E c o s y s t e m  
+ 
