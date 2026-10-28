@@ -6,12 +6,19 @@ Cyberpunk × Kinetic × 3D Food Technology
 from pathlib import Path
 from datetime import timedelta
 import os
+from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-FDfood-cyberpunk-ecosystem-2026-key')
-
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() in ('true', '1')
+
+_env_secret = os.environ.get('DJANGO_SECRET_KEY')
+if not _env_secret:
+    if not DEBUG:
+        raise ImproperlyConfigured("CRITICAL SECURITY VIOLATION: DJANGO_SECRET_KEY environment variable is mandatory when DJANGO_DEBUG=False.")
+    SECRET_KEY = 'django-insecure-FDfood-cyberpunk-ecosystem-2026-key'
+else:
+    SECRET_KEY = _env_secret
 
 allowed_hosts_raw = os.environ.get('DJANGO_ALLOWED_HOSTS') or os.environ.get('ALLOWED_HOSTS')
 if allowed_hosts_raw:

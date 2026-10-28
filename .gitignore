@@ -1,8 +1,11 @@
-# Dependencies
+# Dependencies & Caches
 node_modules/
 */node_modules/
 */*/node_modules/
 frontend/*/node_modules/
+.vite/
+*/.vite/
+frontend/*/.vite/
 
 # Production build outputs
 dist/
@@ -23,6 +26,14 @@ __pycache__/
 staticfiles/
 */staticfiles/
 */*/staticfiles/
+.venv/
+venv/
+env/
+ENV/
+.Python
+backend/.venv/
+backend/venv/
+backend/env/
 
 # Test Uploads & Private User Media (Preserve mock catalog logos & foods)
 media/kyc_docs/
