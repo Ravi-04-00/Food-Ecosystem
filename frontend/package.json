@@ -1,0 +1,15 @@
+{
+  "name": "fd-foods-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node dev.mjs",
+    "dev:all": "node dev.mjs",
+    "start": "node dev.mjs",
+    "build": "node build_all.mjs",
+    "build:all": "node build_all.mjs",
+    "test": "node --test tests/frontend_quality.test.mjs tests/responsive_viewport_qa.test.mjs tests/phase3_architecture.test.mjs tests/phase4_e2e_security_qa.test.mjs",
+    "test:frontend": "node --test tests/frontend_quality.test.mjs tests/responsive_viewport_qa.test.mjs tests/phase3_architecture.test.mjs tests/phase4_e2e_security_qa.test.mjs"
+  }
+}

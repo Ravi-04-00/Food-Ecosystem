@@ -88,6 +88,9 @@ flowchart TD
 ```
 FD-Foods/
 ├── frontend/                               # Independent React 19 / Vite Applications
+│   ├── package.json                        # Frontend workspace orchestrator (dev, build, test)
+│   ├── dev.mjs                             # Single-command runner for all 4 React applications
+│   ├── build_all.mjs                       # Single-command builder for all 4 React applications
 │   ├── customer-app/                       # Port 3000: Consumer ordering & tracking portal
 │   ├── restaurant-app/                     # Port 3001: Kitchen operations & SVG analytics
 │   ├── delivery-partner-app/               # Port 3002: Courier dispatch & GPS telemetry
@@ -97,7 +100,7 @@ FD-Foods/
 │   ├── manage.py                           # Django CLI & server entry point
 │   ├── requirements.txt                    # Pinned Python dependencies
 │   ├── config/                             # settings.py, asgi.py, wsgi.py, urls.py
-│   ├── apps/                               # 20 modular domain apps (accounts, orders, etc.)
+│   ├── apps/                               # 18 modular domain apps (accounts, orders, etc.)
 │   ├── tests/                              # Automated Django backend test suite
 │   ├── scripts/                            # Database backup and restore utilities (.py, .bat, .sh)
 │   ├── deploy/ & nginx/                    # Production Daphne ASGI systemd & Nginx configs
@@ -106,20 +109,7 @@ FD-Foods/
 │   └── simulate_e2e_order_journey.py       # Multi-actor order simulation utility
 ├── .env.example                            # Clean, sanitized environment template
 ├── .gitignore                              # Comprehensive protection (secrets, SQL, media)
-├── package.json                            # Root workspace orchestrator (dev:all, build:all, test)
-├── package-lock.json                       # Verified package lockfile
-├── README.md                               # Project documentation (this file)
-├── start.bat                               # Windows 1-click batch launcher
-├── start_all.ps1                           # Port-conflict-safe ecosystem launcher
-├── docker-compose.yml                      # Production Docker orchestration
-├── Dockerfile.frontend                     # Multi-stage frontend Dockerfile
-├── CONTRIBUTING.md                         # Contribution and development guidelines
-├── LICENSE                                 # Proprietary & Confidential license notice
-├── SECURITY.md                             # Vulnerability disclosure & secrets policy
-└── .github/                                # GitHub Actions CI & Issue Templates
-    ├── workflows/ci.yml                    # Automated tests & multi-app build pipeline
-    ├── ISSUE_TEMPLATE/                     # Bug & Feature issue templates
-    └── PULL_REQUEST_TEMPLATE.md            # PR checklist and guidelines
+└── README.md                               # Project documentation (this file)
 ```
 
 ---
@@ -149,8 +139,11 @@ FD-Foods/
 
 3. **Install Dependencies:**
    ```bash
-   # Install frontend orchestration and dependencies
-   npm install
+   # Install dependencies for each frontend app:
+   cd frontend/customer-app && npm install && cd ../..
+   cd frontend/restaurant-app && npm install && cd ../..
+   cd frontend/delivery-partner-app && npm install && cd ../..
+   cd frontend/admin-app && npm install && cd ../..
 
    # Install backend Python requirements
    cd backend
@@ -158,26 +151,33 @@ FD-Foods/
    cd ..
    ```
 
-4. **Launch All Services (1-Click Orchestrator):**
-   ```powershell
-   # Windows PowerShell
-   .\start_all.ps1
-   ```
-   *The launcher detects port availability, starts the Django ASGI server, and launches all 4 React applications concurrently.*
-
-   **Or Launch Applications Individually:**
+4. **Run All 4 Frontends with a Single Command:**
    ```bash
-   # Individual frontend apps:
-   npm run dev:customer     # http://localhost:3000
-   npm run dev:restaurant   # http://localhost:3001
-   npm run dev:delivery     # http://localhost:3002
-   npm run dev:admin        # http://localhost:3003
+   node frontend/dev.mjs
+   # Or using npm:
+   npm --prefix frontend run dev
+   ```
+   *This starts all 4 frontends concurrently with live color-coded logs:*
+   - **Customer App**: `http://localhost:3000`
+   - **Restaurant App**: `http://localhost:3001`
+   - **Delivery Partner App**: `http://localhost:3002`
+   - **Admin App**: `http://localhost:3003`
 
-   # Backend API:
+5. **Start Django Backend API & WebSockets:**
+   ```bash
    python backend/manage.py runserver 127.0.0.1:8000
    ```
 
----
+6. **Run Automated Test Suites:**
+   ```bash
+   # Run all 75 frontend tests:
+   node --test frontend/tests/frontend_quality.test.mjs frontend/tests/responsive_viewport_qa.test.mjs frontend/tests/phase3_architecture.test.mjs frontend/tests/phase4_e2e_security_qa.test.mjs
+   # Or:
+   npm --prefix frontend test
+
+   # Run all 76 backend tests:
+   python backend/manage.py test apps.core_tests --keepdb
+   ```
 
 ## 6. Applications & Demo Credentials
 
